@@ -1,0 +1,33 @@
+- title "Admin/Lesson"
+
+%p
+  %strong Lessonid:
+  = @admin_lesson.lessonid
+%p
+  %strong Lessonname:
+  = @admin_lesson.lessonname
+%p
+  %strong Created:
+  = @admin_lesson.created
+%p
+  %strong Updated:
+  = @admin_lesson.updated
+%p
+  %strong Lessondate:
+  = @admin_lesson.lessondate
+%p
+  %strong Lang:
+  = @admin_lesson.lang
+%p
+  %strong Lecturerid:
+  = @admin_lesson.lecturerid
+%p
+  %strong Secure:
+  = @admin_lesson.secure
+
+%p
+  = link_to "Edit", edit_admin_lesson_path(@admin_lesson)
+  |
+  = link_to "Destroy", edit_admin_lesson_path(@admin_lesson), :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", admin_lessons_path

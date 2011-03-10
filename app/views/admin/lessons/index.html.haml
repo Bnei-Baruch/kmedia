@@ -1,0 +1,30 @@
+- title "Admin/Lessons"
+= paginate @admin_lessons
+%br
+%table
+  %tr
+    %th Lessonid
+    %th Lessonname
+    %th Created
+    %th Updated
+    %th Lessondate
+    %th Lang
+    %th Lecturerid
+    %th Secure
+  - for admin_lesson in @admin_lessons
+    %tr
+      %td= admin_lesson.lessonid
+      %td= admin_lesson.lessonname
+      %td= admin_lesson.created
+      %td= admin_lesson.updated
+      %td= admin_lesson.lessondate
+      %td= admin_lesson.lang
+      %td= admin_lesson.lecturerid
+      %td= admin_lesson.secure
+      %td= link_to 'Show', admin_lesson_path(admin_lesson)
+      %td= link_to 'Edit', edit_admin_lesson_path(admin_lesson)
+      %td= link_to 'Destroy', admin_lesson_path(admin_lesson), :confirm => 'Are you sure?', :method => :delete
+%br
+= paginate @admin_lessons
+%br
+%p= link_to "New Admin/Lesson", new_admin_lesson_path

@@ -1,0 +1,24 @@
+= form_for ['admin',@admin_lesson] do |f|
+  = f.error_messages
+  %p
+    = f.label :lessonname
+    %br
+    = f.text_field :lessonname
+  %p
+    = f.label :lessondate
+    %br
+    = f.text_field :lessondate
+  %p
+    = f.label :lang
+    %br
+    = f.text_field :lang
+  %p
+    = f.label :lecturerid
+    %br
+    = f.text_field :lecturerid
+  %p
+    = f.label :secure
+    %br
+    = f.text_field :secure
+  %p
+    = f.submit

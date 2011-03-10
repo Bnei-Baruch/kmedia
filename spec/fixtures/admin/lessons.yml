@@ -1,0 +1,19 @@
+one:
+  lessonid: 1
+  lessonname: MyString
+  created: 2011-03-10 10:54:50
+  updated: 2011-03-10 10:54:50
+  lessondate: 2011-03-10
+  lang: MyString
+  lecturerid: 1
+  secure: 1
+
+two:
+  lessonid: 1
+  lessonname: MyString
+  created: 2011-03-10 10:54:50
+  updated: 2011-03-10 10:54:50
+  lessondate: 2011-03-10
+  lang: MyString
+  lecturerid: 1
+  secure: 1

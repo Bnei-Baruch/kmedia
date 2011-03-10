@@ -7,7 +7,9 @@ gem 'jquery-rails'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-
+gem 'haml'
+gem 'sass'
+gem 'kaminari'
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -30,4 +32,7 @@ group :development, :test do
   gem "ruby-debug"
   gem "ruby-debug-base"
   gem "ruby-debug-ide"
+  gem "nifty-generators"
 end
+
+gem "mocha", :group => :test
