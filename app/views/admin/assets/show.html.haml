@@ -1,0 +1,66 @@
+- title "Admin/Asset"
+
+%p
+  %strong ID:
+  = @asset.fileid
+%p
+  %strong Filename:
+  = @asset.filename
+%p
+  %strong Descriptions:
+  %table.admin_table
+    %tr
+      %th Language
+      %th File Description
+      %th Created on
+      %th Updated on
+      %th ID
+    - @asset.asset_descriptions.each do |asset_desc|
+      %tr
+        %td= asset_desc.lang
+        %td= asset_desc.filedesc
+        %td= asset_desc.created.try(:to_date)
+        %td= asset_desc.updated.try(:to_date)
+        %td= asset_desc.filedescid
+%p
+  %strong Created on:
+  = @asset.created
+%p
+  %strong Updated on:
+  = @asset.updated
+%p
+  %strong Recording date:
+  = @asset.filedate
+%p
+  %strong File type:
+  = @asset.filetype
+%p
+  %strong Language:
+  = @asset.filelang
+%p
+  %strong File size:
+  = number_to_human_size @asset.filesize
+%p
+  %strong Server name:
+  = @asset.servername
+%p
+  %strong Status:
+  = @asset.filestatus
+%p
+  %strong Last user:
+  = @asset.lastuser
+%p
+  %strong Clicks:
+  = @asset.fileclicks
+
+%p
+  = link_to "Edit", edit_admin_asset_path(@asset)
+  |
+  = link_to "Destroy", [:admin, @asset], :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All Files", admin_assets_path
+  |
+  - if @asset.lessons.first
+    = link_to 'Show Lesson', admin_lesson_path(@asset.lessons.first) #TODO: Display table of lessons in case file can belong to multiple lessons
+  - else
+    Has no Lesson

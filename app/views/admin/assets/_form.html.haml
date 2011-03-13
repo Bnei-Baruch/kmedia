@@ -1,0 +1,52 @@
+= form_for [:admin, @asset] do |f|
+  = f.error_messages
+  %p
+    = f.label :fileid
+    %br
+    = f.text_field :fileid
+  %p
+    = f.label :filename
+    %br
+    = f.text_field :filename
+  %p
+    = f.label :created
+    %br
+    = f.datetime_select :created
+  %p
+    = f.label :updated
+    %br
+    = f.datetime_select :updated
+  %p
+    = f.label :filedate
+    %br
+    = f.datetime_select :filedate
+  %p
+    = f.label :filetype
+    %br
+    = f.text_field :filetype
+  %p
+    = f.label :filelang
+    %br
+    = f.text_field :filelang
+  %p
+    = f.label :filesize
+    %br
+    = f.text_field :filesize
+  %p
+    = f.label :servername
+    %br
+    = f.text_field :servername
+  %p
+    = f.label :filestatus
+    %br
+    = f.text_field :filestatus
+  %p
+    = f.label :lastuser
+    %br
+    = f.text_field :lastuser
+  %p
+    = f.label :fileclicks
+    %br
+    = f.text_field :fileclicks
+  %p
+    = f.submit

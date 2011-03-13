@@ -1,6 +1,8 @@
 class Lesson < ActiveRecord::Base
   set_primary_key :lessonid
-  has_many :lesson_descriptions, :primary_key => :lessondescid, :foreign_key => :lessonid
+  has_many :lesson_descriptions, :foreign_key => :lessonid
+  has_and_belongs_to_many :assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
+                          :association_foreign_key => "fileid", :order => "date(updated) DESC, filename ASC"
   attr_accessor :lessondate
 #  attr_accessible :lessonid, :lessonname, :created, :updated, :lessondate, :lang, :lecturerid, :secure
   

@@ -1,0 +1,27 @@
+one:
+  fileid: 1
+  filename: MyString
+  created: 2011-03-13 10:41:27
+  updated: 2011-03-13 10:41:27
+  filedate: 2011-03-13 10:41:27
+  filetype: MyString
+  filelang: MyString
+  filesize: 1
+  servername: MyString
+  filestatus: MyString
+  lastuser: MyString
+  fileclicks: 1
+
+two:
+  fileid: 1
+  filename: MyString
+  created: 2011-03-13 10:41:27
+  updated: 2011-03-13 10:41:27
+  filedate: 2011-03-13 10:41:27
+  filetype: MyString
+  filelang: MyString
+  filesize: 1
+  servername: MyString
+  filestatus: MyString
+  lastuser: MyString
+  fileclicks: 1

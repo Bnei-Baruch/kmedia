@@ -1,33 +1,70 @@
 - title "Admin/Lesson"
 
 %p
-  %strong Lessonid:
-  = @admin_lesson.lessonid
+  %strong id:
+  = @lesson.lessonid
 %p
-  %strong Lessonname:
-  = @admin_lesson.lessonname
+  %strong Name:
+  = @lesson.lessonname
+%p
+  %strong Descriptions:
+  %table.admin_table
+    %tr
+      %th Language
+      %th Lesson Description
+      %th Created on
+      %th Updated on
+      %th ID
+    - @lesson.lesson_descriptions.each do |admin_lesson_desc|
+      %tr
+        %td= admin_lesson_desc.lang
+        %td= admin_lesson_desc.lessondesc
+        %td= admin_lesson_desc.created.try(:to_date)
+        %td= admin_lesson_desc.updated.try(:to_date)
+        %td= admin_lesson_desc.lessondescid
 %p
   %strong Created:
-  = @admin_lesson.created
+  = @lesson.created
 %p
   %strong Updated:
-  = @admin_lesson.updated
+  = @lesson.updated
 %p
-  %strong Lessondate:
-  = @admin_lesson.lessondate
+  %strong Lesson date:
+  = @lesson.lessondate
 %p
   %strong Lang:
-  = @admin_lesson.lang
+  = @lesson.lang
 %p
   %strong Lecturerid:
-  = @admin_lesson.lecturerid
+  = @lesson.lecturerid
 %p
   %strong Secure:
-  = @admin_lesson.secure
+  = @lesson.secure
+%p
+  %strong Files:
+  %table.admin_table
+    %tr
+      %th ID
+      %th Name
+      %th Created on
+      %th Updated on
+      %th Language
+      %th(colspan=3) Actions
+    - @lesson.assets.each do |asset|
+      %tr
+        %td= asset.fileid
+        %td= asset.filename
+        %td= asset.created.try(:to_date)
+        %td= asset.updated.try(:to_date)
+        %td= asset.filelang
+        %td= link_to 'Show', [:admin, asset]
+        %td= link_to 'Edit', edit_admin_asset_path(asset)
+        %td= link_to 'Destroy', [:admin, asset], :confirm => 'Are you sure?', :method => :delete
+
 
 %p
-  = link_to "Edit", edit_admin_lesson_path(@admin_lesson)
+  = link_to "Edit", edit_admin_lesson_path(@lesson)
   |
-  = link_to "Destroy", edit_admin_lesson_path(@admin_lesson), :confirm => 'Are you sure?', :method => :delete
+  = link_to "Destroy", edit_admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete
   |
   = link_to "View All", admin_lessons_path
