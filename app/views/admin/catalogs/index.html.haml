@@ -1,0 +1,25 @@
+- title "Admin/Catalogs"
+
+%table
+  %tr
+    %th Catalognodeid
+    %th Catalognodename
+    %th Parentnodeid
+    %th Created
+    %th Updated
+    %th Catorder
+    %th Secure
+  - for catalog in @catalogs
+    %tr
+      %td= catalog.catalognodeid
+      %td= catalog.catalognodename
+      %td= catalog.parentnodeid
+      %td= catalog.created
+      %td= catalog.updated
+      %td= catalog.catorder
+      %td= catalog.secure
+      %td= link_to 'Show', [:admin, catalog]
+      %td= link_to 'Edit', edit_admin_catalog_path(catalog)
+      %td= link_to 'Destroy', [:admin, catalog], :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Admin/Catalog", new_admin_catalog_path

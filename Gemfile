@@ -10,6 +10,10 @@ gem 'mysql2'
 gem 'haml'
 gem 'sass'
 gem 'kaminari'
+gem 'simple_form'
+gem 'compass'
+
+gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -33,6 +37,7 @@ group :development, :test do
   gem "ruby-debug-base"
   gem "ruby-debug-ide"
   gem "nifty-generators"
+  gem 'mongrel'
 end
 
 gem "mocha", :group => :test
