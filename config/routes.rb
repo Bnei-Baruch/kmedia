@@ -3,6 +3,7 @@ Kmedia::Application.routes.draw do
   namespace(:admin){
     resources :lessons
     resources :assets
+    resources :catalogs
   }
 
   # The priority is based upon order of creation:

@@ -1,0 +1,32 @@
+= form_for [:admin, @catalog] do |f|
+  = f.error_messages
+  %p
+    = f.label :catalognodeid
+    %br
+    = f.text_field :catalognodeid
+  %p
+    = f.label :catalognodename
+    %br
+    = f.text_field :catalognodename
+  %p
+    = f.label :parentnodeid
+    %br
+    = f.text_field :parentnodeid
+  %p
+    = f.label :created
+    %br
+    = f.datetime_select :created
+  %p
+    = f.label :updated
+    %br
+    = f.datetime_select :updated
+  %p
+    = f.label :catorder
+    %br
+    = f.text_field :catorder
+  %p
+    = f.label :secure
+    %br
+    = f.text_field :secure
+  %p
+    = f.submit

@@ -1,24 +1,8 @@
-= form_for ['admin',@lesson] do |f|
-  = f.error_messages
-  %p
-    = f.label :lessonname
-    %br
-    = f.text_field :lessonname
-  %p
-    = f.label :lessondate
-    %br
-    = f.text_field :lessondate
-  %p
-    = f.label :lang
-    %br
-    = f.text_field :lang
-  %p
-    = f.label :lecturerid
-    %br
-    = f.text_field :lecturerid
-  %p
-    = f.label :secure
-    %br
-    = f.text_field :secure
-  %p
-    = f.submit
+= simple_form_for ['admin',@lesson] do |f|
+  = f.input :lessonname
+  = f.input :v_lessondate, :label => 'Date'
+  = f.input :lang
+  = f.collection_select :lecturerid, Lecturer.all, :lecturerid, :lecturername
+  = f.input :secure
+  = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lesson.catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename}}.to_json}
+  = f.button :submit
