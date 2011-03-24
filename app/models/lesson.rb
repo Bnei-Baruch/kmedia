@@ -7,7 +7,7 @@ class Lesson < ActiveRecord::Base
   has_and_belongs_to_many :catalogs, :join_table => "catnodelessons", :foreign_key => "lessonid",
                           :association_foreign_key => "catalognodeid", :order => "catalognodename"
 
-  attr_accessor :v_lessondate, :catalog_tokens
+  attr_accessor :v_lessondate, :catalog_tokens, :rss
 
 #  attr_accessible :lessonid, :lessonname, :created, :updated, :lessondate, :lang, :lecturerid, :secure
   
@@ -36,5 +36,9 @@ class Lesson < ActiveRecord::Base
 
   def catalog_tokens=(ids)
     self.catalog_ids = ids.split(',')
+  end
+
+  def rss
+    ! (self.catalog_ids & RSS_CATEGORIES.map(&:id)).empty?
   end
 end

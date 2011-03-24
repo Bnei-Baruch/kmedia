@@ -23,6 +23,9 @@ class Admin::LessonsController < ApplicationController
 
   def edit
     @lesson = Lesson.find(params[:id])
+    @languages = Language.order('code3').all
+    @lecturers = Lecturer.all
+    @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
   end
 
   def update
@@ -40,4 +43,5 @@ class Admin::LessonsController < ApplicationController
     @lesson.destroy
     redirect_to admin_lessons_url, :notice => "Successfully destroyed admin/lesson."
   end
+
 end
