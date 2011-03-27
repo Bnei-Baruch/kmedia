@@ -33,6 +33,7 @@ group :development, :test do
   gem "ruby-debug-base"
   gem "ruby-debug-ide"
   gem "nifty-generators"
+  gem 'mongrel'
 end
 
 gem "mocha", :group => :test
