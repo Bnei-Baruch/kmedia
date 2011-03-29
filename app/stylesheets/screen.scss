@@ -70,4 +70,18 @@ table{
   @include outer-table-borders(1px, darken($table-color, 20%));
   @include inner-table-borders(1px, $table-color);
   @include alternating-rows-and-columns($table-color, lighten($table-color, 35%), false);
+  .small{
+    font-size: 95%;
+  }
+  tr.advanced td, tr.beginner td, tr.intermediate td{
+    background-color: lighten(red, 45%) !important;
+  }
+}
+nav.pagination{
+  span{
+    padding:0 3px;
+  }
+  .current, .prev, .next{
+    font-weight: bold;
+  }
 }
