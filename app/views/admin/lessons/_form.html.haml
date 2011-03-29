@@ -1,14 +1,28 @@
-= simple_form_for ['admin',@lesson] do |f|
-  = f.input :lessonname
-  = f.input :v_lessondate, :label => 'Date'
-  = f.label 'Language'
-  = f.collection_select :lang, @languages, :code3, :lang_name
-  %br
-  = f.label 'Lecturer'
-  = f.collection_select :lecturerid, @lecturers, :lecturerid, :lecturername
-  %br
-  = f.label 'Security Level'
-  = f.select :secure, @security
-  = f.input :rss, :as => :boolean
-  = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lesson.catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename}}.to_json}
-  = f.button :submit
+= simple_form_for ['admin',@lesson], :html => {:class => 'bp'} do |f|
+  %p.actions
+    = f.button :submit
+  %hr.spacer
+  .metadata
+    = f.input :lessonname
+    = f.input :v_lessondate, :label => 'Date'
+    = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
+    = f.input :lecturerid, :collection => @lecturers, :value_method => :lecturerid, :label_method => :lecturername, :label => 'Lecturer', :prompt => '-- Please select lecturer --'
+    = f.input :secure,:collection =>  @security, :prompt => nil, :label => 'Security Level'
+  .catalogs
+    .rss
+      = f.input :rss, :as => :boolean
+    .list
+      = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lesson.catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename}}.to_json}
+  %hr.spacer
+  .descriptions
+    - counter = 0
+    = f.simple_fields_for :lesson_descriptions, @lesson.lesson_descriptions do |descr_f|
+      %div(class = "item#{counter%3}")
+        = descr_f.input :lang, :as => :hidden
+        = descr_f.label descr_f.object.language.to_s
+        %br
+        = descr_f.input :lessondesc, :as => :text, :label => false
+      - counter += 1
+  %hr.spacer
+  %p.actions
+    = f.button :submit
