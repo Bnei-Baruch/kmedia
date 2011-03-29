@@ -9,14 +9,15 @@
 %p
   %strong Descriptions:
   %table.admin_table
-    %tr
-      %th Language
-      %th Lesson Description
-      %th Created on
-      %th Updated on
-      %th ID
-    - @lesson.lesson_descriptions.each do |admin_lesson_desc|
+    %thead
       %tr
+        %th Language
+        %th Lesson Description
+        %th Created on
+        %th Updated on
+        %th ID
+    - @lesson.lesson_descriptions.each do |admin_lesson_desc|
+      %tr(class="#{cycle('odd', 'even')}")
         %td= admin_lesson_desc.lang
         %td= admin_lesson_desc.lessondesc
         %td= admin_lesson_desc.created.try(:to_date)
@@ -32,26 +33,38 @@
   %strong Lesson date:
   = @lesson.lessondate
 %p
-  %strong Lang:
-  = @lesson.lang
+  %strong Language:
+  = @lesson.language
 %p
-  %strong Lecturerid:
-  = @lesson.lecturerid
+  %strong Lecturer:
+  = @lesson.lecturer
 %p
   %strong Secure:
-  = @lesson.secure
+  = @secure
+%p
+  %strong Catalogs:
+  %table.admin_table
+    %thead
+      %tr
+        %th ID
+        %th Name
+    - @lesson.catalogs.each do |catalog|
+      %tr(class="#{cycle('odd', 'even')}")
+        %td= catalog.catalognodeid
+        %td= catalog.catalognodename
 %p
   %strong Files:
   %table.admin_table
-    %tr
-      %th ID
-      %th Name
-      %th Created on
-      %th Updated on
-      %th Language
-      %th(colspan=3) Actions
-    - @lesson.assets.each do |asset|
+    %thead
       %tr
+        %th ID
+        %th Name
+        %th Created on
+        %th Updated on
+        %th Language
+        %th(colspan=3) Actions
+    - @lesson.assets.each do |asset|
+      %tr(class="#{cycle('odd', 'even')}")
         %td= asset.fileid
         %td= asset.filename
         %td= asset.created.try(:to_date)

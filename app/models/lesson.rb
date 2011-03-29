@@ -6,20 +6,23 @@ class Lesson < ActiveRecord::Base
                           :association_foreign_key => "fileid", :order => "date(updated) DESC, filename ASC"
   has_and_belongs_to_many :catalogs, :join_table => "catnodelessons", :foreign_key => "lessonid",
                           :association_foreign_key => "catalognodeid", :order => "catalognodename"
+  belongs_to :language, :foreign_key => :lang, :primary_key => :code3
+
+  accepts_nested_attributes_for :lesson_descriptions
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
 
 #  attr_accessible :lessonid, :lessonname, :created, :updated, :lessondate, :lang, :lecturerid, :secure
-  
-#  def self.find_by_id(*args, &block)
-#    self.send(:find_by_lessonid, *args, &block)
-#  end
-  def before_create
+
+  before_create :create_timestamps
+  before_update :update_timestamps
+
+  def create_timestamps
     write_attribute :created, Time.now
     write_attribute :updated, Time.now
   end
 
-  def before_update
+  def update_timestamps
     write_attribute :updated, Time.now
   end
 
@@ -39,6 +42,13 @@ class Lesson < ActiveRecord::Base
   end
 
   def rss
-    ! (self.catalog_ids & RSS_CATEGORIES.map(&:id)).empty?
+    ! (self.catalog_ids & RSS_CATEGORIES.map{|e| e[:id] }).empty?
   end
+
+  def rss=(value)
+    if value == "1" && (self.catalog_ids & RSS_CATEGORIES.map{|e| e[:id] }).empty?
+      catalogs << Catalog.find(RSS_CATEGORIES[0][:id])
+    end
+  end
+
 end

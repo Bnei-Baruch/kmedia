@@ -25,6 +25,28 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
     t.text   "banner"
   end
 
+  create_table "books", :primary_key => "fileid", :force => true do |t|
+    t.string   "filename",   :limit => 50
+    t.datetime "filedate"
+    t.integer  "filesize"
+    t.string   "servername", :limit => 30
+    t.string   "filestatus", :limit => 10
+    t.datetime "created"
+    t.datetime "updated"
+  end
+
+  add_index "books", ["servername"], :name => "servername"
+
+  create_table "booksdesc", :primary_key => "filedescid", :force => true do |t|
+    t.integer  "fileid",                :default => 0, :null => false
+    t.string   "filedesc"
+    t.string   "lang",     :limit => 3
+    t.datetime "created"
+    t.datetime "updated"
+  end
+
+  add_index "booksdesc", ["fileid"], :name => "fileid"
+
   create_table "catalognode", :primary_key => "catalognodeid", :force => true do |t|
     t.string   "catalognodename", :limit => 100, :default => "",  :null => false
     t.integer  "parentnodeid"
@@ -68,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
     t.string   "filename",   :limit => 150
     t.string   "filelang",   :limit => 3
     t.string   "filetype",   :limit => 3
-    t.datetime "filedate"
+    t.string   "filedate",   :limit => 15
     t.integer  "filesize"
     t.string   "servername", :limit => 30,  :default => "DEFAULT"
     t.string   "filestatus", :limit => 10
@@ -134,7 +156,7 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
     t.string   "lessonname", :limit => 100
     t.datetime "created"
     t.datetime "updated"
-    t.date     "lessondate"
+    t.string   "lessondate", :limit => 15
     t.string   "lang",       :limit => 3
     t.integer  "lecturerid"
     t.integer  "secure",                    :default => 0, :null => false
@@ -147,6 +169,28 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
 
   create_table "lessons_offline", :primary_key => "lessonid", :force => true do |t|
   end
+
+  create_table "music", :primary_key => "fileid", :force => true do |t|
+    t.string   "filename",   :limit => 50
+    t.datetime "filedate"
+    t.integer  "filesize"
+    t.string   "servername", :limit => 30
+    t.string   "filestatus", :limit => 10
+    t.datetime "created"
+    t.datetime "updated"
+  end
+
+  add_index "music", ["servername"], :name => "servername"
+
+  create_table "musicdesc", :primary_key => "filedescid", :force => true do |t|
+    t.integer  "fileid",                :default => 0, :null => false
+    t.string   "filedesc"
+    t.string   "lang",     :limit => 3
+    t.datetime "created"
+    t.datetime "updated"
+  end
+
+  add_index "musicdesc", ["fileid"], :name => "fileid"
 
   create_table "search_strings", :force => true do |t|
     t.string  "search_str",   :default => "", :null => false

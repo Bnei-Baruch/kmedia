@@ -1,0 +1,73 @@
+// This import applies a global reset to any page that imports this stylesheet.
+@import "blueprint/reset";
+
+// To configure blueprint, edit the partials/base.sass file.
+@import "partials/base";
+
+// Import all the default blueprint modules so that we can access their mixins.
+@import "blueprint";
+
+// Combine the partials into a single screen stylesheet.
+@import "partials/page";
+@import "partials/form";
+//@import "partials/two_col";
+
+@import "compass/utilities/tables";
+
+#container{
+  @include container;
+}
+
+.metadata{
+  @include column($blueprint-grid-columns / 2);
+  @include border;//(gray, 1px);
+  label{
+    @include column(3);
+    margin-top: 8px; //TODO: bad fix - should find something better
+  }
+}
+.catalogs{
+  @include column(($blueprint-grid-columns - 2) / 2, true);
+  @include prepend(1);
+  .list{
+    ul{
+      padding:0;
+      margin:0;
+      input{
+        padding: 0 3px;
+      }
+    }
+  }
+  .rss{
+    float: right;
+    @include append(2);
+  }
+}
+.spacer{
+  @inclue colspacer;
+}
+
+@mixin mitem($last: false){
+  @include column(($blueprint-grid-columns - 3) / 3, $last);
+  @include prepend(1);
+    textarea{
+      width: $blueprint-grid-width * ($blueprint-grid-columns / 3);
+      height: 60px;
+    }
+}
+.descriptions{
+  .item0, .item1{
+    @include mitem;
+  }
+  .item2{
+    @include mitem(true);
+  }
+}
+
+table{
+  $table-color: #7a98c6;
+  @include table-scaffolding;
+  @include outer-table-borders(1px, darken($table-color, 20%));
+  @include inner-table-borders(1px, $table-color);
+  @include alternating-rows-and-columns($table-color, lighten($table-color, 35%), false);
+}
