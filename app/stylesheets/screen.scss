@@ -37,6 +37,9 @@
         padding: 0 3px;
       }
     }
+    input{
+      border: 0 none !important;
+    }
   }
   .rss{
     float: right;
@@ -61,6 +64,15 @@
   }
   .item2{
     @include mitem(true);
+  }
+  .item-hidden{
+    display: none;
+  }
+  .all-langs{
+    @include column(24, true);
+    @include pull(1);
+    text-align: right;
+    padding-bottom: 10px;
   }
 }
 

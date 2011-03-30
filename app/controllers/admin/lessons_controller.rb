@@ -13,7 +13,6 @@ class Admin::LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
-
   end
 
   def create
@@ -34,17 +33,15 @@ class Admin::LessonsController < ApplicationController
     @languages.each{ |l|
       @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
-    @lesson.lesson_descriptions.sort!{|x, y|
+    lesson_descriptions_main = lesson_descriptions_all = []
+    @lesson.lesson_descriptions.each{|x|
       if MAIN_DESCR_LANGS.include? x.lang
-        if MAIN_DESCR_LANGS.include? y.lang
-          MAIN_DESCR_LANGS.index(x.lang) <=> MAIN_DESCR_LANGS.index(y.lang)
-        else
-          -1
-        end
+        lesson_descriptions_main << x
       else
-        x.lang <=> y.lang
+        lesson_descriptions_all << x
       end
     }
+    @lesson.lesson_descriptions = lesson_descriptions_main + lesson_descriptions_all.sort_by{|x| x.lang }
   end
 
   def update
