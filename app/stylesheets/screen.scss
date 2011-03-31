@@ -25,6 +25,11 @@
     @include column(3);
     margin-top: 8px; //TODO: bad fix - should find something better
   }
+  .auto-parse{
+    @include prepend(8);
+    @include column(3);
+    @include append(1);
+  }
 }
 .catalogs{
   @include column(($blueprint-grid-columns - 2) / 2, true);
@@ -43,7 +48,10 @@
   }
   .rss{
     float: right;
-    @include append(2);
+    @include append(1);
+    p{
+        margin: 0;
+    }
   }
 }
 .spacer{

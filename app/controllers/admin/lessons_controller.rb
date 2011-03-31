@@ -62,4 +62,12 @@ class Admin::LessonsController < ApplicationController
     redirect_to admin_lessons_url, :notice => "Successfully destroyed admin/lesson."
   end
 
+  def parse_lesson_name
+    @lesson = Lesson.find(params[:id])
+    sp = ::StringParser.new @lesson.lessonname
+    @date = sp.date
+    @language = sp.language
+    @change_date = !@lesson.lessondate?
+    @change_lang = !@lesson.lang? || @lesson.lang.empty?
+  end
 end

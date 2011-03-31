@@ -1,7 +1,11 @@
 Kmedia::Application.routes.draw do
 
   namespace(:admin){
-    resources :lessons
+    resources :lessons do
+      member do
+        get 'parse_lesson_name'
+      end
+    end
     resources :assets
     resources :catalogs
   }

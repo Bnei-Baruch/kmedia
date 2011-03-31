@@ -1,8 +1,9 @@
-= simple_form_for ['admin',@lesson], :html => {:class => 'bp'} do |f|
+= simple_form_for ['admin', @lesson], :html => {:class => 'bp'} do |f|
   %p.actions
     = f.button :submit
   %hr.spacer
   .metadata
+    = link_to 'Automatic parsing', parse_lesson_name_admin_lesson_url(@lesson), :remote => true, :class => 'auto-parse'
     = f.input :lessonname
     = f.input :v_lessondate, :label => 'Date'
     = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
