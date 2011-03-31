@@ -6,4 +6,8 @@ class Lecturer < ActiveRecord::Base
   def to_param
     read_attribute :lecturerid
   end
+
+  def to_s
+    lecturername
+  end
 end

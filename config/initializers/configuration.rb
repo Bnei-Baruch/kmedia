@@ -1,8 +1,8 @@
 SECURITY = [
   {:name => 'Unsecure', :level => 0},
-  {:name => 'Minor', :level => 1},
-  {:name => 'Major', :level => 2},
-  {:name => 'Critical', :level => 3}
+  {:name => 'Beginner', :level => 1},
+  {:name => 'Intermediate', :level => 2},
+  {:name => 'Advanced', :level => 3}
 ]
 
 RSS_CATEGORIES = [
@@ -11,3 +11,4 @@ RSS_CATEGORIES = [
   {:id => 3662, :name => 'RSS_update'},
 ]
 
+MAIN_DESCR_LANGS = ['ENG', 'RUS', 'HEB']

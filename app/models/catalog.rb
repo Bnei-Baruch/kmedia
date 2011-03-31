@@ -5,14 +5,16 @@ class Catalog < ActiveRecord::Base
   has_and_belongs_to_many :lessons, :join_table => "catnodelessons", :foreign_key => "catalognodeid",
                           :association_foreign_key => "lessonid", :order => "lessonname ASC, date(updated) DESC"
 
-  
-  def before_create
+  before_create :create_timestamps
+  before_update :update_timestamps
+
+  def create_timestamps
     write_attribute :created, Time.now
     write_attribute :updated, Time.now
   end
 
-  def before_update
+  def update_timestamps
     write_attribute :updated, Time.now
   end
-  
+
 end

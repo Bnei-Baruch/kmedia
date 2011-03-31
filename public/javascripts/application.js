@@ -19,8 +19,6 @@ $(function() {
 $('#lesson_rss').live('click', function(){
   if ($(this).is(':checked')) {
     // Add RSS categories to catalogs
-    $('.token-input-input-token input').val('Video1');
-    $.event.trigger({type:'keypress', which: 8});
   } else {
     // Remove RSS categories to catalogs
   }

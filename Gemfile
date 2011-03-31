@@ -8,10 +8,10 @@ gem 'jquery-rails'
 
 gem 'mysql2'
 gem 'haml'
-gem 'sass'
-gem 'kaminari'
+gem 'sass', :tag => '3.0.24'
+gem 'kaminari' #for pagination
 gem 'simple_form'
-gem 'compass'
+gem 'compass'#, ">= 0.11.beta.3"
 
 gem 'thin'
 
