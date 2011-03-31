@@ -13,6 +13,8 @@ gem 'kaminari'
 gem 'simple_form'
 gem 'compass'
 
+gem 'thin'
+
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 # Use unicorn as the web server
 # gem 'unicorn'
