@@ -1,7 +1,7 @@
 class FixLessondateInLessons < ActiveRecord::Migration
   def self.up
+    execute "DROP FUNCTION IF EXISTS fixDate;"
     sql = <<-SQL
-DROP FUNCTION IF EXISTS fixDate;
 CREATE FUNCTION fixDate(eval_date VARCHAR(1024)) RETURNS DATE
 BEGIN
   DECLARE my_data VARCHAR(10);
@@ -27,7 +27,7 @@ BEGIN
 END;
     SQL
     execute sql
-
+    execute "DROP TRIGGER IF EXISTS lessons_fixdate_update;"
     sql = <<-SQL
 CREATE TRIGGER lessons_fixdate_update BEFORE UPDATE ON lessons
 FOR EACH ROW
@@ -37,6 +37,7 @@ END;
     SQL
     execute sql
 
+    execute "DROP TRIGGER IF EXISTS lessons_fixdate_insert;"
     sql = <<-SQL
 CREATE TRIGGER lessons_fixdate_insert BEFORE INSERT ON lessons
 FOR EACH ROW
