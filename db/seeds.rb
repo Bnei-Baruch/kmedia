@@ -31,3 +31,14 @@ puts '--> Languages'
 {:code3 => "FAR", :language =>"Persian", :locale => 'fa'},
 {:code3 => "ROU", :language =>"Romanian", :locale => 'ro'},
 ].each{|e| Language.find_or_create_by_locale_and_language(e)}
+
+puts '--> Roles'
+[
+  {:name => 'SuperAdmin', :description => 'Can do everything'},
+  {:name => 'LessonAdmin', :description => 'Can update Lessons, Catalogs, Assets'},
+  {:name => 'LessonTeam', :description => 'Can update Lessons'},
+  {:name => 'Admin', :description => 'Can see timestamps of all users'},
+  {:name => 'Normal', :description => 'Can ...'},
+].each{|r| Role.find_or_create_by_name(r)}
+
+puts '--> Done'
