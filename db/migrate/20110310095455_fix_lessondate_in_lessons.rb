@@ -1,8 +1,8 @@
 class FixLessondateInLessons < ActiveRecord::Migration
   def self.up
     sql = <<-SQL
+DROP FUNCTION IF EXISTS fixDate;
 CREATE FUNCTION fixDate(eval_date VARCHAR(1024)) RETURNS DATE
-deterministic
 BEGIN
   DECLARE my_data VARCHAR(10);
   IF NOT(ISNULL(DATEDIFF(CURRENT_DATE,eval_date))) AND (YEAR(eval_date) > 1900) THEN
