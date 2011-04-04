@@ -22,8 +22,8 @@
       %td= lesson.lang
       %td.small= secure
       %td= link_to 'Show', admin_lesson_path(lesson)
-      %td= link_to 'Edit', edit_admin_lesson_path(lesson)
-      %td= link_to 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete
+      %td= link_to_if(can?(:update, lesson), 'Edit', edit_admin_lesson_path(lesson)) {}
+      %td= link_to_if(can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete) {}
 %br
 
 = paginate @lessons

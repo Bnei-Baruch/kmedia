@@ -1,3 +1,4 @@
+*~
 .bundle
 db/schema.rb
 db/*.sqlite3
