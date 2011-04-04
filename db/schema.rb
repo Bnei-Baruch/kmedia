@@ -10,14 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110322081527) do
+ActiveRecord::Schema.define(:version => 20110403102831) do
 
   create_table "answers", :id => false, :force => true do |t|
-    t.timestamp "datetime",                               :null => false
-    t.string    "ip",       :limit => 15, :default => "", :null => false
-    t.string    "qid",      :limit => 10, :default => "", :null => false
-    t.text      "qdata",                                  :null => false
-    t.string    "lang",     :limit => 3,  :default => "", :null => false
+    t.datetime "datetime",                               :null => false
+    t.string   "ip",       :limit => 15, :default => "", :null => false
+    t.string   "qid",      :limit => 10, :default => "", :null => false
+    t.text     "qdata",                                  :null => false
+    t.string   "lang",     :limit => 3,                  :null => false
   end
 
   create_table "banners", :force => true do |t|
@@ -35,8 +35,6 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
     t.datetime "updated"
   end
 
-  add_index "books", ["servername"], :name => "servername"
-
   create_table "booksdesc", :primary_key => "filedescid", :force => true do |t|
     t.integer  "fileid",                :default => 0, :null => false
     t.string   "filedesc"
@@ -44,8 +42,6 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
     t.datetime "created"
     t.datetime "updated"
   end
-
-  add_index "booksdesc", ["fileid"], :name => "fileid"
 
   create_table "catalognode", :primary_key => "catalognodeid", :force => true do |t|
     t.string   "catalognodename", :limit => 100, :default => "",  :null => false
@@ -84,13 +80,12 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
   end
 
   add_index "filedesc", ["filedesc"], :name => "fd_name_idx"
-  add_index "filedesc", ["fileid"], :name => "fileid"
 
   create_table "files", :primary_key => "fileid", :force => true do |t|
     t.string   "filename",   :limit => 150
     t.string   "filelang",   :limit => 3
     t.string   "filetype",   :limit => 3
-    t.string   "filedate",   :limit => 15
+    t.datetime "filedate"
     t.integer  "filesize"
     t.string   "servername", :limit => 30,  :default => "DEFAULT"
     t.string   "filestatus", :limit => 10
@@ -101,12 +96,11 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
   end
 
   add_index "files", ["filename"], :name => "filename", :unique => true
-  add_index "files", ["servername"], :name => "servername"
-  add_index "files", ["updated"], :name => "updated"
 
-  create_table "filetypes", :primary_key => "typename", :force => true do |t|
+  create_table "filetypes", :id => false, :force => true do |t|
+    t.string "typename", :limit => 20, :default => "", :null => false
     t.string "extlist"
-    t.string "pic",     :limit => 20
+    t.string "pic",      :limit => 20
   end
 
   create_table "languages", :force => true do |t|
@@ -116,16 +110,16 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
   end
 
   create_table "lecturer", :primary_key => "lecturerid", :force => true do |t|
-    t.string   "lecturername", :limit => 100, :default => "", :null => false
+    t.string   "lecturername", :limit => 100,                :null => false
     t.datetime "created"
     t.datetime "updated"
-    t.integer  "ordnum",                      :default => 0,  :null => false
+    t.integer  "ordnum",                      :default => 0, :null => false
   end
 
   create_table "lecturerdesc", :primary_key => "lecturerdescid", :force => true do |t|
-    t.integer  "lecturerid",                  :default => 0,  :null => false
-    t.string   "lecturerdesc", :limit => 100, :default => "", :null => false
-    t.string   "lang",         :limit => 3,   :default => "", :null => false
+    t.integer  "lecturerid",                  :default => 0, :null => false
+    t.string   "lecturerdesc", :limit => 100,                :null => false
+    t.string   "lang",         :limit => 3,                  :null => false
     t.datetime "created"
     t.datetime "updated"
   end
@@ -143,7 +137,6 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
     t.text     "descr_flat"
   end
 
-  add_index "lessondesc", ["lessondesc", "descr"], :name => "lessondesc"
   add_index "lessondesc", ["lessondesc"], :name => "ld_name_idx"
   add_index "lessondesc", ["lessonid"], :name => "lessonid"
 
@@ -156,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
     t.string   "lessonname", :limit => 100
     t.datetime "created"
     t.datetime "updated"
-    t.string   "lessondate", :limit => 15
+    t.date     "lessondate"
     t.string   "lang",       :limit => 3
     t.integer  "lecturerid"
     t.integer  "secure",                    :default => 0, :null => false
@@ -167,7 +160,8 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
   add_index "lessons", ["lessonname"], :name => "lessonname"
   add_index "lessons", ["lessonname"], :name => "lessonnameidx"
 
-  create_table "lessons_offline", :primary_key => "lessonid", :force => true do |t|
+  create_table "lessons_offline", :id => false, :force => true do |t|
+    t.integer "lessonid", :default => 0, :null => false
   end
 
   create_table "music", :primary_key => "fileid", :force => true do |t|
@@ -192,48 +186,31 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
 
   add_index "musicdesc", ["fileid"], :name => "fileid"
 
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "description"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
+
   create_table "search_strings", :force => true do |t|
     t.string  "search_str",   :default => "", :null => false
     t.integer "search_count", :default => 0,  :null => false
   end
 
-  create_table "servers", :primary_key => "servername", :force => true do |t|
+  create_table "servers", :id => false, :force => true do |t|
+    t.string   "servername", :limit => 30, :default => "", :null => false
     t.string   "httpurl"
     t.datetime "created"
     t.datetime "updated"
-    t.string   "lastuser", :limit => 16
+    t.string   "lastuser",   :limit => 16
     t.string   "path"
   end
-
-  create_table "subscription", :force => true do |t|
-    t.string "email",                     :default => "",    :null => false
-    t.string "name",        :limit => 50, :default => "",    :null => false
-    t.string "rate",        :limit => 10, :default => "day"
-    t.date   "last"
-    t.date   "created"
-    t.string "ipcreated",   :limit => 15, :default => "",    :null => false
-    t.string "lang",        :limit => 3,  :default => "",    :null => false
-    t.string "valid",       :limit => 0,  :default => "N"
-    t.string "valcode",     :limit => 10, :default => "",    :null => false
-    t.string "lastsuccess", :limit => 0,  :default => "N"
-  end
-
-  add_index "subscription", ["email", "name"], :name => "email", :unique => true
-
-  create_table "subscription_backup", :force => true do |t|
-    t.string "email",                     :default => "",    :null => false
-    t.string "name",        :limit => 50, :default => "",    :null => false
-    t.string "rate",        :limit => 10, :default => "day"
-    t.date   "last"
-    t.date   "created"
-    t.string "ipcreated",   :limit => 15, :default => "",    :null => false
-    t.string "lang",        :limit => 3,  :default => "",    :null => false
-    t.string "valid",       :limit => 0,  :default => "N"
-    t.string "valcode",     :limit => 10, :default => "",    :null => false
-    t.string "lastsuccess", :limit => 0,  :default => "N"
-  end
-
-  add_index "subscription_backup", ["email", "name"], :name => "email", :unique => true
 
   create_table "tmp_access", :id => false, :force => true do |t|
     t.integer "cnt"
@@ -241,27 +218,27 @@ ActiveRecord::Schema.define(:version => 20110322081527) do
   end
 
   create_table "updated", :id => false, :force => true do |t|
-    t.string    "lang",  :limit => 3,        :default => "", :null => false
-    t.integer   "days",                      :default => 0,  :null => false
-    t.timestamp "ts",                                        :null => false
-    t.binary    "value", :limit => 16777215,                 :null => false
+    t.string   "lang",  :limit => 3,                :null => false
+    t.integer  "days",               :default => 0, :null => false
+    t.datetime "ts",                                :null => false
+    t.binary   "value",                             :null => false
   end
 
-  create_table "users", :primary_key => "userid", :force => true do |t|
-    t.string   "user",       :limit => 7,  :default => "", :null => false
-    t.string   "firstname",  :limit => 30
-    t.string   "lastname",   :limit => 30
-    t.string   "pwd",        :limit => 10
-    t.string   "email",      :limit => 50
-    t.string   "admin",      :limit => 1
-    t.string   "contentmgr", :limit => 1
-    t.string   "active",     :limit => 1
-    t.datetime "created"
-    t.datetime "updated"
-    t.string   "lastuser",   :limit => 7
+  create_table "users", :force => true do |t|
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], :name => "email"
-  add_index "users", ["user"], :name => "user", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

@@ -14,6 +14,10 @@ gem 'simple_form'
 gem 'compass'#, ">= 0.11.beta.3"
 
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
+
+gem "cancan"
+gem 'devise'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
