@@ -1,10 +1,12 @@
-<%- if @change_date -%>
 $('#lesson_v_lessondate_1i').val('<%= @date[0] %>');
 $('#lesson_v_lessondate_2i').val('<%= @date[1] %>');
 $('#lesson_v_lessondate_3i').val('<%= @date[2] %>');
 $('#lesson_v_lessondate_1i').siblings('label').css('color', 'red');
-<%- end -%>
-<%- if @change_lang -%>
+<%- unless @language.nil? -%>
 $('#lesson_lang').val('<%= @language.upcase %>');
 $('#lesson_lang').siblings('label').css('color', 'red');
+<%- end -%>
+<%- if @lecturer_id -%>
+$('#lesson_lecturerid').val('<%= @lecturer_id %>');
+$('#lesson_lecturerid').siblings('label').css('color', 'red');
 <%- end -%>

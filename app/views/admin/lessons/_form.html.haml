@@ -3,7 +3,7 @@
     = f.button :submit
   %hr.spacer
   .metadata
-    = link_to 'Automatic parsing', parse_lesson_name_admin_lesson_url(@lesson), :remote => true, :class => 'auto-parse'
+    = link_to 'Automatic parsing', parse_lesson_name_admin_lesson_url(@lesson, :ts => Time.now.to_i), :remote => true, :class => 'auto-parse'
     = f.input :lessonname
     = f.input :v_lessondate, :label => 'Date'
     = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
@@ -16,16 +16,16 @@
       = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lesson.catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename}}.to_json}
   %hr.spacer
   .descriptions
+    %div(class='all-langs')
+      %a(href="javsrcript:" onclick="$('.item-hidden').toggle(); $(this).text($(this).text() == 'Show less languages' ? 'Show more languages' : 'Show less languages'); return false;") Show more languages
     - counter = 0
-    = f.simple_fields_for :lesson_descriptions, @lesson.lesson_descriptions do |descr_f|
+    = f.simple_fields_for :lesson_descriptions, @lesson_descriptions do |descr_f|
       %div(class = "item#{counter%3} #{counter >= 3 ? 'item-hidden' : ''}")
         = descr_f.input :lang, :as => :hidden
         = descr_f.label descr_f.object.language.to_s
         %br
         = descr_f.input :lessondesc, :as => :text, :label => false
       - counter += 1
-    %div(class='all-langs')
-      %a(href="javsrcript:" onclick="$('.item-hidden').toggle(); $(this).text($(this).text() == 'Show less languages' ? 'Show more languages' : 'Show less languages'); return false;") Show more languages
   %hr.spacer
   %p.actions
     = f.button :submit
