@@ -36,15 +36,16 @@ class Admin::LessonsController < ApplicationController
     @languages.each{ |l|
       @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
-    lesson_descriptions_main = lesson_descriptions_all = []
+    lesson_descriptions_main = {}
+    lesson_descriptions_all = []
     @lesson.lesson_descriptions.each{|x|
       if MAIN_DESCR_LANGS.include? x.lang
-        lesson_descriptions_main << x
+        lesson_descriptions_main[x.lang] = x
       else
         lesson_descriptions_all << x
       end
     }
-    @lesson.lesson_descriptions = lesson_descriptions_main + lesson_descriptions_all.sort_by{|x| x.lang }
+    @lesson_descriptions = MAIN_DESCR_LANGS.map{|l| lesson_descriptions_main[l]} + lesson_descriptions_all.sort_by{|x| x.lang }
   end
 
   def update
@@ -72,7 +73,6 @@ class Admin::LessonsController < ApplicationController
     sp = ::StringParser.new @lesson.lessonname
     @date = sp.date
     @language = sp.language
-    @change_date = !@lesson.lessondate?
-    @change_lang = !@lesson.lang? || @lesson.lang.empty?
+    @lecturer_id = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
   end
 end
