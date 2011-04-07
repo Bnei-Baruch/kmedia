@@ -41,4 +41,16 @@ puts '--> Roles'
   {:name => 'Normal', :description => 'Can ...'},
 ].each{|r| Role.find_or_create_by_name(r)}
 
+puts '--> Users'
+admin = Role.find_by_name('SuperAdmin')
+[
+  {:email => 'vshiray@gmail.com', :password => 'kmedia123456'},
+  {:email => 'mgorodetsky@gmail.com', :password => 'kmedia123456'},
+  {:email => 'gshilin@gmail.com', :password => 'kmedia123456'},
+  {:email => 'ramigg@gmail.com', :password => 'kmedia123456'},
+].each{|r|
+  user = User.find_or_create_by_email(r)
+  user.roles << admin
+}
+
 puts '--> Done'
