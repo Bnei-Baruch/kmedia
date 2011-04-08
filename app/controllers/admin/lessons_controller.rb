@@ -4,7 +4,7 @@ class Admin::LessonsController < ApplicationController
 #  load_and_authorize_resource
   
   def index
-    @lessons = Lesson.order("date(created) DESC, lessonname ASC").page(params[:page])
+    @lessons = Lesson.need_update.ordered.page(params[:page])
   end
 
   def show

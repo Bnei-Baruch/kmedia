@@ -17,6 +17,9 @@ class Lesson < ActiveRecord::Base
   before_create :create_timestamps
   before_update :update_timestamps
 
+  scope :ordered, order("date(created) DESC, lessonname ASC")
+  scope :need_update, where("lessondate is null or lang is null or lang = '' or lecturerid is null")
+
   def create_timestamps
     write_attribute :created, Time.now
     write_attribute :updated, Time.now
