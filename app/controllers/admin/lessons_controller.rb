@@ -1,7 +1,6 @@
 class Admin::LessonsController < ApplicationController
   layout 'admin'
   before_filter :authenticate_user! #, :except => [:some_action_without_auth]
-#  load_and_authorize_resource
   
   def index
     @lessons = Lesson.need_update.ordered.page(params[:page])
