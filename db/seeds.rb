@@ -34,11 +34,24 @@ puts '--> Languages'
 
 puts '--> Roles'
 [
-  {:name => 'SuperAdmin', :description => 'Can do everything'},
-  {:name => 'LessonAdmin', :description => 'Can update Lessons, Catalogs, Assets'},
-  {:name => 'LessonTeam', :description => 'Can update Lessons'},
-  {:name => 'Admin', :description => 'Can see timestamps of all users'},
-  {:name => 'Normal', :description => 'Can ...'},
+  {:name => 'SuperAdmin', :description => 'יכול הכל'},
+  {:name => 'ArchiveAdmin', :description => 'הכל חוץ ממחיקת קבצים וניהול הרשאות'},
+  {:name => 'Operator', :description => 'עדכון פרטים מרשימות קיימות (לא יכול להוסיף קטלוג, שפה או מרצה חדשים) ותיאורים. אסור לטפל בהרשאות של קבצים.'},
+  {:name => 'ContentManager', :description => 'יכול לעדכן רק תיאורים, כולל תוכניות ישנות'},
 ].each{|r| Role.find_or_create_by_name(r)}
+
+puts '--> Users'
+[
+  {:user => {:email => 'vshiray@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
+  {:user => {:email => 'mgorodetsky@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
+  {:user => {:email => 'gshilin@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
+  {:user => {:email => 'ramigg@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
+  {:user => {:email => 'archiveadmin@kbb1.com', :password => 'kmedia'}, :role => 'ArchiveAdmin'},
+  {:user => {:email => 'operator@kbb1.com', :password => 'kmedia'}, :role => 'Operator'},
+  {:user => {:email => 'contentmanager@kbb1.com', :password => 'kmedia'}, :role => 'ContentManager'},
+].each{|e|
+  user = User.find_or_create_by_email(e[:user])
+  user.roles << Role.find_by_name(e[:role])
+}
 
 puts '--> Done'

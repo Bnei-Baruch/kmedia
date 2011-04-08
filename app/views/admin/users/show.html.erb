@@ -13,19 +13,17 @@
 		<td class="oce-first">Roles:</td>
 		<td><%= @user.roles.collect{|r| r.name}.join(', ') %></td>
 	</tr>
-    <% if can?(:see_timestamps,User) %>
-        <tr>
-            <td class="oce-first">Created at:</td>
-            <td><%= @user.created_at %></td>
-        </tr>
-        <tr>
-            <td class="oce-first">Last Sign In:</td>
-            <td><%= @user.last_sign_in_at %></td>
-        </tr>
-        <tr>
-            <td class="oce-first">Sign In Count:</td>
-            <td><%= @user.sign_in_count %></td>
-        </tr>
-	<% end %>
+    <tr>
+        <td class="oce-first">Created at:</td>
+        <td><%= @user.created_at %></td>
+    </tr>
+    <tr>
+        <td class="oce-first">Last Sign In:</td>
+        <td><%= @user.last_sign_in_at %></td>
+    </tr>
+    <tr>
+        <td class="oce-first">Sign In Count:</td>
+        <td><%= @user.sign_in_count %></td>
+    </tr>
 </tbody>
 </table>
