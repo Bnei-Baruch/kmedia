@@ -17,8 +17,8 @@
       %td= asset.updated.try(:to_date)
       %td= asset.filelang
       %td= link_to 'Show', [:admin, asset]
-      %td= link_to 'Edit', edit_admin_asset_path(asset)
-      %td= link_to 'Destroy', [:admin, asset], :confirm => 'Are you sure?', :method => :delete
+      %td= link_to_if can?(:update, @asset), "Edit", edit_admin_asset_path(asset)
+      %td= link_to_if can?(:destroy, asset), "Destroy", [:admin, asset], :confirm => 'Are you sure?', :method => :delete
 %br
 = paginate @assets
 %br
