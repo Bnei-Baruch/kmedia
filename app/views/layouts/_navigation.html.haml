@@ -1,0 +1,4 @@
+%nav.main
+  = link_to 'Lessons', admin_lessons_path
+  = link_to_if can?(:update, User), 'Users', admin_users_path
+  = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path
