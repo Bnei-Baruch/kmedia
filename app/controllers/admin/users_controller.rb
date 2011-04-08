@@ -8,7 +8,7 @@ class Admin::UsersController < ApplicationController
   # GET /users.json                                       HTML and AJAX
   #-----------------------------------------------------------------------
   def index
-    @users = User.accessible_by(current_ability, :index).limit(20)
+    @users = User.accessible_by(current_ability, :index).page(params[:page])
     respond_to do |format|
       format.json { render :json => @users }
       format.xml { render :xml => @users }

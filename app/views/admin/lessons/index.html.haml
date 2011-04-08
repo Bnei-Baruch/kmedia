@@ -1,5 +1,5 @@
 - title "Lessons"
-%p= link_to "New Lesson", new_admin_lesson_path
+%p= link_to_if can?(:create, Lesson), "New Lesson", new_admin_lesson_path
 = paginate @lessons
 %br
 %table.admin_table.bp
@@ -28,4 +28,4 @@
 
 = paginate @lessons
 %br
-%p= link_to "New Lesson", new_admin_lesson_path
+%p= link_to_if can?(:create, Lesson), "New Lesson", new_admin_lesson_path

@@ -1,0 +1,21 @@
+- title "Users"
+= paginate @users
+%br
+%table.admin_table.bp
+  %thead
+    %tr
+      %th ID
+      %th Email
+      %th Roles
+      %th(colspan=3) Actions
+  - @users.each do |u|
+    %tr(class="#{cycle('odd', 'even')}")
+      %td= u.id
+      %td= u.email
+      %td.small= u.roles.collect{|r| r.name}.join(', ')
+      %td= link_to_if can?(:show, u), "Show", admin_user_path(u.id)
+      %td= link_to_if can?(:update, u), 'Edit', edit_admin_lesson_path(u)
+      %td= link_to_if can?(:delete, u), 'Destroy', admin_lesson_path(u), :confirm => 'Are you sure?', :method => :delete
+%br
+= paginate @users
+%br
