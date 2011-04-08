@@ -54,12 +54,11 @@
   = @asset.fileclicks
 
 %p
-  =link_to_if can?(:update, @asset), "Edit", edit_admin_asset_path(@asset)
-  |
-  =link_to_if can?(:destroy, @asset), "Destroy", [:admin, @asset], :confirm => 'Are you sure?', :method => :delete
-  |
+  =link_to_if can?(:update, @asset), "Edit", edit_admin_asset_path(@asset) do
+    .unable 'Edit'
+  =link_to_if can?(:destroy, @asset), "Destroy", [:admin, @asset], :confirm => 'Are you sure?', :method => :delete do
+    .unable 'Destroy'
   = link_to "View All Files", admin_assets_path
-  |
   - if @asset.lessons.first
     = link_to 'Show Lesson', admin_lesson_path(@asset.lessons.first) #TODO: Display table of lessons in case file can belong to multiple lessons
   - else
