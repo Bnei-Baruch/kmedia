@@ -1,4 +1,7 @@
-- title "Users"
+- title "Admin/Users"
+%p
+  = link_to_if can?(:create, User), "New User", new_admin_user_path do
+    .unable New User
 = paginate @users
 %br
 %table.admin_table.bp
@@ -25,3 +28,7 @@
 %br
 = paginate @users
 %br
+
+%p
+  = link_to_if can?(:create, User), "New User", new_admin_user_path do
+    .unable New User
