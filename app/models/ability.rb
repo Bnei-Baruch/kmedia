@@ -20,12 +20,12 @@ class Ability
       #- Operator - Can edit lessons. Can not Create anything new
       can :update, Lesson
       can :edit_descriptions, Lesson
-      can :edit_all_lesson_fields
+      can :edit_all_lesson_fields, Lesson
     elsif user.role? :content_manager
       #- Content manager - Can edit descriptions only (in lesson edit)
       can :update, Lesson
       can :edit_descriptions, Lesson
-      cannot :edit_all_lesson_fields
+      cannot :edit_all_lesson_fields, Lesson
     end
 
   end
