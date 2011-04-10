@@ -19,10 +19,10 @@
       %td= link_to 'Show', [:admin, asset]
       %td
         = link_to_if can?(:update, @asset), "Edit", edit_admin_asset_path(asset) do
-          .unable 'Edit'
+          %span.unable Edit
       %td
         = link_to_if can?(:destroy, asset), "Destroy", [:admin, asset], :confirm => 'Are you sure?', :method => :delete do
-          .unable 'Destroy'
+          %span.unable Destroy
 %br
 = paginate @assets
 %br
