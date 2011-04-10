@@ -2,6 +2,11 @@
 %p
   = link_to_if can?(:create, Lesson), "New Lesson", new_admin_lesson_path do
     .unable New Lesson
+%p.filter
+  %span Filter:&nbsp;
+  = link_to 'All lessons', admin_lessons_path(:filter => 'all'), :class => show_all_selected?
+  |
+  = link_to 'Lessons for update', admin_lessons_path, :class => filtered_selected?
 = paginate @lessons
 %br
 %table.admin_table.bp

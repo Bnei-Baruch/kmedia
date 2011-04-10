@@ -3,7 +3,12 @@ class Admin::LessonsController < ApplicationController
   before_filter :authenticate_user! #, :except => [:some_action_without_auth]
   
   def index
-    @lessons = Lesson.need_update.ordered.page(params[:page])
+    @filter = params[:filter]
+    if @filter && @filter == 'all'
+      @lessons = Lesson.ordered.page(params[:page])
+    else
+      @lessons = Lesson.need_update.ordered.page(params[:page])
+    end
   end
 
   def show
