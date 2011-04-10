@@ -71,13 +71,17 @@
         %td= asset.updated.try(:to_date)
         %td= asset.filelang
         %td= link_to 'Show', [:admin, asset]
-        %td= if can? :update, asset : link_to 'Edit', edit_admin_asset_path(asset) end
-        %td= if can? :destroy, asset : link_to 'Destroy', [:admin, asset], :confirm => 'Are you sure?', :method => :delete end
+        %td
+          = link_to_if can?(:update, asset), 'Edit', edit_admin_asset_path(asset) do
+            .unable Edit
+        %td
+          = link_to_if can?(:destroy, asset), 'Destroy', [:admin, asset], :confirm => 'Are you sure?', :method => :delete do
+            .unable Destroy
 
 
 %p
-  = if can? :update, @lesson : link_to "Edit", edit_admin_lesson_path(@lesson) end
-  |
-  = if can? :destroy, @lesson : link_to "Destroy", edit_admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete end
-  |
+  = link_to_if can?(:update, @lesson), "Edit", edit_admin_lesson_path(@lesson) do
+    %a.unable Edit
+  = link_to_if can?(:destroy, @lesson), "Destroy", edit_admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete do
+    %a.unable Destroy
   = link_to "View All", admin_lessons_path

@@ -120,3 +120,10 @@ nav.main{
     border-left: 2px solid black;
   }
 }
+.current_user{
+  float: left;
+}
+.unable,a.unable:visited{
+ color: gray !important;
+ text-decoration: none !important;
+}

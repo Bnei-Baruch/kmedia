@@ -1,19 +1,31 @@
+- disabled = cannot? :edit_all_lesson_fields, @lesson
 = simple_form_for ['admin', @lesson], :html => {:class => 'bp'} do |f|
   %p.actions
     = f.button :submit
   %hr.spacer
   .metadata
-    = link_to 'Automatic parsing', parse_lesson_name_admin_lesson_url(@lesson, :ts => Time.now.to_i), :remote => true, :class => 'auto-parse'
-    = f.input :lessonname
-    = f.input :v_lessondate, :label => 'Date'
-    = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
-    = f.input :lecturerid, :collection => @lecturers, :value_method => :lecturerid, :label_method => :lecturername, :label => 'Lecturer', :prompt => '-- Please select lecturer --'
-    = f.input :secure,:collection =>  @security, :prompt => nil, :label => 'Security Level'
+    - if can? :edit_all_lesson_fields, @lesson
+      = link_to 'Automatic parsing', parse_lesson_name_admin_lesson_url(@lesson, :ts => Time.now.to_i), :remote => true, :class => 'auto-parse'
+    - else
+      = link_to 'Automatic parsing', 'javascript:void(0);', :class => 'auto-parse unable'
+    = f.input :lessonname, :disabled => disabled
+    = f.input :v_lessondate, :label => 'Date', :disabled => disabled
+    = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --', :disabled => disabled
+    = f.input :lecturerid, :collection => @lecturers, :value_method => :lecturerid, :label_method => :lecturername, :label => 'Lecturer', :prompt => '-- Please select lecturer --', :disabled => disabled
+    = f.input :secure,:collection =>  @security, :prompt => nil, :label => 'Security Level', :disabled => disabled
   .catalogs
     .rss
-      = f.input :rss, :as => :boolean
+      = f.input :rss, :as => :boolean, :disabled => disabled
     .list
-      = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lesson.catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename}}.to_json}
+      - if disabled
+        %p.input.string.optional
+          %label(for="lesson_catalog_tokens" class="string optional") Catalogs
+          %ul.token-input-list
+            - @lesson.catalogs.each do |c|
+              %li.token-input-token
+                %p=c.catalognodename
+      - else
+        = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lesson.catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename}}.to_json}
   %hr.spacer
   .descriptions
     %div(class='all-langs')

@@ -13,6 +13,8 @@ gem 'kaminari' #for pagination
 gem 'simple_form'
 gem 'compass'#, ">= 0.11.beta.3"
 
+gem 'thin'
+
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 
 gem "cancan"

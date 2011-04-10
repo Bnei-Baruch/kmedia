@@ -1,4 +1,6 @@
 class Admin::UsersController < ApplicationController
+  layout 'admin'
+
   before_filter :get_user, :only => [:index, :new, :edit]
   before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
   load_and_authorize_resource :only => [:show, :new, :destroy, :edit, :update]
@@ -8,7 +10,7 @@ class Admin::UsersController < ApplicationController
   # GET /users.json                                       HTML and AJAX
   #-----------------------------------------------------------------------
   def index
-    @users = User.accessible_by(current_ability, :index).limit(20)
+    @users = User.accessible_by(current_ability, :index).page(params[:page])
     respond_to do |format|
       format.json { render :json => @users }
       format.xml { render :xml => @users }

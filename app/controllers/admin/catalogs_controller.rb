@@ -1,6 +1,9 @@
 class Admin::CatalogsController < ApplicationController
+  layout 'admin'
+  before_filter :authenticate_user! #, :except => [:some_action_without_auth]
+
   def index
-    @catalogs = Catalog.where("catalognodename like ?", "%#{params[:q]}%")
+    @catalogs = Catalog.where("catalognodename like ?", "%#{params[:q]}%").order('catalognodename ASC').page(params[:page])
     respond_to do |format|
       format.html
       format.json { render :json => @catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename} } }
