@@ -1,6 +1,13 @@
+- if current_user
+  .current_user
+    =current_user.email
+    (
+    = current_user.roles.collect{|r| r.name}.join(', ')
+    )
 %nav.main
   = link_to 'Lessons', admin_lessons_path
   = link_to_if can?(:update, User), 'Users', admin_users_path do
-    .unable 'Users'
+    %a.unable Users
   = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
-    .unable 'Catalogs'
+    %a.unable Catalogs
+  = link_to_if current_user, 'Logout', destroy_user_session_path

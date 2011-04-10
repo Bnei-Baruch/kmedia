@@ -9,8 +9,9 @@
     %th Updated
     %th Catorder
     %th Secure
-  - for catalog in @catalogs
-    %tr
+    %th(colspan=3) Actions
+  - @catalogs.each do |catalog|
+    %tr(class="#{cycle('odd', 'even')}")
       %td= catalog.catalognodeid
       %td= catalog.catalognodename
       %td= catalog.parentnodeid
@@ -19,7 +20,12 @@
       %td= catalog.catorder
       %td= catalog.secure
       %td= link_to 'Show', [:admin, catalog]
-      %td= link_to 'Edit', edit_admin_catalog_path(catalog)
-      %td= link_to 'Destroy', [:admin, catalog], :confirm => 'Are you sure?', :method => :delete
+      %td
+        = link_to_if can?(:update, catalog), 'Edit', edit_admin_catalog_path(catalog) do
+          .unable Edit
+      %td
+        = link_to_if can?(:destroy, catalog), 'Destroy', admin_catalog_path(catalog), :confirm => 'Are you sure?', :method => :delete do
+          .unable Destroy
 
-%p= link_to "New Admin/Catalog", new_admin_catalog_path
+= link_to_if can?(:create, Catalog), "New Catalog", new_admin_catalog_path do
+  .unable New Catalog

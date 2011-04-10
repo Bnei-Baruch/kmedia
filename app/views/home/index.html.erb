@@ -1,0 +1,7 @@
+<h1>Wecome to KabbalahMedia Administration</h1>
+<% if current_user %>
+<%= link_to 'Lessons', admin_lessons_path %><br/>
+<%= link_to 'Logout', destroy_user_session_path %>
+<% else %>
+<%= link_to 'Login', new_user_session_path %>
+<% end %>

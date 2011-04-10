@@ -1,7 +1,7 @@
 - title "Lessons"
 %p
   = link_to_if can?(:create, Lesson), "New Lesson", new_admin_lesson_path do
-  .unable 'New Lesson'
+    .unable New Lesson
 = paginate @lessons
 %br
 %table.admin_table.bp
@@ -25,15 +25,15 @@
       %td.small= secure
       %td= link_to 'Show', admin_lesson_path(lesson)
       %td
-        = link_to_if can?(:update, lesson), 'Edit', edit_admin_lesson_path(lesson) do
-          .unable 'Edit'
+        = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Edit', edit_admin_lesson_path(lesson) do
+          .unable Edit
       %td
         = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete do
-          .unable 'Destroy'
+          .unable Destroy
 %br
 
 = paginate @lessons
 %br
 %p
   = link_to_if can?(:create, Lesson), "New Lesson", new_admin_lesson_path do
-    .unable 'New Lesson'
+    .unable New Lesson

@@ -11,15 +11,21 @@ class Ability
     elsif user.role? :archive_admin
       #- Archive Admin - Can do everything except deleting files and permissions management
       can :manage, :all
-      cannot :delete, Asset
+      cannot :destroy, Lesson
+      cannot :destroy, Catalog
+      cannot :destroy, Asset
       cannot :update, User
       cannot :delete, User
     elsif user.role? :operator
       #- Operator - Can edit lessons. Can not Create anything new
       can :update, Lesson
+      can :edit_descriptions, Lesson
+      can :edit_all_lesson_fields
     elsif user.role? :content_manager
       #- Content manager - Can edit descriptions only (in lesson edit)
+      can :update, Lesson
       can :edit_descriptions, Lesson
+      cannot :edit_all_lesson_fields
     end
 
   end
