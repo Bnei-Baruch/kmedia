@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110403102831) do
+ActiveRecord::Schema.define(:version => 20110410132936) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20110403102831) do
     t.integer "catalognodeid", :default => 0, :null => false
     t.integer "lessonid",      :default => 0, :null => false
   end
+
+  add_index "catnodelessons", ["lessonid"], :name => "index_catnodelessons_on_lessonid"
 
   create_table "filedesc", :primary_key => "filedescid", :force => true do |t|
     t.integer  "fileid",                :default => 0, :null => false
