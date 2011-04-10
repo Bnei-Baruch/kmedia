@@ -13,7 +13,7 @@
   - @catalogs.each do |catalog|
     %tr(class="#{cycle('odd', 'even')}")
       %td= catalog.catalognodeid
-      %td= catalog.catalognodename
+      %td= catalog.catalognodename.gsub(/\//, ' / ')
       %td= catalog.parentnodeid
       %td= catalog.created
       %td= catalog.updated
