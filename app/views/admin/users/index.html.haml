@@ -15,13 +15,13 @@
       %td.small= u.roles.collect{|r| r.name}.join(', ')
       %td
         = link_to_if can?(:show, u), "Show", admin_user_path(u.id) do
-          .unable 'Show'
+          %span.unable Show
       %td
         = link_to_if can?(:update, u), 'Edit', edit_admin_lesson_path(u) do
-          .unable 'Edit'
+          %span.unable Edit
       %td
         = link_to_if can?(:delete, u), 'Destroy', admin_lesson_path(u), :confirm => 'Are you sure?', :method => :delete do
-          .unable 'Destroy'
+          %span.unable Destroy
 %br
 = paginate @users
 %br
