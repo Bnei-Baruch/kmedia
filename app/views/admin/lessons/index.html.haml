@@ -31,9 +31,9 @@
         = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete do
           .unable Destroy
 %br
-
 = paginate @lessons
 %br
+
 %p
   = link_to_if can?(:create, Lesson), "New Lesson", new_admin_lesson_path do
     .unable New Lesson

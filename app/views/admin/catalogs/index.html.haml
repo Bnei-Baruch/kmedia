@@ -1,13 +1,18 @@
 - title "Admin/Catalogs"
 
+%p
+  = link_to_if can?(:create, Catalog), "New Catalog", new_admin_catalog_path do
+    .unable New Catalog
+= paginate @catalogs
+%br
 %table
   %tr
-    %th Catalognodeid
-    %th Catalognodename
-    %th Parentnodeid
+    %th Node ID
+    %th Node Name
+    %th Parent Node ID
     %th Created
     %th Updated
-    %th Catorder
+    %th Cat Order
     %th Secure
     %th(colspan=3) Actions
   - @catalogs.each do |catalog|
@@ -26,6 +31,10 @@
       %td
         = link_to_if can?(:destroy, catalog), 'Destroy', admin_catalog_path(catalog), :confirm => 'Are you sure?', :method => :delete do
           .unable Destroy
+%br
+= paginate @catalogs
+%br
 
-= link_to_if can?(:create, Catalog), "New Catalog", new_admin_catalog_path do
-  .unable New Catalog
+%p
+  = link_to_if can?(:create, Catalog), "New Catalog", new_admin_catalog_path do
+    .unable New Catalog
