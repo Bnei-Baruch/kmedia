@@ -1,6 +1,7 @@
 <h2>Register User</h2>
  
-<%= simple_form_for(@user) do |f| %>
+<%= simple_form_for(['admin', @user], :html => {:class => 'bp'}) do |f| %>
+    <%= devise_error_messages!(@user, 'user') %>
 
 	<%= render :partial => 'user_fields', :locals => { :f => f } %>
 

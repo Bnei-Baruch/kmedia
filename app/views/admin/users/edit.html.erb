@@ -1,7 +1,7 @@
 <h3><%= @user == @current_user ? "Your Account Settings" : "Edit User" %></h3>
  
 <%= simple_form_for([:admin, @user], :html => { :method => :put, :class => 'bp' }) do |f| %>
-	<%#= error_messages(@user,"Could not update user") %>
+	<%= devise_error_messages!(@user, 'user') %>
 	<%= render :partial => 'user_fields', :locals => { :f => f } %>
 
 	<p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i></p>
