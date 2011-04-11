@@ -1,0 +1,8 @@
+%h2 Register User
+ 
+= simple_form_for(['admin', @user], :html => {:class => 'bp'}) do |f|
+  = devise_error_messages!(@user, 'user')
+  = render :partial => 'user_fields', :locals => { :f => f }
+  = f.input :password
+  = f.input :password_confirmation
+  = f.button :submit
