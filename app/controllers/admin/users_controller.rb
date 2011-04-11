@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
 
   before_filter :get_user, :only => [:index, :new, :edit]
   before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
-  load_and_authorize_resource :only => [:show, :new, :destroy, :edit, :update]
+  load_and_authorize_resource :only => [:show, :new, :destroy, :edit, :update, :create]
 
   # GET /users
   # GET /users.xml
@@ -39,7 +39,7 @@ class Admin::UsersController < ApplicationController
   # DELETE /users/1.json                                  HTML AND AJAX
   #-------------------------------------------------------------------
   def destroy
-    @user.destroy!
+    @user.destroy
 
     redirect_to admin_users_url, :notice => "Successfully destroyed admin/user."
   end
@@ -49,13 +49,16 @@ class Admin::UsersController < ApplicationController
   # POST /users.json                                      HTML AND AJAX
   #-----------------------------------------------------------------
   def create
-    @user = User.new(params[:user])
-    authorize! :create, @user
-
-    if @user.save
-      redirect_to admin_user_path(@user), :notice => "Successfully created admin/user."
-    else
+    if params[:user][:password].blank? || params[:user][:password] != params[:user][:password_confirmation]
+      @user.errors[:base] << "The password you entered is incorrect"
       render :action => 'new'
+    else
+      @user.send(:attributes=, params[:user], false)
+      if @user.save
+        redirect_to admin_users_url, :notice => "Successfully created user."
+      else
+        render :action => 'new'
+      end
     end
   end
 
@@ -64,9 +67,6 @@ class Admin::UsersController < ApplicationController
   # PUT /users/1.json                                            HTML AND AJAX
   #----------------------------------------------------------------------------
   def update
-    @user = User.find(params[:id])
-    authorize! :update, @user
-
     if params[:user][:password].blank?
       [:password, :password_confirmation, :current_password].collect { |p| params[:user].delete(p) }
     else
@@ -81,6 +81,7 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  private
   # Get roles accessible by the current user
   #----------------------------------------------------
   def accessible_roles
