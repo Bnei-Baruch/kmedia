@@ -1,4 +1,12 @@
 - title "Admin/Lesson"
+%p
+  = link_to_if can?(:update, @lesson), "Edit", edit_admin_lesson_path(@lesson) do
+    %a.unable Edit
+  &nbsp;|&nbsp;
+  = link_to_if can?(:destroy, @lesson), "Destroy", edit_admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete do
+    %a.unable Destroy
+  &nbsp;|&nbsp;
+  = link_to "View All", admin_lessons_path
 
 %p
   %strong id:
@@ -65,7 +73,7 @@
         %th(colspan=3) Actions
     - @lesson.assets.each do |asset|
       %tr(class="#{cycle('odd', 'even')}")
-        %td= asset.fileid
+        %td= link_to asset.fileid, asset.url
         %td= asset.filename
         %td= asset.created.try(:to_date)
         %td= asset.updated.try(:to_date)
@@ -82,6 +90,8 @@
 %p
   = link_to_if can?(:update, @lesson), "Edit", edit_admin_lesson_path(@lesson) do
     %a.unable Edit
+  &nbsp;|&nbsp;
   = link_to_if can?(:destroy, @lesson), "Destroy", edit_admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete do
     %a.unable Destroy
+  &nbsp;|&nbsp;
   = link_to "View All", admin_lessons_path

@@ -4,6 +4,8 @@ class Asset < ActiveRecord::Base
   has_and_belongs_to_many :lessons, :join_table => "lessonfiles", :foreign_key => "fileid",
                           :association_foreign_key => "lessonid", :order => "date(updated) DESC, lessonname ASC"
   has_many :asset_descriptions, :foreign_key => :fileid
+
+  belongs_to :server, :foreign_key => :servername, :primary_key => :servername
 #  attr_accessible :fileid, :filename, :created, :updated, :filedate, :filetype, :filelang, :filesize, :servername, :filestatus, :lastuser, :fileclicks
 
   before_create :create_timestamps
@@ -16,6 +18,10 @@ class Asset < ActiveRecord::Base
 
   def update_timestamps
     write_attribute :updated, Time.now
+  end
+
+  def url
+    server.httpurl + '/' + filename
   end
 
 end

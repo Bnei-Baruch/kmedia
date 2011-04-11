@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110410132936) do
+ActiveRecord::Schema.define(:version => 20110411085856) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -211,13 +211,16 @@ ActiveRecord::Schema.define(:version => 20110410132936) do
     t.integer "search_count", :default => 0,  :null => false
   end
 
-  create_table "servers", :primary_key => "servername", :force => true do |t|
+  create_table "servers", :force => true do |t|
+    t.string   "servername", :limit => 30, :default => "", :null => false
     t.string   "httpurl"
     t.datetime "created"
     t.datetime "updated"
-    t.string   "lastuser", :limit => 16
+    t.string   "lastuser",   :limit => 16
     t.string   "path"
   end
+
+  add_index "servers", ["servername"], :name => "index_servers_on_servername", :unique => true
 
   create_table "subscription", :force => true do |t|
     t.string "email",                     :default => "",    :null => false
