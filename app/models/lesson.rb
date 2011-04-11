@@ -8,7 +8,7 @@ class Lesson < ActiveRecord::Base
                           :association_foreign_key => "catalognodeid", :order => "catalognodename"
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
-  accepts_nested_attributes_for :lesson_descriptions
+  accepts_nested_attributes_for :lesson_descriptions, :reject_if => proc { |attributes| attributes['lessondesc'].blank? }
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
 
