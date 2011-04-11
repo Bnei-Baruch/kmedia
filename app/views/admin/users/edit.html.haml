@@ -4,8 +4,8 @@
 = simple_form_for([:admin, @user], :html => { :method => :put, :class => 'bp' }) do |f|
   = devise_error_messages!(@user, 'user')
   = render :partial => 'user_fields', :locals => { :f => f }
-  = f.input :password, :hint => "(leave blank if you don't want to change it)", :required => false
-  = f.input :password_confirmation
+  = f.input :password, :hint => "(leave blank if you don't want to change it)", :required => false, :input_html => {:autocomplete => 'off'}
+  = f.input :password_confirmation, :input_html => {:autocomplete => 'off'}
   = f.input :current_password, :hint => "(we need your current password to confirm your changes)"
   = f.button :submit
 %br
