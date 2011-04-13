@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110412094822) do
+ActiveRecord::Schema.define(:version => 20110413070403) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -150,7 +150,6 @@ ActiveRecord::Schema.define(:version => 20110412094822) do
   add_index "lessondesc", ["lessonid"], :name => "lessonid"
 
   create_table "lessondesc_patterns", :force => true do |t|
-    t.integer  "lessonid"
     t.string   "pattern"
     t.string   "description"
     t.string   "lang"
@@ -285,6 +284,8 @@ ActiveRecord::Schema.define(:version => 20110412094822) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name",                          :default => ""
+    t.string   "last_name",                           :default => ""
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

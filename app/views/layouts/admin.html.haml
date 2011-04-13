@@ -14,6 +14,8 @@
       
     = stylesheet_link_tag "token-input"
     = javascript_include_tag :defaults, "jquery.tokeninput"
+    - if Rails.env.development?
+      = javascript_include_tag 'live'
     = csrf_meta_tag
     = yield(:head)
 
