@@ -77,6 +77,7 @@ class Admin::LessonsController < ApplicationController
     @date = sp.date
     @language = sp.language
     @lecturer_id = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
+    @descriptions = sp.descriptions
   end
 
   private

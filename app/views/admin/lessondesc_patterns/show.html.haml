@@ -1,0 +1,18 @@
+- title "Admin/Lessondesc Pattern"
+
+%p
+  %strong Pattern:
+  = @lessondesc_pattern.pattern
+%p
+  %strong Description:
+  = @lessondesc_pattern.description
+%p
+  %strong Lang:
+  = @lessondesc_pattern.lang
+
+%p
+  = link_to "Edit", edit_admin_lessondesc_pattern_path(@lessondesc_pattern)
+  |
+  = link_to "Destroy", [:admin, @lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", admin_lessondesc_patterns_path

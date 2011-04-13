@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110411085856) do
+ActiveRecord::Schema.define(:version => 20110412094822) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -148,6 +148,15 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
   add_index "lessondesc", ["lessondesc", "descr"], :name => "lessondesc"
   add_index "lessondesc", ["lessondesc"], :name => "ld_name_idx"
   add_index "lessondesc", ["lessonid"], :name => "lessonid"
+
+  create_table "lessondesc_patterns", :force => true do |t|
+    t.integer  "lessonid"
+    t.string   "pattern"
+    t.string   "description"
+    t.string   "lang"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "lessonfiles", :id => false, :force => true do |t|
     t.integer "lessonid", :default => 0, :null => false

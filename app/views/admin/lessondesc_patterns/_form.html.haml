@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @lessondesc_pattern], :html => {:class => 'bp'} do |f|
+  = f.error_messages
+  = f.input :pattern
+  = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
+  = f.input :description, :as => :text
+  %p
+    = f.submit

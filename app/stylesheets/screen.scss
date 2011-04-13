@@ -119,6 +119,11 @@ nav.main{
     padding-left: 10px;
     border-left: 2px solid black;
   }
+  .secondary{
+    a{
+      font-size: 12px;
+    }
+  }
 }
 .current_user{
   float: left;
@@ -132,12 +137,33 @@ nav.main{
     font-weight:bold;
   }
 }
-.bp .user{
+.bp .user, .bp .lessondesc_pattern{
   label{
     display:block;
   }
   .hint{
     display:block;
     color:gray;
+  }
+  .field_with_errors input, .field_with_errors textarea{
+    border: 2px solid #FBC2C4;
+  }
+  .error{
+    margin-left:1em;
+    padding:0.4em;
+    position:relative;
+    top:9px;
+    vertical-align:top;
+  }
+}
+.error_messages{
+  border: 2px solid #FBC2C4;
+  background-color:#FBE3E4;
+  color:#8A1F11;
+  width:500px;
+  margin-bottom: 20px;
+  padding:10px;
+  h2{
+    color:#8A1F11 !important;
   }
 }

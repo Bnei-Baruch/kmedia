@@ -1,0 +1,19 @@
+- title "Admin/Lessondesc Patterns"
+
+%table.admin_table.bp
+  %thead
+    %tr
+      %th Pattern
+      %th Description
+      %th Lang
+      %th(colspan=3) Actions
+  - for lessondesc_pattern in @lessondesc_patterns
+    %tr(class="#{cycle('odd', 'even')}")
+      %td= lessondesc_pattern.pattern
+      %td= lessondesc_pattern.description
+      %td= lessondesc_pattern.lang
+      %td= link_to 'Show', [:admin, lessondesc_pattern]
+      %td= link_to 'Edit', edit_admin_lessondesc_pattern_path(lessondesc_pattern)
+      %td= link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New lesson description pattern", new_admin_lessondesc_pattern_path

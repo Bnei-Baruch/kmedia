@@ -18,4 +18,8 @@ class StringParser
   def lecturer_rav?
     @string =~ /^(rav_)|(_rav_)/
   end
+
+  def descriptions
+    LessondescPattern.pattern_matches(@string)
+  end
 end
