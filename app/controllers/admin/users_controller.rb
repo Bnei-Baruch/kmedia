@@ -75,6 +75,7 @@ class Admin::UsersController < ApplicationController
 
     if @user.errors[:base].empty?
       @user.send(:attributes=, params[:user], false)
+      @user.save
       redirect_to admin_user_path(@user), :notice => "Your account has been updated"
     else
       render :action => 'edit'

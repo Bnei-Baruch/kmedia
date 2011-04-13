@@ -10,14 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110411085856) do
+ActiveRecord::Schema.define(:version => 20110413070403) do
 
   create_table "answers", :id => false, :force => true do |t|
-    t.timestamp "datetime",                               :null => false
-    t.string    "ip",       :limit => 15, :default => "", :null => false
-    t.string    "qid",      :limit => 10, :default => "", :null => false
-    t.text      "qdata",                                  :null => false
-    t.string    "lang",     :limit => 3,  :default => "", :null => false
+    t.datetime "datetime",                               :null => false
+    t.string   "ip",       :limit => 15, :default => "", :null => false
+    t.string   "qid",      :limit => 10, :default => "", :null => false
+    t.text     "qdata",                                  :null => false
+    t.string   "lang",     :limit => 3,                  :null => false
   end
 
   create_table "banners", :force => true do |t|
@@ -35,8 +35,6 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
     t.datetime "updated"
   end
 
-  add_index "books", ["servername"], :name => "servername"
-
   create_table "booksdesc", :primary_key => "filedescid", :force => true do |t|
     t.integer  "fileid",                :default => 0, :null => false
     t.string   "filedesc"
@@ -44,8 +42,6 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
     t.datetime "created"
     t.datetime "updated"
   end
-
-  add_index "booksdesc", ["fileid"], :name => "fileid"
 
   create_table "catalognode", :primary_key => "catalognodeid", :force => true do |t|
     t.string   "catalognodename", :limit => 100, :default => "",  :null => false
@@ -86,7 +82,6 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
   end
 
   add_index "filedesc", ["filedesc"], :name => "fd_name_idx"
-  add_index "filedesc", ["fileid"], :name => "fileid"
 
   create_table "files", :primary_key => "fileid", :force => true do |t|
     t.string   "filename",   :limit => 150
@@ -103,12 +98,11 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
   end
 
   add_index "files", ["filename"], :name => "filename", :unique => true
-  add_index "files", ["servername"], :name => "servername"
-  add_index "files", ["updated"], :name => "updated"
 
-  create_table "filetypes", :primary_key => "typename", :force => true do |t|
+  create_table "filetypes", :id => false, :force => true do |t|
+    t.string "typename", :limit => 20, :default => "", :null => false
     t.string "extlist"
-    t.string "pic",     :limit => 20
+    t.string "pic",      :limit => 20
   end
 
   create_table "languages", :force => true do |t|
@@ -118,16 +112,16 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
   end
 
   create_table "lecturer", :primary_key => "lecturerid", :force => true do |t|
-    t.string   "lecturername", :limit => 100, :default => "", :null => false
+    t.string   "lecturername", :limit => 100,                :null => false
     t.datetime "created"
     t.datetime "updated"
-    t.integer  "ordnum",                      :default => 0,  :null => false
+    t.integer  "ordnum",                      :default => 0, :null => false
   end
 
   create_table "lecturerdesc", :primary_key => "lecturerdescid", :force => true do |t|
-    t.integer  "lecturerid",                  :default => 0,  :null => false
-    t.string   "lecturerdesc", :limit => 100, :default => "", :null => false
-    t.string   "lang",         :limit => 3,   :default => "", :null => false
+    t.integer  "lecturerid",                  :default => 0, :null => false
+    t.string   "lecturerdesc", :limit => 100,                :null => false
+    t.string   "lang",         :limit => 3,                  :null => false
     t.datetime "created"
     t.datetime "updated"
   end
@@ -145,7 +139,6 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
     t.text     "descr_flat"
   end
 
-  add_index "lessondesc", ["lessondesc", "descr"], :name => "lessondesc"
   add_index "lessondesc", ["lessondesc"], :name => "ld_name_idx"
   add_index "lessondesc", ["lessonid"], :name => "lessonid"
 
@@ -169,7 +162,8 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
   add_index "lessons", ["lessonname"], :name => "lessonname"
   add_index "lessons", ["lessonname"], :name => "lessonnameidx"
 
-  create_table "lessons_offline", :primary_key => "lessonid", :force => true do |t|
+  create_table "lessons_offline", :id => false, :force => true do |t|
+    t.integer "lessonid", :default => 0, :null => false
   end
 
   create_table "music", :primary_key => "fileid", :force => true do |t|
@@ -196,9 +190,9 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -222,46 +216,16 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
 
   add_index "servers", ["servername"], :name => "index_servers_on_servername", :unique => true
 
-  create_table "subscription", :force => true do |t|
-    t.string "email",                     :default => "",    :null => false
-    t.string "name",        :limit => 50, :default => "",    :null => false
-    t.string "rate",        :limit => 10, :default => "day"
-    t.date   "last"
-    t.date   "created"
-    t.string "ipcreated",   :limit => 15, :default => "",    :null => false
-    t.string "lang",        :limit => 3,  :default => "",    :null => false
-    t.string "valid",       :limit => 0,  :default => "N"
-    t.string "valcode",     :limit => 10, :default => "",    :null => false
-    t.string "lastsuccess", :limit => 0,  :default => "N"
-  end
-
-  add_index "subscription", ["email", "name"], :name => "email", :unique => true
-
-  create_table "subscription_backup", :force => true do |t|
-    t.string "email",                     :default => "",    :null => false
-    t.string "name",        :limit => 50, :default => "",    :null => false
-    t.string "rate",        :limit => 10, :default => "day"
-    t.date   "last"
-    t.date   "created"
-    t.string "ipcreated",   :limit => 15, :default => "",    :null => false
-    t.string "lang",        :limit => 3,  :default => "",    :null => false
-    t.string "valid",       :limit => 0,  :default => "N"
-    t.string "valcode",     :limit => 10, :default => "",    :null => false
-    t.string "lastsuccess", :limit => 0,  :default => "N"
-  end
-
-  add_index "subscription_backup", ["email", "name"], :name => "email", :unique => true
-
   create_table "tmp_access", :id => false, :force => true do |t|
     t.integer "cnt"
     t.string  "filename", :limit => 150
   end
 
   create_table "updated", :id => false, :force => true do |t|
-    t.string    "lang",  :limit => 3,        :default => "", :null => false
-    t.integer   "days",                      :default => 0,  :null => false
-    t.timestamp "ts",                                        :null => false
-    t.binary    "value", :limit => 16777215,                 :null => false
+    t.string   "lang",  :limit => 3,                :null => false
+    t.integer  "days",               :default => 0, :null => false
+    t.datetime "ts",                                :null => false
+    t.binary   "value",                             :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -276,6 +240,8 @@ ActiveRecord::Schema.define(:version => 20110411085856) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name",                          :default => ""
+    t.string   "last_name",                           :default => ""
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
