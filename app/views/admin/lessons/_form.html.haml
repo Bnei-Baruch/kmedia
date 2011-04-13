@@ -4,10 +4,10 @@
     = f.button :submit
   %hr.spacer
   .metadata
-    - if can? :edit_all_lesson_fields, @lesson
-      = link_to 'Automatic parsing', parse_lesson_name_admin_lesson_url(@lesson, :ts => Time.now.to_i), :remote => true, :class => 'auto-parse'
-    - else
+    - if @lesson.new_record? || cannot?(:edit_all_lesson_fields, @lesson)
       = link_to 'Automatic parsing', 'javascript:void(0);', :class => 'auto-parse unable'
+    - else
+      = link_to 'Automatic parsing', parse_lesson_name_admin_lesson_url(@lesson, :ts => Time.now.to_i), :remote => true, :class => 'auto-parse'
     = f.input :lessonname, :disabled => disabled
     = f.input :v_lessondate, :label => 'Date', :disabled => disabled
     = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --', :disabled => disabled

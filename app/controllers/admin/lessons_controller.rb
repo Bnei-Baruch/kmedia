@@ -18,11 +18,19 @@ class Admin::LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
+    @languages = Language.order('code3').all
+    @lecturers = Lecturer.all
+    @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
+    @languages.each{ |l|
+      @lesson.lesson_descriptions.build(:lang => l.code3)
+    }
+    @lesson_descriptions = sort_descriptions
   end
 
   def create
     @lesson = Lesson.new(params[:lesson])
     authorize! :create, @lesson
+
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/lesson."
     else
@@ -40,16 +48,7 @@ class Admin::LessonsController < ApplicationController
     @languages.each{ |l|
       @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
-    lesson_descriptions_main = {}
-    lesson_descriptions_all = []
-    @lesson.lesson_descriptions.each{|x|
-      if MAIN_DESCR_LANGS.include? x.lang
-        lesson_descriptions_main[x.lang] = x
-      else
-        lesson_descriptions_all << x
-      end
-    }
-    @lesson_descriptions = MAIN_DESCR_LANGS.map{|l| lesson_descriptions_main[l]} + lesson_descriptions_all.sort_by{|x| x.lang }
+    @lesson_descriptions = sort_descriptions
   end
 
   def update
@@ -78,5 +77,20 @@ class Admin::LessonsController < ApplicationController
     @date = sp.date
     @language = sp.language
     @lecturer_id = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
+  end
+
+  private
+
+  def sort_descriptions
+    lesson_descriptions_main = {}
+    lesson_descriptions_all = []
+    @lesson.lesson_descriptions.each{|x|
+      if MAIN_DESCR_LANGS.include? x.lang
+        lesson_descriptions_main[x.lang] = x
+      else
+        lesson_descriptions_all << x
+      end
+    }
+    MAIN_DESCR_LANGS.map{|l| lesson_descriptions_main[l]} + lesson_descriptions_all.sort_by{|x| x.lang }
   end
 end

@@ -11,7 +11,7 @@
     %th(colspan=3) Actions
   - @assets.each do |asset|
     %tr
-      %td= asset.fileid
+      %td= link_to asset.fileid, asset.url, :target => '_blank'
       %td= asset.filename
       %td= asset.created.try(:to_date)
       %td= asset.updated.try(:to_date)
