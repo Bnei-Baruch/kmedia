@@ -15,6 +15,8 @@ class Lesson < ActiveRecord::Base
 
 #  attr_accessible :lessonid, :lessonname, :created, :updated, :lessondate, :lang, :lecturerid, :secure
 
+  validates :lessonname, :lang, :lesson_descriptions, :catalogs, :presence => true
+
   before_create :create_timestamps
   before_update :update_timestamps
 
