@@ -1,32 +1,23 @@
-= form_for [:admin, @catalog] do |f|
+= simple_form_for [:admin, @catalog], :html => {:class => 'bp'} do |f|
   = f.error_messages
-  %p
-    = f.label :catalognodeid
-    %br
-    = f.text_field :catalognodeid
-  %p
-    = f.label :catalognodename
-    %br
-    = f.text_field :catalognodename
-  %p
-    = f.label :parentnodeid
-    %br
-    = f.text_field :parentnodeid
-  %p
-    = f.label :created
-    %br
-    = f.datetime_select :created
-  %p
-    = f.label :updated
-    %br
-    = f.datetime_select :updated
-  %p
-    = f.label :catorder
-    %br
-    = f.text_field :catorder
-  %p
-    = f.label :secure
-    %br
-    = f.text_field :secure
-  %p
-    = f.submit
+
+  - if @catalog.parentnodeid
+    = f.input :parentnodeid, :label => 'Parent',
+     :input_html => {"data-pre" => [{:id => @catalog.parent.catalognodeid, :name => @catalog.parent.catalognodename}].to_json}
+  - else
+    = f.input :parentnodeid, :label => 'Parent'
+  = f.input :catalognodename, :label => 'Name'
+
+  .descriptions
+    %div(class='all-langs')
+      %a(href="javsrcript:" onclick="$('.item-hidden').toggle(); $(this).text($(this).text() == 'Show less languages' ? 'Show more languages' : 'Show less languages'); return false;") Show more languages
+    - counter = 0
+    = f.simple_fields_for :catalog_descriptions, @catalog_descriptions do |descr_f|
+      %div(class = "item#{counter%3} #{counter >= 3 ? 'item-hidden' : ''}")
+        = descr_f.input :lang, :as => :hidden
+        = descr_f.label descr_f.object.language.to_s
+        %br
+        = descr_f.input :catalognodename, :as => :text, :label => false
+      - counter += 1
+
+  = f.button :submit

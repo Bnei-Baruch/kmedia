@@ -7,23 +7,30 @@
 %br
 %table.admin_table.bp
   %tr
-    %th Node ID
-    %th Node Name
-    %th Parent Node ID
+    %th Catalog
     %th Created
     %th Updated
-    %th Cat Order
     %th Secure
     %th(colspan=3) Actions
   - @catalogs.each do |catalog|
     %tr(class="#{cycle('odd', 'even')}")
-      %td= catalog.catalognodeid
-      %td= catalog.catalognodename.gsub(/\//, ' / ')
-      %td= catalog.parentnodeid
+      %td
+        - if catalog.parent
+          %span.small
+            = catalog.parent.catalognodename.gsub(/\//, ' / ')
+            (
+            = catalog.parentnodeid
+            ) /
+        %span.bold
+          = catalog.catalognodename.gsub(/\//, ' / ')
+          %span.small
+            (
+            = catalog.catalognodeid
+            )
       %td= catalog.created
       %td= catalog.updated
-      %td= catalog.catorder
-      %td= catalog.secure
+      - secure = SECURITY.select{|s| s[:level] == catalog.secure }.first[:name].downcase
+      %td= secure
       %td= link_to 'Show', [:admin, catalog]
       %td
         = link_to_if can?(:update, catalog), 'Edit', edit_admin_catalog_path(catalog) do

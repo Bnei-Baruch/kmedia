@@ -137,7 +137,7 @@ nav.main{
     font-weight:bold;
   }
 }
-.bp .user, .bp .lessondesc_pattern{
+.bp .user, .bp .lessondesc_pattern, .bp .catalog {
   label{
     display:block;
   }
@@ -166,4 +166,10 @@ nav.main{
   h2{
     color:#8A1F11 !important;
   }
+}
+.bold{
+  font-weight:bold;
+}
+.small{
+  font-size: smaller;
 }
