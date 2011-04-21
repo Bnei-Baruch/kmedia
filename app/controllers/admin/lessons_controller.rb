@@ -1,7 +1,8 @@
 class Admin::LessonsController < ApplicationController
   layout 'admin'
   before_filter :authenticate_user! #, :except => [:some_action_without_auth]
-  
+  before_filter :set_fields, :only => [:new, :create, :edit, :update]
+
   def index
     @filter = params[:filter]
     if @filter && @filter == 'all'
@@ -18,9 +19,6 @@ class Admin::LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
-    @languages = Language.order('code3').all
-    @lecturers = Lecturer.all
-    @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
     @languages.each{ |l|
       @lesson.lesson_descriptions.build(:lang => l.code3)
     }
@@ -30,10 +28,13 @@ class Admin::LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(params[:lesson])
     authorize! :create, @lesson
-
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/lesson."
     else
+      params[:lesson][:lesson_descriptions_attributes].each do |k, v|
+        @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
+      end
+      @lesson_descriptions =  sort_descriptions
       render :action => 'new'
     end
   end
@@ -41,9 +42,7 @@ class Admin::LessonsController < ApplicationController
   def edit
     @lesson = Lesson.find(params[:id])
     authorize! :edit, @lesson
-    @languages = Language.order('code3').all
-    @lecturers = Lecturer.all
-    @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
+
     lang_codes = @lesson.lesson_descriptions.map(&:lang)
     @languages.each{ |l|
       @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
@@ -54,12 +53,13 @@ class Admin::LessonsController < ApplicationController
   def update
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
-    params[:lesson][:lesson_descriptions_attributes].delete_if{ |k, v|
-      !v[:id] && v[:lessondesc].empty?
-    }
     if @lesson.update_attributes(params[:lesson])
       redirect_to admin_lesson_path(@lesson), :notice  => "Successfully updated admin/lesson."
     else
+      params[:lesson][:lesson_descriptions_attributes].each do |k, v|
+        @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
+      end
+      @lesson_descriptions =  sort_descriptions
       render :action => 'edit'
     end
   end
@@ -81,6 +81,11 @@ class Admin::LessonsController < ApplicationController
   end
 
   private
+  def set_fields
+    @languages = Language.order('code3').all
+    @lecturers = Lecturer.all
+    @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
+  end
 
   def sort_descriptions
     lesson_descriptions_main = {}
