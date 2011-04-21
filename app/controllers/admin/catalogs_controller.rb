@@ -47,7 +47,7 @@ class Admin::CatalogsController < ApplicationController
 
   def update
     if @catalog.update_attributes(params[:catalog])
-      redirect_to [:admin, @catalog], :notice => "Successfully updated catalog."
+      redirect_to admin_catalog_path(@catalog), :notice => "Successfully updated catalog."
     else
       render :action => 'edit'
     end

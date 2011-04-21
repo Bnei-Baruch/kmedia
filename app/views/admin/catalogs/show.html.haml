@@ -1,15 +1,42 @@
 - title "Admin/Catalog"
+%p
+  = link_to_if can?(:update, @catalog), "Edit", edit_admin_catalog_path(@catalog) do
+    %a.unable Edit
+  &nbsp;|&nbsp;
+  = link_to_if can?(:destroy, @catalog), "Destroy", edit_admin_lesson_path(@catalog), :confirm => 'Are you sure?', :method => :delete do
+    %a.unable Destroy
+  &nbsp;|&nbsp;
+  = link_to "View All", admin_catalogs_path
 
 %p
+  %strong Catalog:
   - if @catalog.parent
     = @catalog.parent.catalognodename
     (
     = @catalog.parentnodeid
     ) /
-  = @catalog.catalognodename
-  (
-  = @catalog.catalognodeid
-  )
+  %span.bold
+    = @catalog.catalognodename
+    (
+    = @catalog.catalognodeid
+    )
+%p
+  %strong Descriptions:
+  %table.admin_table
+    %thead
+      %tr
+        %th Language
+        %th Catalog Description
+        %th Created on
+        %th Updated on
+        %th ID
+    - @catalog.catalog_descriptions.each do |admin_catalog_desc|
+      %tr(class="#{cycle('odd', 'even')}")
+        %td= admin_catalog_desc.lang
+        %td= admin_catalog_desc.catalognodename
+        %td= admin_catalog_desc.created.try(:to_date)
+        %td= admin_catalog_desc.updated.try(:to_date)
+        %td= admin_catalog_desc.catalognodeid
 %p
   %strong Created:
   = @catalog.created
@@ -18,8 +45,10 @@
   = @catalog.updated
 
 %p
-  = link_to "Edit", edit_admin_catalog_path(@catalog)
-  |
-  = link_to "Destroy", [:admin, @catalog], :confirm => 'Are you sure?', :method => :delete
-  |
+  = link_to_if can?(:update, @catalog), "Edit", edit_admin_catalog_path(@catalog) do
+    %a.unable Edit
+  &nbsp;|&nbsp;
+  = link_to_if can?(:destroy, @catalog), "Destroy", edit_admin_lesson_path(@catalog), :confirm => 'Are you sure?', :method => :delete do
+    %a.unable Destroy
+  &nbsp;|&nbsp;
   = link_to "View All", admin_catalogs_path

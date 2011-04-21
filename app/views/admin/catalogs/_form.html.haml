@@ -1,12 +1,15 @@
 = simple_form_for [:admin, @catalog], :html => {:class => 'bp'} do |f|
   = f.error_messages
 
-  - if @catalog.parentnodeid
-    = f.input :parentnodeid, :label => 'Parent',
-     :input_html => {"data-pre" => [{:id => @catalog.parent.catalognodeid, :name => @catalog.parent.catalognodename}].to_json}
-  - else
-    = f.input :parentnodeid, :label => 'Parent'
-  = f.input :catalognodename, :label => 'Name'
+  .catalogs
+    .list
+      - if @catalog.parentnodeid
+        = f.input :parentnodeid, :label => 'Parent',
+         :input_html => {"data-pre" => [{:id => @catalog.parent.catalognodeid, :name => @catalog.parent.catalognodename}].to_json}
+      - else
+        = f.input :parentnodeid, :label => 'Parent'
+    = f.input :catalognodename, :label => 'Name'
+  %hr.spacer
 
   .descriptions
     %div(class='all-langs')
@@ -19,5 +22,5 @@
         %br
         = descr_f.input :catalognodename, :as => :text, :label => false
       - counter += 1
-
+  %hr.spacer
   = f.button :submit

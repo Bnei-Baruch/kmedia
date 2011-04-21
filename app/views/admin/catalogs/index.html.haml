@@ -27,8 +27,8 @@
             (
             = catalog.catalognodeid
             )
-      %td= catalog.created
-      %td= catalog.updated
+      %td.small= catalog.created
+      %td.small= catalog.updated
       - secure = SECURITY.select{|s| s[:level] == catalog.secure }.first[:name].downcase
       %td= secure
       %td= link_to 'Show', [:admin, catalog]
