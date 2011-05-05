@@ -6,3 +6,9 @@ log/*.log
 tmp/**/*
 config/database.yml
 .idea/
+*_core.*
+*_delta.*
+*.bat
+*.sphinx.conf
+*.jar
+*.pid

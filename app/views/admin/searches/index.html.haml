@@ -1,0 +1,58 @@
+- title "Search results for #{@results.send(:query)}"
+%div
+  = @results.results[:total_found]
+  records found in
+  = @results.results[:time]
+  seconds.
+  - if @results.results[:total_found] > @results.results[:total]
+    Only
+    = @results.results[:total]
+    were retrieved.
+%br
+= paginate @results
+%br
+%table.admin_table.bp
+  %thead
+    %tr
+      %th ID
+      %th Type
+      %th Name
+  - @results.each do |result|
+    - klass = result.class
+    %tr(class="#{cycle('odd', 'even')}")
+      - case
+      - when klass == Lesson
+        - lesson = result
+        %td= lesson.lessonid
+        %td= link_to klass, admin_lesson_path(lesson)
+        %td= lesson.lessonname
+      - when klass == LessonDescription
+        - lesson_description = result
+        %td= lesson_description.lessondescid
+        %td= link_to klass, admin_lesson_path(lesson_description.lesson)
+        %td
+          = lesson_description.lessondesc
+          (
+          = lesson_description.lang
+          )
+      - when klass == Catalog
+        - catalog = result
+        %td= result.catalognodeid
+        %td= link_to klass, admin_catalog_path(catalog)
+        %td
+          - if catalog.parent
+            %span.small
+              = catalog.parent.catalognodename.gsub(/\//, ' / ')
+              (
+              = catalog.parentnodeid
+              ) /
+          %span.bold
+            = catalog.catalognodename.gsub(/\//, ' / ')
+            %span.small
+              (
+              = catalog.catalognodeid
+              )
+
+%br
+= paginate @results
+%br

@@ -15,6 +15,7 @@ Kmedia::Application.routes.draw do
     resources :catalogs
     resources :users
     resources :lessondesc_patterns
+    resources :searches
   }
 
   # The priority is based upon order of creation:

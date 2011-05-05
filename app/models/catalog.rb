@@ -8,6 +8,14 @@ class Catalog < ActiveRecord::Base
   has_many :catalog_descriptions, :foreign_key => :catalognodeid
   accepts_nested_attributes_for :catalog_descriptions, :reject_if => proc { |attributes| attributes['catalogdesc'].blank? }
 
+  define_index do
+    indexes catalognodename
+
+    has secure
+
+    set_property :delta => true
+  end
+
   before_create :create_timestamps
   before_update :update_timestamps
 

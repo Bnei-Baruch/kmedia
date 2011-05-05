@@ -19,6 +19,7 @@ gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 
 gem "cancan"
 gem 'devise'
+gem 'thinking-sphinx', :git => 'git://github.com/freelancing-god/thinking-sphinx.git', :branch  => 'rails3'
 
 # Use unicorn as the web server
 # gem 'unicorn'

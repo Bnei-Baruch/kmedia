@@ -4,6 +4,10 @@
     (
     = current_user.roles.collect{|r| r.name}.join(', ')
     )
+= simple_form_for [:admin, @search || Search.new], :html => {:class => 'bp'} do |f|
+  = f.input :search, :label => false
+  = f.submit :Search
+
 %nav.main
   = link_to 'Lessons', admin_lessons_path
   = link_to_if can?(:update, User), 'Users', admin_users_path do

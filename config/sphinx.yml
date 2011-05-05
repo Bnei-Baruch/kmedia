@@ -1,0 +1,12 @@
+development:
+  allow_star: true
+  version: 0.9.9
+  bin_path: 'c:/program files/sphinx'
+  searchd_binary_name: 'searchd.exe'
+  indexer_binary_name: 'indexer.exe'
+  mem_limit: 128M
+
+production:
+  allow_star: true
+  version: 0.9.9
+  mem_limit: 128M
