@@ -60,6 +60,6 @@
     %span.unable Destroy
   = link_to "View All Files", admin_assets_path
   - if @asset.lessons.first
-    = link_to 'Show Lesson', admin_lesson_path(@asset.lessons.first) #TODO: Display table of lessons in case file can belong to multiple lessons
+    = link_to 'Show Container', admin_lesson_path(@asset.lessons.first) #TODO: Display table of lessons in case file can belong to multiple lessons
   - else
-    Has no Lesson
+    Has no Container

@@ -24,12 +24,12 @@
       - when klass == Lesson
         - lesson = result
         %td= lesson.lessonid
-        %td= link_to klass, admin_lesson_path(lesson)
+        %td= link_to 'Container', admin_lesson_path(lesson)
         %td= lesson.lessonname
       - when klass == LessonDescription
         - lesson_description = result
         %td= lesson_description.lessondescid
-        %td= link_to klass, admin_lesson_path(lesson_description.lesson)
+        %td= link_to 'Container_Description', admin_lesson_path(lesson_description.lesson)
         %td
           = lesson_description.lessondesc
           (

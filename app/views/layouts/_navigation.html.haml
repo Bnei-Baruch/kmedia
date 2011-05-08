@@ -9,11 +9,11 @@
   = f.submit :Search
 
 %nav.main
-  = link_to 'Lessons', admin_lessons_path
+  = link_to 'Containers', admin_lessons_path
   = link_to_if can?(:update, User), 'Users', admin_users_path do
     %a.unable Users
   = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
     %a.unable Catalogs
   .secondary
-    = link_to 'Lesson patterns', admin_lessondesc_patterns_path
+    = link_to 'Containers\' patterns', admin_lessondesc_patterns_path
     = link_to_if current_user, 'Logout', destroy_user_session_path

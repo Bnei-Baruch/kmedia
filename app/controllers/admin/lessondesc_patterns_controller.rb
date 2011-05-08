@@ -18,7 +18,7 @@ class Admin::LessondescPatternsController < ApplicationController
   def create
     @lessondesc_pattern = LessondescPattern.new(params[:lessondesc_pattern])
     if @lessondesc_pattern.save
-      redirect_to [:admin, @lessondesc_pattern], :notice => "Successfully created lessondesc pattern."
+      redirect_to [:admin, @lessondesc_pattern], :notice => "Successfully created Container Description pattern."
     else
       render :action => 'new'
     end
@@ -31,7 +31,7 @@ class Admin::LessondescPatternsController < ApplicationController
   def update
     @lessondesc_pattern = LessondescPattern.find(params[:id])
     if @lessondesc_pattern.update_attributes(params[:lessondesc_pattern])
-      redirect_to [:admin, @lessondesc_pattern], :notice  => "Successfully updated lessondesc pattern."
+      redirect_to [:admin, @lessondesc_pattern], :notice  => "Successfully updated Container Description pattern."
     else
       render :action => 'edit'
     end
@@ -40,7 +40,7 @@ class Admin::LessondescPatternsController < ApplicationController
   def destroy
     @lessondesc_pattern = LessondescPattern.find(params[:id])
     @lessondesc_pattern.destroy
-    redirect_to admin_lessondesc_patterns_url, :notice => "Successfully destroyed lessondesc pattern."
+    redirect_to admin_lessondesc_patterns_url, :notice => "Successfully destroyed Container Description pattern."
   end
 
   private

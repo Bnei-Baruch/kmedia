@@ -1,4 +1,4 @@
-- title "Admin/Lesson"
+- title "Admin/Container"
 %p
   = link_to_if can?(:update, @lesson), "Edit", edit_admin_lesson_path(@lesson) do
     %a.unable Edit
@@ -20,7 +20,7 @@
     %thead
       %tr
         %th Language
-        %th Lesson Description
+        %th Container Description
         %th Created on
         %th Updated on
         %th ID
@@ -38,7 +38,7 @@
   %strong Updated:
   = @lesson.updated
 %p
-  %strong Lesson date:
+  %strong Container date:
   = @lesson.lessondate
 %p
   %strong Language:
