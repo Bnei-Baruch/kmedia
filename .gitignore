@@ -12,3 +12,4 @@ config/database.yml
 *.sphinx.conf
 *.jar
 *.pid
+Gemfile.lock
