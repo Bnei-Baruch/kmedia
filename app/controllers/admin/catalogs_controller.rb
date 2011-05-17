@@ -23,6 +23,7 @@ class Admin::CatalogsController < ApplicationController
   end
 
   def new
+    @languages = Language.order('code3').all
     lang_codes = @catalog.catalog_descriptions.map(&:lang)
     @languages.each{ |l|
       @catalog.catalog_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
