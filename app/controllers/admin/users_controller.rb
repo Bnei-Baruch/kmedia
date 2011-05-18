@@ -70,7 +70,9 @@ class Admin::UsersController < ApplicationController
     if params[:user][:password].blank?
       [:password, :password_confirmation, :current_password].collect { |p| params[:user].delete(p) }
     else
-      @user.errors[:base] << "The password you entered is incorrect" unless @user.valid_password?(params[:user][:current_password])
+      @user.errors[:base] << "The password you entered is incorrect" unless @user.valid_password?(params[:user][:current_password]) || current_user.roles.include?(Role.find_by_name('SuperAdmin'))
+      @user.errors[:base] << "The password differs from confirmation" unless params[:user][:password] == params[:user][:password_confirmation]
+      params[:user].delete(:current_password)
     end
 
     if @user.errors[:base].empty?
