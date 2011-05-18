@@ -15,5 +15,6 @@
   = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
     %a.unable Catalogs
   .secondary
-    = link_to 'Containers\' patterns', admin_lessondesc_patterns_path
+    = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
+      %a.unable Containers' patterns
     = link_to_if current_user, 'Logout', destroy_user_session_path
