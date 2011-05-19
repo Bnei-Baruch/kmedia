@@ -10,5 +10,5 @@
   $('#lesson_lecturerid').val('#{@lecturer_id}');
   $('#lesson_lecturerid').siblings('label').css('color', 'red');
 - @descriptions.each do |pattern|
-  $('textarea.#{pattern.lang.downcase}').val('#{pattern.description}');
+  $('textarea.#{pattern.lang.downcase}').html("#{pattern.description}");
   $('textarea.#{pattern.lang.downcase}').parent().siblings('label').css('color', 'red');

@@ -21,6 +21,7 @@ class Ability
       can :update, Lesson
       can :edit_descriptions, Lesson
       can :edit_all_lesson_fields, Lesson
+      can :read, Catalog
     elsif user.role? :content_manager
       #- Content manager - Can edit descriptions only (in lesson edit)
       can :update, Lesson
