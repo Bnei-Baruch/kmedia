@@ -1,5 +1,4 @@
 class Admin::LessondescPatternsController < ApplicationController
-  layout 'admin'
   before_filter :authenticate_user! #, :except => [:some_action_without_auth]
   before_filter :common_set, :only => [:new, :create, :edit, :update]
 

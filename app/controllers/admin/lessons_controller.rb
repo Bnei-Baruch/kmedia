@@ -1,5 +1,4 @@
 class Admin::LessonsController < ApplicationController
-  layout 'admin'
   before_filter :authenticate_user! #, :except => [:some_action_without_auth]
   before_filter :set_fields, :only => [:new, :create, :edit, :update]
 

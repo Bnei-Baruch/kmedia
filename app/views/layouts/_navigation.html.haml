@@ -4,17 +4,19 @@
     (
     = current_user.roles.collect{|r| r.name}.join(', ')
     )
-= simple_form_for [:admin, @search || Search.new], :html => {:class => 'bp'} do |f|
-  = f.input :search, :label => false
-  = f.submit :Search
+  = simple_form_for [:admin, @search || Search.new], :html => {:class => 'bp'} do |f|
+    = f.input :search, :label => false
+    = f.submit :Search
 
-%nav.main
-  = link_to 'Containers', admin_lessons_path
-  = link_to_if can?(:update, User), 'Users', admin_users_path do
-    %a.unable Users
-  = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
-    %a.unable Catalogs
-  .secondary
-    = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
-      %a.unable Containers' patterns
-    = link_to_if current_user, 'Logout', destroy_user_session_path
+  %nav.main
+    = link_to_if can?(:update, Lesson), 'Containers', admin_users_path do
+      %a.unable Containers
+    = link_to_if can?(:update, User), 'Users', admin_users_path do
+      %a.unable Users
+    = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
+      %a.unable Catalogs
+    .secondary
+      = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
+        %a.unable Containers' patterns
+      = link_to_if current_user, 'Logout', destroy_user_session_path
+      
