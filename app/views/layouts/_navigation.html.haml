@@ -9,7 +9,7 @@
     = f.submit :Search
 
   %nav.main
-    = link_to_if can?(:update, Lesson), 'Containers', admin_containers_path do
+    = link_to_if can?(:update, Lesson), 'Containers', admin_lessons_path do
       %a.unable Containers
     = link_to_if can?(:update, User), 'Users', admin_users_path do
       %a.unable Users
