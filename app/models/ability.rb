@@ -17,8 +17,9 @@ class Ability
       cannot :update, User
       cannot :delete, User
     elsif user.role? :operator
-      #- Operator - Can edit lessons. Can not Create anything new
+      #- Operator - Can edit lessons. Can Create new container
       can :update, Lesson
+      can :create, Lesson
       can :edit_descriptions, Lesson
       can :edit_all_lesson_fields, Lesson
       can :read, Catalog
