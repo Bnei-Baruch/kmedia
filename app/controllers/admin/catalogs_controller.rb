@@ -26,6 +26,7 @@ class Admin::CatalogsController < ApplicationController
     @languages.each{ |l|
       @catalog.catalog_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
+    @catalog_descriptions = sort_descriptions
   end
 
   def create
@@ -42,6 +43,7 @@ class Admin::CatalogsController < ApplicationController
     @languages.each{ |l|
       @catalog.catalog_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
+    @catalog_descriptions = sort_descriptions
   end
 
   def update
@@ -56,4 +58,19 @@ class Admin::CatalogsController < ApplicationController
     @catalog.destroy
     redirect_to admin_catalogs_url, :notice => "Successfully destroyed catalog."
   end
+
+  private
+  def sort_descriptions
+    catalog_descriptions_main = {}
+    catalog_descriptions_all = []
+    @catalog.catalog_descriptions.each{|x|
+      if MAIN_DESCR_LANGS.include? x.lang
+        catalog_descriptions_main[x.lang] = x
+      else
+        catalog_descriptions_all << x
+      end
+    }
+    MAIN_DESCR_LANGS.map{|l| catalog_descriptions_main[l]} + catalog_descriptions_all.sort_by{|x| x.lang }
+  end
+  
 end
