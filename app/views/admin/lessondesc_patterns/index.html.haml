@@ -1,5 +1,9 @@
 - title "Admin/Container Description Patterns"
 
+%p= link_to "New Container Description pattern", new_admin_lessondesc_pattern_path
+
+= paginate @lessondesc_patterns
+%br
 %table.admin_table.bp
   %thead
     %tr
@@ -15,5 +19,9 @@
       %td= link_to 'Show', [:admin, lessondesc_pattern]
       %td= link_to 'Edit', edit_admin_lessondesc_pattern_path(lessondesc_pattern)
       %td= link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete
+
+%br
+= paginate @lessondesc_patterns
+%br
 
 %p= link_to "New Container Description pattern", new_admin_lessondesc_pattern_path
