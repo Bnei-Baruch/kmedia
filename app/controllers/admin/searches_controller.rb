@@ -3,18 +3,25 @@ class Admin::SearchesController < ApplicationController
 
   def index
     set_fields
-    a = 1
+    render(@results.error? ? :error : :index)
   end
 
   def create
     set_fields
-    render :index
+    render(@results.error? ? :error : :index)
   end
 
   private
   def set_fields
-    @search = Search.new(params[:search])
-    @results = ThinkingSphinx.search(params[:search][:search], :star => true, :match_mode => :extended, :page => params[:page], :per_page => 40)
+    if params[:search]
+      query = params[:search][:search]
+    else
+      query = ''
+    end
+    
+#    @search = Search.new(query)
+    @results = ThinkingSphinx.search(query, :star => true, :match_mode => :extended,
+                                     :ignore_errors => true, :page => params[:page], :per_page => 40)
   end
 
 end

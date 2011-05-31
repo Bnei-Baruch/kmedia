@@ -71,8 +71,8 @@ class Admin::LessonsController < ApplicationController
   end
 
   def parse_lesson_name
-    @lesson = Lesson.find(params[:id])
-    sp = ::StringParser.new @lesson.lessonname
+    lessonname = params[:name] || Lesson.find(params[:id]).lessonname
+    sp = ::StringParser.new lessonname
     @date = sp.date
     @language = sp.language
     @lecturer_id = Lecturer.rav.first.lecturerid if sp.lecturer_rav?

@@ -3,7 +3,7 @@ class Admin::LessondescPatternsController < ApplicationController
   before_filter :common_set, :only => [:new, :create, :edit, :update]
 
   def index
-    @lessondesc_patterns = LessondescPattern.page(params[:page]).per(50)
+    @lessondesc_patterns = LessondescPattern.order(:pattern).page(params[:page]).per(50)
   end
 
   def show

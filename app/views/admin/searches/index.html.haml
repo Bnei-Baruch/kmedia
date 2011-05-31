@@ -26,6 +26,17 @@
         %td= lesson.lessonid
         %td= link_to 'Container', admin_lesson_path(lesson)
         %td= lesson.lessonname
+      - when klass == LessondescPattern
+        - pattern = result
+        %td= pattern.id
+        %td= link_to 'Containers\' pattern', admin_lessondesc_pattern_path(pattern)
+        %td
+          = pattern.pattern
+          (
+          = pattern.lang
+          )(
+          = pattern.description
+          )
       - when klass == LessonDescription
         - lesson_description = result
         %td= lesson_description.lessondescid
