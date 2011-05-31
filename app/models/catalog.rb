@@ -6,7 +6,7 @@ class Catalog < ActiveRecord::Base
                           :association_foreign_key => "lessonid", :order => "lessonname ASC, date(updated) DESC"
 
   has_many :catalog_descriptions, :foreign_key => :catalognodeid
-  accepts_nested_attributes_for :catalog_descriptions, :reject_if => proc { |attributes| attributes['catalogdesc'].blank? }
+  accepts_nested_attributes_for :catalog_descriptions, :reject_if => proc { |attributes| attributes['catalognodename'].blank? }
 
   define_index do
     indexes catalognodename

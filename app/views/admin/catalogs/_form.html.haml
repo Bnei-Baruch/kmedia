@@ -1,4 +1,7 @@
 = simple_form_for [:admin, @catalog], :html => {:class => 'bp'} do |f|
+  %p.actions
+    = f.button :submit
+  %hr.spacer
   = f.error_messages
 
   .catalogs
