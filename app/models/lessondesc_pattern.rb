@@ -9,4 +9,13 @@ class LessondescPattern < ActiveRecord::Base
   scope :pattern_matches, lambda{ |string|
     where("'#{string}' regexp pattern")
   }
+
+  # ThinkingSphinx.search
+  define_index do
+    indexes pattern, :sortable => true
+    indexes description, :sortable => true
+
+    set_property :delta => true
+  end
+
 end
