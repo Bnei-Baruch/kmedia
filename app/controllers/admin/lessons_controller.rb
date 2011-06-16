@@ -12,7 +12,12 @@ class Admin::LessonsController < ApplicationController
   end
 
   def show
-    @lesson = Lesson.find(params[:id])
+    begin
+      @lesson = Lesson.find(params[:id])
+    rescue
+      redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
+      return
+    end
     @secure = SECURITY.select{|s| s[:level] == @lesson.secure }.first[:name]
   end
 
