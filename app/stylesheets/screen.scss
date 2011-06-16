@@ -14,6 +14,11 @@
 
 @import "compass/utilities/tables";
 
+#flash_alert{
+    background: none repeat scroll 0 0 #FBE3E4;
+    border-color: #FBC2C4;
+    color: #8A1F11;
+}
 #container{
   @include container;
 }

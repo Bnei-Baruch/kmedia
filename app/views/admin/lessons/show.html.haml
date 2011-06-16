@@ -3,7 +3,7 @@
   = link_to_if can?(:update, @lesson), "Edit", edit_admin_lesson_path(@lesson) do
     %a.unable Edit
   &nbsp;|&nbsp;
-  = link_to_if can?(:destroy, @lesson), "Destroy", edit_admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete do
+  = link_to_if can?(:destroy, @lesson), "Destroy", admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete do
     %a.unable Destroy
   &nbsp;|&nbsp;
   = link_to "View All", admin_lessons_path
@@ -91,7 +91,7 @@
   = link_to_if can?(:update, @lesson), "Edit", edit_admin_lesson_path(@lesson) do
     %a.unable Edit
   &nbsp;|&nbsp;
-  = link_to_if can?(:destroy, @lesson), "Destroy", edit_admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete do
+  = link_to_if can?(:destroy, @lesson), "Destroy", admin_lesson_path(@lesson), :confirm => 'Are you sure?', :method => :delete do
     %a.unable Destroy
   &nbsp;|&nbsp;
   = link_to "View All", admin_lessons_path

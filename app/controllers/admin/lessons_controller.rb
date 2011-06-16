@@ -12,7 +12,12 @@ class Admin::LessonsController < ApplicationController
   end
 
   def show
-    @lesson = Lesson.find(params[:id])
+    begin
+      @lesson = Lesson.find(params[:id])
+    rescue
+      redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
+      return
+    end
     @secure = SECURITY.select{|s| s[:level] == @lesson.secure }.first[:name]
   end
 
@@ -28,7 +33,7 @@ class Admin::LessonsController < ApplicationController
     @lesson = Lesson.new(params[:lesson])
     authorize! :create, @lesson
     if @lesson.save
-      redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/lesson."
+      redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/container."
     else
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
         @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
@@ -53,7 +58,7 @@ class Admin::LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
     if @lesson.update_attributes(params[:lesson])
-      redirect_to admin_lesson_path(@lesson), :notice  => "Successfully updated admin/lesson."
+      redirect_to admin_lesson_path(@lesson), :notice  => "Successfully updated admin/container."
     else
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
         @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
@@ -67,7 +72,7 @@ class Admin::LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize! :destroy, @lesson
     @lesson.destroy
-    redirect_to admin_lessons_url, :notice => "Successfully destroyed admin/lesson."
+    redirect_to admin_lessons_url, :notice => "Successfully destroyed admin/container."
   end
 
   def parse_lesson_name
