@@ -3,7 +3,7 @@
   = link_to_if can?(:update, @catalog), "Edit", edit_admin_catalog_path(@catalog) do
     %a.unable Edit
   &nbsp;|&nbsp;
-  = link_to_if can?(:destroy, @catalog), "Destroy", edit_admin_lesson_path(@catalog), :confirm => 'Are you sure?', :method => :delete do
+  = link_to_if can?(:destroy, @catalog), "Destroy", admin_catalog_path(@catalog), :confirm => 'Are you sure?', :method => :delete do
     %a.unable Destroy
   &nbsp;|&nbsp;
   = link_to "View All", admin_catalogs_path
@@ -48,7 +48,7 @@
   = link_to_if can?(:update, @catalog), "Edit", edit_admin_catalog_path(@catalog) do
     %a.unable Edit
   &nbsp;|&nbsp;
-  = link_to_if can?(:destroy, @catalog), "Destroy", edit_admin_lesson_path(@catalog), :confirm => 'Are you sure?', :method => :delete do
+  = link_to_if can?(:destroy, @catalog), "Destroy", admin_catalog_path(@catalog), :confirm => 'Are you sure?', :method => :delete do
     %a.unable Destroy
   &nbsp;|&nbsp;
   = link_to "View All", admin_catalogs_path
