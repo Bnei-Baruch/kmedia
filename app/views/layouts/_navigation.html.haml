@@ -7,7 +7,9 @@
   = simple_form_for [:admin, @search || Search.new], :html => {:class => 'bp'} do |f|
     = f.input :search, :label => false
     = f.submit :Search
-
+    %div(style="margin: -10px")
+      לצורך חיפוש מדוייק יש לרשום לפני ואחרי תוכן החיפוש *". לדוגמה:
+      <code style="direction: ltr; float: left; padding: 3px 10px;">"*clip_mi-shiur-boker*"</code>
   %nav.main
     = link_to_if can?(:update, Lesson), 'Containers', admin_lessons_path do
       %a.unable Containers
@@ -19,4 +21,3 @@
       = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
         %a.unable Containers' patterns
       = link_to_if current_user, 'Logout', destroy_user_session_path
-      
