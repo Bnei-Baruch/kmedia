@@ -6,7 +6,7 @@
     <%= f.label :keywords %><br />
     <%= f.text_field :keywords %>
   </p>
-  <p><%= f.submit %></p>
+  <p><%= f.submit 'Submit', :disable_with => 'Please wait...' %></p>
 <% end %>
 
 

@@ -6,7 +6,7 @@
     )
   = simple_form_for [:admin, @search || Search.new], :html => {:class => 'bp'} do |f|
     = f.input :search, :label => false
-    = f.submit :Search
+    = f.submit :Search, :disable_with => 'Please wait...'
     %div(style="margin: -10px")
       לצורך חיפוש מדוייק יש לרשום לפני ואחרי תוכן החיפוש *". לדוגמה:
       <code style="direction: ltr; float: left; padding: 3px 10px;">"*clip_mi-shiur-boker*"</code>
