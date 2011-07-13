@@ -45,7 +45,7 @@ class Lesson < ActiveRecord::Base
   columns_hash["v_lessondate"] = ActiveRecord::ConnectionAdapters::Column.new("v_lessondate", nil, "date")
 
   def v_lessondate
-    Date.strptime(lessondate, '%Y-%m-%d') rescue nil
+    Date.strptime(lessondate.to_s, '%Y-%m-%d') rescue nil
   end
 
   def v_lessondate=(my_date)
