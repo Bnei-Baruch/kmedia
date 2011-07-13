@@ -1,7 +1,7 @@
 - disabled = cannot? :edit_all_lesson_fields, @lesson
 = simple_form_for ['admin', @lesson], :html => {:class => 'bp'} do |f|
   %p.actions
-    = f.button :submit
+    = f.button :submit, :disable_with => 'Please wait...'
   %hr.spacer
   = f.error_messages
   .metadata
@@ -60,4 +60,4 @@
       - counter += 1
   %hr.spacer
   %p.actions
-    = f.button :submit
+    = f.button :submit, :disable_with => 'Please wait...'

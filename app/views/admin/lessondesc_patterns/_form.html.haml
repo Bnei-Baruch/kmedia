@@ -4,4 +4,4 @@
   = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
   = f.input :description, :as => :text
   %p
-    = f.submit
+    = f.submit 'Submit', :disable_with => 'Please wait...'

@@ -1,6 +1,6 @@
 = simple_form_for [:admin, @catalog], :html => {:class => 'bp'} do |f|
   %p.actions
-    = f.button :submit
+    = f.button :submit, :disable_with => 'Please wait...'
   %hr.spacer
   = f.error_messages
 
@@ -26,4 +26,4 @@
         = descr_f.input :catalognodename, :as => :text, :label => false
       - counter += 1
   %hr.spacer
-  = f.button :submit
+  = f.button :submit, :disable_with => 'Please wait...'

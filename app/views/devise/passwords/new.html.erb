@@ -6,7 +6,7 @@
   <p><%= f.label :email %><br />
   <%= f.email_field :email %></p>
 
-  <p><%= f.submit "Send me reset password instructions" %></p>
+  <p><%= f.submit "Send me reset password instructions", :disable_with => 'Please wait...' %></p>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
