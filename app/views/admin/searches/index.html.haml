@@ -40,7 +40,7 @@
       - when klass == LessonDescription
         - lesson_description = result
         %td= lesson_description.lessondescid
-        %td= link_to 'Container_Description', admin_lesson_path(lesson_description.lesson)
+        %td= link_to 'Container_Description', admin_lesson_path(lesson_description.lesson.id)
         %td
           = lesson_description.lessondesc
           (
