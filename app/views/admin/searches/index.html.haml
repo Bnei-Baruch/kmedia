@@ -21,6 +21,11 @@
     - klass = result.class
     %tr(class="#{cycle('odd', 'even')}")
       - case
+      - when klass == Asset
+        - asset = result
+        %td= asset.fileid
+        %td= link_to 'Asset', admin_asset_path(asset)
+        %td= "#{asset.filename} (#{asset.filesize})"
       - when klass == Lesson
         - lesson = result
         %td= lesson.lessonid

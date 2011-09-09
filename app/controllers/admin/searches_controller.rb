@@ -19,7 +19,6 @@ class Admin::SearchesController < ApplicationController
       query = ''
     end
     
-#    @search = Search.new(query)
     @results = ThinkingSphinx.search(query, :star => true, :match_mode => :extended,
                                      :ignore_errors => true, :page => params[:page], :per_page => 40)
   end

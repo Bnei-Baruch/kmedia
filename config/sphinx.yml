@@ -5,7 +5,7 @@ development:
   searchd_binary_name: 'searchd.exe'
   indexer_binary_name: 'indexer.exe'
   mem_limit: 128M
-  charset_table: "0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F,            \
+  charset_table: "0..9, A..Z->a..z, -, a..z, U+410..U+42F->U+430..U+44F,            \
     U+430..U+44F, U+FB1D->U+05D9, U+FB1F->U+05F2, U+FB20->U+05E2, U+FB21->U+05D0,   \
     U+FB22->U+05D3, U+FB23->U+05D4, U+FB24->U+05DB, U+FB25->U+05DC, U+FB26->U+05DD, \
     U+FB27->U+05E8, U+FB28->U+05EA, U+FB2A->U+05E9, U+FB2B->U+05E9, U+FB2C->U+05E9, \
@@ -22,7 +22,7 @@ production:
   allow_star: true
   version: 0.9.9
   mem_limit: 128M
-  charset_table: "0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F,            \
+  charset_table: "0..9, A..Z->a..z, -, a..z, U+410..U+42F->U+430..U+44F,            \
     U+430..U+44F, U+FB1D->U+05D9, U+FB1F->U+05F2, U+FB20->U+05E2, U+FB21->U+05D0,   \
     U+FB22->U+05D3, U+FB23->U+05D4, U+FB24->U+05DB, U+FB25->U+05DC, U+FB26->U+05DD, \
     U+FB27->U+05E8, U+FB28->U+05EA, U+FB2A->U+05E9, U+FB2B->U+05E9, U+FB2C->U+05E9, \

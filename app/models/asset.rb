@@ -6,7 +6,12 @@ class Asset < ActiveRecord::Base
   has_many :asset_descriptions, :foreign_key => :fileid
 
   belongs_to :server, :foreign_key => :servername, :primary_key => :servername
-#  attr_accessible :fileid, :filename, :created, :updated, :filedate, :filetype, :filelang, :filesize, :servername, :filestatus, :lastuser, :fileclicks
+
+  define_index do
+    indexes filename, :sortable => true
+
+    set_property :delta => true
+  end
 
   before_create :create_timestamps
   before_update :update_timestamps
