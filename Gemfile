@@ -6,7 +6,7 @@ gem 'jquery-rails'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'mysql'
 gem 'haml'
 gem 'sass', :tag => '3.0.24'
 gem 'kaminari' #for pagination
@@ -19,7 +19,8 @@ gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 
 gem "cancan"
 gem 'devise'
-gem 'thinking-sphinx', :git => 'git://github.com/freelancing-god/thinking-sphinx.git', :branch  => 'rails3'
+#gem 'thinking-sphinx', :git => 'git://github.com/freelancing-god/thinking-sphinx.git', :branch  => 'rails3'
+gem 'sunspot_rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
