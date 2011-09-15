@@ -5,12 +5,15 @@ class LessonDescription < ActiveRecord::Base
 
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
-  define_index do
-    indexes :lessondesc, :as => :description
-
-    set_property :delta => true
+  #define_index do
+  #  indexes :lessondesc, :as => :description
+  #
+  #  set_property :delta => true
+  #end
+  searchable do
+    text :lessondesc, :stored => true
   end
-  
+
   before_create :create_timestamps
   before_update :update_timestamps
   before_save :flattern_desc

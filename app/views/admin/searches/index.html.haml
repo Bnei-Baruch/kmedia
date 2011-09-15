@@ -1,15 +1,7 @@
-- title "Search results for #{@results.send(:query)}"
-%div
-  = @results.results[:total_found]
-  records found in
-  = @results.results[:time]
-  seconds.
-  - if @results.results[:total_found] > @results.results[:total]
-    Only
-    = @results.results[:total]
-    were retrieved.
+- title "Search results for #{@query}"
+%h4== Displaying posts #{(@search.results.current_page - 1) * @search.results.limit_value + 1} - #{[@search.results.current_page * @search.results.limit_value, @search.total].min} of #{@search.total}
 %br
-= paginate @results
+= paginate @search.hits, :window => 8
 %br
 %table.admin_table.bp
   %thead
@@ -17,7 +9,8 @@
       %th ID
       %th Type
       %th Name
-  - @results.each do |result|
+      %th Hits
+  - @search.each_hit_with_result do |hit, result|
     - klass = result.class
     %tr(class="#{cycle('odd', 'even')}")
       - case
@@ -45,7 +38,7 @@
       - when klass == LessonDescription
         - lesson_description = result
         %td= lesson_description.lessondescid
-        %td= link_to 'Container_Description', admin_lesson_path(lesson_description.lesson.id)
+        %td= link_to 'Container_Description', admin_lesson_path(lesson_description.lesson.id) if lesson_description.lesson
         %td
           = lesson_description.lessondesc
           (
@@ -68,7 +61,10 @@
               (
               = catalog.catalognodeid
               )
+      - else
+        %td(rowspan=3)= "Unknown: #{klass}"
+      %td= best_hit_description(hit)
 
 %br
-= paginate @results
+= paginate @search, :window => 8
 %br

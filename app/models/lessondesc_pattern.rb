@@ -11,11 +11,15 @@ class LessondescPattern < ActiveRecord::Base
   }
 
   # ThinkingSphinx.search
-  define_index do
-    indexes pattern, :sortable => true
-    indexes description, :sortable => true
-
-    set_property :delta => true
+  #define_index do
+  #  indexes pattern, :sortable => true
+  #  indexes description, :sortable => true
+  #
+  #  set_property :delta => true
+  #end
+  searchable do
+    text :pattern, :stored => true
+    text :description, :stored => true
   end
 
 end

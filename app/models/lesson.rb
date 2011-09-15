@@ -24,12 +24,16 @@ class Lesson < ActiveRecord::Base
   scope :need_update, where("date(created) > '2011-03-01' and (lessondate is null or lang is null or lang = '' or (select count(1) from lessondesc where lessondesc.lessonid = lessons.lessonid and lang in('HEB', 'ENG', 'RUS') and length(lessondesc) > 0 ) = 0 or (select count(1) from catnodelessons where catnodelessons.lessonid = lessons.lessonid) = 0)")
 
   # ThinkingSphinx.search('sefer|zohar', :star => true, :match_mode => :extended, :page => params[:page], :per_page => 10)
-  define_index do
-    indexes lessonname, :sortable => true
-    
-    has secure
-
-    set_property :delta => true
+  #define_index do
+  #  indexes lessonname, :sortable => true
+  #
+  #  has secure
+  #
+  #  set_property :delta => true
+  #end
+  searchable do
+    text :lessonname, :stored => true
+    boolean :secure
   end
 
   def create_timestamps

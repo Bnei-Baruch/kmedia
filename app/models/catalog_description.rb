@@ -8,6 +8,10 @@ class CatalogDescription < ActiveRecord::Base
   before_create :create_timestamps
   before_update :update_timestamps
 
+  searchable do
+    text :catalognodename, :stored => true
+  end
+
   def create_timestamps
     write_attribute :created, Time.now
     write_attribute :updated, Time.now

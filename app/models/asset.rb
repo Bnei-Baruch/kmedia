@@ -7,10 +7,13 @@ class Asset < ActiveRecord::Base
 
   belongs_to :server, :foreign_key => :servername, :primary_key => :servername
 
-  define_index do
-    indexes filename, :sortable => true
-
-    set_property :delta => true
+  #define_index do
+  #  indexes filename, :sortable => true
+  #
+  #  set_property :delta => true
+  #end
+  searchable do
+    text :filename, :stored => true
   end
 
   before_create :create_timestamps
