@@ -9,7 +9,6 @@
       %th ID
       %th Type
       %th Name
-      %th Hits
   - @search.each_hit_with_result do |hit, result|
     - klass = result.class
     %tr(class="#{cycle('odd', 'even')}")
@@ -63,7 +62,6 @@
               )
       - else
         %td(rowspan=3)= "Unknown: #{klass}"
-      %td= best_hit_description(hit)
 
 %br
 = paginate @search, :window => 8
