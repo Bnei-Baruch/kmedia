@@ -1,1 +1,7 @@
-- title "Error searching results for <#{@query}>"
+- if (@search.class == Array && @search.empty?) || (@search.respond_to?(:results) && @search.results.empty?)
+  - title "Nothing found for <#{@query}>"
+- elsif @search.class == String
+  - title "Error looking for <#{@query}>"
+  = @search
+- else
+  - title "Error searching results for <#{@query}>"

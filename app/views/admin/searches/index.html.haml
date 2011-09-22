@@ -37,11 +37,28 @@
       - when klass == LessonDescription
         - lesson_description = result
         %td= lesson_description.lessondescid
-        %td= link_to 'Container_Description', admin_lesson_path(lesson_description.lesson.id) if lesson_description.lesson
+        %td
+          - if lesson_description.lesson
+            = link_to 'Lesson_Description', admin_lesson_path(lesson_description.lesson.id)
+          - else
+            Lesson Description
         %td
           = lesson_description.lessondesc
           (
           = lesson_description.lang
+          )
+      - when klass == CatalogDescription
+        - catalog_description = result
+        %td= catalog_description.catnodedescid
+        %td
+          - if catalog_description.catalog
+            = link_to 'Catalog Description', admin_catalog_path(catalog_description.catalog.id)
+          - else
+            Catalog Description
+        %td
+          = catalog_description.catalognodename
+          (
+          = catalog_description.lang
           )
       - when klass == Catalog
         - catalog = result
@@ -61,7 +78,7 @@
               = catalog.catalognodeid
               )
       - else
-        %td(rowspan=3)= "Unknown: #{klass}"
+        %td(colspan=3)= "Unknown: #{klass}"
 
 %br
 = paginate @search, :window => 8
