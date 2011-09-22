@@ -6,7 +6,7 @@ gem 'jquery-rails'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql'
+gem 'mysql2', '0.2.7'
 gem 'haml'
 gem 'sass', :tag => '3.0.24'
 gem 'kaminari' #for pagination
