@@ -1,4 +1,4 @@
-- title "Search results for #{@query}"
+- title "Search results for <#{@query}>"
 %h4== Displaying posts #{(@search.results.current_page - 1) * @search.results.limit_value + 1} - #{[@search.results.current_page * @search.results.limit_value, @search.total].min} of #{@search.total}
 %br
 = paginate @search.hits, :window => 8
