@@ -21,6 +21,8 @@ gem "cancan"
 gem 'devise'
 #gem 'thinking-sphinx', :git => 'git://github.com/freelancing-god/thinking-sphinx.git', :branch  => 'rails3'
 gem 'sunspot_rails'
+gem 'sunspot_solr'
+gem 'progress_bar'
 
 # Use unicorn as the web server
 # gem 'unicorn'
