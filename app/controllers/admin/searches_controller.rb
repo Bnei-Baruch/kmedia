@@ -11,7 +11,7 @@ class Admin::SearchesController < ApplicationController
   private
   def set_fields
     if params[:search]
-      @query = params[:search][:search].gsub(/[-_]/, ' ')
+      @query = "#{params[:search][:search]}"
     else
       @query = ''
     end
@@ -19,7 +19,7 @@ class Admin::SearchesController < ApplicationController
     return false if @query.empty?
     begin
       @search = Sunspot.search(Asset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern) do |query|
-        query.keywords @query, :highlight => true
+        query.fulltext @query, :highlight => true
         query.paginate :page => params[:page], :per_page => 40
         #query.with(:secure, true)
       end
