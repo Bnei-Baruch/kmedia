@@ -66,21 +66,19 @@
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer-->
 	  <analyzer type="index">
-	    <tokenizer class="solr.KeywordTokenizerFactory"/>
+	    <tokenizer class="solr.PatternTokenizerFactory" pattern="[-_.]"/>
 	    <filter class="solr.StandardFilterFactory"/>
 	    <filter class="solr.LowerCaseFilterFactory"/>
-	    <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
 	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
 	    <filter class="solr.TrimFilterFactory" />
 	    <filter class="solr.NGramFilterFactory"
 	      minGramSize="2"
-	      maxGramSize="150"/>
+	      maxGramSize="30"/>
 	  </analyzer>
 	  <analyzer type="query">
-	    <tokenizer class="solr.StandardTokenizerFactory"/>
+	    <tokenizer class="solr.PatternTokenizerFactory" pattern="[-_.]"/>
 	    <filter class="solr.StandardFilterFactory"/>
 	    <filter class="solr.LowerCaseFilterFactory"/>
-	    <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
 	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
 	    <filter class="solr.TrimFilterFactory" />
 	  </analyzer>

@@ -11,7 +11,7 @@ class Admin::SearchesController < ApplicationController
   private
   def set_fields
     if params[:search]
-      @query = "#{params[:search][:search]}"
+      @query = "#{params[:search][:search]}".gsub(/[_\-.]/, ' ')
     else
       @query = ''
     end
