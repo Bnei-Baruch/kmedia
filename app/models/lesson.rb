@@ -9,13 +9,27 @@ class Lesson < ActiveRecord::Base
                           :association_foreign_key => "catalognodeid", :order => "catalognodename"
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
-  accepts_nested_attributes_for :lesson_descriptions, :reject_if => proc { |attributes| attributes['lessondesc'].blank? }
+  accepts_nested_attributes_for :lesson_descriptions
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
 
 #  attr_accessible :lessonid, :lessonname, :created, :updated, :lessondate, :lang, :lecturerid, :secure
 
-  validates :lessonname, :lang, :lesson_descriptions, :catalogs, :presence => true
+  validates :lessonname, :lang, :catalogs, :presence => true
+
+  class NonemptyValidator < ActiveModel::Validator
+    #, :fields => [:lesson_descriptions]
+    def validate(record)
+      # At least ENG, RUS and HEB must be non-empty
+      lds = {}
+      record.lesson_descriptions.map{|x| lds[x.lang] = x.lessondesc}
+      if lds['ENG'].blank? || lds['RUS'].blank? || lds['HEB'].blank?
+        record.errors[:base] << "Empty Basic Description(s)"
+        return
+      end
+    end
+  end
+  validates_with NonemptyValidator
 
   before_create :create_timestamps
   before_update :update_timestamps
@@ -61,11 +75,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def rss
-    ! (self.catalog_ids & RSS_CATEGORIES.map{|e| e[:id] }).empty?
+    !(self.catalog_ids & RSS_CATEGORIES.map { |e| e[:id] }).empty?
   end
 
   def rss=(value)
-    if value == "1" && (self.catalog_ids & RSS_CATEGORIES.map{|e| e[:id] }).empty?
+    if value == "1" && (self.catalog_ids & RSS_CATEGORIES.map { |e| e[:id] }).empty?
       catalogs << Catalog.find(RSS_CATEGORIES[0][:id])
     end
   end
