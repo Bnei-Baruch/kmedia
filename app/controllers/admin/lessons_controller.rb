@@ -1,6 +1,6 @@
 class Admin::LessonsController < ApplicationController
   before_filter :authenticate_user! #, :except => [:some_action_without_auth]
-  before_filter :set_fields, :only => [:new, :create, :edit, :update]
+  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr]
 
   def index
     @filter = params[:filter]
@@ -59,6 +59,31 @@ class Admin::LessonsController < ApplicationController
     authorize! :update, @lesson
     if @lesson.update_attributes(params[:lesson])
       redirect_to admin_lesson_path(@lesson), :notice  => "Successfully updated admin/container."
+    else
+      params[:lesson][:lesson_descriptions_attributes].each do |k, v|
+        @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
+      end
+      @lesson_descriptions =  sort_descriptions
+      render :action => 'edit'
+    end
+  end
+
+  def edit_long_descr
+    @lesson = Lesson.find(params[:id])
+    authorize! :edit, @lesson
+
+    lang_codes = @lesson.lesson_descriptions.map(&:lang)
+    @languages.each{ |l|
+      @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
+    }
+    @lesson_descriptions = sort_descriptions
+  end
+
+  def update_long_descr
+    @lesson = Lesson.find(params[:id])
+    authorize! :update, @lesson
+    if @lesson.update_attributes(params[:lesson])
+      redirect_to admin_lesson_path(@lesson), :notice  => "Successfully updated contaner description."
     else
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
         @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?

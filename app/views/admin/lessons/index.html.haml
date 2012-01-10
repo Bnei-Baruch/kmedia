@@ -18,7 +18,7 @@
       %th Updated
       %th Language
       %th Secure
-      %th(colspan=3) Actions
+      %th(colspan=4) Actions
   - @lessons.each do |lesson|
     - secure = SECURITY.select{|s| s[:level] == lesson.secure }.first[:name].downcase
     %tr(class="#{cycle('odd', 'even')} #{secure}")
@@ -32,6 +32,9 @@
       %td
         = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Edit', edit_admin_lesson_path(lesson) do
           .unable Edit
+      %td
+        = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Long Description', edit_long_descr_admin_lesson_path(lesson) do
+          .unable Long Description
       %td
         = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete do
           .unable Destroy

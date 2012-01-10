@@ -2,6 +2,7 @@
 = simple_form_for ['admin', @lesson], :html => {:class => 'bp'} do |f|
   %p.actions
     = f.button :submit, :disable_with => 'Please wait...'
+    = link_to :cancel, :back
   %hr.spacer
   = f.error_messages
   .metadata
@@ -61,3 +62,4 @@
   %hr.spacer
   %p.actions
     = f.button :submit, :disable_with => 'Please wait...'
+    = link_to :cancel, :back

@@ -12,6 +12,7 @@ class LessonDescription < ActiveRecord::Base
   #end
   searchable do
     text :lessondesc, :stored => true
+    text :descr, :stored => true
   end
 
   before_create :create_timestamps
@@ -29,6 +30,7 @@ class LessonDescription < ActiveRecord::Base
 
   def flattern_desc
     write_attribute :lessondesc_flat, self.lessondesc.downcase if self.lessondesc
+    write_attribute :descr_flat, self.descr.downcase if self.descr
   end
 
   def self.find_by_id(*args, &block)

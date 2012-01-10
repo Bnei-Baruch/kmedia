@@ -9,6 +9,8 @@ Kmedia::Application.routes.draw do
     resources :lessons do
       member do
         get 'parse_lesson_name'
+        get 'edit_long_descr'
+        put 'update_long_descr'
       end
     end
     resources :assets
