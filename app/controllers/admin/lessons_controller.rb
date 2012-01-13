@@ -23,6 +23,7 @@ class Admin::LessonsController < ApplicationController
 
   def new
     @lesson = Lesson.new
+    @lesson.catalogs << Catalog.find_by_catalognodename('Video') # Add it to RSS by default
     @languages.each{ |l|
       @lesson.lesson_descriptions.build(:lang => l.code3)
     }
