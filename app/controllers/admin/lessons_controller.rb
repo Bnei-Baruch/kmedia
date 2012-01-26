@@ -1,6 +1,6 @@
-class Admin::LessonsController < ApplicationController
-  before_filter :authenticate_user! #, :except => [:some_action_without_auth]
+class Admin::LessonsController < Admin::ApplicationController
   before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr]
+
 
   def index
     @filter = params[:filter]

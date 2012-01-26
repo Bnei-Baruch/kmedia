@@ -1,11 +1,12 @@
-class Admin::SearchesController < Admin::ApplicationController
+class SearchesController < ApplicationController
 
   def index
+    @search = Search.new
     success = set_fields
-    render((!success || @search.results.empty?) ? :error : :index)
+    @kuku = success
+    #render((!success || @search.results.empty?) ? :error : :index)
   end
 
-  alias_method :create, :index
 
   private
   def set_fields
@@ -14,18 +15,18 @@ class Admin::SearchesController < Admin::ApplicationController
     else
       @query = ''
     end
-    @search = []
+    @results = []
     return false if @query.empty?
     begin
-      @search = Sunspot.search(Asset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern) do |query|
+      @results = Sunspot.search(Asset, Catalog, CatalogDescription, Lesson, LessonDescription) do |query|
         query.fulltext @query, :highlight => true
-        query.paginate :page => params[:page], :per_page => 40
-        #query.with(:secure, true)
+        query.paginate :page => params[:page], :per_page => 50000
+        query.with(:secure, 0)
       end
     rescue Net::HTTPFatalError => e
       if e.data.kind_of?(Net::HTTPInternalServerError)
         if /<h1>([^\n]+)\n/ =~ e.data.body
-          @search = "---- Solr exception -----#{$1}"
+          @results = "---- Solr exception -----#{$1}"
         end
       end
       return false

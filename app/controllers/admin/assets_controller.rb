@@ -1,4 +1,4 @@
-class Admin::AssetsController < ApplicationController
+class Admin::AssetsController < Admin::ApplicationController
   def index
     @assets = Asset.page(params[:page])
   end

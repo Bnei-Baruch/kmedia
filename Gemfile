@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '3.0.10'
 gem 'jquery-rails'
 
 # Bundle edge Rails instead:
@@ -43,11 +43,10 @@ gem 'progress_bar'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem "ruby-debug"
-  gem "ruby-debug-base"
+  gem "ruby-debug-base19x"
   gem "ruby-debug-ide"
   gem "nifty-generators"
-  gem 'mongrel'
+  gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
 end
 
 gem "mocha", :group => :test
