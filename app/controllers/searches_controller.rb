@@ -2,9 +2,8 @@ class SearchesController < ApplicationController
 
   def index
     @search = Search.new
-    success = set_fields
-    @kuku = success
-    #render((!success || @search.results.empty?) ? :error : :index)
+    @success = set_fields
+    #render((!success || @results.results.empty?) ? :error : :index)
   end
 
 
@@ -20,7 +19,7 @@ class SearchesController < ApplicationController
     begin
       @results = Sunspot.search(Asset, Catalog, CatalogDescription, Lesson, LessonDescription) do |query|
         query.fulltext @query, :highlight => true
-        query.paginate :page => params[:page], :per_page => 50000
+        query.paginate :page => params[:page], :per_page => 30
         query.with(:secure, 0)
       end
     rescue Net::HTTPFatalError => e
