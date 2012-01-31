@@ -1,3 +1,8 @@
+//= require jquery
+//= require jquery_ujs
+//= require_self
+//= require_tree .
+
 $(function() {
     $("#lesson_catalog_tokens").tokenInput("/admin/catalogs.json", {
         crossDomain: false,

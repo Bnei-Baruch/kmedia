@@ -1,12 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.1.2'
 gem 'jquery-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2', '0.2.7'
+gem 'mysql2', '>= 0.3'
+
 gem 'haml'
 gem 'sass', :tag => '3.0.24'
 gem 'kaminari' #for pagination
@@ -50,3 +51,11 @@ group :development, :test do
 end
 
 gem "mocha", :group => :test
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', "~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
