@@ -56,4 +56,20 @@ puts '--> Users'
   user.roles << Role.find_by_name(e[:role])
 }
 
+puts '--> Container Types'
+[
+    {:name => 'Program', :pattern => 'program'},
+    {:name => 'Short clip', :pattern => 'clip'},
+    {:name => 'Song', :pattern => 'song'},
+    {:name => 'Lesson', :pattern => 'lesson'},
+    {:name => 'Lecture', :pattern => 'lecture'},
+    {:name => 'Book', :pattern => 'book'},
+    {:name => 'Declamation', :pattern => 'declamation'},
+    {:name => 'Audio Disk', :pattern => 'audiodisk'},
+    {:name => 'Video Disk', :pattern => 'videodisk'},
+    {:name => 'Text', :pattern => 'text'},
+    {:name => 'Transcript', :pattern => 'tamlil'},
+    {:name => 'Magazine', : pattern => 'magazine'},
+].each{|r| ContainerType.find_or_create_by_pattern(r)}
+
 puts '--> Done'

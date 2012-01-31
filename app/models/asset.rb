@@ -14,6 +14,7 @@ class Asset < ActiveRecord::Base
   #end
   searchable do
     text :filename, :stored => true
+    #integer :lesson_ids, :multiple => true, :references => Lesson
   end
 
   before_create :create_timestamps
@@ -32,4 +33,7 @@ class Asset < ActiveRecord::Base
     server.httpurl + '/' + filename
   end
 
+  def typename
+    FileType.ext_to_type(filetype)
+  end
 end

@@ -1,8 +1,13 @@
 class Lesson < ActiveRecord::Base
   set_primary_key :lessonid
   has_many :lessondesc_patterns, :foreign_key => :lessonid
-  has_many :lesson_descriptions, :foreign_key => :lessonid
+  has_many :lesson_descriptions, :foreign_key => :lessonid do
+    def by_language(code3)
+      where(:lang => code3)
+    end
+  end
   belongs_to :lecturer, :foreign_key => :lecturerid
+  belongs_to :container_type
   has_and_belongs_to_many :assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
                           :association_foreign_key => "fileid", :order => "date(updated) DESC, filename ASC"
   has_and_belongs_to_many :catalogs, :join_table => "catnodelessons", :foreign_key => "lessonid",
@@ -46,8 +51,30 @@ class Lesson < ActiveRecord::Base
   #  set_property :delta => true
   #end
   searchable do
-    text :lessonname, :stored => true
-    boolean :secure
+    text :lessonname
+    text :lessondesc, :as => :user_text do
+      lesson_descriptions.select([:lessondesc, :descr]).map(&:lessondesc).join(' ')
+    end
+    text :descr, :as => :user_text do
+      lesson_descriptions.select([:lessondesc, :descr]).map(&:descr).join(' ')
+    end
+
+    integer :secure
+    integer :container_type_id
+
+    string :file_language_ids, :multiple => true do
+      assets.select('distinct filelang').map(&:filelang)
+    end
+
+    string :media_type_ids, :multiple => true do
+      assets.select('distinct filetype').map(&:filetype)
+    end
+
+    integer :catalog_ids, :multiple => true
+
+    time :lessondate
+    time :created
+    time :updated
   end
 
   def create_timestamps

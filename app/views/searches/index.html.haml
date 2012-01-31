@@ -1,69 +1,32 @@
 = simple_form_for @search, :html => {:class => 'bp', :method => :get} do |f|
-  = f.input :search, :label => false
+  = f.input :query_string, :label => false, :placeholder => 'Enter parts of keywords to search for...'
+  -#= f.submit :Reset
   = f.submit :Search, :disable_with => 'Please wait...'
+  %br
+  = f.input :language_ids, :collection => languages_to_list, :as => :check_boxes, :label => 'Language: '
+  %br
+  = f.input :container_type_ids, :collection => content_types_to_list, :as => :check_boxes, :label => 'Content type: '
+  %br
+  = f.input :file_type_ids, :collection => file_type_ids_to_list, :as => :check_boxes, :label => 'File type: '
+  %br
+  = f.input :catalog_id, :label => 'Catalog ID: '
+  %br
+  = f.input :date_from, :label => 'From: ' #, :as => :date, :order => [:day, :month, :year]
+  = f.input :date_to, :label => 'To: ' #, :as => :date, :order => [:day, :month, :year]
 
-- if @success
-  %h4.clear== Displaying data #{(@results.results.current_page - 1) * @results.results.limit_value + 1} - #{[@results.results.current_page * @results.results.limit_value, @results.total].min} of #{@results.total}
+.clear
+- if !@results || @results.results.empty?
+  No results
+- else
+  %h4.clear== Results #{(@results.results.current_page - 1) * @results.results.limit_value + 1} - #{[@results.results.current_page * @results.results.limit_value, @results.total].min} of #{@results.total}
   = paginate @results.hits, :window => 8
 
-%table
-  - if !@success || @results.results.empty?
-    %tr
-      %td No results
-  - else
-    - @results.each_hit_with_result do |hit, result|
-      - klass = result.class
-      %tr(class="#{cycle('odd', 'even')}")
-        - case
-        - when klass == Asset
-          - asset = result
-          %td= asset.fileid
-          %td= link_to 'Asset', admin_asset_path(asset)
-          %td= "#{hit.stored(:filename)[0]} (#{asset.filesize})"
-        - when klass == Lesson
-          - lesson = result
-          %td= lesson.lessonid
-          %td= link_to 'Container', admin_lesson_path(lesson)
-          %td= hit.stored(:lessonname)[0]
-        - when klass == LessonDescription
-          - lesson_description = result
-          %td= lesson_description.lessondescid
-          %td
-            - if lesson_description.lesson
-              = link_to 'Lesson_Description', admin_lesson_path(lesson_description.lesson.id)
-            - else
-              Lesson Description
-          %td
-            = hit.stored(:lessondesc)[0]
-            (
-            = lesson_description.lang
-            )
-        - when klass == CatalogDescription
-          - catalog_description = result
-          %td= catalog_description.catnodedescid
-          %td
-            - if catalog_description.catalog
-              = link_to 'Catalog Description', admin_catalog_path(catalog_description.catalog.id)
-            - else
-              Catalog Description
-          %td
-            = hit.stored(:catalognodename)[0]
-            (
-            = catalog_description.lang
-            )
-        - when klass == Catalog
-          - catalog = result
-          %td= result.catalognodeid
-          %td= link_to klass, admin_catalog_path(catalog)
-          %td
-            - if catalog.parent
-              %span.small
-                = catalog.parent.catalognodename.gsub(/\//, ' / ')
-                /
-            %span.bold
-              = catalog.catalognodename.gsub(/\//, ' / ')
-        - else
-          %td(colspan=3)= "Unknown: #{klass}"
-        %td= hit.score
-
-%br
+  - @results.each_hit_with_result do |hit, result|
+    .result
+      = result.lessonid
+      = result.container_type.name
+      = result.assets.select('distinct filetype').map(&:filetype).join(' ')
+      %br
+      = result.lesson_descriptions.by_language(@language).first.try(:lessondesc) || result.lesson_descriptions.by_language('ENG').first.try(:lessondesc) || result.lessonname
+      %br
+      = result.lesson_descriptions.by_language(@language).first.try(:descr)

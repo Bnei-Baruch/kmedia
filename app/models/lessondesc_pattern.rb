@@ -1,5 +1,5 @@
 class LessondescPattern < ActiveRecord::Base
-  belongs_to :lesson, :foreign_key => :lessonid
+  belongs_to :lesslon, :foreign_key => :lessonid
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
   attr_accessible :pattern, :description, :lang
 
