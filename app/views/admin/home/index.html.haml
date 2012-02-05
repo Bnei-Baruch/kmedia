@@ -1,14 +1,2 @@
-%h1 Wecome to KabbalahMedia Administration
-- if current_user
-  = link_to 'Containers', admin_lessons_path
-  %br
-  = link_to_if can?(:update, User), 'Users', admin_users_path do
-    %a.unable Users
-  %br
-  = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
-    %a.unable Catalogs
-  %br
-  %br
-  = link_to 'Logout', destroy_user_session_path
-- else
+- if !current_user
   = link_to 'Login', new_user_session_path

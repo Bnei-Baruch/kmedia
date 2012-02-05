@@ -102,13 +102,20 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def parse_lesson_name
+    if params[:name].blank? && params[:id].blank?
+      render :text => 'alert("Empty Container Name");'
+      return
+    end
     lessonname = params[:name] || Lesson.find(params[:id]).lessonname
     sp = ::StringParser.new lessonname
     @date = sp.date
     @language = sp.language
     @lecturer_id = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
     @descriptions = sp.descriptions
+    render :parse_lesson_name, :layout => false
   end
+
+  alias :parse_new_lesson_name :parse_lesson_name
 
   private
   def set_fields

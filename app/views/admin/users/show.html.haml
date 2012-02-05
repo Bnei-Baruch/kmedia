@@ -1,24 +1,19 @@
-- title 'Edit User'
+%header.subhead#overview
+  %h2 User
+  .subnav
+    %ul.nav.nav-pills
+      %li
+        = link_to_if can?(:update, @user), "Edit", edit_admin_user_path(@user) do
+          %a.unable Edit
+      %li
+        = link_to_if can?(:destroy, @user), "Destroy", admin_user_path(@user), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+          %a.unable Destroy
 
-= link_to_if can?(:update, @user), "Edit", edit_admin_user_path(@user) do
-  .unable Edit
-|
-= link_to_if can?(:delete, @user), "Delete", admin_user_path(@user), :confirm => "Are you sure?", :method => :delete do
-  .unable Delete
-%table.admin_table.bp
-  %tr
-    %th ID
-    %th Name
-    %th Email
-    %th Roles
-    %th Created At
-    %th Last Sign In
-    %th Sign In Count
-  %tr(class="#{cycle('odd', 'even')}")
-    %td= @user.id
-    %td= "#{@user.first_name} #{@user.last_name}"
-    %td= @user.email
-    %td.small= @user.roles.collect{|r| r.name}.join(', ')
-    %td= @user.created_at
-    %td= @user.last_sign_in_at
-    %td= @user.sign_in_count
+%section.well
+  = display_show_item('ID', @user.id)
+  = display_show_item('Name', "#{@user.first_name} #{@user.last_name}")
+  = display_show_item('Email', @user.email)
+  = display_show_item('Roles', @user.roles.collect{|r| r.name}.join(', '))
+  = display_show_item('Created At', @user.created_at.to_s(:long_ordinal))
+  = display_show_item('Last Sign In', @user.last_sign_in_at.to_s(:long_ordinal))
+  = display_show_item('Sign In Count', @user.sign_in_count)

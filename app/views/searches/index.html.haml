@@ -1,4 +1,4 @@
-= simple_form_for @search, :html => {:class => 'bp', :method => :get} do |f|
+= simple_form_for @search, :html => {:method => :get} do |f|
   = f.input :query_string, :label => false, :placeholder => 'Enter parts of keywords to search for...'
   -#= f.submit :Reset
   = f.submit :Search, :disable_with => 'Please wait...'

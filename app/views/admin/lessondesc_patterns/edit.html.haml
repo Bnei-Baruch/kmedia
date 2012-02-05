@@ -1,8 +1,8 @@
-- title "Edit Admin/Container Description Pattern"
+%header.subhead#overview
+  %h2 Edit Container Description Pattern
+  .subnav
+    %ul.nav.nav-pills
+      %li= link_to "Show", [:admin, @lessondesc_pattern]
+      %li= link_to "View All", admin_lessondesc_patterns_path
 
 = render 'form'
-
-%p
-  = link_to "Show", [:admin, @lessondesc_pattern]
-  |
-  = link_to "View All", admin_lessondesc_patterns_path

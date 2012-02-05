@@ -1,24 +1,8 @@
 - disabled = cannot? :edit_all_lesson_fields, @lesson
-= simple_form_for ['admin', @lesson], :html => {:class => 'bp'} do |f|
-  %p.actions
-    = f.button :submit, :disable_with => 'Please wait...'
-    = link_to :cancel, :back
-  %hr.spacer
-  = f.error_messages
-  %hr.spacer
-  .descriptions
-    %div(class='all-langs')
-      %a(href="javsrcript:" onclick="$('.item-hidden').toggle(); $(this).text($(this).text() == 'Show less languages' ? 'Show more languages' : 'Show less languages'); return false;") Show more languages
-    - counter = 0
-    = f.simple_fields_for :lesson_descriptions, @lesson_descriptions do |descr_f|
-      - language = descr_f.object.language
-      %div(class = "item#{counter%3} #{counter >= 3 ? 'item-hidden' : ''}")
-        = descr_f.input :lang, :as => :hidden
-        = descr_f.label language.to_s
-        %br
-        = descr_f.input :descr, :as => :text, :label => false, :input_html => { :class => language.code3.downcase }
-      - counter += 1
-  %hr.spacer
-  %p.actions
-    = f.button :submit, :disable_with => 'Please wait...'
-    = link_to :cancel, :back
+= simple_form_for ['admin', @lesson] do |f|
+  = display_actions f, admin_lessons_url
+  %hr.soften
+  = display_errors f
+  = display_descriptions f, @lesson_descriptions, 'lesson_descriptions', 'descr'
+  %hr.soften
+  = display_actions f, admin_lessons_url

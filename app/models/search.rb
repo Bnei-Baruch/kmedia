@@ -6,10 +6,13 @@ class Search
   attr_accessor :query_string, :language_ids, :container_type_ids, :file_type_ids, :media_type_ids,
                 :catalog_id, :catalog_ids, :date_from, :date_to
 
+  attr_accessor :error
+
   def initialize(attributes = {})
     attributes.each do |name, value|
       send "#{name}=", value
     end if attributes
+    @error = nil
   end
 
   def persisted?
@@ -67,15 +70,36 @@ class Search
     rescue Net::HTTPFatalError => e
       if e.data.kind_of?(Net::HTTPInternalServerError)
         if /<h1>([^\n]+)\n/ =~ e.data.body
-          ["---- Solr exception -----#{$1}"]
+          @error = "---- Solr exception -----#{$1}"
         else
-          false
+          @error = "---- Solr exception -----#{$!}"
         end
+        false
       end
     rescue
+      @error = "---- Solr exception -----#{$!}"
       false
     end
   end
 
+  def search_full_text_admin(page_no)
+    query_text = query_string_normalized
+    begin
+      Sunspot.search(Asset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern) do |query|
+        query.fulltext query_text, :highlight => true unless query_text.blank?
+        query.paginate :page => page_no, :per_page => 40
+      end
+    rescue Net::HTTPFatalError => e
+      if e.data.kind_of?(Net::HTTPInternalServerError)
+        if /<h1>([^\n]+)\n/ =~ e.data.body
+          "---- Solr exception: #{$1}"
+        else
+          "---- Solr exception: #{$!}"
+        end
+      end
+    rescue
+      "---- Solr exception: #{$!}"
+    end
+  end
 
 end

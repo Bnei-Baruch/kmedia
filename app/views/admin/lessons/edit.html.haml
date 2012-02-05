@@ -1,12 +1,8 @@
-- title "Edit Container"
-%p
-  = link_to "Show", admin_lesson_path(@lesson)
-  &nbsp;|&nbsp;
-  = link_to "View all Containers", admin_lessons_path
+%header.subhead#overview
+  %h2 Edit Container
+  .subnav
+    %ul.nav.nav-pills
+      %li= link_to "Show", admin_lesson_path(@lesson)
+      %li= link_to "View all Containers", admin_lessons_path
 
 = render 'form'
-
-%p
-  = link_to "Show", admin_lesson_path(@lesson)
-  &nbsp;|&nbsp;
-  = link_to "View all Containers", admin_lessons_path

@@ -1,9 +1,9 @@
 module Admin::LessonsHelper
   def filtered_selected?
-    @filter ? '' : 'selected'
+    @filter ? '' : 'active'
   end
 
   def show_all_selected?
-    @filter == 'all' ? 'selected' : ''
+    @filter == 'all' ? 'active' : ''
   end
 end

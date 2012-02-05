@@ -6,12 +6,16 @@ Kmedia::Application.routes.draw do
   resources :searches
 
   namespace(:admin) {
-    root :to => "home#index"
+    root :to => "searches#index"
+
     resources :lessons do
       member do
         get 'parse_lesson_name'
         get 'edit_long_descr'
         put 'update_long_descr'
+      end
+      collection do
+        get 'parse_new_lesson_name'
       end
     end
     resources :assets

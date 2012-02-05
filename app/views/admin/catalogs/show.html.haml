@@ -1,28 +1,34 @@
-- title "Admin/Catalog"
-%p
-  = link_to_if can?(:update, @catalog), "Edit", edit_admin_catalog_path(@catalog) do
-    %a.unable Edit
-  &nbsp;|&nbsp;
-  = link_to_if can?(:destroy, @catalog), "Destroy", admin_catalog_path(@catalog), :confirm => 'Are you sure?', :method => :delete do
-    %a.unable Destroy
-  &nbsp;|&nbsp;
-  = link_to "View All", admin_catalogs_path
+%header.subhead#overview
+  %h2 Catalog
+  .subnav
+    %ul.nav.nav-pills
+      %li
+        = link_to_if can?(:update, @catalog), "Edit", edit_admin_catalog_path(@catalog) do
+          %a.unable Edit
+      %li
+        = link_to_if can?(:destroy, @catalog), "Destroy", admin_catalog_path(@catalog), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+          %a.unable Destroy
+      %li= link_to "View All", admin_catalogs_path
 
-%p
-  %strong Catalog:
-  - if @catalog.parent
-    = @catalog.parent.catalognodename
-    (
-    = @catalog.parentnodeid
-    ) /
-  %span.bold
-    = @catalog.catalognodename
-    (
-    = @catalog.catalognodeid
-    )
-%p
+%section.well
+  %p
+    %strong Catalog:
+    - if @catalog.parent
+      = @catalog.parent.catalognodename
+      (
+      = @catalog.parentnodeid
+      ) /
+    %span.bold
+      = @catalog.catalognodename
+      (
+      = @catalog.catalognodeid
+      )
+  = display_show_item('Created', @catalog.created.to_s(:long_ordinal))
+  = display_show_item('Updated', @catalog.updated.to_s(:long_ordinal))
+
+%section
   %strong Descriptions:
-  %table.admin_table
+  %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
         %th Language
@@ -30,25 +36,11 @@
         %th Created on
         %th Updated on
         %th ID
-    - @catalog.catalog_descriptions.each do |admin_catalog_desc|
-      %tr(class="#{cycle('odd', 'even')}")
-        %td= admin_catalog_desc.lang
-        %td= admin_catalog_desc.catalognodename
-        %td= admin_catalog_desc.created.try(:to_date)
-        %td= admin_catalog_desc.updated.try(:to_date)
-        %td= admin_catalog_desc.catalognodeid
-%p
-  %strong Created:
-  = @catalog.created
-%p
-  %strong Updated:
-  = @catalog.updated
-
-%p
-  = link_to_if can?(:update, @catalog), "Edit", edit_admin_catalog_path(@catalog) do
-    %a.unable Edit
-  &nbsp;|&nbsp;
-  = link_to_if can?(:destroy, @catalog), "Destroy", admin_catalog_path(@catalog), :confirm => 'Are you sure?', :method => :delete do
-    %a.unable Destroy
-  &nbsp;|&nbsp;
-  = link_to "View All", admin_catalogs_path
+    %tbody
+      - @catalog.catalog_descriptions.each do |admin_catalog_desc|
+        %tr
+          %td= admin_catalog_desc.lang
+          %td= admin_catalog_desc.catalognodename
+          %td= admin_catalog_desc.created.try(:to_date)
+          %td= admin_catalog_desc.updated.try(:to_date)
+          %td= admin_catalog_desc.catalognodeid
