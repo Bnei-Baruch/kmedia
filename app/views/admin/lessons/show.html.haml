@@ -16,6 +16,7 @@
 %section.well
   = display_show_item('ID', @lesson.lessonid)
   = display_show_item('Name', @lesson.lessonname)
+  = display_show_item('Type', @lesson.container_type.try(:name))
   = display_show_item('Created', @lesson.created.to_s(:long_ordinal))
   = display_show_item('Updated', @lesson.updated.to_s(:long_ordinal))
   = display_show_item('Container date', @lesson.lessondate)

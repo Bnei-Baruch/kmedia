@@ -74,7 +74,7 @@ module LayoutHelper
     engine = Haml::Engine.new <<-HAML
 %p
   %strong #{name.humanize}:
-  #{value.gsub(/\s/, '&nbsp;')}
+  #{value.to_s.gsub(/\s/, '&nbsp;')}
 HAML
     engine.render
   end

@@ -9,7 +9,7 @@
       = link_to_if current_user, 'Logout', destroy_user_session_path, :class => 'brand logout'
 
       - if current_user
-        = simple_form_for [:admin, @search], :html => {:class => 'navbar-search pull-right', :method => :get} do |f|
+        = simple_form_for [:admin, @search || Search.new], :html => {:class => 'navbar-search pull-right', :method => :get} do |f|
           = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query span5'}
         %ul.nav
           %li
