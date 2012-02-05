@@ -1,7 +1,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_self
-//= require_tree .
+//= require_tree ./common
+//= require_tree ./admin
 
 $(function () {
     $("#lesson_catalog_tokens").tokenInput("/admin/catalogs.json", {

@@ -1,8 +1,8 @@
-!!!
+!!! 5
 %html
   %head
     %title
-      = yield(:title) || "Untitled"
+      = yield(:title) || "Kabbala Media"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     = stylesheet_link_tag 'admin', 'token-input'
     = csrf_meta_tag
@@ -14,13 +14,11 @@
     = yield(:stylesheets)
     = javascript_include_tag 'jquery', 'modernizr.custom.42357'
   %body(data-spy="scroll" data-target=".subnav" data-offset="50" data-rendering="true")
-    = render 'layouts/navigation'
+    = render 'layouts/admin_navigation'
     .container.admin
       - flash.each do |name, msg|
         - klass = (name.to_s == 'error' || name.to_s == 'alert') ? 'alert fade in alert-error' : 'alert fade in alert-info'
         = content_tag :div, "<a class='close' data-dismiss='alert' href='#'>&times;</a>#{msg}".html_safe, :class => klass
-      - if show_title?
-        %h2= yield(:title)
       = yield
-    = javascript_include_tag 'application', 'jquery.tokeninput', 'jquery.alphanumeric'
+    = javascript_include_tag 'admin', 'jquery.tokeninput', 'jquery.alphanumeric'
     = yield(:javascripts)

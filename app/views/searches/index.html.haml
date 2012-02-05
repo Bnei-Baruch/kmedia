@@ -1,32 +1,66 @@
-= simple_form_for @search, :html => {:method => :get} do |f|
-  = f.input :query_string, :label => false, :placeholder => 'Enter parts of keywords to search for...'
-  -#= f.submit :Reset
-  = f.submit :Search, :disable_with => 'Please wait...'
-  %br
-  = f.input :language_ids, :collection => languages_to_list, :as => :check_boxes, :label => 'Language: '
-  %br
-  = f.input :container_type_ids, :collection => content_types_to_list, :as => :check_boxes, :label => 'Content type: '
-  %br
-  = f.input :file_type_ids, :collection => file_type_ids_to_list, :as => :check_boxes, :label => 'File type: '
-  %br
-  = f.input :catalog_id, :label => 'Catalog ID: '
-  %br
-  = f.input :date_from, :label => 'From: ' #, :as => :date, :order => [:day, :month, :year]
-  = f.input :date_to, :label => 'To: ' #, :as => :date, :order => [:day, :month, :year]
+%header.subhead#overview
+  %h2 Containers
 
-.clear
-- if !@results || @results.results.empty?
-  No results
-- else
-  %h4.clear== Results #{(@results.results.current_page - 1) * @results.results.limit_value + 1} - #{[@results.results.current_page * @results.results.limit_value, @results.total].min} of #{@results.total}
-  = paginate @results.hits, :window => 8
+%section.user_search
+  = simple_form_for @search, :html => {:method => :get} do |f|
+    .row
+      .span10= f.input :query_string, :label => false, :placeholder => 'Enter parts of keywords to search for...', :input_html => {:class => 'span10'}
+      .span2= f.submit :Search, :disable_with => 'Please wait...', :input_html => {:class => 'span2'}
+    .row.well
+      = f.input :language_ids, :collection => languages_to_list, :as => :check_boxes, :label => 'Language: ', :label_html => {:class => 'inline'}
+    .row.well
+      = f.input :container_type_ids, :collection => content_types_to_list, :as => :check_boxes, :label => 'Content type: '
+    .row.well
+      = f.input :file_type_ids, :collection => file_type_ids_to_list, :as => :check_boxes, :label => 'File type: ', :label_html => {:class => 'pull-left'}
+    .row.well
+      = f.input :catalog_id, :label => 'Catalog ID: ', :label_html => {:class => 'pull-left'}
+    .row.well
+      .span5= f.input :date_from, :label => 'From: ', :label_html => {:class => 'pull-left'} #, :as => :date, :order => [:day, :month, :year]
+      .span5= f.input :date_to, :label => 'To: ', :label_html => {:class => 'pull-left'} #, :as => :date, :order => [:day, :month, :year]
 
-  - @results.each_hit_with_result do |hit, result|
-    .result
-      = result.lessonid
-      = result.container_type.name
-      = result.assets.select('distinct filetype').map(&:filetype).join(' ')
-      %br
-      = result.lesson_descriptions.by_language(@language).first.try(:lessondesc) || result.lesson_descriptions.by_language('ENG').first.try(:lessondesc) || result.lessonname
-      %br
-      = result.lesson_descriptions.by_language(@language).first.try(:descr)
+%section
+  - if !@results || @results.results.empty?
+    No results
+  - else
+    %h4.clear== Results #{(@results.results.current_page - 1) * @results.results.limit_value + 1} - #{[@results.results.current_page * @results.results.limit_value, @results.total].min} of #{@results.total}
+    = paginate @results.hits, :window => 8
+
+    %table.table.table-striped.table-bordered.table-condensed
+      %thead
+        %tr
+          %td ID
+          %td Name/Description
+          %td Filetypes
+      %tbody
+        - @results.each_hit_with_result do |hit, result|
+          %tr
+            %td= result.lessonid
+            %td
+              = result.lesson_descriptions.by_language(@language).first.try(:lessondesc) || result.lesson_descriptions.by_language('ENG').first.try(:lessondesc) || result.lessonname
+              %hr.soften
+              = result.lesson_descriptions.by_language(@language).first.try(:descr)
+            %td
+              = result.assets.select('distinct filetype').map(&:filetype).join(' ')
+          %tr
+            %td(colspan="3")
+              %table.table.table-striped.table-bordered.table-condensed
+                %thead
+                  %tr
+                    %th ID
+                    %th Name
+                    %th Language
+                    %th Description
+                    %th Type
+                %tbody
+                  - result.assets.each do |asset|
+                    %tr
+                      %td= link_to asset.fileid, asset.url, :target => '_blank'
+                      %td= asset.filename
+                      %td= asset.filelang
+                      %td
+                        - ad = asset.asset_descriptions.by_language(@language).first
+                        = ad ? ad.filedesc : ''
+                      %td
+                        = image_tag asset.icon
+                        = asset.typename
+

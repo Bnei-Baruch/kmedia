@@ -1,0 +1,26 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      - if current_user
+        - user = "<span class='brand-user'>#{current_user.email}(#{current_user.roles.collect{|r| r.name}.join(', ')})</span>".html_safe
+      - else
+        - user = ''
+      =link_to "KMedia Admin #{user}".html_safe, '#', :class => 'brand'
+      = link_to_if current_user, 'Logout', destroy_user_session_path, :class => 'brand logout'
+
+      - if current_user
+        = simple_form_for [:admin, @search || Search.new], :html => {:class => 'navbar-search pull-right', :method => :get} do |f|
+          = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query span5'}
+        %ul.nav
+          %li
+            = link_to_if can?(:update, Lesson), 'Containers', admin_lessons_path do
+              .unable Containers
+          %li
+            = link_to_if can?(:update, User), 'Users', admin_users_path do
+              .unable Users
+          %li
+            = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
+              .unable Catalogs
+          %li
+            = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
+              .unable Containers' patterns

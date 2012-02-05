@@ -3,15 +3,6 @@
 # to do so you may need to add this line to your ApplicationController
 #   helper :layout
 module LayoutHelper
-  def title(page_title, show_title = true)
-    content_for(:title) { h(page_title.to_s) }
-    @show_title = show_title
-  end
-
-  def show_title?
-    @show_title
-  end
-
   def stylesheet(*args)
     content_for(:stylesheets) { stylesheet_link_tag(*args) }
   end
