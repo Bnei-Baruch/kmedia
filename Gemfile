@@ -7,8 +7,8 @@ gem 'mysql2', '>= 0.3'
 
 gem 'haml'
 gem 'sass', :tag => '3.0.24'
-gem 'kaminari' #for pagination
-gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
+gem 'simple_form', '~> 2.0.0.rc' #:git => 'git://github.com/plataformatec/simple_form.git'
 
 gem 'thin'
 
@@ -36,7 +36,7 @@ group :assets do
   gem 'sass-rails', "~> 3.2.0"
   gem 'coffee-rails', "~> 3.2.0"
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => '2.0'
+  gem 'bootstrap-sass', '~> 2.0.0' #, :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git'
   gem 'bootstrap-will_paginate'
   #gem 'compass'#, ">= 0.11.beta.3"
 end
