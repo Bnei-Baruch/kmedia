@@ -1,0 +1,24 @@
+!!! 5
+%html
+  %head
+    %title
+      = yield(:title) || "Kabbala Media"
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    = stylesheet_link_tag 'admin', 'token-input'
+    = csrf_meta_tag
+    /[if gte IE 9]
+      :css
+        .gradient {
+           filter: none;
+        }
+    = yield(:stylesheets)
+    = javascript_include_tag 'jquery', 'modernizr.custom'
+  %body(data-spy="scroll" data-target=".subnav" data-offset="50" data-rendering="true")
+    = render 'layouts/admin_navigation'
+    .container.admin
+      - flash.each do |name, msg|
+        - klass = (name.to_s == 'error' || name.to_s == 'alert') ? 'alert fade in alert-error' : 'alert fade in alert-info'
+        = content_tag :div, "<a class='close' data-dismiss='alert' href='#'>&times;</a>#{msg}".html_safe, :class => klass
+      = yield
+    = javascript_include_tag 'admin', 'jquery.tokeninput', 'jquery.alphanumeric'
+    = yield(:javascripts)

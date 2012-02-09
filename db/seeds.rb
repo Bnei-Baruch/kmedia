@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -30,7 +32,7 @@ puts '--> Languages'
 {:code3 => "CHN", :language =>"Chinese", :locale => 'zh'},
 {:code3 => "FAR", :language =>"Persian", :locale => 'fa'},
 {:code3 => "ROU", :language =>"Romanian", :locale => 'ro'},
-].each{|e| Language.find_or_create_by_locale_and_language(e)}
+].each{|e| Language.find_or_create_by_locale(e)}
 
 puts '--> Roles'
 [
@@ -53,5 +55,21 @@ puts '--> Users'
   user = User.find_or_create_by_email(e[:user])
   user.roles << Role.find_by_name(e[:role])
 }
+
+puts '--> Container Types'
+[
+    {:name => 'Program', :pattern => 'program'},
+    {:name => 'Short clip', :pattern => 'clip'},
+    {:name => 'Song', :pattern => 'song'},
+    {:name => 'Lesson', :pattern => 'lesson'},
+    {:name => 'Lecture', :pattern => 'lecture'},
+    {:name => 'Book', :pattern => 'book'},
+    {:name => 'Declamation', :pattern => 'declamation'},
+    {:name => 'Audio Disk', :pattern => 'audiodisk'},
+    {:name => 'Video Disk', :pattern => 'videodisk'},
+    {:name => 'Text', :pattern => 'text'},
+    {:name => 'Transcript', :pattern => 'tamlil'},
+    {:name => 'Magazine', :pattern => 'magazine'},
+].each{|r| ContainerType.find_or_create_by_pattern(r)}
 
 puts '--> Done'

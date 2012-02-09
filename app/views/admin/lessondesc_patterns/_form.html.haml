@@ -1,7 +1,14 @@
-= simple_form_for [:admin, @lessondesc_pattern], :html => {:class => 'bp'} do |f|
-  = f.error_messages
-  = f.input :pattern
-  = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
-  = f.input :description, :as => :text
-  %p
-    = f.submit 'Submit', :disable_with => 'Please wait...'
+= simple_form_for [:admin, @lessondesc_pattern] do |f|
+  = display_actions f, admin_lessondesc_pattern_url
+  %hr.soften
+  = display_errors f
+
+  .row
+    .span4
+      = f.input :pattern
+      = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
+    .span8
+      = f.input :description, :as => :text, :input_html => {:style => 'width: 600px; height: 200px'}
+
+  %hr.soften
+  = display_actions f, admin_lessondesc_pattern_url

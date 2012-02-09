@@ -7,4 +7,5 @@ class Language < ActiveRecord::Base
   def to_s
     "#{language} (#{code3.upcase})"
   end
+
 end

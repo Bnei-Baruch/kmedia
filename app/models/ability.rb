@@ -7,10 +7,12 @@ class Ability
     # Roles:
     if user.role? :super_admin
       #- Super Admin - Can do everything
+      can :manage, :users
       can :manage, :all
     elsif user.role? :archive_admin
       #- Archive Admin - Can do everything except deleting files and permissions management
       can :manage, :all
+      cannot :manage, :users
       cannot :destroy, Lesson
       cannot :destroy, Catalog
       cannot :destroy, Asset

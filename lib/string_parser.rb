@@ -26,4 +26,11 @@ class StringParser
   def descriptions
     LessondescPattern.pattern_matches(@string)
   end
+
+  def container_type
+    ContainerType.all.each do |ct|
+      return ct unless @string.scan("_#{ct.pattern}_").blank? && @string.scan("_#{ct.pattern}\.").blank?
+    end
+    ContainerType.find_by_pattern('lesson')
+  end
 end

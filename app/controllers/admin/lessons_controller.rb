@@ -1,6 +1,6 @@
-class Admin::LessonsController < ApplicationController
-  before_filter :authenticate_user! #, :except => [:some_action_without_auth]
+class Admin::LessonsController < Admin::ApplicationController
   before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr]
+
 
   def index
     @filter = params[:filter]
@@ -102,18 +102,27 @@ class Admin::LessonsController < ApplicationController
   end
 
   def parse_lesson_name
+    if params[:name].blank? && params[:id].blank?
+      render :text => 'alert("Empty Container Name");'
+      return
+    end
     lessonname = params[:name] || Lesson.find(params[:id]).lessonname
     sp = ::StringParser.new lessonname
     @date = sp.date
     @language = sp.language
     @lecturer_id = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
     @descriptions = sp.descriptions
+    @container_type_id = sp.container_type.id
+    render :parse_lesson_name, :layout => false
   end
+
+  alias :parse_new_lesson_name :parse_lesson_name
 
   private
   def set_fields
     @languages = Language.order('code3').all
     @lecturers = Lecturer.all
+    @container_types = ContainerType.all.map{|ct| [ct.name, ct.id]}
     @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
   end
 

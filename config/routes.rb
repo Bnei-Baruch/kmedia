@@ -1,16 +1,21 @@
 Kmedia::Application.routes.draw do
 
-  get "home/index"
 
   devise_for :users
   resources :users
+  resources :searches
 
   namespace(:admin) {
+    root :to => "searches#index"
+
     resources :lessons do
       member do
         get 'parse_lesson_name'
         get 'edit_long_descr'
         put 'update_long_descr'
+      end
+      collection do
+        get 'parse_new_lesson_name'
       end
     end
     resources :assets
@@ -70,7 +75,7 @@ Kmedia::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "home#index"
+  root :to => "searches#index"
 
   # See how all your routes lay out with "rake routes"
 

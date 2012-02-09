@@ -1,7 +1,7 @@
 class LessonDescription < ActiveRecord::Base
   set_table_name :lessondesc
   set_primary_key :lessondescid
-  belongs_to :lesson, :foreign_key => :lessonid
+  belongs_to :lesson, :foreign_key => :lessonid, :touch => :updated
 
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
@@ -14,6 +14,8 @@ class LessonDescription < ActiveRecord::Base
     text :lessondesc, :stored => true
     text :descr, :stored => true
   end
+
+  scope :by_lang, lambda {|lang| where(:lang => lang)}
 
   before_create :create_timestamps
   before_update :update_timestamps

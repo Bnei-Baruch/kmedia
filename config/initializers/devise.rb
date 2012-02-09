@@ -120,6 +120,7 @@ Devise.setup do |config|
   # ==> Configuration for :recoverable
   #
   # Defines which key will be used when recovering the password for an account
+  config.reset_password_within = 6.hours
   config.reset_password_keys = [ :email ]
 
   # ==> Configuration for :encryptable
