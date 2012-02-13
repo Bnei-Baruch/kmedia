@@ -1,14 +1,14 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.0'
+gem 'rails', '3.2.1'
 gem 'jquery-rails'
 
 gem 'mysql2', '>= 0.3'
 
 gem 'haml'
 gem 'sass', :tag => '3.0.24'
-gem 'kaminari' #for pagination
-gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
+gem 'simple_form', '~> 2.0.0.rc' #:git => 'git://github.com/plataformatec/simple_form.git'
 
 gem 'thin'
 
@@ -23,7 +23,8 @@ gem 'sunspot_solr'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem "ruby-debug-base19x"
+  gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
+  gem "ruby-debug-base19x", '>=0.11.30.pre7'
   gem "ruby-debug-ide"
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
@@ -36,7 +37,7 @@ group :assets do
   gem 'sass-rails', "~> 3.2.0"
   gem 'coffee-rails', "~> 3.2.0"
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => '2.0'
+  gem 'bootstrap-sass', '~> 2.0.0' #, :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git'
   gem 'bootstrap-will_paginate'
   #gem 'compass'#, ">= 0.11.beta.3"
 end

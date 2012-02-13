@@ -9,10 +9,11 @@
     -#= devise_error_messages!(@user, 'user')
 
     = render :partial => 'user_fields', :locals => { :f => f }
-
+    = f.hidden_field :reset_password_token
     = f.input :password, :hint => "(leave blank if you don't want to change it)", :required => false, :input_html => {:autocomplete => 'off'}
     = f.input :password_confirmation, :input_html => {:autocomplete => 'off'}
-    = f.input :current_password, :hint => "(we need your current password to confirm your changes)"
+    - unless current_user.role?(:super_admin)
+      = f.input :current_password, :hint => "(we need your current password to confirm your changes)"
 
     %hr.soften
     = display_actions f, admin_users_url

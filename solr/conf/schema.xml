@@ -104,7 +104,7 @@
 	    <filter class="solr.LowerCaseFilterFactory"/>
 	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
 	    <filter class="solr.TrimFilterFactory" />
-	  </analyzer>
+      </analyzer>
     </fieldType>
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="boolean" class="solr.BoolField" omitNorms="true"/>

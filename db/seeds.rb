@@ -32,7 +32,7 @@ puts '--> Languages'
 {:code3 => "CHN", :language =>"Chinese", :locale => 'zh'},
 {:code3 => "FAR", :language =>"Persian", :locale => 'fa'},
 {:code3 => "ROU", :language =>"Romanian", :locale => 'ro'},
-].each{|e| Language.find_or_create_by_locale_and_language(e)}
+].each{|e| Language.find_or_create_by_locale(e)}
 
 puts '--> Roles'
 [

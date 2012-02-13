@@ -17,7 +17,7 @@ class Asset < ActiveRecord::Base
   #  set_property :delta => true
   #end
   searchable do
-    text :filename, :stored => true
+    text :filename
     #integer :lesson_ids, :multiple => true, :references => Lesson
   end
 
