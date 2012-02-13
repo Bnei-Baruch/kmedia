@@ -95,8 +95,8 @@
 	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
 	    <filter class="solr.TrimFilterFactory" />
 	    <filter class="solr.NGramFilterFactory"
-	      minGramSize="2"
-	      maxGramSize="30"/>
+	      minGramSize="1"
+	      maxGramSize="150"/>
 	  </analyzer>
 	  <analyzer type="query">
 	    <tokenizer class="solr.PatternTokenizerFactory" pattern="[-_.]"/>
