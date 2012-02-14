@@ -11,6 +11,8 @@
       - if current_user
         = simple_form_for [:admin, @search || Search.new], :html => {:class => 'navbar-search pull-right', :method => :get} do |f|
           = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query span5'}
+          = f.button :submit, :class => 'span2', :style => 'float: right;'
+          = f.input :model, :label => false, :collection => Search.models, :prompt => false, :input_html => {:class => 'search-query span2'}
         %ul.nav
           %li
             = link_to_if can?(:update, Lesson), 'Containers', admin_lessons_path do

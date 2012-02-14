@@ -1,9 +1,9 @@
-class Asset < ActiveRecord::Base
-  set_table_name :files
-  set_primary_key :fileid
+class FileAsset < ActiveRecord::Base
+  self.table_name = :files
+  self.primary_key = :fileid
   has_and_belongs_to_many :lessons, :join_table => "lessonfiles", :foreign_key => "fileid",
                           :association_foreign_key => "lessonid", :order => "date(updated) DESC, lessonname ASC"
-  has_many :asset_descriptions, :foreign_key => :fileid do
+  has_many :file_asset_descriptions, :foreign_key => :fileid do
     def by_language(code3)
       where(:lang => code3)
     end
@@ -11,14 +11,8 @@ class Asset < ActiveRecord::Base
 
   belongs_to :server, :foreign_key => :servername, :primary_key => :servername
 
-  #define_index do
-  #  indexes filename, :sortable => true
-  #
-  #  set_property :delta => true
-  #end
   searchable do
     text :filename
-    #integer :lesson_ids, :multiple => true, :references => Lesson
   end
 
   before_create :create_timestamps

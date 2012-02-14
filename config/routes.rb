@@ -1,6 +1,5 @@
 Kmedia::Application.routes.draw do
 
-
   devise_for :users
   resources :users
   resources :searches
@@ -18,7 +17,7 @@ Kmedia::Application.routes.draw do
         get 'parse_new_lesson_name'
       end
     end
-    resources :assets
+    resources :file_assets
     resources :catalogs
     resources :users
     resources :lessondesc_patterns

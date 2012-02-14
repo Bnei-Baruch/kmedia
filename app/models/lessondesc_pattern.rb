@@ -10,13 +10,6 @@ class LessondescPattern < ActiveRecord::Base
     where("'#{string}' regexp pattern")
   }
 
-  # ThinkingSphinx.search
-  #define_index do
-  #  indexes pattern, :sortable => true
-  #  indexes description, :sortable => true
-  #
-  #  set_property :delta => true
-  #end
   searchable do
     text :pattern, :stored => true
     text :description, :stored => true

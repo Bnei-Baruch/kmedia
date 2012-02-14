@@ -1,0 +1,117 @@
+/*
+Syntax error: File to import not found or unreadable: bootstrap.
+              Load paths:
+                Compass::SpriteImporter
+                /home/gshilin/projects/kmedia/public/stylesheets/sass
+                /home/gshilin/projects/kmedia/app/assets/stylesheets
+                /home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/compass-0.11.7/frameworks/blueprint/stylesheets
+                /home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/compass-0.11.7/frameworks/compass/stylesheets
+        on line 6 of /home/gshilin/projects/kmedia/app/assets/stylesheets/admin.css.scss
+
+1: /*
+2: *= require_self
+3: *= require_tree ./admin
+4: */
+5: 
+6: @import "bootstrap";
+7: 
+8: body {
+9:   font-family: Arial;
+10:   padding-top: 80px;
+11: }
+
+Backtrace:
+/home/gshilin/projects/kmedia/app/assets/stylesheets/admin.css.scss:6
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/import_node.rb:64:in `rescue in import'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/import_node.rb:42:in `import'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/import_node.rb:25:in `imported_file'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:149:in `rescue in visit_import'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:154:in `visit_import'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:18:in `visit'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:27:in `block in visit_children'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:39:in `with_environment'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:26:in `visit_children'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:47:in `visit_root'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:18:in `visit'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/tree/root_node.rb:20:in `render'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/engine.rb:299:in `_render'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/engine.rb:247:in `block in render'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/util.rb:310:in `silence_sass_warnings'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/engine.rb:247:in `render'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/plugin/compiler.rb:339:in `update_stylesheet'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/plugin/compiler.rb:202:in `block in update_stylesheets'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/plugin/compiler.rb:200:in `each'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/plugin/compiler.rb:200:in `update_stylesheets'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/plugin.rb:81:in `update_stylesheets'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/plugin.rb:54:in `check_for_updates'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/sass-3.1.15/lib/sass/plugin/rack.rb:51:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/warden-1.1.0/lib/warden/manager.rb:35:in `block in call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/warden-1.1.0/lib/warden/manager.rb:34:in `catch'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/warden-1.1.0/lib/warden/manager.rb:34:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/etag.rb:23:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/conditionalget.rb:25:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/head.rb:14:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/flash.rb:242:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/session/abstract/id.rb:205:in `context'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/session/abstract/id.rb:200:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/cookies.rb:338:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/activerecord-3.2.1/lib/active_record/query_cache.rb:64:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/activerecord-3.2.1/lib/active_record/connection_adapters/abstract/connection_pool.rb:443:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/activesupport-3.2.1/lib/active_support/callbacks.rb:405:in `_run__785446718__call__499544124__callbacks'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/activesupport-3.2.1/lib/active_support/callbacks.rb:405:in `__run_callback'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/activesupport-3.2.1/lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/activesupport-3.2.1/lib/active_support/callbacks.rb:81:in `run_callbacks'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/reloader.rb:65:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/rack/logger.rb:26:in `call_app'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/rack/logger.rb:16:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/request_id.rb:22:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/methodoverride.rb:21:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/runtime.rb:17:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/activesupport-3.2.1/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/lock.rb:15:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/actionpack-3.2.1/lib/action_dispatch/middleware/static.rb:53:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/engine.rb:479:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/application.rb:220:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/content_length.rb:14:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/rack/log_tailer.rb:14:in `call'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/thin-1.3.1/lib/thin/connection.rb:80:in `block in pre_process'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/thin-1.3.1/lib/thin/connection.rb:78:in `catch'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/thin-1.3.1/lib/thin/connection.rb:78:in `pre_process'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/thin-1.3.1/lib/thin/connection.rb:53:in `process'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/thin-1.3.1/lib/thin/connection.rb:38:in `receive_data'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/eventmachine-0.12.10/lib/eventmachine.rb:256:in `run_machine'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/eventmachine-0.12.10/lib/eventmachine.rb:256:in `run'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/thin-1.3.1/lib/thin/backends/base.rb:61:in `start'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/thin-1.3.1/lib/thin/server.rb:159:in `start'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/handler/thin.rb:13:in `run'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/rack-1.4.1/lib/rack/server.rb:265:in `start'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/commands/server.rb:70:in `start'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/commands.rb:55:in `block in <top (required)>'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/commands.rb:50:in `tap'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/railties-3.2.1/lib/rails/commands.rb:50:in `<top (required)>'
+/home/gshilin/projects/kmedia/script/rails:6:in `require'
+/home/gshilin/projects/kmedia/script/rails:6:in `<top (required)>'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/ruby-debug-ide-0.4.16/lib/ruby-debug-ide.rb:112:in `debug_load'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/ruby-debug-ide-0.4.16/lib/ruby-debug-ide.rb:112:in `debug_program'
+/home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/ruby-debug-ide-0.4.16/bin/rdebug-ide:87:in `<top (required)>'
+-e:1:in `load'
+-e:1:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: File to import not found or unreadable: bootstrap.\A               Load paths:\A                 Compass::SpriteImporter\A                 /home/gshilin/projects/kmedia/public/stylesheets/sass\A                 /home/gshilin/projects/kmedia/app/assets/stylesheets\A                 /home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/compass-0.11.7/frameworks/blueprint/stylesheets\A                 /home/gshilin/.rvm/gems/ruby-1.9.3-p0@kmedia/gems/compass-0.11.7/frameworks/compass/stylesheets\A         on line 6 of /home/gshilin/projects/kmedia/app/assets/stylesheets/admin.css.scss\A \A 1: /*\A 2: *= require_self\A 3: *= require_tree ./admin\A 4: */\A 5: \A 6: @import \"bootstrap\";\A 7: \A 8: body {\A 9:   font-family: Arial;\A 10:   padding-top: 80px;\A 11: }"; }

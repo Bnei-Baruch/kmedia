@@ -11,10 +11,11 @@ class ReindexAsset
 
     reindex_options = {:batch_commit => false}
     reindex_options[:batch_size] = 1000
-    total_documents = sunspot_models.map { |m| m.count }.sum
+    models = [sunspot_models].flatten
+    total_documents = models.map { |m| m.count }.sum
     reindex_options[:progress_bar] = ProgressBar.new(total_documents)
 
-    sunspot_models.each { |model|
+    models.each { |model|
       model.solr_reindex (reindex_options)
     }
   end

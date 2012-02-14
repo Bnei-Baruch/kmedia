@@ -11,7 +11,7 @@
     .row.well
       = f.input :container_type_ids, :collection => content_types_to_list, :as => :check_boxes, :label => 'Content type: '
     .row.well
-      = f.input :file_type_ids, :collection => file_type_ids_to_list, :as => :check_boxes, :label => 'File type: ', :label_html => {:class => 'pull-left'}
+      = f.input :file_type_ids, :collection => file_type_ids_to_list, :as => :check_boxes, :label => 'FileAsset type: ', :label_html => {:class => 'pull-left'}
     .row.well
       = f.input :catalog_id, :label => 'Catalog ID: ', :label_html => {:class => 'pull-left'}
     .row.well
@@ -40,7 +40,7 @@
               %hr.soften
               = result.lesson_descriptions.by_language(@language).first.try(:descr)
             %td
-              = result.assets.select('distinct filetype').map(&:filetype).join(' ')
+              = result.file_assets.select('distinct filetype').map(&:filetype).join(' ')
           %tr
             %td(colspan="3")
               %table.table.table-striped.table-bordered.table-condensed
@@ -52,13 +52,13 @@
                     %th Description
                     %th Type
                 %tbody
-                  - result.assets.each do |asset|
+                  - result.file_assets.each do |asset|
                     %tr
                       %td= link_to asset.fileid, asset.url, :target => '_blank'
                       %td= asset.filename
                       %td= asset.filelang
                       %td
-                        - ad = asset.asset_descriptions.by_language(@language).first
+                        - ad = asset.file_asset_descriptions.by_language(@language).first
                         = ad ? ad.filedesc : ''
                       %td
                         = image_tag asset.icon
