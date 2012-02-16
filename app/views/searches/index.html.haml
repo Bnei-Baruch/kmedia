@@ -61,6 +61,6 @@
                         - ad = asset.file_asset_descriptions.by_language(@language).first
                         = ad ? ad.filedesc : ''
                       %td
-                        = image_tag asset.icon
+                        = image_tag File.basename(asset.icon)
                         = asset.typename
 
