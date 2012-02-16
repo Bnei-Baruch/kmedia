@@ -9,7 +9,10 @@
     = csrf_meta_tag
     = yield(:head)
   %body(data-spy="scroll" data-target=".subnav" data-offset="50" data-rendering="true")
-    = render 'layouts/navigation'
+    - if current_user
+      = render 'layouts/admin_navigation'
+    - else
+      = render 'layouts/navigation'
     .container
       - flash.each do |name, msg|
         - klass = (name.to_s == 'error' || name.to_s == 'alert') ? 'alert fade in alert-error' : 'alert fade in alert-info'
