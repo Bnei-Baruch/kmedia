@@ -1,6 +1,6 @@
 class FileType < ActiveRecord::Base
-  set_table_name :filetypes
-  set_primary_key :typename
+  self.table_name = :filetypes
+  self.primary_key = :typename
   scope :e2type, lambda {|ext| where("extlist like '%#{ext}%'")}
 
   def self.ext_to_type(ext)

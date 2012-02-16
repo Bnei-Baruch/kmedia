@@ -1,6 +1,6 @@
 class Catalog < ActiveRecord::Base
-  set_table_name :catalognode
-  set_primary_key :catalognodeid
+  self.table_name = :catalognode
+  self.primary_key = :catalognodeid
   acts_as_tree :foreign_key => 'parentnodeid', :order => 'catorder'
   has_and_belongs_to_many :lessons, :join_table => "catnodelessons", :foreign_key => "catalognodeid",
                           :association_foreign_key => "lessonid", :order => "lessonname ASC, date(updated) DESC"

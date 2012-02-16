@@ -7,10 +7,10 @@
 @import "bootstrap";
 
 * {
-  -webkit-transition: all 2s ease !important;
-  -moz-transition:    all 2s ease !important;
-  -ms-transition:     all 2s ease !important;
-  -o-transition:      all 2s ease !important;
+  -webkit-transition: all 0.5s ease !important;
+  -moz-transition:    all 0.5s ease !important;
+  -ms-transition:     all 0.5s ease !important;
+  -o-transition:      all 0.5s ease !important;
 }
 
 body {
@@ -30,10 +30,16 @@ body {
       font-weight: normal;
     }
   }
-}
-
-.navbar-search .search-query {
-  color: black;
+  ul.nav {
+    li {
+      a {
+        color: rgba(255, 255, 255, 0.8);
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
 }
 
 .brand.logout {
@@ -43,8 +49,10 @@ body {
 
 .navbar-search {
   .search-query {
+    color: black;
     background-color: rgba(255, 255, 255, 0.8);
     &:hover {
+      color: gray;
       background-color: rgba(255, 255, 255, 0.9);
     }
   }

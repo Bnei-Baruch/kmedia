@@ -1,5 +1,5 @@
 class Lesson < ActiveRecord::Base
-  set_primary_key :lessonid
+  self.primary_key = :lessonid
   has_many :lessondesc_patterns, :foreign_key => :lessonid
   has_many :lesson_descriptions, :foreign_key => :lessonid do
     def by_language(code3)

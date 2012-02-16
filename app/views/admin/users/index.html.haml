@@ -15,6 +15,8 @@
         %th Email
         %th Roles
         %th(colspan=3) Actions
+        - if current_user.role?(:super_admin)
+          %th Become
     %tbody
       - @users.each do |u|
         %tr(class="#{cycle('odd', 'even')}")
@@ -31,3 +33,5 @@
           %td
             = link_to_if can?(:delete, u), 'Destroy', admin_user_path(u), :confirm => 'Are you sure?', :method => :delete do
               %span.unable Destroy
+          - if current_user.role?(:super_admin)
+            %td= link_to 'Become', become_admin_user_path(u)

@@ -19,7 +19,11 @@ Kmedia::Application.routes.draw do
     end
     resources :file_assets
     resources :catalogs
-    resources :users
+    resources :users do
+      member do
+        get :become
+      end
+    end
     resources :lessondesc_patterns
     resources :searches
   }
