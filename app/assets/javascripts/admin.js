@@ -1,3 +1,7 @@
+//= require jquery
+//= require modernizr.custom
+//= require jquery.tokeninput
+//= require jquery.alphanumeric
 //= require jquery_ujs
 //= require bootstrap
 //= require_self

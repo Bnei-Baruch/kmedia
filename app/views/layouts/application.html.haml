@@ -5,9 +5,9 @@
       = yield(:title) || "Kabbala Media"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     = stylesheet_link_tag 'user'
+    = javascript_include_tag 'user'
     = csrf_meta_tag
     = yield(:head)
-    = javascript_include_tag 'jquery', 'modernizr.custom'
   %body(data-spy="scroll" data-target=".subnav" data-offset="50" data-rendering="true")
     = render 'layouts/navigation'
     .container
@@ -16,4 +16,3 @@
         = content_tag :div, "<a class='close' data-dismiss='alert' href='#'>&times;</a>#{msg}".html_safe, :class => klass
       = yield
 
-    = javascript_include_tag 'user'

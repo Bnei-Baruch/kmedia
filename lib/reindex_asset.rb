@@ -1,5 +1,6 @@
 require 'progress_bar'
 
+# Full list of models to reindex: [FileAsset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern]
 class ReindexAsset
   def self.lesson
     klass = Lesson

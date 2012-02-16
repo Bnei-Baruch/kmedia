@@ -4,7 +4,7 @@ require 'rails/all'
 
 if defined?(Bundler)
   # If you precompile file_assets before deploying to production, use this line
-  Bundler.require *Rails.groups(:file_assets => %w(development test assets)) rescue nil
+  Bundler.require *Rails.groups(:file_assets => %w(development test)) rescue nil
   # If you want your file_assets lazily compiled in production, use this line
   #Bundler.require(:default, :file_assets, Rails.env)
 end
@@ -17,7 +17,6 @@ module Kmedia
 
     # Version of your file_assets, change this if you want to expire all your file_assets
     config.assets.version = '1.0'
-    config.assets.initialize_on_precompile = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into file_assets in config/initializers

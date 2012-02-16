@@ -20,10 +20,9 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'progress_bar' # for sunspot
 
-gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => "2.0"
-gem 'bootstrap-will_paginate'
-gem 'compass'#, ">= 0.11.beta.3"
-                                                                   # Bundle gems for the local environment. Make sure to
+gem 'therubyracer'
+
+# Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
@@ -32,6 +31,8 @@ group :development, :test do
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
 end
+
+gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => "2.0"
 
 # Gems used only for assets and not required
 # in production environments by default.
