@@ -18,7 +18,7 @@ class Lesson < ActiveRecord::Base
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
 
-  validates :lessonname, :lang, :catalogs, :presence => true
+  validates :lessonname, :lang, :catalogs, :container_type_id, :presence => true
 
   class NonemptyValidator < ActiveModel::Validator
     #, :fields => [:lesson_descriptions]
