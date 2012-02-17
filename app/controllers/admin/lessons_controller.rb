@@ -22,7 +22,7 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def new
     @lesson = Lesson.new
-    @lesson.catalogs << Catalog.find_by_catalognodename('Video') # Add it to RSS by default
+    @lesson.catalogs << @rss # Add it to RSS by default
     @languages.each{ |l|
       @lesson.lesson_descriptions.build(:lang => l.code3)
     }
@@ -123,6 +123,7 @@ class Admin::LessonsController < Admin::ApplicationController
     @lecturers = Lecturer.all
     @container_types = ContainerType.all.map{|ct| [ct.name, ct.id]}
     @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
+    @rss = Catalog.find_by_catalognodename('Video')
   end
 
   def sort_descriptions
