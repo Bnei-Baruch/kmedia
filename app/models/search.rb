@@ -21,8 +21,8 @@ class Search
      ['Catalogs', Catalog],
      ['Catalog Descriptions', CatalogDescription],
      ['Container', Lesson],
-     ['Container Description', LessonDescription],
-     ['Long Description', LessondescPattern]
+     ['Container Description (Long/Short)', LessonDescription],
+     ['Container Pattern', LessondescPattern]
     ]
   end
 
