@@ -29,7 +29,7 @@
           %p.input.string.optional
             %label(for="lesson_catalog_tokens" class="string optional") Catalogs
             %ul.token-input-list
-              - @lesson.catalogs.each do |c|                                                                                                         6
+              - @lesson.catalogs.each do |c|
                 %li.token-input-token
                   %p=c.catalognodename
         - else
@@ -38,3 +38,6 @@
   = display_descriptions f, @lesson_descriptions, 'lesson_descriptions', 'lessondesc'
   %hr.soften
   = display_actions f, admin_lessons_url
+
+:javascript
+  var rss_catalog = {id: #{@rss.catalognodeid}, name: '#{@rss.catalognodename}' };

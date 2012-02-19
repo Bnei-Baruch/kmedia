@@ -18,18 +18,21 @@ gem "cancan"
 gem 'devise'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'progress_bar' # for sunspot
+
+gem 'therubyracer'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
-  gem "ruby-debug-base19x", '>=0.11.30.pre7'
+  gem "ruby-debug-base19x", '>= 0.11.30.pre7'
   gem "ruby-debug-ide"
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
-  gem 'progress_bar' # for sunspot
 end
+
+gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => "2.0"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -37,7 +40,4 @@ group :assets do
   gem 'sass-rails', "~> 3.2.0"
   gem 'coffee-rails', "~> 3.2.0"
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', '~> 2.0.0' #, :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git'
-  gem 'bootstrap-will_paginate'
-  #gem 'compass'#, ">= 0.11.beta.3"
 end

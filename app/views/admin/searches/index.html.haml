@@ -26,11 +26,11 @@
           - klass = result.class
           %tr
             - case
-            - when klass == Asset
+            - when klass == FileAsset
               - asset = result
               %td= asset.fileid
-              %td= link_to 'Asset', admin_asset_path(asset)
-              %td= "#{asset.filename} (#{asset.filesize})"
+              %td= link_to 'File', admin_asset_path(asset)
+              %td= "#{asset.filename} (#{asset.appsize})"
             - when klass == Lesson
               - lesson = result
               %td= lesson.lessonid

@@ -1,5 +1,5 @@
 class Lesson < ActiveRecord::Base
-  set_primary_key :lessonid
+  self.primary_key = :lessonid
   has_many :lessondesc_patterns, :foreign_key => :lessonid
   has_many :lesson_descriptions, :foreign_key => :lessonid do
     def by_language(code3)
@@ -8,7 +8,7 @@ class Lesson < ActiveRecord::Base
   end
   belongs_to :lecturer, :foreign_key => :lecturerid
   belongs_to :container_type
-  has_and_belongs_to_many :assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
+  has_and_belongs_to_many :file_assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
                           :association_foreign_key => "fileid", :order => "date(updated) DESC, filename ASC"
   has_and_belongs_to_many :catalogs, :join_table => "catnodelessons", :foreign_key => "lessonid",
                           :association_foreign_key => "catalognodeid", :order => "catalognodename"
@@ -18,9 +18,7 @@ class Lesson < ActiveRecord::Base
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
 
-#  attr_accessible :lessonid, :lessonname, :created, :updated, :lessondate, :lang, :lecturerid, :secure
-
-  validates :lessonname, :lang, :catalogs, :presence => true
+  validates :lessonname, :lang, :catalogs, :container_type_id, :presence => true
 
   class NonemptyValidator < ActiveModel::Validator
     #, :fields => [:lesson_descriptions]
@@ -42,14 +40,6 @@ class Lesson < ActiveRecord::Base
   scope :ordered, order("date(created) DESC, lessonname ASC")
   scope :need_update, where("date(created) > '2011-03-01' and (lessondate is null or lang is null or lang = '' or (select count(1) from lessondesc where lessondesc.lessonid = lessons.lessonid and lang in('HEB', 'ENG', 'RUS') and length(lessondesc) > 0 ) = 0 or (select count(1) from catnodelessons where catnodelessons.lessonid = lessons.lessonid) = 0)")
 
-  # ThinkingSphinx.search('sefer|zohar', :star => true, :match_mode => :extended, :page => params[:page], :per_page => 10)
-  #define_index do
-  #  indexes lessonname, :sortable => true
-  #
-  #  has secure
-  #
-  #  set_property :delta => true
-  #end
   searchable do
     text :lessonname
     text :lessondesc, :as => :user_text do
@@ -63,11 +53,11 @@ class Lesson < ActiveRecord::Base
     integer :container_type_id
 
     string :file_language_ids, :multiple => true do
-      assets.select('distinct filelang').map(&:filelang)
+      file_assets.select('distinct filelang').map(&:filelang)
     end
 
     string :media_type_ids, :multiple => true do
-      assets.select('distinct filetype').map(&:filetype)
+      file_assets.select('distinct filetype').map(&:filetype)
     end
 
     integer :catalog_ids, :multiple => true

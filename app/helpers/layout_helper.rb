@@ -55,7 +55,7 @@ module LayoutHelper
   def display_actions(f, location)
     engine = Haml::Engine.new <<-HAML
 .actions
-  %button.btn.btn-primary.btn-large{:type => 'submit', :disable_with => 'Please wait...'} Update
+  %button.btn.btn-primary.btn-large{:type => 'submit', :'data-disable-with' => 'Please wait...'} Update
   %button.btn.btn-large{:onclick => "location.href='#{location}'; return false;", :type => 'button'} Cancel
     HAML
     engine.render self, :form => f

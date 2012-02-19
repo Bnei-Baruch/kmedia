@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_filter :get_user, :only => [:index, :new, :edit]
-  before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
+  before_filter :get_user, :only => [:index, :new, :edit, :become]
+  before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create, :become]
   load_and_authorize_resource :only => [:show, :new, :destroy, :edit, :update]
 
   # GET /users
@@ -30,6 +30,7 @@ class Admin::UsersController < Admin::ApplicationController
   # GET /users/1/edit.json                                HTML AND AJAX
   #-------------------------------------------------------------------
   def edit
+    @user.generate_token
   end
 
   # DELETE /users/1
@@ -74,6 +75,12 @@ class Admin::UsersController < Admin::ApplicationController
       params[:user].delete(:current_password)
     end
 
+    if params[:user][:reset_password_token] != @user.reset_password_token
+      @user.errors[:first_name] << "Sorry, but you don't have permission to change users' data"
+      render :action => 'edit'
+      return
+    end
+
     if @user.errors[:password].empty? && @user.errors[:current_password].empty?
       permitted = can? :update, :users
       if @user.update_attributes(params[:user], :without_protection => permitted)
@@ -84,6 +91,12 @@ class Admin::UsersController < Admin::ApplicationController
     else
       render :action => 'edit'
     end
+  end
+
+  def become
+    return unless current_user.role?(:super_admin)
+    sign_in(:user, User.find(params[:id]))
+    redirect_to root_url # or user_root_url
   end
 
   private

@@ -12,5 +12,15 @@ class User < ActiveRecord::Base
   def role?(role)
     return !!self.roles.find_by_name(role.to_s.camelize)
   end
-  
+
+  # Generate a token by looping and ensuring does not already exist.
+  def generate_token(column = :reset_password_token)
+    token = ''
+    loop do
+      token = SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')
+      break token unless User.where(column => token).first
+    end
+    update_attribute column, token
+  end
+
 end

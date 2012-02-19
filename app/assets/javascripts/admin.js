@@ -1,3 +1,7 @@
+//= require jquery
+//= require modernizr.custom
+//= require jquery.tokeninput
+//= require jquery.alphanumeric
 //= require jquery_ujs
 //= require bootstrap
 //= require_self
@@ -38,8 +42,10 @@ $(function () {
     $('#lesson_rss').live('click', function () {
         if ($(this).is(':checked')) {
             // Add RSS categories to catalogs
+            $('#lesson_catalog_tokens').tokenInput("add", rss_catalog);
         } else {
             // Remove RSS categories to catalogs
+            $('#lesson_catalog_tokens').tokenInput("remove", rss_catalog);
         }
     });
 

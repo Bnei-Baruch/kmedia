@@ -1,12 +1,21 @@
 /*
+*= require token-input
 *= require_self
 *= require_tree ./admin
 */
+
 @import "bootstrap";
+
+* {
+  -webkit-transition: all 0.5s ease !important;
+  -moz-transition:    all 0.5s ease !important;
+  -ms-transition:     all 0.5s ease !important;
+  -o-transition:      all 0.5s ease !important;
+}
 
 body {
   font-family: Arial;
-  padding-top: 80px;
+  padding-top: 90px;
 }
 
 .clear {
@@ -21,10 +30,16 @@ body {
       font-weight: normal;
     }
   }
-}
-
-.navbar-search .search-query {
-  color: black;
+  ul.nav {
+    li {
+      a {
+        color: rgba(255, 255, 255, 0.8);
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
 }
 
 .brand.logout {
@@ -34,8 +49,10 @@ body {
 
 .navbar-search {
   .search-query {
+    color: black;
     background-color: rgba(255, 255, 255, 0.8);
     &:hover {
+      color: gray;
       background-color: rgba(255, 255, 255, 0.9);
     }
   }

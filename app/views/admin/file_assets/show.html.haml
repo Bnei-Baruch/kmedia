@@ -1,4 +1,4 @@
-- title "Admin/Asset"
+- title "Admin/FileAsset"
 
 %p
   %strong ID:
@@ -11,7 +11,7 @@
   %table.admin_table
     %tr
       %th Language
-      %th File Description
+      %th FileAsset Description
       %th Created on
       %th Updated on
       %th ID
@@ -32,13 +32,13 @@
   %strong Recording date:
   = @asset.filedate
 %p
-  %strong File type:
+  %strong FileAsset type:
   = @asset.filetype
 %p
   %strong Language:
   = @asset.filelang
 %p
-  %strong File size:
+  %strong FileAsset size:
   = number_to_human_size @asset.filesize
 %p
   %strong Server name:

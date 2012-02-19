@@ -4,7 +4,7 @@ class Search
   extend ActiveModel::Naming
 
   attr_accessor :query_string, :language_ids, :container_type_ids, :file_type_ids, :media_type_ids,
-                :catalog_id, :catalog_ids, :date_from, :date_to
+                :catalog_id, :catalog_ids, :date_from, :date_to, :model
 
   attr_accessor :error
 
@@ -13,6 +13,17 @@ class Search
       send "#{name}=", value
     end if attributes
     @error = nil
+  end
+
+  def self.models
+    [['-- All Kinds --', ''],
+     ['Files', FileAsset],
+     ['Catalogs', Catalog],
+     ['Catalog Descriptions', CatalogDescription],
+     ['Container', Lesson],
+     ['Container Description (Long/Short)', LessonDescription],
+     ['Container Pattern', LessondescPattern]
+    ]
   end
 
   def persisted?
@@ -29,18 +40,18 @@ class Search
   end
 
   def language_ids=(ids)
-    @language_ids = ids.select{|id| id.present?}
+    @language_ids = ids.select { |id| id.present? }
   end
 
   def file_type_ids=(ids)
-    @file_type_ids = ids.select{|id| id.present?}
-    @media_type_ids = ids.select{|id| id.present?}.map do |fname|
+    @file_type_ids = ids.select { |id| id.present? }
+    @media_type_ids = ids.select { |id| id.present? }.map do |fname|
       FileType.find(fname).try(:extlist).split(',')
     end.flatten.uniq.compact
   end
 
   def container_type_ids=(ids)
-    @container_type_ids = ids.select{|id| id.present?}
+    @container_type_ids = ids.select { |id| id.present? }
   end
 
   def date_to=(string)
@@ -84,10 +95,17 @@ class Search
 
   def search_full_text_admin(page_no)
     query_text = query_string_normalized
+    if model.blank?
+      models = [FileAsset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern]
+    else
+      models = [model.constantize]
+    end
+    order = :score
     begin
-      Sunspot.search(Asset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern) do |query|
+      Sunspot.search(models) do |query|
         query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => 40
+        query.order_by order
       end
     rescue Net::HTTPFatalError => e
       if e.data.kind_of?(Net::HTTPInternalServerError)
