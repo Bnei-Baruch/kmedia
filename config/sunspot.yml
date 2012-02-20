@@ -3,8 +3,8 @@ production:
     hostname: localhost
     port: 8983
     log_level: WARNING
-    min_memory: 64m
-    max_memory: 400m
+    min_memory: 512m
+    max_memory: 640m
 
 
 development:
