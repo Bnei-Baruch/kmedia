@@ -40,6 +40,7 @@ puts '--> Roles'
   {:name => 'ArchiveAdmin', :description => 'הכל חוץ ממחיקת קבצים וניהול הרשאות'},
   {:name => 'Operator', :description => 'עדכון פרטים מרשימות קיימות (לא יכול להוסיף קטלוג, שפה או מרצה חדשים) ותיאורים. אסור לטפל בהרשאות של קבצים.'},
   {:name => 'ContentManager', :description => 'יכול לעדכן רק תיאורים, כולל תוכניות ישנות'},
+  {:name => 'APIUser', :description => 'API user'},
 ].each{|r| Role.find_or_create_by_name(r)}
 
 puts '--> Users'
@@ -51,6 +52,7 @@ puts '--> Users'
   {:user => {:email => 'archiveadmin@kbb1.com', :password => 'kmedia'}, :role => 'ArchiveAdmin'},
   {:user => {:email => 'operator@kbb1.com', :password => 'kmedia'}, :role => 'Operator'},
   {:user => {:email => 'contentmanager@kbb1.com', :password => 'kmedia'}, :role => 'ContentManager'},
+  {:user => {:email => 'api@kbb1.com', :password => 'kmedia-api-user'}, :role => 'ContentManager'},
 ].each{|e|
   user = User.find_or_create_by_email(e[:user])
   user.roles << Role.find_by_name(e[:role])

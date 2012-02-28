@@ -109,7 +109,7 @@ class Admin::LessonsController < Admin::ApplicationController
     sp = ::StringParser.new lessonname
     @date = sp.date
     @language = sp.language
-    @lecturer_id = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
+    @lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
     @descriptions = sp.descriptions
     @container_type_id = sp.container_type.id
     render :parse_lesson_name, :layout => false

@@ -11,6 +11,18 @@ class FileAsset < ActiveRecord::Base
 
   belongs_to :server, :foreign_key => :servername, :primary_key => :servername
 
+  attr_accessor :v_filedate
+  # Virtual column to emulate varchar filedate in db
+  columns_hash["v_filedate"] = ActiveRecord::ConnectionAdapters::Column.new("v_filedate", nil, "date")
+
+  def v_filedate
+    Date.strptime(filedate.to_s, '%Y-%m-%d') rescue nil
+  end
+
+  def v_filedate=(my_date)
+    self.filedate = my_date.to_s
+  end
+
   searchable do
     text :filename
   end

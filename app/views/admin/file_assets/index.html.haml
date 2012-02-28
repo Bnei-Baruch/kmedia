@@ -12,6 +12,7 @@
       %tr
       %th ID
       %th FileAsset name
+      %th Recorded at
       %th Created on
       %th Updated on
       %th Language
@@ -21,6 +22,7 @@
         %tr
           %td= link_to asset.fileid, asset.url, :target => '_blank'
           %td= asset.filename
+          %td= asset.filedate.try(:to_date)
           %td= asset.created.try(:to_date)
           %td= asset.updated.try(:to_date)
           %td= asset.filelang

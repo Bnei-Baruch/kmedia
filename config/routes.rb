@@ -26,6 +26,15 @@ Kmedia::Application.routes.draw do
     end
     resources :lessondesc_patterns
     resources :searches
+
+    namespace :api do
+      resources :tokens, :only => [:create, :destroy]
+      resources :api, :only => [] do
+        collection do
+          post :register_file, :get_file_servers
+        end
+      end
+    end
   }
 
   # The priority is based upon order of creation:
