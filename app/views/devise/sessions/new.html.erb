@@ -1,17 +1,14 @@
-<h2>Sign in</h2>
+<header class="subhead" id="overview"><h2>Sign in</h2></header>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <p><%= f.label :email %><br />
-  <%= f.email_field :email %></p>
-
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
-
-  <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
-  <% end -%>
-
-  <p><%= f.submit "Sign in", :disable_with => 'Please wait...' %></p>
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    <%= f.input :email, :label => 'Email', :as => :email, :placeholder => 'Your email here', :input_html => {:class => 'span5'} %>
+    <%= f.input :password, :label => 'Password', :as => :password, :input_html => {:class => 'span5'} %>
+    <% if devise_mapping.rememberable? -%>
+        <%= f.input :remember_me, :label => false, :as => :boolean %>
+        <%= f.label 'Remember me', :style => 'margin-left: 1.5em;' %>
+    <% end -%>
+    <div class="clb">&nbsp;</div>
+    <button class="btn btn-primary btn-large" type="submit" data-disable-with='Please wait...'>Sign in</button>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

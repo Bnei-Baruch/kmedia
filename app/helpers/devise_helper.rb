@@ -14,10 +14,11 @@ module DeviseHelper
                       :resource => resource_name)
 
     html = <<-HTML
-    <div id="error_explanation">
-      <h2>#{sentence}</h2>
-      <ul>#{messages}</ul>
-    </div>
+
+      <div class="alert alert-error"><a class="close" data-dismiss="alert">&times;</a>
+        <h4 class="alert-heading">#{sentence}</h2>
+        <ul>#{messages}</ul>
+      </div>
     HTML
 
     html.html_safe
