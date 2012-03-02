@@ -72,6 +72,6 @@ puts '--> Container Types'
     {:name => 'Text', :pattern => 'text'},
     {:name => 'Transcript', :pattern => 'tamlil'},
     {:name => 'Magazine', :pattern => 'magazine'},
-].each{|r| ContainerType.find_or_create_by_pattern(r)}
+].each{|r| ContentType.find_or_create_by_pattern(r)}
 
 puts '--> Done'

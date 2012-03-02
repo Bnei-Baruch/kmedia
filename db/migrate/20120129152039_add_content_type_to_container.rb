@@ -4,7 +4,7 @@ class AddContentTypeToContainer < ActiveRecord::Migration
       t.string :name
       t.string :pattern
     end
-    add_column :lessons, :container_type_id, :integer
+    add_column :lessons, :content_type_id, :integer
     Lesson.reset_column_information
 
     [
@@ -20,11 +20,11 @@ class AddContentTypeToContainer < ActiveRecord::Migration
         {:name => 'Text', :pattern => 'text'},
         {:name => 'Transcript', :pattern => 'tamlil'},
         {:name => 'Magazine', :pattern => 'magazine'},
-    ].each { |r| ContainerType.create(r) }
+    ].each { |r| ContentType.create(r) }
   end
 
   def self.down
-    remove_column :lessons, :container_type_id
+    remove_column :lessons, :content_type_id
     drop_table :container_types
   end
 end

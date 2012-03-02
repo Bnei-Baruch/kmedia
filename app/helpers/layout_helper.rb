@@ -61,17 +61,19 @@ module LayoutHelper
     engine.render self, :form => f
   end
 
-  def display_show_item(name, value)
+  def display_show_item(name, value, as_is = false)
     engine = Haml::Engine.new <<-HAML
 %p
   %strong #{name.humanize}:
-  #{value.to_s.gsub(/\s/, '&nbsp;')}
+  #{as_is ? value : value.to_s.gsub(/\s/, '&nbsp;')}
 HAML
     engine.render
   end
 
   def display_secure(secure_level)
-    secure = SECURITY.select{|s| s[:level] == secure_level }.first[:name].downcase
-    secure == 'unsecure' ? 'non-secure' : "<span class='label label-#{secure == 'advanced' ? 'important' : 'warning'}'>#{secure.humanize}</span>".html_safe
+    security = SECURITY.select{|s| s[:level] == secure_level }
+    name = security.first[:name].downcase
+    klass = security.first[:klass]
+    name == 'unsecure' ? 'non-secure' : "<span class='label label-#{klass}'>#{name.humanize}</span>".html_safe
   end
 end

@@ -7,7 +7,7 @@ class Lesson < ActiveRecord::Base
     end
   end
   belongs_to :lecturer, :foreign_key => :lecturerid
-  belongs_to :container_type
+  belongs_to :content_type
   has_and_belongs_to_many :file_assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
                           :association_foreign_key => "fileid", :order => "date(updated) DESC, filename ASC"
   has_and_belongs_to_many :catalogs, :join_table => "catnodelessons", :foreign_key => "lessonid",
@@ -18,7 +18,7 @@ class Lesson < ActiveRecord::Base
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
 
-  validates :lessonname, :lang, :catalogs, :container_type_id, :presence => true
+  validates :lessonname, :lang, :catalogs, :content_type_id, :presence => true
 
   class NonemptyValidator < ActiveModel::Validator
     #, :fields => [:lesson_descriptions]
@@ -50,7 +50,7 @@ class Lesson < ActiveRecord::Base
     end
 
     integer :secure
-    integer :container_type_id
+    integer :content_type_id
 
     string :file_language_ids, :multiple => true do
       file_assets.select('distinct filelang').map(&:filelang)
@@ -128,7 +128,8 @@ class Lesson < ActiveRecord::Base
       sp.descriptions.each { |pattern|
         c.lesson_descriptions.build(:lang => pattern.lang, :lessondesc => pattern.description)
       }
-      c.container_type_id = sp.container_type.id
+      c.content_type_id = sp.content_type.id
+      c.secure = sp.content_security_level
 
       languages = Language.order('code3').all
 
@@ -153,14 +154,17 @@ class Lesson < ActiveRecord::Base
       lang = Language.find_by_code3($1.upcase).code3
       raise "Unknown language: $1" if not lang
 
+      sp = ::StringParser.new container_name
+      secure = sp.content_security_level
+
       file_asset = FileAsset.find_by_filename(name)
       if file_asset.nil?
         file_asset = FileAsset.new(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
-                                   lastuser: 'system', servername: server)
+                                   lastuser: 'system', servername: server, secure: secure)
         container.file_assets << file_asset
       else
         file_asset.update_attributes(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
-                                    lastuser: 'system', servername: server)
+                                    lastuser: 'system', servername: server, secure: secure)
       end
       raise "Unable to save/update file #{name}" unless file_asset.save
 

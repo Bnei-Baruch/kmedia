@@ -111,7 +111,8 @@ class Admin::LessonsController < Admin::ApplicationController
     @language = sp.language
     @lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
     @descriptions = sp.descriptions
-    @container_type_id = sp.container_type.id
+    @content_type_id = sp.content_type.id
+    @security = sp.content_security_level
     render :parse_lesson_name, :layout => false
   end
 
@@ -121,7 +122,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def set_fields
     @languages = Language.order('code3').all
     @lecturers = Lecturer.all
-    @container_types = ContainerType.all.map{|ct| [ct.name, ct.id]}
+    @content_types = ContentType.all.map{|ct| [ct.name, ct.id]}
     @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
     @rss = Catalog.find_by_catalognodename('Video')
   end

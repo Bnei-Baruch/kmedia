@@ -4,14 +4,16 @@
   = display_actions f, admin_file_assets_url
   %hr.soften
   = display_errors f
-  = f.input :filename, :disabled => disabled, :label => 'Name'
-  = f.input :v_filedate, :label => 'Date', :disabled => disabled, :order => [:day, :month, :year]
-  = f.input :filetype, :disabled => disabled, :label => 'Type'
-  = f.input :filelang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --', :disabled => disabled
-  = f.input :filesize, :disabled => disabled, :label => 'Size'
-  = f.input :servername, :collection => @servers, :value_method => :servername, :label_method => :to_s, :label => 'Server', :prompt => '-- Please select server --', :disabled => disabled
-  = f.input :filestatus, :disabled => disabled, :label => 'Status'
-  = f.input :fileclicks, :disabled => disabled, :label => 'Clicks'
+  .row
+    .span6
+      = f.input :filename, :disabled => disabled, :label => 'Name', :input_html => {:class => 'span5'}
+      = f.input :v_filedate, :label => 'Date', :disabled => disabled, :order => [:day, :month, :year], :input_html => {:class => 'span5'}
+      = f.input :filetype, :disabled => disabled, :label => 'Type', :input_html => {:class => 'span5'}
+      = f.input :filelang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --', :disabled => disabled, :input_html => {:class => 'span5'}
+      = f.input :filesize, :disabled => disabled, :label => 'Size', :input_html => {:class => 'span5'}
+      = f.input :servername, :collection => @servers, :value_method => :servername, :label_method => :to_s, :label => 'Server', :prompt => '-- Please select server --', :disabled => disabled, :input_html => {:class => 'span5'}
+      = f.input :filestatus, :disabled => disabled, :label => 'Status', :input_html => {:class => 'span5'}
+      = f.input :fileclicks, :disabled => disabled, :label => 'Clicks', :input_html => {:class => 'span5'}
 
   %hr.soften
   = display_actions f, admin_lessons_url

@@ -32,14 +32,15 @@ class Admin::Api::ApiController < Admin::ApplicationController
   #   ]
   # }
   # @param container - name of container (directory)
-  # @param file - name of file
-  # @param server - name of server (Default: FILES-EU)
-  # @param time - time of modification of a file (mtime)
-  # @param size - size of the file in bytes
+  # @param files - list of files to add to this container
+  #   Each file has the following format:
+  #   @param file - name of file
+  #   @param server - name of server (Default: FILES-EU)
+  #   @param time - time of modification of a file (mtime)
+  #   @param size - size of the file in bytes
   def register_file
-    container = params[:container]
     result = begin
-      Lesson.add_update(container, params[:files])
+      Lesson.add_update(params[:container], params[:files])
       {message: "Success", code: true}
     rescue Exception => e
       {message: "Exception: #{e.message}", code: false}
