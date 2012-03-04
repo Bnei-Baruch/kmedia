@@ -52,7 +52,6 @@ puts '--> Users'
   {:user => {:email => 'archiveadmin@kbb1.com', :password => 'kmedia'}, :role => 'ArchiveAdmin'},
   {:user => {:email => 'operator@kbb1.com', :password => 'kmedia'}, :role => 'Operator'},
   {:user => {:email => 'contentmanager@kbb1.com', :password => 'kmedia'}, :role => 'ContentManager'},
-  {:user => {:email => 'api@kbb1.com', :password => 'kmedia-api-user'}, :role => 'ContentManager'},
 ].each{|e|
   user = User.find_or_create_by_email(e[:user])
   user.roles << Role.find_by_name(e[:role])

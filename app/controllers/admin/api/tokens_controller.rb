@@ -24,6 +24,15 @@ class Admin::Api::TokensController < ApplicationController
       return
     end
 
+    # only APIUser is permitted to use API
+    api_role = Role.find_by_name('APIUser')
+
+    unless @user.roles.include? api_role
+      logger.info("User #{email} is not an API user.")
+      render :status => 401, :json => { :message => "Not an API user." }
+      return
+    end
+
     # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
     @user.ensure_authentication_token!
 
