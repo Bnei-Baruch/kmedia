@@ -17,13 +17,13 @@ class Admin::LessonsController < Admin::ApplicationController
       redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
       return
     end
-    @secure = SECURITY.select{|s| s[:level] == @lesson.secure }.first[:name]
+    @secure = SECURITY.select { |s| s[:level] == @lesson.secure }.first[:name]
   end
 
   def new
     @lesson = Lesson.new
     @lesson.catalogs << @rss # Add it to RSS by default
-    @languages.each{ |l|
+    @languages.each { |l|
       @lesson.lesson_descriptions.build(:lang => l.code3)
     }
     @lesson_descriptions = sort_descriptions
@@ -38,7 +38,7 @@ class Admin::LessonsController < Admin::ApplicationController
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
         @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
       end
-      @lesson_descriptions =  sort_descriptions
+      @lesson_descriptions = sort_descriptions
       render :action => 'new'
     end
   end
@@ -48,7 +48,7 @@ class Admin::LessonsController < Admin::ApplicationController
     authorize! :edit, @lesson
 
     lang_codes = @lesson.lesson_descriptions.map(&:lang)
-    @languages.each{ |l|
+    @languages.each { |l|
       @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
     @lesson_descriptions = sort_descriptions
@@ -58,12 +58,12 @@ class Admin::LessonsController < Admin::ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
     if @lesson.update_attributes(params[:lesson])
-      redirect_to admin_lesson_path(@lesson), :notice  => "Successfully updated admin/container."
+      redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
     else
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
         @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
       end
-      @lesson_descriptions =  sort_descriptions
+      @lesson_descriptions = sort_descriptions
       render :action => 'edit'
     end
   end
@@ -73,7 +73,7 @@ class Admin::LessonsController < Admin::ApplicationController
     authorize! :edit, @lesson
 
     lang_codes = @lesson.lesson_descriptions.map(&:lang)
-    @languages.each{ |l|
+    @languages.each { |l|
       @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
     @lesson_descriptions = sort_descriptions
@@ -83,12 +83,12 @@ class Admin::LessonsController < Admin::ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
     if @lesson.update_attributes(params[:lesson])
-      redirect_to admin_lesson_path(@lesson), :notice  => "Successfully updated contaner description."
+      redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated contaner description."
     else
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
         @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
       end
-      @lesson_descriptions =  sort_descriptions
+      @lesson_descriptions = sort_descriptions
       render :action => 'edit'
     end
   end
@@ -118,25 +118,78 @@ class Admin::LessonsController < Admin::ApplicationController
 
   alias :parse_new_lesson_name :parse_lesson_name
 
+  def mark_for_merge
+    begin
+      lesson = Lesson.find(params[:id])
+    rescue
+      render :js => 'alert("No such lesson")';
+      return
+    end
+    lesson.marked_for_merge = !lesson.marked_for_merge
+    lesson.update_attribute(:marked_for_merge, lesson.marked_for_merge)
+    render :js => lesson.marked_for_merge ?
+        "$('.mark_for_merge').addClass('btn-warning').text('Unmark')" :
+        "$('.mark_for_merge').removeClass('btn-warning').text('Mark')"
+  end
+
+  def merge_get_list
+    @lesson = Lesson.find(params[:id])
+    unless @lesson
+      render :nothing => true
+      return
+    end
+    @lessons = Lesson.where(:marked_for_merge => true)
+    if @lessons.count == 0
+      render :text => 'empty'
+      return
+    end
+    if @lessons.map(&:id).include? @lesson.id
+      # Recursion
+      render :text => 'recursion'
+      return
+    end
+
+    render :layout => false
+  end
+
+  def merge
+    @lesson = Lesson.find(params[:id])
+    merge_ids = params[:lesson][:container_ids].map(&:to_i)#.reject{|m| m == 0}
+    merges = Lesson.where(:lessonid => merge_ids).each { |merge|
+      # copy files
+      merge.file_assets.each {|fa|
+        @lesson.file_assets << fa rescue nil
+      }
+      # empty files from merged container
+      merge.file_assets = []
+      # remove container
+      merge.destroy
+    }
+    # clear all selections
+    Lesson.where(:marked_for_merge => true).each{|lesson| lesson.update_attribute(:marked_for_merge, false) }
+    render :show
+  end
+
   private
   def set_fields
     @languages = Language.order('code3').all
     @lecturers = Lecturer.all
-    @content_types = ContentType.all.map{|ct| [ct.name, ct.id]}
-    @security = SECURITY.collect{|s| [ s[:name], s[:level] ] }
+    @content_types = ContentType.all.map { |ct| [ct.name, ct.id] }
+    @security = SECURITY.collect { |s| [s[:name], s[:level]] }
     @rss = Catalog.find_by_catalognodename('Video')
   end
 
   def sort_descriptions
-    lesson_descriptions_main = {}
+    lesson_descriptions_main = { }
     lesson_descriptions_all = []
-    @lesson.lesson_descriptions.each{|x|
+    @lesson.lesson_descriptions.each { |x|
       if MAIN_DESCR_LANGS.include? x.lang
         lesson_descriptions_main[x.lang] = x
       else
         lesson_descriptions_all << x
       end
     }
-    MAIN_DESCR_LANGS.map{|l| lesson_descriptions_main[l]} + lesson_descriptions_all.sort_by{|x| x.lang }
+    MAIN_DESCR_LANGS.map { |l| lesson_descriptions_main[l] } + lesson_descriptions_all.sort_by { |x| x.lang }
   end
+
 end

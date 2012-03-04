@@ -12,6 +12,9 @@ Kmedia::Application.routes.draw do
         get 'parse_lesson_name'
         get 'edit_long_descr'
         put 'update_long_descr'
+        get 'mark_for_merge'
+        get 'merge_get_list'
+        post 'merge'
       end
       collection do
         get 'parse_new_lesson_name'

@@ -17,6 +17,7 @@ class Lesson < ActiveRecord::Base
   accepts_nested_attributes_for :lesson_descriptions
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
+  attr_accessor :container_ids
 
   validates :lessonname, :lang, :catalogs, :content_type_id, :presence => true
 
@@ -39,6 +40,10 @@ class Lesson < ActiveRecord::Base
 
   scope :ordered, order("date(created) DESC, lessonname ASC")
   scope :need_update, where("date(created) > '2011-03-01' and (lessondate is null or lang is null or lang = '' or (select count(1) from lessondesc where lessondesc.lessonid = lessons.lessonid and lang in('HEB', 'ENG', 'RUS') and length(lessondesc) > 0 ) = 0 or (select count(1) from catnodelessons where catnodelessons.lessonid = lessons.lessonid) = 0)")
+
+  def to_label
+    lessonname
+  end
 
   searchable do
     text :lessonname
