@@ -15,6 +15,9 @@ Kmedia::Application.routes.draw do
         get 'parse_lesson_name'
         get 'edit_long_descr'
         put 'update_long_descr'
+        get 'mark_for_merge'
+        get 'merge_get_list'
+        post 'merge'
       end
       collection do
         get 'parse_new_lesson_name'
@@ -30,6 +33,15 @@ Kmedia::Application.routes.draw do
     end
     resources :lessondesc_patterns
     resources :searches
+
+    namespace :api do
+      resources :tokens, :only => [:create, :destroy]
+      resources :api, :only => [] do
+        collection do
+          post :register_file, :get_file_servers
+        end
+      end
+    end
   }
 
   # The priority is based upon order of creation:

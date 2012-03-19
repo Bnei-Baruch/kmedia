@@ -28,7 +28,7 @@
     %tbody
       - @lessons.each do |lesson|
         %tr
-          %td= lesson.lessonid
+          %td{:class => lesson.marked_for_merge ? 'btn btn-warning' : ''}= lesson.lessonid
           %td= lesson.lessonname.truncate(57, :omission => '&hellip;').html_safe
           %td= lesson.created.try(:to_date)
           %td= lesson.updated.try(:to_date)
@@ -42,5 +42,5 @@
             = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Long Description', edit_long_descr_admin_lesson_path(lesson) do
               .unable Long Description
           %td
-            = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete do
+            = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
               .unable Destroy

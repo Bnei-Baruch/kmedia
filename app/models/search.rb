@@ -3,7 +3,7 @@ class Search
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :query_string, :language_ids, :container_type_ids, :file_type_ids, :media_type_ids,
+  attr_accessor :query_string, :language_ids, :content_type_ids, :file_type_ids, :media_type_ids,
                 :catalog_id, :catalog_ids, :date_from, :date_to, :model
 
   attr_accessor :error
@@ -50,8 +50,8 @@ class Search
     end.flatten.uniq.compact
   end
 
-  def container_type_ids=(ids)
-    @container_type_ids = ids.select { |id| id.present? }
+  def content_type_ids=(ids)
+    @content_type_ids = ids.select { |id| id.present? }
   end
 
   def date_to=(string)
@@ -69,7 +69,7 @@ class Search
         query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => 30
         query.with(:secure, 0)
-        query.with(:container_type_id).any_of @container_type_ids if @container_type_ids.present?
+        query.with(:content_type_id).any_of @content_type_ids if @content_type_ids.present?
         query.with(:file_language_ids).any_of @language_ids if @language_ids.present?
         query.with(:media_type_ids).any_of @media_type_ids if @media_type_ids.present?
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?

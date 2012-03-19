@@ -6,7 +6,7 @@ module SearchesHelper
   end
 
   def content_types_to_list
-    ContainerType.all.map do |ct|
+    ContentType.all.map do |ct|
       [ct.name, ct.id.to_s]
     end
   end

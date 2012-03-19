@@ -9,7 +9,7 @@ class Catalog < ActiveRecord::Base
   accepts_nested_attributes_for :catalog_descriptions, :reject_if => proc { |attributes| attributes['catalognodename'].blank? }
 
   searchable do
-    text :catalognodename, :stored => true
+    text :catalognodename
     boolean :secure
   end
 

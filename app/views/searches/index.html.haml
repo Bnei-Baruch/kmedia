@@ -9,7 +9,7 @@
     .row.well
       = f.input :language_ids, :collection => languages_to_list, :as => :check_boxes, :label => 'Language: ', :label_html => {:class => 'inline'}
     .row.well
-      = f.input :container_type_ids, :collection => content_types_to_list, :as => :check_boxes, :label => 'Content type: '
+      = f.input :content_type_ids, :collection => content_types_to_list, :as => :check_boxes, :label => 'Content type: '
     .row.well
       = f.input :file_type_ids, :collection => file_type_ids_to_list, :as => :check_boxes, :label => 'FileAsset type: ', :label_html => {:class => 'pull-left'}
     .row.well

@@ -27,10 +27,17 @@ class StringParser
     LessondescPattern.pattern_matches(@string)
   end
 
-  def container_type
-    ContainerType.all.each do |ct|
+  def content_type
+    ContentType.all.each do |ct|
       return ct unless @string.scan("_#{ct.pattern}_").blank? && @string.scan("_#{ct.pattern}\.").blank?
     end
-    ContainerType.find_by_pattern('lesson')
+    ContentType.find_by_pattern('lesson')
+  end
+
+  def content_security_level
+    ContentType.all.each do |ct|
+      return ct.secure unless @string.scan("_#{ct.pattern}_").blank? && @string.scan("_#{ct.pattern}\.").blank?
+    end
+    SECURITY.select{|s| s[:name] == 'SuperDuper'}[0][:level]
   end
 end

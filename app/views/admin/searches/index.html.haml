@@ -29,8 +29,8 @@
             - when klass == FileAsset
               - asset = result
               %td= asset.fileid
-              %td= link_to 'File', admin_asset_path(asset)
-              %td= "#{asset.filename} (#{asset.appsize})"
+              %td= link_to 'File', admin_file_asset_path(asset)
+              %td= "#{asset.filename} (#{asset.filesize} bytes)"
             - when klass == Lesson
               - lesson = result
               %td= lesson.lessonid

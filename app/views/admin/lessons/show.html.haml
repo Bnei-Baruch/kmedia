@@ -16,13 +16,13 @@
 %section.well
   = display_show_item('ID', @lesson.lessonid)
   = display_show_item('Name', @lesson.lessonname)
-  = display_show_item('Type', @lesson.container_type.try(:name))
+  = display_show_item('Type', @lesson.content_type.try(:name))
   = display_show_item('Created', @lesson.created.to_s(:long_ordinal))
   = display_show_item('Updated', @lesson.updated.to_s(:long_ordinal))
   = display_show_item('Container date', @lesson.lessondate)
   = display_show_item('Language', @lesson.language)
   = display_show_item('Lecturer', @lesson.lecturer)
-  = display_show_item('Secure', display_secure(@lesson.secure))
+  = display_show_item('Secure', display_secure(@lesson.secure), true)
 %section
   %strong Descriptions:
   %table.table.table-striped.table-bordered.table-condensed
@@ -65,6 +65,8 @@
       %tr
         %th ID
         %th Name
+        %th Security
+        %th Recorded at
         %th Created on
         %th Updated on
         %th Language
@@ -74,6 +76,8 @@
         %tr
           %td= link_to asset.fileid, asset.url, :target => '_blank'
           %td= asset.filename
+          %td= display_secure(asset.secure)
+          %td= asset.filedate.try(:to_date)
           %td= asset.created.try(:to_date)
           %td= asset.updated.try(:to_date)
           %td= asset.filelang

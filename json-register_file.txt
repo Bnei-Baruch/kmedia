@@ -1,0 +1,1 @@
+{"requestUrl":"http://localhost:3000/admin/api/api/register_file","requestMethod":"POST","requestBody":"{\"auth_token\":\"bQpH8sMm6J3aPPzy1Wuh\", \"container\": \"2012-02-28_heb_rav_clip_daily-listening-piece\", \"files\": [{\"file\": \"heb_o_rav_2012-02-28_clip_daily-listening-piece.mp3\"}]}","headers":["Content-Type","application/json"]}
