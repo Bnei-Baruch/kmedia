@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110907140500) do
+ActiveRecord::Schema.define(:version => 20120225083015) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -77,6 +78,17 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
   end
 
   add_index "catnodelessons", ["lessonid"], :name => "index_catnodelessons_on_lessonid"
+
+  create_table "container_types", :force => true do |t|
+    t.string "name"
+    t.string "pattern"
+  end
+
+  create_table "departments", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "filedesc", :primary_key => "filedescid", :force => true do |t|
     t.integer  "fileid",                :default => 0, :null => false
@@ -167,14 +179,15 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
   end
 
   create_table "lessons", :primary_key => "lessonid", :force => true do |t|
-    t.string   "lessonname", :limit => 100
+    t.string   "lessonname",        :limit => 100
     t.datetime "created"
     t.datetime "updated"
     t.date     "lessondate"
-    t.string   "lang",       :limit => 3
+    t.string   "lang",              :limit => 3
     t.integer  "lecturerid"
-    t.integer  "secure",                    :default => 0,    :null => false
-    t.boolean  "delta",                     :default => true, :null => false
+    t.integer  "secure",                           :default => 0,    :null => false
+    t.boolean  "delta",                            :default => true, :null => false
+    t.integer  "container_type_id"
   end
 
   add_index "lessons", ["lang"], :name => "lessonlangidx"
@@ -291,6 +304,7 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
     t.datetime "updated_at"
     t.string   "first_name",                          :default => ""
     t.string   "last_name",                           :default => ""
+    t.integer  "department_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

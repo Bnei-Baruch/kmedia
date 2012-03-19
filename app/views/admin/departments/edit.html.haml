@@ -1,0 +1,8 @@
+%header.subhead#overview
+  %h2 Edit Department
+  .subnav
+    %ul.nav.nav-pills
+      %li= link_to "Show", [:admin, @department]
+      %li= link_to "View All", admin_departments_path
+
+  = render 'department_fields'

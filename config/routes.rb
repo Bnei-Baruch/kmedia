@@ -1,8 +1,11 @@
 Kmedia::Application.routes.draw do
 
+
+
   devise_for :users
   resources :users
   resources :searches
+ # resources :departments
 
   namespace(:admin) {
     root :to => "searches#index"
@@ -19,6 +22,7 @@ Kmedia::Application.routes.draw do
     end
     resources :file_assets
     resources :catalogs
+    resources :departments
     resources :users do
       member do
         get :become

@@ -14,6 +14,7 @@
         %th Name
         %th Email
         %th Roles
+        %th Department
         %th(colspan=3) Actions
         - if current_user.role?(:super_admin)
           %th Become
@@ -24,6 +25,7 @@
           %td= "#{u.first_name} #{u.last_name}"
           %td= u.email
           %td.small= u.roles.collect{|r| r.name}.join(', ')
+          %td= u.department.try(:name)
           %td
             = link_to_if can?(:show, u), "Show", admin_user_path(u.id) do
               %span.unable Show
