@@ -1,6 +1,6 @@
 # encoding: utf-8 rails
 
-class Admin::DepartmentsController < ApplicationController
+class Admin::DepartmentsController < Admin::ApplicationController
   load_and_authorize_resource :only => [:show, :new, :destroy, :edit, :update]
   rescue_from ActiveRecord::RecordNotFound do |exception|
     redirect_to admin_departments_path, :alert => "There is no Department with ID=#{params[:id]}."
