@@ -46,7 +46,7 @@ puts '--> Roles'
 puts '--> Users'
 [
   {:user => {:email => 'vshiray@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
-  {:user => {:email => 'mgorodetsky@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
+  {:user => {:email => 'mgorodetsky@Оgmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
   {:user => {:email => 'gshilin@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
   {:user => {:email => 'ramigg@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
   {:user => {:email => 'archiveadmin@kbb1.com', :password => 'kmedia'}, :role => 'ArchiveAdmin'},

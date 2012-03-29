@@ -14,6 +14,10 @@ class Lesson < ActiveRecord::Base
                           :association_foreign_key => "catalognodeid", :order => "catalognodename"
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
+  before_destroy do |lesson|
+    lesson.file_assets.each {|a| a.delete}
+  end
+
   accepts_nested_attributes_for :lesson_descriptions
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
@@ -118,7 +122,7 @@ class Lesson < ActiveRecord::Base
   #
   # @param container - name of container (directory)
   # @param files - array of name-server-size-time objects
-  def self.add_update(container_name, files)
+  def self.add_update(container_name, files, dry_run = false)
     raise 'Container\'s name cannot be blank' if container_name.blank?
 
     # Create/update container
