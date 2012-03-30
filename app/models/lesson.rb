@@ -15,7 +15,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
   before_destroy do |lesson|
-    lesson.file_assets.each {|a| a.delete}
+    lesson.file_assets.each { |a| a.delete }
   end
 
   accepts_nested_attributes_for :lesson_descriptions
@@ -29,7 +29,7 @@ class Lesson < ActiveRecord::Base
     #, :fields => [:lesson_descriptions]
     def validate(record)
       # At least ENG, RUS and HEB must be non-empty
-      lds = {}
+      lds = { }
       record.lesson_descriptions.map { |x| lds[x.lang] = x.lessondesc }
       if lds['ENG'].blank? || lds['RUS'].blank? || lds['HEB'].blank?
         record.errors[:base] << "Empty Basic Description(s)"
@@ -129,9 +129,13 @@ class Lesson < ActiveRecord::Base
     container = Lesson.find_or_initialize_by_lessonname(container_name) { |c|
       # Try to update auto-fill-able fields
       # Only for new containers
-      c.catalogs << Catalog.find_by_catalognodename('Video')
+      c.catalogs << Catalog.find_by_catalognodename('Video') rescue raise('Unable to find catalog "Video"')
       sp = ::StringParser.new container_name
-      c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s
+      begin
+        c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s
+      rescue Error => e
+        raise "#{e.message} of container"
+      end
       c.lang = sp.language.upcase
       c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
       sp.descriptions.each { |pattern|
@@ -148,7 +152,7 @@ class Lesson < ActiveRecord::Base
       }
     }
 
-    if !container.persisted? && !container.save
+    unless dry_run || container.persisted? || container.save
       raise 'Unable to create/update container'
     end
 
@@ -156,26 +160,27 @@ class Lesson < ActiveRecord::Base
       name = file['file']
       server = file['server'] || DEFAULT_FILE_SERVER
       size = file['filesize'] || 0 # TODO: read file size from server
-      datetime = file['time'] ? Time.at(file['time']) : Time.now
+      datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
-      extension = File.extname(name)
+      extension = File.extname(name) rescue raise("Wrong :name value: #{name}")
       name =~ /^([^_]+)_/
-      lang = Language.find_by_code3($1.upcase).code3
-      raise "Unknown language: $1" if not lang
+      lang = Language.find_by_code3($1.upcase).code3 || raise("Unknown language: $1")
 
-      sp = ::StringParser.new container_name
+      sp = ::StringParser.new name
       secure = sp.content_security_level
 
       file_asset = FileAsset.find_by_filename(name)
       if file_asset.nil?
         file_asset = FileAsset.new(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
                                    lastuser: 'system', servername: server, secure: secure)
-        container.file_assets << file_asset
-      else
+        unless dry_run
+          container.file_assets << file_asset
+          raise "Unable to save/update file #{name}" unless file_asset.save
+        end
+      elsif !dry_run
         file_asset.update_attributes(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
-                                    lastuser: 'system', servername: server, secure: secure)
+                                     lastuser: 'system', servername: server, secure: secure)
       end
-      raise "Unable to save/update file #{name}" unless file_asset.save
 
       # Update file description for non-existing UI languages
       file_desc = if name =~ /_draw_/
