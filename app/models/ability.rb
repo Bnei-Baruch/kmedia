@@ -13,6 +13,7 @@ class Ability
       #- Archive Admin - Can do everything except deleting file_assets and permissions management
       can :manage, :all
       cannot :manage, :users
+      can :merge, Lesson
       cannot :destroy, Lesson
       cannot :destroy, Catalog
       cannot :destroy, FileAsset
