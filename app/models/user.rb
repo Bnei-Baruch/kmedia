@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
 
   has_and_belongs_to_many :roles, :uniq => true
+  belongs_to :department
 
   def role?(role)
     return !!self.roles.find_by_name(role.to_s.camelize)
