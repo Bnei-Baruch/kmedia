@@ -117,39 +117,39 @@ class Lesson < ActiveRecord::Base
   # Non-existing file descriptions, according fo file extension + _96k,
   # will be updated - filedesc (fileid,lang,filedesc)
   #
-  # The following tables/fields will be updated automatically:
+  # The following tables/fields will be updated automatically (for a new container or file only):
   # container:  date, language, lecturer (if rav), container type, descriptions
   #
   # @param container - name of container (directory)
+  # @param dry_run - do not create container or file (default - false)
   # @param files - array of name-server-size-time objects
   def self.add_update(container_name, files, dry_run = false)
     raise 'Container\'s name cannot be blank' if container_name.blank?
 
     # Create/update container
     container = Lesson.find_or_initialize_by_lessonname(container_name) { |c|
-      # Try to update auto-fill-able fields
-      # Only for new containers
-      c.catalogs << Catalog.find_by_catalognodename('Video') rescue raise('Unable to find catalog "Video"')
-      sp = ::StringParser.new container_name
-      begin
-        c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s
-      rescue Error => e
-        raise "#{e.message} of container"
+      # Update fields for new container only
+      if c.new_record?
+        # Try to update auto-fill-able fields
+        # Only for new containers
+        c.catalogs << Catalog.find_by_catalognodename('Video') rescue raise('Unable to find catalog "Video"')
+        sp = ::StringParser.new container_name
+        c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Date.now
+        c.lang = sp.language.upcase rescue 'ENG'
+        c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
+        sp.descriptions.each { |pattern|
+          c.lesson_descriptions.build(:lang => pattern.lang, :lessondesc => pattern.description)
+        }
+        c.content_type_id = sp.content_type.id
+        c.secure = sp.content_security_level
+
+        languages = Language.order('code3').all
+
+        lang_codes = c.lesson_descriptions.map(&:lang)
+        languages.each { |l|
+          c.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
+        }
       end
-      c.lang = sp.language.upcase
-      c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
-      sp.descriptions.each { |pattern|
-        c.lesson_descriptions.build(:lang => pattern.lang, :lessondesc => pattern.description)
-      }
-      c.content_type_id = sp.content_type.id
-      c.secure = sp.content_security_level
-
-      languages = Language.order('code3').all
-
-      lang_codes = c.lesson_descriptions.map(&:lang)
-      languages.each { |l|
-        c.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
-      }
     }
 
     unless dry_run || container.persisted? || container.save
@@ -159,18 +159,20 @@ class Lesson < ActiveRecord::Base
     files.each do |file|
       name = file['file']
       server = file['server'] || DEFAULT_FILE_SERVER
-      size = file['filesize'] || 0 # TODO: read file size from server
+      size = file['filesize'] || 0
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
-      extension = File.extname(name) rescue raise("Wrong :name value: #{name}")
-      name =~ /^([^_]+)_/
-      lang = Language.find_by_code3($1.upcase).code3 || raise("Unknown language: $1")
-
-      sp = ::StringParser.new name
-      secure = sp.content_security_level
+      extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
 
       file_asset = FileAsset.find_by_filename(name)
+
       if file_asset.nil?
+        # New file
+        name =~ /^([^_]+)_/
+        lang = Language.find_by_code3($1.upcase).code3 || raise("Wrong :file value (Unable to detect file language): #{name}")
+        sp = ::StringParser.new name
+        secure = sp.content_security_level
+
         file_asset = FileAsset.new(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
                                    lastuser: 'system', servername: server, secure: secure)
         unless dry_run
@@ -178,8 +180,7 @@ class Lesson < ActiveRecord::Base
           raise "Unable to save/update file #{name}" unless file_asset.save
         end
       elsif !dry_run
-        file_asset.update_attributes(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
-                                     lastuser: 'system', servername: server, secure: secure)
+        file_asset.update_attributes(filedate: datetime, filesize: size, lastuser: 'system', servername: server)
       end
 
       # Update file description for non-existing UI languages
