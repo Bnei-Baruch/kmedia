@@ -1,11 +1,8 @@
 Kmedia::Application.routes.draw do
 
-
-
   devise_for :users
   resources :users
   resources :searches
- # resources :departments
 
   namespace(:admin) {
     root :to => "searches#index"
