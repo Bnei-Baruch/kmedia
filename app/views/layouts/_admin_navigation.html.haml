@@ -23,6 +23,14 @@
           %li
             = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
               .unable Catalogs
-          %li
-            = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
-              .unable Containers' patterns
+          %li.dropdown
+            %a.dropdown-toggle{:href => "#", :"data-toggle" => "dropdown"}
+              Other
+              %b.a
+            %ul.dropdown-menu
+              = link_to_if can?(:update, Catalog), "Containers' patterns", admin_lessondesc_patterns_path do
+                .unable Containers' patterns
+              = link_to_if can?(:update, Department), 'Departments', admin_departments_path do
+                .unable Departments
+
+
