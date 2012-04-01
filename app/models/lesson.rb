@@ -205,7 +205,7 @@ class Lesson < ActiveRecord::Base
                     end
                   end
       unless file_desc.blank?
-        ui_langs = Language.all.map(&:lang) - container.file_assets.select('distinct filelang').map(&:filelang)
+        ui_langs = Language.all.map(&:code3) - container.file_assets.select('distinct filelang').map(&:filelang)
         ui_langs.each { |ui_lang|
           file_assets.file_asset_descriptions << FileAssetDescription.new(lang: ui_lang, filedesc: file_desc)
         }
