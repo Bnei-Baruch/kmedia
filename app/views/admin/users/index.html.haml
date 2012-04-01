@@ -33,7 +33,7 @@
             = link_to_if can?(:update, u), 'Edit', edit_admin_user_path(u) do
               %span.unable Edit
           %td
-            = link_to_if can?(:delete, u), 'Destroy', admin_user_path(u), :confirm => 'Are you sure?', :method => :delete do
+            = link_to_if can?(:delete, u), 'Destroy', admin_user_path(u), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
               %span.unable Destroy
           - if current_user.role?(:super_admin)
             %td= link_to 'Become', become_admin_user_path(u)

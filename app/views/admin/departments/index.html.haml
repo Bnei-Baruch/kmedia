@@ -12,6 +12,7 @@
       %tr
         %th ID
         %th Name
+        %th(colspan="3") Actions
     %tbody
       - @departments.each do |d|
         %tr(class="#{cycle('odd', 'even')}")
@@ -24,6 +25,6 @@
             = link_to_if can?(:update, d), 'Edit', edit_admin_department_path(d) do
               %span.unable Edit
           %td
-            = link_to_if can?(:delete, d), 'Destroy', admin_department_path(d), :confirm => 'Are you sure?', :method => :delete do
+            = link_to_if can?(:delete, d), 'Destroy', admin_department_path(d), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
               %span.unable Destroy
 
