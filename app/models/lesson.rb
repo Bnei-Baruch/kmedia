@@ -134,7 +134,7 @@ class Lesson < ActiveRecord::Base
         # Only for new containers
         c.catalogs << Catalog.find_by_catalognodename('Video') rescue raise('Unable to find catalog "Video"')
         sp = ::StringParser.new container_name
-        c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Date.now
+        c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Time.now.to_date
         c.lang = sp.language.upcase rescue 'ENG'
         c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
         sp.descriptions.each { |pattern|
@@ -152,7 +152,7 @@ class Lesson < ActiveRecord::Base
       end
     }
 
-    unless dry_run || container.persisted? || container.save
+    unless dry_run || container.save
       raise 'Unable to create/update container'
     end
 
