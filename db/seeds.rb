@@ -69,7 +69,7 @@ puts '--> Container Types'
     {:name => 'Audio Disk', :pattern => 'audiodisk'},
     {:name => 'Video Disk', :pattern => 'videodisk'},
     {:name => 'Text', :pattern => 'text'},
-    {:name => 'Transcript', :pattern => 'tamlil'},
+    {:name => 'Transcript', :pattern => 'tamlil', :secure => 4},
     {:name => 'Magazine', :pattern => 'magazine'},
 ].each{|r| ContentType.find_or_create_by_pattern(r)}
 
