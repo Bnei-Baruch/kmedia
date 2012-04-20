@@ -36,5 +36,5 @@ Kmedia::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  #config.log_tags = [:uuid, :remote_ip]
+  config.logger = Logger.new("log/#{Rails.env}.log", 8, 4 * 1024 ** 2)
 end

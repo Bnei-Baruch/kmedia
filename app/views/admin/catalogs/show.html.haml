@@ -44,3 +44,24 @@
           %td= admin_catalog_desc.created.try(:to_date)
           %td= admin_catalog_desc.updated.try(:to_date)
           %td= admin_catalog_desc.catalognodeid
+
+%section
+  %strong Containers:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Id
+        %th Name
+        %th Type
+        %th Secure
+        %th Language
+        %th Updated on
+    %tbody
+      - @catalog.lessons.each do |lesson|
+        %tr
+          %td= lesson.lessonid
+          %td= lesson.lessonname
+          %td= lesson.content_type.try(:name)
+          %td= display_secure(lesson.secure)
+          %td= lesson.language
+          %td= lesson.updated

@@ -48,7 +48,9 @@ class Admin::Api::ApiController < Admin::ApplicationController
                  Lesson.add_update(params[:container], params[:files], params[:dry_run] == 'true')
                  { message: "Success", code: true }
                rescue Exception => e
-                 { message: "Exception: #{e.message}\nBacktrace: #{e.backtrace.join("\n")}", code: false }
+                 message = "Exception: #{e.message}\n\tBacktrace: #{e.backtrace.join("\n\t")}"
+                 logger.error message
+                 { message: message, code: false }
                end
   end
 
