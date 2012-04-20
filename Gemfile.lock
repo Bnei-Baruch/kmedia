@@ -1,6 +1,13 @@
 GIT
+  remote: git://github.com/mark-moseley/linecache
+  revision: 869c6a65155068415925067e480741bd0a71527e
+  specs:
+    linecache19 (0.5.12)
+      ruby_core_source (>= 0.1.4)
+
+GIT
   remote: https://github.com/amatsuda/kaminari.git
-  revision: 2ed15e327662f47e78c0404b4968764a792ff282
+  revision: 118927a42e57d6608c10d85b8a62acfc7c175974
   specs:
     kaminari (0.13.0)
       actionpack (>= 3.0.0)
@@ -51,7 +58,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     archive-tar-minitar (0.5.2)
-    arel (3.0.0)
+    arel (3.0.2)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
     cancan (1.6.7)
@@ -61,14 +68,21 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.2.0)
+    coffee-script-source (1.3.1)
     columnize (0.3.6)
     daemons (1.0.10)
-    devise (2.0.2)
+    debugger (1.1.1)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.1)
+      debugger-ruby_core_source (~> 1.1)
+    debugger-linecache (1.1.1)
+      debugger-ruby_core_source (>= 1.1.1)
+    debugger-ruby_core_source (1.1.1)
+    devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       railties (~> 3.1)
-      warden (~> 1.1)
+      warden (~> 1.1.1)
     erubis (2.7.0)
     escape (0.0.4)
     eventmachine (0.12.10)
@@ -80,36 +94,34 @@ GEM
     highline (1.6.11)
     hike (1.2.1)
     i18n (0.6.0)
-    journey (1.0.1)
-    jquery-rails (2.0.0)
-      railties (>= 3.2.0.beta, < 5.0)
+    journey (1.0.3)
+    jquery-rails (2.0.2)
+      railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
-    json (1.6.5)
+    json (1.6.6)
     libv8 (3.3.10.4)
-    linecache19 (0.5.13)
-      ruby_core_source (>= 0.1.4)
-    mail (2.4.1)
+    mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.17.2)
+    mime-types (1.18)
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
-    multi_json (1.0.4)
+    multi_json (1.3.2)
     mysql2 (0.3.11)
     nifty-generators (0.4.6)
-    nokogiri (1.5.0)
+    nokogiri (1.5.2)
     options (2.3.0)
       fattr
-    orm_adapter (0.0.6)
+    orm_adapter (0.0.7)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
     rack (1.4.1)
-    rack-cache (1.1)
+    rack-cache (1.2)
       rack (>= 0.4)
     rack-ssl (1.3.2)
       rack
@@ -145,27 +157,28 @@ GEM
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     sass (3.1.15)
-    sass-rails (3.2.4)
+    sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    simple_form (2.0.0.rc)
+    simple_form (2.0.1)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     sprockets (2.1.2)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sunspot (1.3.0)
+    sunspot (1.3.1)
       escape (~> 0.0.4)
       pr_geohash (~> 1.0)
-      rsolr (~> 1.0.6)
-    sunspot_rails (1.3.0)
+      rsolr (~> 1.0.7)
+    sunspot_rails (1.3.1)
       nokogiri
-      sunspot (= 1.3.0)
-    sunspot_solr (1.3.0)
+      sunspot (= 1.3.1)
+    sunspot_solr (1.3.1)
       escape (~> 0.0.4)
-    therubyracer (0.9.9)
+    term-ansicolor (1.0.7)
+    therubyracer (0.10.1)
       libv8 (~> 3.3.10)
     thin (1.3.1)
       daemons (>= 1.0.9)
@@ -176,11 +189,11 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.31)
-    uglifier (1.2.3)
+    tzinfo (0.3.33)
+    uglifier (1.2.4)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
-    warden (1.1.0)
+    warden (1.1.1)
       rack (>= 1.0)
 
 PLATFORMS
@@ -191,10 +204,12 @@ DEPENDENCIES
   bootstrap-sass!
   cancan
   coffee-rails (~> 3.2.0)
+  debugger
   devise
   haml
   jquery-rails
   kaminari!
+  linecache19!
   mongrel (>= 1.2.0.pre2)
   mysql2 (>= 0.3)
   nifty-generators
@@ -207,6 +222,7 @@ DEPENDENCIES
   simple_form (~> 2.0.0.rc)
   sunspot_rails
   sunspot_solr
+  term-ansicolor
   therubyracer
   thin
   uglifier (>= 1.0.3)

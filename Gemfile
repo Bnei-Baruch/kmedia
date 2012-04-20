@@ -26,8 +26,10 @@ gem 'therubyracer'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem "ruby-debug-base19x", '>= 0.11.30.pre7'
+  gem "debugger"
   gem "ruby-debug-ide"
+  gem "ruby-debug-base19x", '>=0.11.30.pre7'
+  gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
 end
@@ -41,3 +43,5 @@ group :assets do
   gem 'coffee-rails', "~> 3.2.0"
   gem 'uglifier', '>= 1.0.3'
 end
+
+gem 'term-ansicolor'
