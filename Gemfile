@@ -45,3 +45,4 @@ group :assets do
 end
 
 gem 'term-ansicolor'
+gem 'exception_notification'
