@@ -152,9 +152,7 @@ class Lesson < ActiveRecord::Base
       end
     }
 
-    unless dry_run || container.save
-      raise "Unable to #{container.new_record? ? 'create' : 'update'} container <#{container_name}>"
-    end
+    dry_run || container.save!(:validate => false)
 
     files.each do |file|
       name = file['file']
