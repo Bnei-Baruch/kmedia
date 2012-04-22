@@ -1,6 +1,11 @@
 Kmedia::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[Kmedia] ",
+    :sender_address => %{"notifier" <notifier@example.com>},
+    :exception_recipients => %w{gshilin@gmail.com},
+    :normalize_subject => true
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true
