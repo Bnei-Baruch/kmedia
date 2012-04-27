@@ -45,10 +45,13 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     render json:
                begin
-                 Lesson.add_update(params[:container], params[:files], params[:dry_run] == 'true')
+                 Lesson.add_update(params[:container], params[:files], params[:dry_run] || params[:dry_run] == 'true')
                  { message: "Success", code: true }
                rescue Exception => e
-                 { message: "Exception: #{e.message}\nBacktrace: #{e.backtrace.join("\n")}", code: false }
+                 message = "Exception: #{e.message}\n\n\tBacktrace: #{e.backtrace.join("\n\t")}"
+                 logger.error "#{message}\n\n\tParams: #{params.inspect}"
+                 ExceptionNotifier::Notifier.exception_notification(request.env, e).deliver if Rails.env.production?
+                 { message: message, code: false }
                end
   end
 

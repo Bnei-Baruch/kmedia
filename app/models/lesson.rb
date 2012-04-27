@@ -152,14 +152,12 @@ class Lesson < ActiveRecord::Base
       end
     }
 
-    unless dry_run || container.save
-      raise 'Unable to create/update container'
-    end
+    dry_run || container.save!(:validate => false)
 
     files.each do |file|
       name = file['file']
       server = file['server'] || DEFAULT_FILE_SERVER
-      size = file['filesize'] || 0
+      size = file['size'] || 0
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
       extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
@@ -169,7 +167,7 @@ class Lesson < ActiveRecord::Base
       if file_asset.nil?
         # New file
         name =~ /^([^_]+)_/
-        lang = Language.find_by_code3($1.upcase).code3 || raise("Wrong :file value (Unable to detect file language): #{name}")
+        lang = Language.find_by_code3($1.upcase).code3 rescue 'ENG'
         sp = ::StringParser.new name
         secure = sp.content_security_level
 
