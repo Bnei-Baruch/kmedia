@@ -25,12 +25,15 @@ class Ability
       can :create, Lesson
       can :edit_descriptions, Lesson
       can :edit_all_lesson_fields, Lesson
+      can :edit_only_secure_field, Lesson
       can :read, Catalog
+      cannot :edit_secure_changed_field, Lesson
     elsif user.role? :content_manager
       #- Content manager - Can edit descriptions only (in lesson edit)
       can :update, Lesson
       can :edit_descriptions, Lesson
       cannot :edit_all_lesson_fields, Lesson
+      cannot :edit_secure_changed_field, Lesson
     end
 
   end

@@ -1,10 +1,12 @@
 class Admin::LessonsController < Admin::ApplicationController
-  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr]
+  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr,]
 
   def index
     @filter = params[:filter]
     if @filter && @filter == 'all'
       @lessons = Lesson.ordered.page(params[:page])
+    elsif @filter && @filter == 'secure_changed'
+      @lessons = Lesson.secure_changed.ordered.page(params[:page])
     else
       @lessons = Lesson.need_update.ordered.page(params[:page])
     end
@@ -57,6 +59,12 @@ class Admin::LessonsController < Admin::ApplicationController
   def update
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
+
+    @lesson.attributes = params[:lesson]
+    if operator_changed_secure_field?
+      @lesson.secure_changed=true
+    end
+
     if @lesson.update_attributes(params[:lesson])
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
     else
@@ -66,6 +74,16 @@ class Admin::LessonsController < Admin::ApplicationController
       @lesson_descriptions = sort_descriptions
       render :action => 'edit'
     end
+  end
+
+  def operator_changed_secure_field?
+    if can? :edit_only_secure_field, @lesson
+      changed_fields = @lesson.changes
+      if changed_fields.size == 1  && (changed_fields.has_key? ("secure"))
+        return true
+      end
+   end
+    return false
   end
 
   def edit_long_descr

@@ -44,7 +44,7 @@ class Lesson < ActiveRecord::Base
 
   scope :ordered, order("date(created) DESC, lessonname ASC")
   scope :need_update, where("date(created) > '2011-03-01' and (lessondate is null or lang is null or lang = '' or (select count(1) from lessondesc where lessondesc.lessonid = lessons.lessonid and lang in('HEB', 'ENG', 'RUS') and length(lessondesc) > 0 ) = 0 or (select count(1) from catnodelessons where catnodelessons.lessonid = lessons.lessonid) = 0)")
-
+  scope :secure_changed, where(:secure_changed => true)
   def to_label
     lessonname
   end
