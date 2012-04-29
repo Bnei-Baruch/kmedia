@@ -1,12 +1,58 @@
-- title "Edit Container"
-%p
-  = link_to "Show", admin_lesson_path(@lesson)
-  &nbsp;|&nbsp;
-  = link_to "View all Containers", admin_lessons_path
+%header.subhead#overview
+  %h2 Edit Container
+  .subnav
+    %ul.nav.nav-pills
+      %li= link_to "Show", admin_lesson_path(@lesson)
+      %li= link_to "View all Containers", admin_lessons_path
 
 = render 'form'
 
-%p
-  = link_to "Show", admin_lesson_path(@lesson)
-  &nbsp;|&nbsp;
-  = link_to "View all Containers", admin_lessons_path
+#myModal.modal.fade.in{:style => 'display: none;'}
+
+#nothing.modal.alert.alert-block.alert-error.fade.in{:style => 'display: none;'}
+  .modal-header
+    %a.close{:'data-dismiss' => 'modal'} &times;
+    %h4.alert-heading Please select containers to merge
+  .modal-body
+    %p First you have to mark some containers and only afterwards you'll be able to merge them into this one
+  .modal-footer
+    %a.btn.btn-danger{:href => '#', :'data-dismiss' => 'modal'}= 'Close'
+
+#recursion.modal.alert.alert-block.alert-error.fade.in{:style => 'display: none;'}
+  .modal-header
+    %a.close{:'data-dismiss' => 'modal'} &times;
+    %h4.alert-heading Unable to perform a recursive merge
+  .modal-body
+    %p You cannot merge a container to itself
+  .modal-footer
+    %a.btn.btn-danger{:href => '#', :'data-dismiss' => 'modal'}= 'Close'
+
+:javascript
+  function mark_me(button) {
+    var $button = $(button);
+    var mark_path = $button.data('mark-path');
+    $.getScript(mark_path)
+    .done(function(script, textStatus){
+      console.log(textStatus);
+    })
+    .fail(function(jqxhr, settings, exception){
+      console.log('Failure: ' + exception);
+    });
+  }
+
+  function merge_to_me_get_list(button) {
+    var $button = $(button);
+    var merge_path = $button.data('merge-path');
+    // Get list of catalogs to merge into...
+    $.get(merge_path, function(data){
+      if (data == 'empty') {
+        $('#nothing').modal();
+        return;
+      }
+      if (data == 'recursion') {
+        $('#recursion').modal();
+        return;
+      }
+      $('#myModal').html(data).modal();
+    });
+  }

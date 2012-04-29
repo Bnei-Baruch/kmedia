@@ -1,27 +1,24 @@
-- title "Admin/Container Description Patterns"
+%header.subhead#overview
+  %h2 Container Description Patterns
+  %p
+    = link_to "New Pattern", new_admin_lessondesc_pattern_path, :class => 'btn btn-success btn-large pull-right'
 
-%p= link_to "New Container Description pattern", new_admin_lessondesc_pattern_path
+%section
+  = paginate @lessondesc_patterns
 
-= paginate @lessondesc_patterns
-%br
-%table.admin_table.bp
-  %thead
-    %tr
-      %th Pattern
-      %th Description
-      %th Lang
-      %th(colspan=3) Actions
-  - for lessondesc_pattern in @lessondesc_patterns
-    %tr(class="#{cycle('odd', 'even')}")
-      %td= lessondesc_pattern.pattern
-      %td= lessondesc_pattern.description
-      %td= lessondesc_pattern.lang
-      %td= link_to 'Show', [:admin, lessondesc_pattern]
-      %td= link_to 'Edit', edit_admin_lessondesc_pattern_path(lessondesc_pattern)
-      %td= link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete
-
-%br
-= paginate @lessondesc_patterns
-%br
-
-%p= link_to "New Container Description pattern", new_admin_lessondesc_pattern_path
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Pattern
+        %th Description
+        %th Lang
+        %th(colspan=3) Actions
+    %tbody
+      - for lessondesc_pattern in @lessondesc_patterns
+        %tr(class="#{cycle('odd', 'even')}")
+          %td= lessondesc_pattern.pattern
+          %td= lessondesc_pattern.description
+          %td= lessondesc_pattern.lang
+          %td= link_to 'Show', [:admin, lessondesc_pattern]
+          %td= link_to 'Edit', edit_admin_lessondesc_pattern_path(lessondesc_pattern)
+          %td= link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete

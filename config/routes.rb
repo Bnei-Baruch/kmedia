@@ -1,23 +1,44 @@
 Kmedia::Application.routes.draw do
 
-  get "home/index"
-
   devise_for :users
   resources :users
+  resources :searches
 
   namespace(:admin) {
+    root :to => "searches#index"
+
     resources :lessons do
       member do
         get 'parse_lesson_name'
         get 'edit_long_descr'
         put 'update_long_descr'
+        get 'mark_for_merge'
+        get 'merge_get_list'
+        post 'merge'
+      end
+      collection do
+        get 'parse_new_lesson_name'
       end
     end
-    resources :assets
+    resources :file_assets
     resources :catalogs
-    resources :users
+    resources :departments
+    resources :users do
+      member do
+        get :become
+      end
+    end
     resources :lessondesc_patterns
     resources :searches
+
+    namespace :api do
+      resources :tokens, :only => [:create, :destroy]
+      resources :api, :only => [] do
+        collection do
+          post :register_file, :get_file_servers
+        end
+      end
+    end
   }
 
   # The priority is based upon order of creation:
@@ -70,7 +91,7 @@ Kmedia::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "home#index"
+  root :to => "searches#index"
 
   # See how all your routes lay out with "rake routes"
 

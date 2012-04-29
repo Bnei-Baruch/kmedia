@@ -2,13 +2,21 @@
   $('#lesson_v_lessondate_1i').val('#{@date[0]}');
   $('#lesson_v_lessondate_2i').val('#{@date[1]}');
   $('#lesson_v_lessondate_3i').val('#{@date[2]}');
-  $('#lesson_v_lessondate_1i').siblings('label').css('color', 'red');
+  $('#lesson_v_lessondate_1i').parent().siblings('label').css('color', 'red');
 - unless @language.blank?
   $('#lesson_lang').val('#{@language.upcase}');
-  $('#lesson_lang').siblings('label').css('color', 'red');
+  $('#lesson_lang').parent().siblings('label').css('color', 'red');
 - if @lecturer_id
   $('#lesson_lecturerid').val('#{@lecturer_id}');
-  $('#lesson_lecturerid').siblings('label').css('color', 'red');
+  $('#lesson_lecturerid').parent().siblings('label').css('color', 'red');
+$('#lesson_content_type_id').val('#{@content_type_id}');
+$('#lesson_content_type_id').parent().siblings('label').css('color', 'red');
+$('#lesson_secure').val('#{@security}');
+$('#lesson_secure').parent().siblings('label').css('color', 'red');
+var $descr_pattern;
 - @descriptions.each do |pattern|
-  $('textarea.#{pattern.lang.downcase}').html("#{pattern.description}");
-  $('textarea.#{pattern.lang.downcase}').parent().siblings('label').css('color', 'red');
+  $descr_pattern = $('textarea.#{pattern.lang.downcase}');
+  if ($descr_pattern.val().length === 0) {
+  $descr_pattern.html("#{pattern.description}");
+  $descr_pattern.parent().siblings('label').css('color', 'red');
+  }

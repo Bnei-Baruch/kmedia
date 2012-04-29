@@ -1,0 +1,9 @@
+.modal-header
+  %a.close{:'data-dismiss' => 'modal'} &times;
+  %h3 Mark containers to merge into the current one...
+.modal-body
+  = simple_form_for ['merge_admin', @lesson], :method => :post, :html => { :class => 'well form-vertical' } do |f|
+    = f.input :container_ids, :collection => @lessons, :as => :check_boxes, :label => false
+    .modal-footer
+      %button.btn.btn-danger{:type => 'submit', :href => '#'}= 'Merge'
+      %a.btn{:href => '#', :'data-dismiss' => 'modal'}= 'Close'

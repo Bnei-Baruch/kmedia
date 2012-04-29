@@ -1,20 +1,15 @@
-- if current_user
-  .current_user
-    =current_user.email
-    (
-    = current_user.roles.collect{|r| r.name}.join(', ')
-    )
-  = simple_form_for [:admin, Search.new], :html => {:class => 'bp'} do |f|
-    = f.input :search, :label => false
-    = f.submit :Search
-  %nav.main
-    = link_to_if can?(:update, Lesson), 'Containers', admin_lessons_path do
-      %a.unable Containers
-    = link_to_if can?(:update, User), 'Users', admin_users_path do
-      %a.unable Users
-    = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
-      %a.unable Catalogs
-    .secondary
-      = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
-        %a.unable Containers' patterns
-      = link_to_if current_user, 'Logout', destroy_user_session_path
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      - if current_user
+        - user = "<span class='brand-user'>#{current_user.email}(#{current_user.roles.collect{|r| r.name}.join(', ')})</span>".html_safe
+      - else
+        - user = ''
+      =link_to "Kabbalah Media #{user}".html_safe, '#', :class => 'brand'
+
+      %ul.nav
+        %li
+          - if current_user
+            = link_to_if current_user, 'Logout', destroy_user_session_path, :class => 'brand logout'
+          - else
+            = link_to 'Login', new_user_session_path, :class => 'login'
