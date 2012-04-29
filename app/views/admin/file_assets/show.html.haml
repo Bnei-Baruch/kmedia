@@ -1,0 +1,50 @@
+%header.subhead#overview
+  %h2 File
+  .subnav
+    %ul.nav.nav-pills
+      -if can?(:update, @asset)
+        %li
+          =link_to "Edit", edit_admin_file_asset_path(@asset)
+      %li
+        =link_to_if can?(:destroy, @asset), "Destroy", [:admin, @asset], :confirm => 'Are you sure?', :method => :delete do
+          = link_to 'Destroy', '/#'
+      %li
+        = link_to "View All Files", admin_file_assets_path
+      %li
+        - if @asset.lessons.first
+          = link_to 'Show Container', admin_lesson_path(@asset.lessons.first) #TODO: Display table of lessons in case file can belong to multiple lessons
+        - else
+          = link_to 'Has no Container', '/#'
+
+%section.well
+  = display_show_item 'ID', @asset.fileid
+  = display_show_item 'Filename', @asset.filename
+  = display_show_item 'Created on', @asset.created
+  = display_show_item 'Updated on', @asset.updated
+  = display_show_item 'Recording date', @asset.filedate
+  = display_show_item 'Type', @asset.filetype
+  = display_show_item 'Language', @asset.filelang
+  = display_show_item 'Size', number_to_human_size(@asset.filesize)
+  = display_show_item 'Server name', @asset.servername
+  = display_show_item 'Status', @asset.filestatus
+  = display_show_item 'Last user', @asset.lastuser
+  = display_show_item 'Clicks', @asset.fileclicks
+
+%section
+  %strong Descriptions:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Language
+        %th FileAsset Description
+        %th Created on
+        %th Updated on
+        %th ID
+    %tbody
+      - @asset.file_asset_descriptions.each do |asset_desc|
+        %tr
+          %td= asset_desc.lang
+          %td= asset_desc.filedesc
+          %td= asset_desc.created.try(:to_date)
+          %td= asset_desc.updated.try(:to_date)
+          %td= asset_desc.filedescid

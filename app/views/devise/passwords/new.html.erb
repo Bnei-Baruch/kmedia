@@ -1,12 +1,11 @@
-<h2>Forgot your password?</h2>
+<header class="subhead" id="overview"><h2>Forgot your password?</h2></header>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :method => :post, :html => { :class => 'well form-horizontal' }) do |f| %>
+    <%= f.input :email, :label => 'Email', :input_html => {:class => 'span5'} %>
 
-  <p><%= f.label :email %><br />
-  <%= f.email_field :email %></p>
-
-  <p><%= f.submit "Send me reset password instructions", :disable_with => 'Please wait...' %></p>
+    <div class="form-actions">
+      <button class="btn btn-primary btn-large" type="submit" data-disable-with='Please wait...'>Send me reset password instructions</button>
+    </div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

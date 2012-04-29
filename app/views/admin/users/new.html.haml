@@ -1,8 +1,17 @@
-- title 'Register User'
+%header.subhead#overview
+  %h2 Register User
  
-= simple_form_for(['admin', @user], :html => {:class => 'bp'}) do |f|
-  = devise_error_messages!(@user, 'user')
-  = render :partial => 'user_fields', :locals => { :f => f }
-  = f.input :password, :input_html => {:autocomplete => 'off'}
-  = f.input :password_confirmation, :input_html => {:autocomplete => 'off'}
-  = f.button :submit, :disable_with => 'Please wait...'
+%section
+  = simple_form_for([:admin, @user]) do |f|
+    = display_actions f, admin_users_url
+    %hr.soften
+    = display_errors f
+    -#= devise_error_messages!(@user, 'user')
+
+    = render :partial => 'user_fields', :locals => { :f => f }
+
+    = f.input :password, :hint => "(leave blank if you don't want to change it)", :required => false, :input_html => {:autocomplete => 'off'}
+    = f.input :password_confirmation, :input_html => {:autocomplete => 'off'}
+
+    %hr.soften
+    = display_actions f, admin_users_url

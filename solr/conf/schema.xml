@@ -59,13 +59,36 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="rand" class="solr.RandomSortField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
+    <!-- ZZZ analyzer>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.StandardFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer-->
+    <!-- For regular users text fields -->
+    <fieldType name="user_text" class="solr.TextField" omitNorms="false">
+      <analyzer type="index">
+	    <tokenizer class="solr.StandardTokenizerFactory"/>
+	    <filter class="solr.StandardFilterFactory"/>
+	    <filter class="solr.LowerCaseFilterFactory"/>
+	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
+	    <filter class="solr.TrimFilterFactory" />
+        <filter class="solr.EdgeNGramFilterFactory"
+        side="front"
+        minGramSize="4"
+        maxGramSize="30"/>
+      </analyzer>
+	  <analyzer type="query">
+	    <tokenizer class="solr.StandardTokenizerFactory"/>
+	    <filter class="solr.StandardFilterFactory"/>
+	    <filter class="solr.LowerCaseFilterFactory"/>
+	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
+	    <filter class="solr.TrimFilterFactory" />
+	  </analyzer>
+    </fieldType>
+    <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="text" class="solr.TextField" omitNorms="false">
-      <!-- ZZZ analyzer>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StandardFilterFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer-->
-	  <analyzer type="index">
+      <!-- For Administrator text fields -->
+      <analyzer type="index">
 	    <tokenizer class="solr.PatternTokenizerFactory" pattern="[-_.]"/>
 	    <filter class="solr.StandardFilterFactory"/>
 	    <filter class="solr.LowerCaseFilterFactory"/>
@@ -81,7 +104,7 @@
 	    <filter class="solr.LowerCaseFilterFactory"/>
 	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
 	    <filter class="solr.TrimFilterFactory" />
-	  </analyzer>
+      </analyzer>
     </fieldType>
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="boolean" class="solr.BoolField" omitNorms="true"/>

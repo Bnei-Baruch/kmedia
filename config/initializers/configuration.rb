@@ -1,8 +1,9 @@
 SECURITY = [
-  {:name => 'Unsecure', :level => 0},
-  {:name => 'Beginner', :level => 1},
-  {:name => 'Intermediate', :level => 2},
-  {:name => 'Advanced', :level => 3}
+  {:name => 'Unsecure', :level => 0, :klass => ''},
+  {:name => 'Beginner', :level => 1, :klass => ''},
+  {:name => 'Intermediate', :level => 2, :klass => 'info'},
+  {:name => 'Advanced', :level => 3, :klass => 'warning'},
+  {:name => 'SuperDuper', :level => 4, :klass => 'important'},
 ]
 
 RSS_CATEGORIES = [
@@ -12,3 +13,5 @@ RSS_CATEGORIES = [
 ]
 
 MAIN_DESCR_LANGS = ['ENG', 'RUS', 'HEB']
+
+DEFAULT_FILE_SERVER = 'FILES-EU'

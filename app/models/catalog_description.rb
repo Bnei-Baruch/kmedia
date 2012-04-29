@@ -1,6 +1,6 @@
 class CatalogDescription < ActiveRecord::Base
-  set_table_name :catnodedesc
-  set_primary_key :catnodedescid
+  self.table_name = :catnodedesc
+  self.primary_key = :catnodedescid
 
   belongs_to :catalog, :foreign_key => :catalognodeid
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3

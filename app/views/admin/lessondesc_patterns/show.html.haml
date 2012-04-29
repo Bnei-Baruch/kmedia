@@ -1,18 +1,16 @@
-- title "Admin/Container Description Pattern"
+%header.subhead#overview
+  %h2 Container Description Pattern
+  .subnav
+    %ul.nav.nav-pills
+      %li
+        = link_to_if can?(:update, @lessondesc_pattern), "Edit", edit_admin_lessondesc_pattern_path(@lessondesc_pattern) do
+          %a.unable Edit
+      %li
+        = link_to_if can?(:destroy, @lessondesc_pattern), "Destroy", [:admin, @lessondesc_pattern], :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+          %a.unable Destroy
+      %li= link_to "View All", admin_lessondesc_patterns_path
 
-%p
-  %strong Pattern:
-  = @lessondesc_pattern.pattern
-%p
-  %strong Description:
-  = @lessondesc_pattern.description
-%p
-  %strong Lang:
-  = @lessondesc_pattern.lang
-
-%p
-  = link_to "Edit", edit_admin_lessondesc_pattern_path(@lessondesc_pattern)
-  |
-  = link_to "Destroy", [:admin, @lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", admin_lessondesc_patterns_path
+%section.well
+  = display_show_item('Pattern', @lessondesc_pattern.pattern.gsub(/\s/, '&#9251;'))
+  = display_show_item('Description', @lessondesc_pattern.description)
+  = display_show_item('Lang', @lessondesc_pattern.lang)
