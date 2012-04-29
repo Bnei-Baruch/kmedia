@@ -25,12 +25,18 @@ class Ability
       can :create, Lesson
       can :edit_descriptions, Lesson
       can :edit_all_lesson_fields, Lesson
+      #- Operator - Can change only secure field in order to hide the lesson and later delete it
+      can :edit_only_secure_field, Lesson
       can :read, Catalog
+      #- Operator - Can't edit the "secure_changed" field, it is updated automatically when the "secure" field changed
+      cannot :edit_secure_changed_field, Lesson
     elsif user.role? :content_manager
       #- Content manager - Can edit descriptions only (in lesson edit)
       can :update, Lesson
       can :edit_descriptions, Lesson
       cannot :edit_all_lesson_fields, Lesson
+      #- Operator - Can't edit the "secure_changed" field, it is updated automatically when the "secure" field changed
+      cannot :edit_secure_changed_field, Lesson
     end
 
   end

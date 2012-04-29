@@ -21,7 +21,9 @@
       = f.input :v_lessondate, :label => 'Date', :disabled => disabled, :order => [:day, :month, :year], :input_html => {:class => 'span2'}
       = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --', :disabled => disabled
       = f.input :lecturerid, :collection => @lecturers, :value_method => :lecturerid, :label_method => :lecturername, :label => 'Lecturer', :prompt => '-- Please select lecturer --', :disabled => disabled
-      = f.input :secure,:collection =>  @security, :prompt => nil, :label => 'Security Level', :disabled => disabled
+      = f.input :secure, :collection =>  @security, :prompt => nil, :label => 'Security Level', :disabled => disabled
+      - if can?(:edit_secure_changed_field, @lesson)
+        = f.input :secure_changed, :as => :boolean, :label => 'Security Level changed'
     .span6
       .rss.pull-right
         = f.input :rss, :as => :boolean, :disabled => disabled
