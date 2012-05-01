@@ -65,7 +65,7 @@ class Admin::LessonsController < Admin::ApplicationController
       @lesson.secure_changed=true
     end
 
-    if @lesson.update_attributes(params[:lesson])
+    if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
     else
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
