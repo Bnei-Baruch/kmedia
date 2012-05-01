@@ -65,7 +65,7 @@ class Admin::LessonsController < Admin::ApplicationController
       @lesson.secure_changed=true
     end
 
-    if @lesson.update_attributes(params[:lesson])
+    if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
     else
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
@@ -201,7 +201,7 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def operator_changed_secure_field?
-    if can? :edit_only_secure_field, @lesson
+    if @current_user.role?(:operator)
       changed_fields = @lesson.changes
       return changed_fields.size == 1  && (changed_fields.has_key? ("secure"))
     end
