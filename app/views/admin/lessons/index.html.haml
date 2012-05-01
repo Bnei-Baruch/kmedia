@@ -11,8 +11,9 @@
         =link_to 'All Containers', admin_lessons_path(:filter => 'all')
       = content_tag :li, :class => filtered_selected? do
         = link_to 'Containers to update', admin_lessons_path
-      = content_tag :li, :class => secure_changed?, :title => 'Security Level changed by operator' do
-        = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
+      - if can?(:edit_secure_changed_field, @lesson)
+        = content_tag :li, :class => secure_changed?, :title => 'Security Level changed by operator' do
+          = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
 
 %section
   = paginate @lessons
