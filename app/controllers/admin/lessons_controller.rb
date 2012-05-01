@@ -162,10 +162,10 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def merge
     @lesson = Lesson.find(params[:id])
-    merge_ids = params[:lesson][:container_ids].map(&:to_i)#.reject{|m| m == 0}
+    merge_ids = params[:lesson][:container_ids].map(&:to_i) #.reject{|m| m == 0}
     merges = Lesson.where(:lessonid => merge_ids).each { |merge|
       # copy files
-      merge.file_assets.each {|fa|
+      merge.file_assets.each { |fa|
         @lesson.file_assets << fa rescue nil
       }
       # empty files from merged container
@@ -174,7 +174,7 @@ class Admin::LessonsController < Admin::ApplicationController
       merge.destroy
     }
     # clear all selections
-    Lesson.where(:marked_for_merge => true).each{|lesson| lesson.update_attribute(:marked_for_merge, false) }
+    Lesson.where(:marked_for_merge => true).each { |lesson| lesson.update_attribute(:marked_for_merge, false) }
     render :show
   end
 
@@ -190,7 +190,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def sort_descriptions
     lesson_descriptions_main = { }
     lesson_descriptions_all = []
-    @lesson.lesson_descriptions.each { |x|
+    @lesson.lesson_descriptions.includes(:language).each { |x|
       if MAIN_DESCR_LANGS.include? x.lang
         lesson_descriptions_main[x.lang] = x
       else

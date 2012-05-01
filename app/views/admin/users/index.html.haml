@@ -24,7 +24,7 @@
           %td= u.id
           %td= "#{u.first_name} #{u.last_name}"
           %td= u.email
-          %td.small= u.roles.collect{|r| r.name}.join(', ')
+          %td.small= u.roles.uniq.map{|r| r.name}.join(', ')
           %td= u.department.try(:name)
           %td
             = link_to_if can?(:show, u), "Show", admin_user_path(u.id) do
