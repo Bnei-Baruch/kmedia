@@ -26,3 +26,6 @@
           %li
             = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
               .unable Containers' patterns
+          %li
+            = link_to_if can?(:update, Dictionary), 'Dictionaries', admin_dictionaries_path do
+              .unable Dictionaries

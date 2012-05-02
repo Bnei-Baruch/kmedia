@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110907140500) do
+ActiveRecord::Schema.define(:version => 20120305050019) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -48,17 +49,24 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
   add_index "booksdesc", ["fileid"], :name => "fileid"
 
   create_table "catalognode", :primary_key => "catalognodeid", :force => true do |t|
-    t.string   "catalognodename", :limit => 100, :default => "",   :null => false
+    t.string   "catalognodename", :limit => 100, :default => "",  :null => false
     t.integer  "parentnodeid"
     t.datetime "created"
     t.datetime "updated"
-    t.integer  "catorder",                       :default => 999,  :null => false
-    t.integer  "secure",                         :default => 0,    :null => false
-    t.boolean  "delta",                          :default => true, :null => false
+    t.integer  "catorder",                       :default => 999, :null => false
+    t.integer  "secure",                         :default => 0,   :null => false
   end
 
   add_index "catalognode", ["catalognodename", "parentnodeid"], :name => "cnnamepid", :unique => true
   add_index "catalognode", ["parentnodeid"], :name => "parentnodeid"
+
+  create_table "category_descriptions", :force => true do |t|
+    t.integer  "category_id"
+    t.string   "text"
+    t.string   "lang",        :limit => 3, :default => "HEB"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
 
   create_table "catnodedesc", :primary_key => "catnodedescid", :force => true do |t|
     t.integer  "catalognodeid",                :default => 0, :null => false
@@ -77,6 +85,12 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
   end
 
   add_index "catnodelessons", ["lessonid"], :name => "index_catnodelessons_on_lessonid"
+
+  create_table "content_types", :force => true do |t|
+    t.string  "name"
+    t.string  "pattern"
+    t.integer "secure",  :default => 0
+  end
 
   create_table "filedesc", :primary_key => "filedescid", :force => true do |t|
     t.integer  "fileid",                :default => 0, :null => false
@@ -101,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
     t.datetime "updated"
     t.string   "lastuser",   :limit => 7
     t.integer  "fileclicks",                :default => 0
-    t.boolean  "delta",                     :default => true,      :null => false
+    t.integer  "secure",                    :default => 0
   end
 
   add_index "files", ["filename"], :name => "filename", :unique => true
@@ -137,7 +151,7 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
   add_index "lecturerdesc", ["lecturerid", "lang"], :name => "lecturerid", :unique => true
 
   create_table "lessondesc", :primary_key => "lessondescid", :force => true do |t|
-    t.integer  "lessonid",                     :default => 0,    :null => false
+    t.integer  "lessonid",                     :default => 0, :null => false
     t.string   "lessondesc"
     t.string   "lang",            :limit => 3
     t.datetime "created"
@@ -145,7 +159,6 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
     t.text     "descr"
     t.string   "lessondesc_flat"
     t.text     "descr_flat"
-    t.boolean  "delta",                        :default => true, :null => false
   end
 
   add_index "lessondesc", ["lessondesc", "descr"], :name => "lessondesc"
@@ -158,7 +171,6 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
     t.string   "lang"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "delta",       :default => true, :null => false
   end
 
   create_table "lessonfiles", :id => false, :force => true do |t|
@@ -167,14 +179,15 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
   end
 
   create_table "lessons", :primary_key => "lessonid", :force => true do |t|
-    t.string   "lessonname", :limit => 100
+    t.string   "lessonname",       :limit => 100
     t.datetime "created"
     t.datetime "updated"
     t.date     "lessondate"
-    t.string   "lang",       :limit => 3
+    t.string   "lang",             :limit => 3
     t.integer  "lecturerid"
-    t.integer  "secure",                    :default => 0,    :null => false
-    t.boolean  "delta",                     :default => true, :null => false
+    t.integer  "secure",                          :default => 0, :null => false
+    t.integer  "content_type_id"
+    t.boolean  "marked_for_merge"
   end
 
   add_index "lessons", ["lang"], :name => "lessonlangidx"
@@ -278,19 +291,21 @@ ActiveRecord::Schema.define(:version => 20110907140500) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_name",                          :default => ""
-    t.string   "last_name",                           :default => ""
+    t.string   "first_name",                            :default => ""
+    t.string   "last_name",                             :default => ""
+    t.string   "authentication_token"
+    t.datetime "reset_password_sent_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

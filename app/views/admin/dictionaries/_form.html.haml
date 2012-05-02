@@ -1,0 +1,53 @@
+= simple_nested_form_for [:admin, @dictionary] do |f|
+  = display_errors f
+
+  .row
+    .span4
+      = f.input :suid, label: 'System name', hint: 'Short unique identifier'
+  %hr.soften
+  .row
+    %h3 Topic translations
+    .span12
+      %table.table.table-striped.table-bordered.table-condensed
+        %thead
+          %tr
+            %th Language
+            %th Translation
+        %tbody
+          = f.fields_for :dictionary_descriptions do |desc_form|
+            %tr
+              %td= desc_form.object.lang
+              %td
+                = desc_form.text_field :topic
+                = desc_form.hidden_field :lang
+  %hr.soften
+  .row
+    %h3 Categories
+    .span12
+      %p(align="right")
+        -#= f.fields_for :categories
+        = f.link_to_add :categories, href: new_admin_category_path
+        -#= link_to "New category", new_admin_category_path
+      %table.table.table-striped.table-bordered.table-condensed
+        %thead
+          %tr
+            %th System name
+            %th Text
+            %th(colspan="3") Actions
+        %tbody
+          - @dictionary.categories.each do |category|
+            %tr
+              %td= category.suid
+              %td= category.category_descriptions.where(lang: ('HEB')).first.text
+              %td= link_to 'Show', admin_category_path(category)
+              %td
+                = link_to_if can?(:update, category) || can?(:edit_descriptions, category), 'Edit', edit_admin_category_path(category) do
+                  .unable Edit
+              %td
+                = link_to_if can?(:destroy, category), 'Destroy', admin_category_path(category), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
+                  .unable Destroy
+
+
+
+  %hr.soften
+  = display_actions f, admin_dictionaries_url

@@ -1,0 +1,10 @@
+<%= simple_form_for(@category) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, :disable_with => 'Please wait...' %>
+  </div>
+<% end %>

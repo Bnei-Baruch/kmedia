@@ -9,6 +9,7 @@ gem 'haml'
 gem 'sass', :tag => '3.0.24'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
 gem 'simple_form', '~> 2.0.0.rc' #:git => 'git://github.com/plataformatec/simple_form.git'
+gem "nested_form", :git => 'https://github.com/ryanb/nested_form.git'
 
 gem 'thin'
 
@@ -30,6 +31,7 @@ group :development, :test do
   gem "ruby-debug-ide"
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
+  gem "test-unit"
 end
 
 gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => "2.0"
