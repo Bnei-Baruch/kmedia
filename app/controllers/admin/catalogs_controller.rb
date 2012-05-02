@@ -7,7 +7,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   def index
     @catalogs = Catalog.
         accessible_by(current_ability, :index).
-        order('catalognodename ASC')
+        order('catalognodename ASC').includes(:parent)
     if params[:q]
       @catalogs = @catalogs.where("catalognodename like ?", "%#{params[:q]}%")
     else
@@ -21,6 +21,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def show
+    @lessons = @catalog.lessons.includes([:content_type, :language, ])
   end
 
   def new
@@ -66,7 +67,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   def sort_descriptions
     catalog_descriptions_main = {}
     catalog_descriptions_all = []
-    @catalog.catalog_descriptions.each{|x|
+    @catalog.catalog_descriptions.includes(:language).each{|x|
       if MAIN_DESCR_LANGS.include? x.lang
         catalog_descriptions_main[x.lang] = x
       else

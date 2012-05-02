@@ -1,0 +1,13 @@
+%header.subhead#overview
+  %h2 Department
+  .subnav
+    %ul.nav.nav-pills
+      %li
+        = link_to_if can?(:update, @department), "Edit", edit_admin_department_path(@department) do
+          %a.unable Edit
+      %li
+        = link_to_if can?(:destroy, @department), "Destroy", admin_department_path(@department), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+          %a.unable Destroy
+
+%section.well
+  = display_show_item('Name', @department.name)

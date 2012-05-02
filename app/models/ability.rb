@@ -13,6 +13,7 @@ class Ability
       #- Archive Admin - Can do everything except deleting file_assets and permissions management
       can :manage, :all
       cannot :manage, :users
+      can :merge, Lesson
       cannot :destroy, Lesson
       cannot :destroy, Catalog
       cannot :destroy, FileAsset
@@ -25,11 +26,15 @@ class Ability
       can :edit_descriptions, Lesson
       can :edit_all_lesson_fields, Lesson
       can :read, Catalog
+      #- Operator - Can't edit the "secure_changed" field, it is updated automatically when the "secure" field changed
+      cannot :edit_secure_changed_field, Lesson
     elsif user.role? :content_manager
       #- Content manager - Can edit descriptions only (in lesson edit)
       can :update, Lesson
       can :edit_descriptions, Lesson
       cannot :edit_all_lesson_fields, Lesson
+      #- Operator - Can't edit the "secure_changed" field, it is updated automatically when the "secure" field changed
+      cannot :edit_secure_changed_field, Lesson
     end
 
   end

@@ -69,8 +69,20 @@ puts '--> Container Types'
     {:name => 'Audio Disk', :pattern => 'audiodisk'},
     {:name => 'Video Disk', :pattern => 'videodisk'},
     {:name => 'Text', :pattern => 'text'},
-    {:name => 'Transcript', :pattern => 'tamlil'},
+    {:name => 'Transcript', :pattern => 'tamlil', :secure => 4},
     {:name => 'Magazine', :pattern => 'magazine'},
 ].each{|r| ContentType.find_or_create_by_pattern(r)}
+
+
+puts '--> Departments'
+[
+    {:name => 'צוות שיעור בוקר'},
+    {:name => 'קבלה מדיה רוסית'},
+    {:name => 'קבלה מדיה עברית'},
+    {:name => 'מילות מפתח עברית'},
+    {:name => 'מילות מפתח רוסית'},
+    {:name => 'תיאורים נוספים'},
+].each { |r| Department.find_or_create_by_name(r) }
+
 
 puts '--> Done'

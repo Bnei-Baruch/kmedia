@@ -1,13 +1,15 @@
 class Admin::LessonsController < Admin::ApplicationController
-  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr]
+  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr,]
 
   def index
     @filter = params[:filter]
-    if @filter && @filter == 'all'
-      @lessons = Lesson.ordered.page(params[:page])
-    else
-      @lessons = Lesson.need_update.ordered.page(params[:page])
-    end
+    @lessons = if @filter && @filter == 'all'
+                 Lesson
+               elsif @filter && @filter == 'secure_changed'
+                 Lesson.secure_changed
+               else
+                 Lesson.need_update
+               end.ordered.page(params[:page])
   end
 
   def show
@@ -57,7 +59,13 @@ class Admin::LessonsController < Admin::ApplicationController
   def update
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
-    if @lesson.update_attributes(params[:lesson])
+
+    @lesson.attributes = params[:lesson]
+    if operator_changed_secure_field?
+      @lesson.secure_changed=true
+    end
+
+    if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
     else
       params[:lesson][:lesson_descriptions_attributes].each do |k, v|
@@ -154,10 +162,10 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def merge
     @lesson = Lesson.find(params[:id])
-    merge_ids = params[:lesson][:container_ids].map(&:to_i)#.reject{|m| m == 0}
+    merge_ids = params[:lesson][:container_ids].map(&:to_i) #.reject{|m| m == 0}
     merges = Lesson.where(:lessonid => merge_ids).each { |merge|
       # copy files
-      merge.file_assets.each {|fa|
+      merge.file_assets.each { |fa|
         @lesson.file_assets << fa rescue nil
       }
       # empty files from merged container
@@ -166,7 +174,7 @@ class Admin::LessonsController < Admin::ApplicationController
       merge.destroy
     }
     # clear all selections
-    Lesson.where(:marked_for_merge => true).each{|lesson| lesson.update_attribute(:marked_for_merge, false) }
+    Lesson.where(:marked_for_merge => true).each { |lesson| lesson.update_attribute(:marked_for_merge, false) }
     render :show
   end
 
@@ -182,7 +190,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def sort_descriptions
     lesson_descriptions_main = { }
     lesson_descriptions_all = []
-    @lesson.lesson_descriptions.each { |x|
+    @lesson.lesson_descriptions.includes(:language).each { |x|
       if MAIN_DESCR_LANGS.include? x.lang
         lesson_descriptions_main[x.lang] = x
       else
@@ -190,6 +198,14 @@ class Admin::LessonsController < Admin::ApplicationController
       end
     }
     MAIN_DESCR_LANGS.map { |l| lesson_descriptions_main[l] } + lesson_descriptions_all.sort_by { |x| x.lang }
+  end
+
+  def operator_changed_secure_field?
+    if @current_user.role?(:operator)
+      changed_fields = @lesson.changes
+      return changed_fields.size == 1  && (changed_fields.has_key? ("secure"))
+    end
+    return false
   end
 
 end

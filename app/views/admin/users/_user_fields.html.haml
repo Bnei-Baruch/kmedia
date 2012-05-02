@@ -4,3 +4,5 @@
 = f.input :email
 - if can? :read, Role
   = f.association :roles
+- if can? :read, Department
+  = f.association :department

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305050019) do
+ActiveRecord::Schema.define(:version => 20120304101228) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -60,14 +60,6 @@ ActiveRecord::Schema.define(:version => 20120305050019) do
   add_index "catalognode", ["catalognodename", "parentnodeid"], :name => "cnnamepid", :unique => true
   add_index "catalognode", ["parentnodeid"], :name => "parentnodeid"
 
-  create_table "category_descriptions", :force => true do |t|
-    t.integer  "category_id"
-    t.string   "text"
-    t.string   "lang",        :limit => 3, :default => "HEB"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
-  end
-
   create_table "catnodedesc", :primary_key => "catnodedescid", :force => true do |t|
     t.integer  "catalognodeid",                :default => 0, :null => false
     t.string   "catalognodename"
@@ -90,6 +82,12 @@ ActiveRecord::Schema.define(:version => 20120305050019) do
     t.string  "name"
     t.string  "pattern"
     t.integer "secure",  :default => 0
+  end
+
+  create_table "departments", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "filedesc", :primary_key => "filedescid", :force => true do |t|
@@ -304,6 +302,7 @@ ActiveRecord::Schema.define(:version => 20120305050019) do
     t.datetime "updated_at"
     t.string   "first_name",                            :default => ""
     t.string   "last_name",                             :default => ""
+    t.integer  "department_id"
     t.string   "authentication_token"
     t.datetime "reset_password_sent_at"
   end

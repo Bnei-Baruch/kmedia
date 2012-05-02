@@ -1,0 +1,9 @@
+= simple_form_for ['admin', @department] do |f|
+  = display_actions f, admin_departments_url
+  %hr.soften
+  = display_errors f
+
+  = f.input :name
+
+  %hr.soften
+  = display_actions f, admin_departments_url

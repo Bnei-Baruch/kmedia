@@ -14,6 +14,7 @@
         %th Name
         %th Email
         %th Roles
+        %th Department
         %th(colspan=3) Actions
         - if current_user.role?(:super_admin)
           %th Become
@@ -23,7 +24,8 @@
           %td= u.id
           %td= "#{u.first_name} #{u.last_name}"
           %td= u.email
-          %td.small= u.roles.collect{|r| r.name}.join(', ')
+          %td.small= u.roles.uniq.map{|r| r.name}.join(', ')
+          %td= u.department.try(:name)
           %td
             = link_to_if can?(:show, u), "Show", admin_user_path(u.id) do
               %span.unable Show
@@ -31,7 +33,7 @@
             = link_to_if can?(:update, u), 'Edit', edit_admin_user_path(u) do
               %span.unable Edit
           %td
-            = link_to_if can?(:delete, u), 'Destroy', admin_user_path(u), :confirm => 'Are you sure?', :method => :delete do
+            = link_to_if can?(:delete, u), 'Destroy', admin_user_path(u), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
               %span.unable Destroy
           - if current_user.role?(:super_admin)
             %td= link_to 'Become', become_admin_user_path(u)

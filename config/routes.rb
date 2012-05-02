@@ -22,6 +22,7 @@ Kmedia::Application.routes.draw do
     end
     resources :file_assets
     resources :catalogs
+    resources :departments
     resources :users do
       member do
         get :become
