@@ -12,10 +12,11 @@
     - if current_user
       = render 'layouts/admin_navigation'
     - else
-      = render 'layouts/navigation'
+      .container
+        = render 'layouts/navigation'
     .container
       - flash.each do |name, msg|
         - klass = (name.to_s == 'error' || name.to_s == 'alert') ? 'alert fade in alert-error' : 'alert fade in alert-info'
         = content_tag :div, "<a class='close' data-dismiss='alert' href='#'>&times;</a>#{msg}".html_safe, :class => klass
-      = yield
+      .common_background= yield
 
