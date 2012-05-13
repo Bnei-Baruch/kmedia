@@ -65,6 +65,8 @@ class Admin::LessonsController < Admin::ApplicationController
       @lesson.secure_changed=true
     end
 
+    @lesson.auto_parsed = false
+
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
     else
