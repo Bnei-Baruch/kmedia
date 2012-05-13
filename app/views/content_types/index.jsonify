@@ -1,0 +1,6 @@
+json.content_types @content_types do |content_type|
+  json.id content_type.id
+  json.name content_type.name
+  json.pattern content_type.pattern
+  json.secure content_type.secure
+end

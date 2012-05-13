@@ -32,6 +32,7 @@ group :development, :test do
   gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
+  gem 'bullet'
 end
 
 gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => "2.0"
@@ -46,3 +47,5 @@ end
 
 gem 'term-ansicolor'
 gem 'exception_notification'
+gem 'jsonify-rails'
+gem 'yajl-ruby', :require => "yajl" # Required if we want json with utf8 strings
