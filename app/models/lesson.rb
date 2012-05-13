@@ -15,7 +15,10 @@ class Lesson < ActiveRecord::Base
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
   before_destroy do |lesson|
-    lesson.file_assets.each { |a| a.delete }
+    lesson.file_assets.each { |a|
+      # Do not destroy files that belongs to more than one container
+      a.delete if a.lesson_ids.length > 1
+    }
   end
 
   accepts_nested_attributes_for :lesson_descriptions
@@ -43,7 +46,7 @@ class Lesson < ActiveRecord::Base
   before_update :update_timestamps
 
   scope :ordered, order("date(created) DESC, lessonname ASC")
-  scope :need_update, where( <<-NEED_UPDATE
+  scope :need_update, where(<<-NEED_UPDATE
     date(created) > '2011-03-01' AND
     (
       lessondate IS NULL OR
@@ -53,7 +56,7 @@ class Lesson < ActiveRecord::Base
       (SELECT count(1) FROM catnodelessons WHERE catnodelessons.lessonid = lessons.lessonid) = 0 OR
       auto_parsed = TRUE
     )
-    NEED_UPDATE
+  NEED_UPDATE
   )
   scope :secure_changed, where(:secure_changed => true)
 
