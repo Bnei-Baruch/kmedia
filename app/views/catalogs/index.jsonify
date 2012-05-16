@@ -1,0 +1,8 @@
+json.catalogs @catalogs do |catalog|
+  json.id catalog.id
+  name = (catalog.catalog_descriptions.where('lang' => @language) || catalog.catalog_descriptions.where('lang' => 'ENG')).first.try(:catalognodename)
+  json.name name || catalog.catalognodename
+  json.order catalog.catorder
+  json.secure catalog.secure
+  json.has_children catalog.has_children
+end

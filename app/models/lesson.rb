@@ -15,7 +15,10 @@ class Lesson < ActiveRecord::Base
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
   before_destroy do |lesson|
-    lesson.file_assets.each { |a| a.delete }
+    lesson.file_assets.each { |a|
+      # Do not destroy files that belongs to more than one container
+      a.delete if a.lesson_ids.length > 1
+    }
   end
 
   accepts_nested_attributes_for :lesson_descriptions
@@ -43,8 +46,20 @@ class Lesson < ActiveRecord::Base
   before_update :update_timestamps
 
   scope :ordered, order("date(created) DESC, lessonname ASC")
-  scope :need_update, where("date(created) > '2011-03-01' and (lessondate is null or lang is null or lang = '' or (select count(1) from lessondesc where lessondesc.lessonid = lessons.lessonid and lang in('HEB', 'ENG', 'RUS') and length(lessondesc) > 0 ) = 0 or (select count(1) from catnodelessons where catnodelessons.lessonid = lessons.lessonid) = 0)")
+  scope :need_update, where(<<-NEED_UPDATE
+    date(created) > '2011-03-01' AND
+    (
+      lessondate IS NULL OR
+      lang IS NULL OR
+      lang = '' OR
+      (SELECT count(1) FROM lessondesc WHERE lessondesc.lessonid = lessons.lessonid AND lang IN('HEB', 'ENG', 'RUS') AND length(lessondesc) > 0 ) = 0 OR
+      (SELECT count(1) FROM catnodelessons WHERE catnodelessons.lessonid = lessons.lessonid) = 0 OR
+      auto_parsed = TRUE
+    )
+  NEED_UPDATE
+  )
   scope :secure_changed, where(:secure_changed => true)
+
   def to_label
     lessonname
   end
@@ -142,6 +157,7 @@ class Lesson < ActiveRecord::Base
         }
         c.content_type_id = sp.content_type.id
         c.secure = sp.content_security_level
+        c.auto_parsed = true
 
         languages = Language.order('code3').all
 
@@ -154,7 +170,7 @@ class Lesson < ActiveRecord::Base
 
     dry_run || container.save!(:validate => false)
 
-    files.each do |file|
+    (files || []).each do |file|
       name = file['file']
       server = file['server'] || DEFAULT_FILE_SERVER
       size = file['size'] || 0

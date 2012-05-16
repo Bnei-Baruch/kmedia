@@ -3,6 +3,23 @@ Kmedia::Application.routes.draw do
   devise_for :users
   resources :users
   resources :searches
+  resources :ui
+
+  resources :catalogs, :only => :index  do
+    post :index, :on => :collection
+  end
+
+  resources :content_types, :only => :index  do
+    post :index, :on => :collection
+  end
+
+  resources :file_types, :only => :index  do
+    post :index, :on => :collection
+  end
+
+  resources :languages, :only => :index  do
+    post :index, :on => :collection
+  end
 
   namespace(:admin) {
     root :to => "searches#index"
@@ -93,7 +110,7 @@ Kmedia::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "searches#index"
+  root :to => "ui#index"
 
   # See how all your routes lay out with "rake routes"
 

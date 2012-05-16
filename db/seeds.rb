@@ -40,7 +40,9 @@ puts '--> Roles'
   {:name => 'ArchiveAdmin', :description => 'הכל חוץ ממחיקת קבצים וניהול הרשאות'},
   {:name => 'Operator', :description => 'עדכון פרטים מרשימות קיימות (לא יכול להוסיף קטלוג, שפה או מרצה חדשים) ותיאורים. אסור לטפל בהרשאות של קבצים.'},
   {:name => 'ContentManager', :description => 'יכול לעדכן רק תיאורים, כולל תוכניות ישנות'},
-  {:name => 'APIUser', :description => 'API user'},
+  {:name => 'APIUser', :description => 'API user to create/update data in DB'},
+  {:name => 'PSearchUser', :description => 'Search via API with ability to select secure > 0'},
+  {:name => 'SearchUser', :description => 'Search via API without ability to select secure > 0'},
 ].each{|r| Role.find_or_create_by_name(r)}
 
 puts '--> Users'

@@ -1,8 +1,139 @@
 class Admin::Api::ApiController < Admin::ApplicationController
 
-
   # In order to get any service you have to authenticate via
   # POST /admin/api/tokens.json with email and password in body
+
+
+  ###############################################################################################################
+  # Privileged Search User -- may select secure > 0
+  ###############################################################################################################
+
+  # List of catalogs
+  #
+  # Request:
+  #  "auth_token":"<authentication-token>",
+  #  "locale": <string> -- optional, default 'en' (English)
+  #  "secure":[<integer1>, <integer2>,...], -- optional, default: according to user (PSearch - >= 0, Search - 0)
+  #  "parent": <node id> -- optional, default: 0 - topmost categories
+  #
+  # Response:
+  # {
+  #   "catalogs":
+  #     [
+  #       {
+  #         "name":"r1",
+  #         "id":10,
+  #         "order":2,
+  #         "secure":1,
+  #         "has_children": true/false
+  #       },
+  #       ...
+  #     ]
+  # }
+
+  # List of content types
+  #
+  # Request:
+  #  "auth_token":"<authentication-token>"
+  #  "secure":[<integer1>, <integer2>,...], -- optional, default: according to user (PSearch - >= 0, Search - 0)
+  #
+  # Response:
+  # {
+  #   "content_types":
+  #     [
+  #       {
+  #         "id": 13,
+  #         "name": "Declamation",
+  #         "pattern": "declamation",
+  #         "secure": 0
+  #       },
+  #       ...
+  #     ]
+  # }
+
+  # List of file types
+  #
+  # { "list_of_file_types": {
+  #     "auth_token":"<authentication-token>"
+  #   }
+  # }
+  #
+  # Response:
+  # {
+  #   "file_types":
+  #     [
+  #       {
+  #         "name":"graph",
+  #         "extensions":['jpg','gif','zip'],
+  #         "pic":'images/picture.gif',
+  #       },
+  #       ...
+  #     ]
+  # }
+
+  # List of languages
+  #
+  # Request:
+  # { "list_of_languages": {
+  #     "auth_token":"<authentication-token>"
+  #   }
+  # }
+  #
+  # Response:
+  # {
+  #   "languages":
+  #     [
+  #       {
+  #         "id": 1,
+  #         "locale": "en",
+  #         "code3": "ENG",
+  #         "language": "English"
+  #       },
+  #       ...
+  #     ]
+  # }
+
+  # Search
+  #
+  # Request:
+  # { "search": {
+  #     "auth_token":"<authentication-token>"
+  #     "query_text": <string>, -- free text search
+  #     "secure": [<integer>, ...], -- default: 0
+  #     "content_types": [<integer>, ...], -- ids of content types
+  #     "file_languages": [<integer>, ...], -- ids of languages
+  #     "media_types": [<integer>, ...], -- ids of media types
+  #     "catalogs": [<integer>, ...], -- ids of catalogs
+  #     "date_from": <datetime>, -- optional
+  #     "date_to": <datetime>, -- optional
+  #     "series":[<string>, ...], -- optional
+  #   }
+  # }
+  #
+  # Response:
+  # {
+  #   "files":
+  #     [
+  #       {
+  #         "id": <integer>,
+  #         "name": <string>,
+  #         "lang": <string>,
+  #         "filetype": <string>,
+  #         "record_date": <datetime>,
+  #         "size": <integer>,
+  #         "url": <string>,
+  #         "created": <datetime>,
+  #         "updated": <datetime>,
+  #         "secure": <integer>
+  #       }
+  #       ...
+  #     ]
+  # }
+
+
+  ###############################################################################################################
+  # API User -- creation of containers
+  ###############################################################################################################
 
 
   # Register file(s) into a container.
@@ -42,6 +173,15 @@ class Admin::Api::ApiController < Admin::ApplicationController
   #   @param time - time of modification of a file (mtime)
   #   @param size - size of the file in bytes
   def register_file
+
+    # only APIUser is permitted to use API
+    api_role = Role.find_by_name('APIUser')
+
+    unless current_user.roles.include? api_role
+      logger.info("User #{email} is not an API user.")
+      render :status => 401, :json => { :message => "Not an API user.", code: false }
+      return
+    end
 
     render json:
                begin
