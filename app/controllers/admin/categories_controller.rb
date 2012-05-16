@@ -15,6 +15,7 @@ class Admin::CategoriesController < ApplicationController
   # GET /categories/new.json
   def new
     @category = Category.new
+    @category.suid = "Initial system name"
     Language.all.each do |language|
       @category.category_descriptions.build(lang: language.code3)
     end

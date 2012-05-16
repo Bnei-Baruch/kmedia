@@ -9,6 +9,7 @@ gem 'haml'
 gem 'sass', :tag => '3.0.24'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
 gem 'simple_form', '~> 2.0.0.rc' #:git => 'git://github.com/plataformatec/simple_form.git'
+gem "nested_form", :git => 'https://github.com/ryanb/nested_form.git'
 gem "ckeditor", "3.7.0.rc3"
 gem 'thin'
 
@@ -32,6 +33,7 @@ group :development, :test do
   gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
+  gem "test-unit"
   gem 'bullet'
 end
 

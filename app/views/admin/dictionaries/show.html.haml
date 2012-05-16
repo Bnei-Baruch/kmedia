@@ -45,7 +45,7 @@
       - @dictionary.categories.each do |category|
         %tr
           %td= category.suid
-          %td= category.category_descriptions..where(lang: ('HEB')).first.text
+          %td= category.category_descriptions.where(lang: ('HEB')).first.text
           %td= category.created_at.try(:to_date)
           %td= category.updated_at.try(:to_date)
           %td= category.id

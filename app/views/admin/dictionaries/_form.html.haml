@@ -24,9 +24,11 @@
   .row
     %h3 Categories
     .span12
+      %p
+        = f.fields_for :categories
       %p(align="right")
         -#= f.fields_for :categories
-        = f.link_to_add :categories, href: new_admin_category_path
+        = f.link_to_add "New category",:categories , href: new_admin_category_path
         -#= link_to "New category", new_admin_category_path
       %table.table.table-striped.table-bordered.table-condensed
         %thead

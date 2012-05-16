@@ -1,10 +1,22 @@
-<%= simple_form_for(@category) do |f| %>
-  <%= f.error_notification %>
+= simple_nested_form_for [:admin, @category] do |f|
+  = display_errors f
 
-  <div class="inputs">
-  </div>
-
-  <div class="actions">
-    <%= f.button :submit, :disable_with => 'Please wait...' %>
-  </div>
-<% end %>
+  .row
+    .span4
+      = f.input :suid, label: 'System name', hint: 'Short unique identifier'
+  %hr.soften
+  .row
+    %h3 Translations
+    .span12
+      %table.table.table-striped.table-bordered.table-condensed
+        %thead
+          %tr
+            %th Language
+            %th Translation
+        %tbody
+          = f.fields_for :category_descriptions do |desc_form|
+            %tr
+              %td= desc_form.object.lang
+              %td
+                = desc_form.text_field :text
+                = desc_form.hidden_field :lang
