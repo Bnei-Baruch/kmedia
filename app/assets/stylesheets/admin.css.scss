@@ -28,9 +28,11 @@ body {
     .brand-user {
       font-size: 14px;
       font-weight: normal;
+      letter-spacing: 0;
     }
   }
   ul.nav {
+    clear: left;
     li {
       a {
         color: rgba(255, 255, 255, 0.8);
@@ -47,8 +49,6 @@ body {
         }
       }
     }
-
-
   }
 }
 

@@ -2,10 +2,10 @@
   .navbar-inner
     .container
       - if current_user
-        - user = "<span class='brand-user'>#{current_user.email}(#{current_user.roles.collect{|r| r.name}.join(', ')})</span>".html_safe
+        - user = "<span class='brand-user'>#{current_user.email}(#{current_user.roles.collect{|r| r.name}.join(', ').truncate(40)})</span>".html_safe
       - else
         - user = ''
-      =link_to "KMedia Admin #{user}".html_safe, '#', :class => 'brand'
+      =link_to "KMedia Admin <br/>#{user}".html_safe, '#', :class => 'brand'
       = link_to_if current_user, 'Logout', destroy_user_session_path, :class => 'brand logout'
 
       - if current_user
