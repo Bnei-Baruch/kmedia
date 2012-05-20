@@ -190,12 +190,13 @@ class Lesson < ActiveRecord::Base
 
         file_asset = FileAsset.new(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
                                    lastuser: 'system', servername: server, secure: secure)
-        unless dry_run
-          container.file_assets << file_asset
-          raise "Unable to save/update file #{name}" unless file_asset.save
-        end
       elsif !dry_run
         file_asset.update_attributes(filedate: datetime, filesize: size, lastuser: 'system', servername: server)
+      end
+
+      if !dry_run && !container.file_assets.map(&:id).include?(file_asset.id)
+        container.file_assets << file_asset
+        raise "Unable to save/update file #{name}" unless file_asset.save
       end
 
       # Update file description for non-existing UI languages
