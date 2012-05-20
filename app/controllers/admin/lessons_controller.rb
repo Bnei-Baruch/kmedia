@@ -192,7 +192,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def sort_descriptions
     lesson_descriptions_main = { }
     lesson_descriptions_all = []
-    @lesson.lesson_descriptions.includes(:language).each { |x|
+    @lesson.lesson_descriptions.each { |x|
       if MAIN_DESCR_LANGS.include? x.lang
         lesson_descriptions_main[x.lang] = x
       else
