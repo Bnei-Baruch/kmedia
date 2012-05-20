@@ -67,7 +67,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   def sort_descriptions
     catalog_descriptions_main = {}
     catalog_descriptions_all = []
-    @catalog.catalog_descriptions.includes(:language).each{|x|
+    @catalog.catalog_descriptions.each{|x|
       if MAIN_DESCR_LANGS.include? x.lang
         catalog_descriptions_main[x.lang] = x
       else

@@ -1,5 +1,5 @@
 = simple_form_for [:admin, @lessondesc_pattern] do |f|
-  = display_actions f, admin_lessondesc_pattern_url
+  = display_actions f, @lessondesc_pattern.id ? admin_lessondesc_pattern_url(@lessondesc_pattern) : admin_lessondesc_patterns_url
   %hr.soften
   = display_errors f
 
@@ -11,4 +11,4 @@
       = f.input :description, :as => :text, :input_html => {:style => 'width: 600px; height: 200px'}
 
   %hr.soften
-  = display_actions f, admin_lessondesc_pattern_url
+  = display_actions f, @lessondesc_pattern.id ? admin_lessondesc_pattern_url(@lessondesc_pattern) : admin_lessondesc_patterns_url
