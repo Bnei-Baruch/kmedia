@@ -17,7 +17,7 @@ class Lesson < ActiveRecord::Base
   before_destroy do |lesson|
     lesson.file_assets.each { |a|
       # Do not destroy files that belongs to more than one container
-      a.delete if a.lesson_ids.length > 1
+      a.delete if a.lesson_ids.length == 1
     }
   end
 
@@ -194,7 +194,7 @@ class Lesson < ActiveRecord::Base
         file_asset.update_attributes(filedate: datetime, filesize: size, lastuser: 'system', servername: server)
       end
 
-      if !dry_run && !container.file_assets.map(&:id).include?(file_asset.id)
+      if !dry_run && !container.file_asset_ids.include?(file_asset.id)
         container.file_assets << file_asset
         raise "Unable to save/update file #{name}" unless file_asset.save
       end
