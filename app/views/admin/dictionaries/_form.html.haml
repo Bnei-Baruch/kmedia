@@ -3,7 +3,7 @@
 
   .row
     .span4
-      = f.input :suid, label: 'System name', hint: 'Short unique identifier'
+      = f.input :suid, label: 'System name', hint: 'Short unique identifier, length 3..20'
   %hr.soften
   .row
     %h3 Topic translations
@@ -22,13 +22,13 @@
                 = desc_form.hidden_field :lang
   %hr.soften
   .row
-    %h3 Categories
+    %h3 Labels
     .span12
       %p(align="right")
         - if @dictionary.persisted?
-          = f.link_to_add "New category",:categories , href: new_admin_category_path(dictionary_id: f.object.id)
+          = f.link_to_add "New label",:labels , href: new_admin_label_path(dictionary_id: f.object.id), class: 'btn btn-success btn-large pull-right'
         - else
-          = "Save dictionary before adding new categories."
+          = "Save dictionary before adding new labels."
 
       %table.table.table-striped.table-bordered.table-condensed
         %thead
@@ -37,16 +37,16 @@
             %th Text
             %th(colspan="3") Actions
         %tbody
-          - @dictionary.categories.each do |category|
+          - @dictionary.labels.each do |label|
             %tr
-              %td= category.suid
-              %td= category.category_descriptions.where(lang: ('HEB')).first.text
-              %td= link_to 'Show', admin_category_path(category)
+              %td= label.suid
+              %td= label.label_descriptions.where(lang: ('HEB')).first.text
+              %td= link_to 'Show', admin_label_path(label)
               %td
-                = link_to_if can?(:update, category) || can?(:edit_descriptions, category), 'Edit', edit_admin_category_path(category) do
+                = link_to_if can?(:update, label) || can?(:edit_descriptions, label), 'Edit', edit_admin_label_path(label) do
                   .unable Edit
               %td
-                = link_to_if can?(:destroy, category), 'Destroy', admin_category_path(category), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
+                = link_to_if can?(:destroy, label), 'Destroy', admin_label_path(category), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
                   .unable Destroy
 
 

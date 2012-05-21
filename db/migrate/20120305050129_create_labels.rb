@@ -1,6 +1,6 @@
-class CreateCategories < ActiveRecord::Migration
+class CreateLabels < ActiveRecord::Migration
   def self.up
-    create_table :categories do |t|
+    create_table :labels do |t|
       t.integer :dictionary_id
       t.string :suid, limit: 20
 
@@ -9,6 +9,6 @@ class CreateCategories < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :categories
+    drop_table :labels
   end
 end

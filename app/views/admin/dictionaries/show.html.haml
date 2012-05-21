@@ -32,7 +32,7 @@
           %td= descr.updated_at.try(:to_date)
           %td= descr.id
 %section
-  %strong Categories:
+  %strong Labels:
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
@@ -42,10 +42,10 @@
         %th Updated on
         %th ID
     %tbody
-      - @dictionary.categories.each do |category|
+      - @dictionary.labels.each do |label|
         %tr
-          %td= category.suid
-          %td= category.category_descriptions.where(lang: ('HEB')).first.text
-          %td= category.created_at.try(:to_date)
-          %td= category.updated_at.try(:to_date)
-          %td= category.id
+          %td= label.suid
+          %td= label.label_descriptions.where(lang: ('HEB')).first.text
+          %td= label.created_at.try(:to_date)
+          %td= label.updated_at.try(:to_date)
+          %td= label.id

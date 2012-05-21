@@ -60,21 +60,6 @@ ActiveRecord::Schema.define(:version => 20120513100454) do
   add_index "catalognode", ["catalognodename", "parentnodeid"], :name => "cnnamepid", :unique => true
   add_index "catalognode", ["parentnodeid"], :name => "parentnodeid"
 
-  create_table "categories", :force => true do |t|
-    t.integer  "dictionary_id"
-    t.string   "suid",          :limit => 20
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-  end
-
-  create_table "category_descriptions", :force => true do |t|
-    t.integer  "category_id"
-    t.string   "text"
-    t.string   "lang",        :limit => 3, :default => "HEB"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
-  end
-
   create_table "catnodedesc", :primary_key => "catnodedescid", :force => true do |t|
     t.integer  "catalognodeid",                :default => 0, :null => false
     t.string   "catalognodename"
@@ -152,6 +137,21 @@ ActiveRecord::Schema.define(:version => 20120513100454) do
   create_table "filetypes", :primary_key => "typename", :force => true do |t|
     t.string "extlist"
     t.string "pic",     :limit => 20
+  end
+
+  create_table "label_descriptions", :force => true do |t|
+    t.integer  "label_id"
+    t.string   "text"
+    t.string   "lang",       :limit => 3, :default => "HEB"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  create_table "labels", :force => true do |t|
+    t.integer  "dictionary_id"
+    t.string   "suid",          :limit => 20
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "languages", :force => true do |t|

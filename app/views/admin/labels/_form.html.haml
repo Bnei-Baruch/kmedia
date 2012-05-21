@@ -1,4 +1,4 @@
-= simple_nested_form_for [:admin, @category] do |f|
+= simple_nested_form_for [:admin, @label] do |f|
   = display_errors f
 
   = f.hidden_field :dictionary_id, value: params[:dictionary_id]
@@ -16,7 +16,7 @@
             %th Language
             %th Translation
         %tbody
-          = f.fields_for :category_descriptions do |desc_form|
+          = f.fields_for :label_descriptions do |desc_form|
             %tr
               %td= desc_form.object.lang
               %td
@@ -24,4 +24,4 @@
                 = desc_form.hidden_field :lang
 
   %hr.soften
-    = display_actions f, admin_categories_url
+    = display_actions f, admin_labels_url
