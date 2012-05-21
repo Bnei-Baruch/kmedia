@@ -35,7 +35,7 @@ class CatalogsController < ApplicationController
 
   private
   def get_catalogs(parent, secure, language)
-    parent = (parent.blank? || parent == 0) ? nil : parent
+    parent = (parent.blank? || parent == 0 || parent == '0') ? nil : parent
     Catalog.where(:parentnodeid => parent).where("secure <= ?", secure)
   end
 

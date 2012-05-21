@@ -17,7 +17,7 @@ class Lesson < ActiveRecord::Base
   before_destroy do |lesson|
     lesson.file_assets.each { |a|
       # Do not destroy files that belongs to more than one container
-      a.delete if a.lesson_ids.length > 1
+      a.delete if a.lesson_ids.length == 1
     }
   end
 
@@ -177,6 +177,7 @@ class Lesson < ActiveRecord::Base
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
       extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
+      extension = extension[1..3] # Skip '.' in the beginning of extension, i.e. .mp3 => mp3
 
       file_asset = FileAsset.find_by_filename(name)
 
@@ -189,12 +190,13 @@ class Lesson < ActiveRecord::Base
 
         file_asset = FileAsset.new(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
                                    lastuser: 'system', servername: server, secure: secure)
-        unless dry_run
-          container.file_assets << file_asset
-          raise "Unable to save/update file #{name}" unless file_asset.save
-        end
       elsif !dry_run
         file_asset.update_attributes(filedate: datetime, filesize: size, lastuser: 'system', servername: server)
+      end
+
+      if !dry_run && !container.file_asset_ids.include?(file_asset.id)
+        container.file_assets << file_asset
+        raise "Unable to save/update file #{name}" unless file_asset.save
       end
 
       # Update file description for non-existing UI languages
