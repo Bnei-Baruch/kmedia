@@ -24,12 +24,12 @@
   .row
     %h3 Categories
     .span12
-      %p
-        = f.fields_for :categories
       %p(align="right")
-        -#= f.fields_for :categories
-        = f.link_to_add "New category",:categories , href: new_admin_category_path
-        -#= link_to "New category", new_admin_category_path
+        - if @dictionary.persisted?
+          = f.link_to_add "New category",:categories , href: new_admin_category_path(dictionary_id: f.object.id)
+        - else
+          = "Save dictionary before adding new categories."
+
       %table.table.table-striped.table-bordered.table-condensed
         %thead
           %tr

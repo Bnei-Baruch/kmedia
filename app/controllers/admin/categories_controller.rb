@@ -19,6 +19,7 @@ class Admin::CategoriesController < ApplicationController
     Language.all.each do |language|
       @category.category_descriptions.build(lang: language.code3)
     end
+    #@category.dictionary = Dictionary.find(params[:dictionary_id])
   end
 
   # GET /categories/1/edit

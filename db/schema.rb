@@ -333,9 +333,9 @@ ActiveRecord::Schema.define(:version => 20120513100454) do
     t.datetime "updated_at"
     t.string   "first_name",                            :default => ""
     t.string   "last_name",                             :default => ""
+    t.integer  "department_id"
     t.string   "authentication_token"
     t.datetime "reset_password_sent_at"
-    t.integer  "department_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

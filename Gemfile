@@ -21,7 +21,7 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'progress_bar' # for sunspot
 
-gem 'therubyracer'
+gem 'therubyracer', '0.9.10'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

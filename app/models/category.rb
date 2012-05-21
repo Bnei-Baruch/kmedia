@@ -11,5 +11,5 @@ class Category < ActiveRecord::Base
 
   attr_accessible :suid, :category_descriptions_attributes
   accepts_nested_attributes_for :category_descriptions, allow_destroy: true
-
+  accepts_nested_attributes_for :dictionary
 end

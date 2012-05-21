@@ -1,6 +1,8 @@
 = simple_nested_form_for [:admin, @category] do |f|
   = display_errors f
 
+  = f.hidden_field :dictionary_id, value: params[:dictionary_id]
+
   .row
     .span4
       = f.input :suid, label: 'System name', hint: 'Short unique identifier'
@@ -20,3 +22,6 @@
               %td
                 = desc_form.text_field :text
                 = desc_form.hidden_field :lang
+
+  %hr.soften
+    = display_actions f, admin_categories_url
