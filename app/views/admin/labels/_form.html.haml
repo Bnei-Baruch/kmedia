@@ -1,27 +1,13 @@
-= simple_nested_form_for [:admin, @label] do |f|
-  = display_errors f
+= simple_form_for [:admin, @label] do |f|
+  = display_actions f, admin_dictionary_url(params[:dictionary_id])
 
   = f.hidden_field :dictionary_id, value: params[:dictionary_id]
 
-  .row
-    .span4
-      = f.input :suid, label: 'System name', hint: 'Short unique identifier'
-  %hr.soften
-  .row
-    %h3 Translations
-    .span12
-      %table.table.table-striped.table-bordered.table-condensed
-        %thead
-          %tr
-            %th Language
-            %th Translation
-        %tbody
-          = f.fields_for :label_descriptions do |desc_form|
-            %tr
-              %td= desc_form.object.lang
-              %td
-                = desc_form.text_field :text
-                = desc_form.hidden_field :lang
+  = display_errors f
 
   %hr.soften
-    = display_actions f, admin_dictionary_url(params[:dictionary_id])
+  = f.input :suid, label: 'System name', hint: 'Short unique identifier, length 3..20'
+  %hr.soften
+  = display_descriptions f, @descriptions, 'label_descriptions', 'text'
+  %hr.soften
+  = display_actions f, admin_dictionary_url(params[:dictionary_id])

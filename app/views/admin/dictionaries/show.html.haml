@@ -13,6 +13,8 @@
 %section.well
   = display_show_item('ID', @dictionary.id)
   = display_show_item('System name', @dictionary.suid)
+  = display_show_item('Created', @dictionary.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @dictionary.updated_at.to_s(:long_ordinal))
   = display_show_item('Total labels', @dictionary.labels.size)
 %section
   %strong Descriptions:

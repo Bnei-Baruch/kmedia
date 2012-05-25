@@ -12,6 +12,8 @@
 %section.well
   = display_show_item('ID', @label.id)
   = display_show_item('System name', @label.suid)
+  = display_show_item('Created', @label.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @label.updated_at.to_s(:long_ordinal))
   = display_show_item('Dictionary', link_to("#{@label.dictionary.display_name}", admin_dictionary_path(@label.dictionary)),true)
 %section
   %strong Translations:

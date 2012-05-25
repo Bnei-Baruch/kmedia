@@ -1,3 +1,5 @@
+require "utils/i18n"
+
 class Admin::DictionariesController < Admin::ApplicationController
   # GET /admin/dictionaries
   # GET /admin/dictionaries.json
@@ -9,20 +11,24 @@ class Admin::DictionariesController < Admin::ApplicationController
   # GET /admin/dictionaries/1.json
   def show
     @dictionary = Dictionary.find(params[:id])
+    @descriptions = Utils::I18n.sort_descriptions(@dictionary.dictionary_descriptions)
   end
 
   # GET /admin/dictionaries/new
   # GET /admin/dictionaries/new.json
   def new
     @dictionary = Dictionary.new
+    @dictionary.suid = "dict_uid"
     Language.all.each do |language|
       @dictionary.dictionary_descriptions.build(lang: language.code3)
     end
+    @descriptions = Utils::I18n.sort_descriptions(@dictionary.dictionary_descriptions)
   end
 
   # GET /admin/dictionaries/1/edit
   def edit
     @dictionary = Dictionary.find(params[:id])
+    @descriptions = Utils::I18n.sort_descriptions(@dictionary.dictionary_descriptions)
   end
 
   # POST /admin/dictionaries
@@ -43,6 +49,7 @@ class Admin::DictionariesController < Admin::ApplicationController
   def update
     @dictionary = Dictionary.find(params[:id])
     authorize! :update, @dictionary
+    @descriptions = Utils::I18n.sort_descriptions(@dictionary.dictionary_descriptions)
 
     if @admin_dictionary.update_attributes(params[:dictionary])
       redirect_to @dictionary, notice: 'Dictionary was successfully updated.'
@@ -59,4 +66,6 @@ class Admin::DictionariesController < Admin::ApplicationController
     @dictionary.destroy
     redirect_to admin_dictionaries_url, notice: 'Successfully destroyed admin/dictionary.'
   end
+
+
 end

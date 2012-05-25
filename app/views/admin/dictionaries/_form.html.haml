@@ -1,35 +1,21 @@
-= simple_nested_form_for [:admin, @dictionary] do |f|
+= simple_form_for [:admin, @dictionary] do |f|
   = display_errors f
 
-  .row
-    .span4
-      = f.input :suid, label: 'System name', hint: 'Short unique identifier, length 3..20'
   %hr.soften
-  .row
-    %h3 Topic translations
-    .span12
-      %table.table.table-striped.table-bordered.table-condensed
-        %thead
-          %tr
-            %th Language
-            %th Translation
-        %tbody
-          = f.fields_for :dictionary_descriptions do |desc_form|
-            %tr
-              %td= desc_form.object.lang
-              %td
-                = desc_form.text_field :topic
-                = desc_form.hidden_field :lang
+  = f.input :suid, label: 'System name', hint: 'Short unique identifier, length 3..20'
+  %hr.soften
+  = display_descriptions f, @descriptions, 'dictionary_descriptions', 'topic'
   %hr.soften
   .row
     %h3 Labels
     .span12
       %p(align="right")
         - if @dictionary.persisted?
-          = f.link_to_add "New label",:labels , href: new_admin_label_path(dictionary_id: f.object.id), class: 'btn btn-success btn-large pull-right'
+          = link_to "New label", new_admin_label_path(dictionary_id: f.object.id), class: 'btn btn-success btn-large pull-right'
         - else
           = "Save dictionary before adding new labels."
-
+      %br
+      %br
       %table.table.table-striped.table-bordered.table-condensed
         %thead
           %tr
