@@ -14,7 +14,7 @@
     %tbody
       - @dictionaries.each do |dictionary|
         %tr
-          %td= dictionary.dictionary_descriptions.where(lang: ('HEB')).first.topic
+          %td= dictionary.display_name
           %td= link_to 'Show', admin_dictionary_path(dictionary)
           %td
             = link_to_if can?(:update, dictionary) || can?(:edit_descriptions, dictionary), 'Edit', edit_admin_dictionary_path(dictionary) do

@@ -13,4 +13,8 @@ class Dictionary < ActiveRecord::Base
 
   accepts_nested_attributes_for :dictionary_descriptions, allow_destroy: true
   accepts_nested_attributes_for :labels, allow_destroy: true
+
+  def display_name
+    dictionary_descriptions.where(lang: ('HEB')).first.topic + " [ #{suid} ]"
+  end
 end

@@ -1,6 +1,6 @@
 class CreateLabelDescriptions < ActiveRecord::Migration
   def self.up
-    create_table :label_descriptions do |t|
+    create_table :label_descriptions, options: 'default charset=utf8' do |t|
       t.integer :label_id
       t.string :text
       t.string :lang, limit: 3, default: 'HEB'

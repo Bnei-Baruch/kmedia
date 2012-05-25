@@ -13,6 +13,7 @@
 %section.well
   = display_show_item('ID', @dictionary.id)
   = display_show_item('System name', @dictionary.suid)
+  = display_show_item('Total labels', @dictionary.labels.size)
 %section
   %strong Descriptions:
   %table.table.table-striped.table-bordered.table-condensed
@@ -36,16 +37,14 @@
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
-        %th System name
-        %th Text
+        %th Label
         %th Created on
         %th Updated on
         %th ID
     %tbody
       - @dictionary.labels.each do |label|
         %tr
-          %td= label.suid
-          %td= label.label_descriptions.where(lang: ('HEB')).first.text
+          %td= link_to "#{label.display_name}", admin_label_path(label)
           %td= label.created_at.try(:to_date)
           %td= label.updated_at.try(:to_date)
           %td= label.id

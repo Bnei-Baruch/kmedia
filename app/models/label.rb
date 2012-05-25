@@ -12,4 +12,8 @@ class Label < ActiveRecord::Base
   attr_accessible :suid, :label_descriptions_attributes
   accepts_nested_attributes_for :label_descriptions, allow_destroy: true
   accepts_nested_attributes_for :dictionary
+
+  def display_name
+    label_descriptions.where(lang: ('HEB')).first.text + " [ #{suid} ]"
+    end
 end

@@ -1,5 +1,33 @@
-<p id="notice"><%= notice %></p>
+%header.subhead#overview
+  %h2 Label
+  .subnav
+    %ul.nav.nav-pills
+      %li
+        = link_to_if can?(:update, @label), "Edit", edit_admin_label_path(@label) do
+          %a.unable Edit
+      %li
+        = link_to_if can?(:destroy, @label), "Destroy", admin_label_path(@label), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+          %a.unable Destroy
 
-
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+%section.well
+  = display_show_item('ID', @label.id)
+  = display_show_item('System name', @label.suid)
+  = display_show_item('Dictionary', link_to("#{@label.dictionary.display_name}", admin_dictionary_path(@label.dictionary)),true)
+%section
+  %strong Translations:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Language
+        %th Translation
+        %th Created on
+        %th Updated on
+        %th ID
+    %tbody
+      - @label.label_descriptions.each do |descr|
+        %tr
+          %td= descr.lang
+          %td= descr.text
+          %td= descr.created_at.try(:to_date)
+          %td= descr.updated_at.try(:to_date)
+          %td= descr.id

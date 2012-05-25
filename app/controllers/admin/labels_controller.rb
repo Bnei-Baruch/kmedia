@@ -29,7 +29,13 @@ class Admin::LabelsController < ApplicationController
   # POST /labels
   # POST /labels.json
   def create
+    #dictionary = Dictionary.find(params[:label][:dictionary_id])
+    dictionary = Dictionary.find(params[:label][:dictionary_id])
+    params[:label].delete(:dictionary_id)
+
     @label = Label.new(params[:label])
+    @label.dictionary=dictionary
+
     authorize! :create, @label
 
     if @label.save
@@ -57,7 +63,10 @@ class Admin::LabelsController < ApplicationController
   def destroy
     @label = Label.find(params[:id])
     authorize! :destroy, @label
+
+    dictionary = @label.dictionary
     @label.destroy
-    redirect_to admin_labels_url, notice: 'Successfully destroyed admin/label.'
+
+    redirect_to admin_dictionary_url(dictionary), notice: 'Successfully destroyed admin/label.'
   end
 end
