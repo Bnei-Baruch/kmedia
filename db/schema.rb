@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120513100454) do
+ActiveRecord::Schema.define(:version => 20120228160046) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -90,20 +90,6 @@ ActiveRecord::Schema.define(:version => 20120513100454) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "dictionaries", :force => true do |t|
-    t.string   "suid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "dictionary_descriptions", :force => true do |t|
-    t.integer  "dictionary_id"
-    t.string   "topic"
-    t.string   "lang",          :limit => 3, :default => "HEB"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
-  end
-
   create_table "filedesc", :primary_key => "filedescid", :force => true do |t|
     t.integer  "fileid",                :default => 0, :null => false
     t.string   "filedesc"
@@ -137,21 +123,6 @@ ActiveRecord::Schema.define(:version => 20120513100454) do
   create_table "filetypes", :primary_key => "typename", :force => true do |t|
     t.string "extlist"
     t.string "pic",     :limit => 20
-  end
-
-  create_table "label_descriptions", :force => true do |t|
-    t.integer  "label_id"
-    t.string   "text"
-    t.string   "lang",       :limit => 3, :default => "HEB"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-  end
-
-  create_table "labels", :force => true do |t|
-    t.integer  "dictionary_id"
-    t.string   "suid",          :limit => 20
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
   end
 
   create_table "languages", :force => true do |t|
@@ -206,17 +177,14 @@ ActiveRecord::Schema.define(:version => 20120513100454) do
   end
 
   create_table "lessons", :primary_key => "lessonid", :force => true do |t|
-    t.string   "lessonname",       :limit => 100
+    t.string   "lessonname",      :limit => 100
     t.datetime "created"
     t.datetime "updated"
     t.date     "lessondate"
-    t.string   "lang",             :limit => 3
+    t.string   "lang",            :limit => 3
     t.integer  "lecturerid"
-    t.integer  "secure",                          :default => 0,     :null => false
+    t.integer  "secure",                         :default => 0, :null => false
     t.integer  "content_type_id"
-    t.boolean  "marked_for_merge"
-    t.boolean  "secure_changed",                  :default => false
-    t.boolean  "auto_parsed",                     :default => false
   end
 
   add_index "lessons", ["lang"], :name => "lessonlangidx"
@@ -320,22 +288,21 @@ ActiveRecord::Schema.define(:version => 20120513100454) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",                       :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_name",                            :default => ""
-    t.string   "last_name",                             :default => ""
+    t.string   "first_name",                          :default => ""
+    t.string   "last_name",                           :default => ""
     t.integer  "department_id"
     t.string   "authentication_token"
-    t.datetime "reset_password_sent_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

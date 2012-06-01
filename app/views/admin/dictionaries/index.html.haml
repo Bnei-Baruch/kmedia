@@ -1,7 +1,6 @@
 %header.subhead#overview
   %h2 Dictionaries
-  %p
-    = link_to_if can?(:create, Dictionary), "New Dictionary", new_admin_dictionary_path, :class => 'btn btn-success btn-large pull-right'
+  %p= link_to_if can?(:create, Dictionary), "New Dictionary", new_admin_dictionary_path, :class => 'btn btn-success btn-large pull-right'
 
 %section
   = paginate @dictionaries
@@ -14,7 +13,7 @@
     %tbody
       - @dictionaries.each do |dictionary|
         %tr
-          %td= dictionary.display_name
+          %td= dictionary.to_s
           %td= link_to 'Show', admin_dictionary_path(dictionary)
           %td
             = link_to_if can?(:update, dictionary) || can?(:edit_descriptions, dictionary), 'Edit', edit_admin_dictionary_path(dictionary) do

@@ -32,7 +32,6 @@ group :development, :test do
   gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
-  gem "test-unit"
   gem 'bullet'
 end
 

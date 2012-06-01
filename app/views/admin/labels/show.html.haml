@@ -14,7 +14,7 @@
   = display_show_item('System name', @label.suid)
   = display_show_item('Created', @label.created_at.to_s(:long_ordinal))
   = display_show_item('Updated', @label.updated_at.to_s(:long_ordinal))
-  = display_show_item('Dictionary', link_to("#{@label.dictionary.display_name}", admin_dictionary_path(@label.dictionary)),true)
+  = display_show_item('Dictionary', link_to("#{@label.dictionary.to_s}", admin_dictionary_path(@label.dictionary)),true)
 %section
   %strong Translations:
   %table.table.table-striped.table-bordered.table-condensed

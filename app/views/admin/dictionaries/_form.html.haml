@@ -13,7 +13,7 @@
         - if @dictionary.persisted?
           = link_to "New label", new_admin_label_path(dictionary_id: f.object.id), class: 'btn btn-success btn-large pull-right'
         - else
-          = "Save dictionary before adding new labels."
+          Save dictionary before adding new labels
       %br
       %br
       %table.table.table-striped.table-bordered.table-condensed
@@ -24,7 +24,7 @@
         %tbody
           - @dictionary.labels.each do |label|
             %tr
-              %td= label.display_name
+              %td= label.to_s
               %td= link_to 'Show', admin_label_path(label)
               %td
                 = link_to_if can?(:update, label) || can?(:edit_descriptions, label), 'Edit', edit_admin_label_path(label) do
@@ -32,8 +32,5 @@
               %td
                 = link_to_if can?(:destroy, label), 'Destroy', admin_label_path(label), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
                   .unable Destroy
-
-
-
   %hr.soften
   = display_actions f, admin_dictionaries_url

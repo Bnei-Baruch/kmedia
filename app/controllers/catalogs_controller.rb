@@ -7,7 +7,7 @@ class CatalogsController < ApplicationController
   #  "auth_token":"<authentication-token>",
   #  "locale": <string> -- optional, default 'en' (English)
   #  "secure":[<integer1>, <integer2>,...], -- optional, default: according to user (PSearch - >= 0, Search - 0)
-  #  "parent": <node id> -- optional, default: 0 - topmost labels
+  #  "parent": <node id> -- optional, default: 0 - topmost categories
   #
   # Response:
   # {

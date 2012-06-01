@@ -51,7 +51,7 @@ puts '--> Users'
   {:user => {:email => 'mgorodetsky@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
   {:user => {:email => 'gshilin@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
   {:user => {:email => 'ramigg@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
-  #{:user => {:email => 'edoshor@gmail.com', :password => 'edos123'}, :role => 'SuperAdmin'},
+  {:user => {:email => 'edoshor@gmail.com', :password => 'kmedia'}, :role => 'SuperAdmin'},
   {:user => {:email => 'archiveadmin@kbb1.com', :password => 'kmedia'}, :role => 'ArchiveAdmin'},
   {:user => {:email => 'operator@kbb1.com', :password => 'kmedia'}, :role => 'Operator'},
   {:user => {:email => 'contentmanager@kbb1.com', :password => 'kmedia'}, :role => 'ContentManager'},

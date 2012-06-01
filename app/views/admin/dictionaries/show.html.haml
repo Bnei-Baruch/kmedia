@@ -46,7 +46,7 @@
     %tbody
       - @dictionary.labels.each do |label|
         %tr
-          %td= link_to "#{label.display_name}", admin_label_path(label)
+          %td= link_to "#{label.to_s}", admin_label_path(label)
           %td= label.created_at.try(:to_date)
           %td= label.updated_at.try(:to_date)
           %td= label.id
