@@ -54,9 +54,7 @@ class Admin::LessonsController < Admin::ApplicationController
     authorize! :update, @lesson
 
     @lesson.attributes = params[:lesson]
-    if operator_changed_secure_field?
-      @lesson.secure_changed=true
-    end
+    @lesson.secure_changed = true if operator_changed_secure_field?
 
     @lesson.auto_parsed = false
 
