@@ -8,7 +8,7 @@ class Admin::UsersController < Admin::ApplicationController
   # GET /users.json                                       HTML and AJAX
   #-----------------------------------------------------------------------
   def index
-    @users = User.accessible_by(current_ability, :index).order(:first_name,:last_name).page(params[:page])
+    @users = User.accessible_by(current_ability, :index).order(:first_name,:last_name).page(params[:page]).includes([:department, :roles])
   end
 
   # GET /users/new

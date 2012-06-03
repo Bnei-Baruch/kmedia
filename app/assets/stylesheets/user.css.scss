@@ -6,7 +6,7 @@
 
 body {
   font-family: Arial;
-  padding-top: 80px;
+  padding-top: 90px;
 }
 
 .clear {
@@ -16,9 +16,10 @@ body {
 .navbar {
   .brand {
     padding: 4px 20px 0;
-    .brand-user {
+    text-transform: uppercase;
+    span {
       font-size: 14px;
-      font-weight: normal;
+      letter-spacing: 2.1px;
     }
   }
 }
@@ -65,4 +66,17 @@ hr.soften {
   background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
   background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
   border: 0;
+}
+
+#google_ads_iframe_Kabbalah_media {
+  border: 0 none;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 0 3px #666666;
+}
+#google_ads_div_Kabbalah_media_ad_wrapper {
+  margin: 5px 0 0;
+}
+
+.common_background {
+
 }

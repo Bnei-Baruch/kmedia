@@ -1,5 +1,5 @@
 = simple_form_for [:admin, @catalog] do |f|
-  = display_actions f, admin_catalog_url
+  = display_actions f, @catalog.catalognodeid ? admin_catalog_url(@catalog) : admin_catalogs_url
   %hr.soften
   = display_errors f
 
@@ -14,4 +14,4 @@
   %hr.soften
   = display_descriptions f, @catalog_descriptions, 'catalog_descriptions', 'catalognodename'
   %hr.soften
-  = display_actions f, admin_catalog_url
+  = display_actions f, @catalog.catalognodeid ? admin_catalog_url(@catalog) : admin_catalogs_url

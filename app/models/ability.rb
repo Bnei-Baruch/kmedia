@@ -35,6 +35,9 @@ class Ability
       cannot :edit_all_lesson_fields, Lesson
       #- Operator - Can't edit the "secure_changed" field, it is updated automatically when the "secure" field changed
       cannot :edit_secure_changed_field, Lesson
+    elsif user.role? :PSearchUser
+      can :search_secure, :all
+    else # Guest
     end
 
   end

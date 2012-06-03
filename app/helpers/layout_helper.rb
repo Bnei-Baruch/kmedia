@@ -66,7 +66,7 @@ HAML
 .actions
   %button.btn.btn-primary.btn-large{:type => 'submit', :'data-disable-with' => 'Please wait...'} Update
   %button.btn.btn-large{:onclick => "location.href='#{location}'; return false;", :type => 'button'} Cancel
-  - if can?(:merge, @lesson)
+  - if @lesson.lessonid && can?(:merge, @lesson)
     .merge.pull-right
       %button.mark_for_merge.btn{:onclick => "mark_me(this); return false;", :'data-mark-path' => mark_for_merge_admin_lesson_path(@lesson), :class => @lesson.marked_for_merge ? 'btn-warning' : '', :type => 'button'}
         = @lesson.marked_for_merge ? "Unmark" : "Mark"

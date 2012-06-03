@@ -59,13 +59,14 @@ class Admin::LessonsController < Admin::ApplicationController
     if operator_changed_secure_field?
       @lesson.secure_changed=true
     end
+
+    @lesson.auto_parsed = false
+
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
-    else
-      #params[:lesson][:lesson_descriptions_attributes].each do |k, v|
-      #  @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
-      #end
+    else 
       @lesson_descriptions = sort_descriptions
+      @lesson_transcripts = sort_transcripts
       render :action => 'edit'
     end
   end

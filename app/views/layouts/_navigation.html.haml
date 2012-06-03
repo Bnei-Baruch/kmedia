@@ -1,13 +1,27 @@
-.navbar.navbar-fixed-top
+/ ПОМЕСТИТЕ ЭТОТ ТЕГ В РАЗДЕЛ заголовка
+=javascript_include_tag "http://partner.googleadservices.com/gampad/google_service.js"
+
+:javascript
+  GS_googleAddAdSenseService("ca-pub-9068547212525872");
+  GS_googleEnableAllServices();
+:javascript
+  GA_googleAddSlot("ca-pub-9068547212525872", "Kabbalah_media");
+:javascript
+  GA_googleFetchAds();
+/ КОНЕЦ ТЕГА ДЛЯ РАЗДЕЛА заголовка
+/ ПОМЕСТИТЕ ЭТОТ ТЕГ В НУЖНОЕ МЕСТО Kabbalah_media
+:javascript
+  GA_googleFillSlot("Kabbalah_media");
+/ КОНЕЦ ТЕГА ДЛЯ МЕСТА Kabbalah_media
+.navbar
   .navbar-inner
     .container
-      - if current_user
-        - user = "<span class='brand-user'>#{current_user.email}(#{current_user.roles.collect{|r| r.name}.join(', ')})</span>".html_safe
-      - else
-        - user = ''
-      =link_to "Kabbalah Media #{user}".html_safe, '#', :class => 'brand'
+      =link_to "Kabbalah<br/><span>Media.info</span>".html_safe, '#', :class => 'brand span2'
+      = simple_form_for [@search || Search.new], :html => {:class => 'navbar-search span8', :method => :get} do |f|
+        = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query'}
+        = f.button :submit
 
-      %ul.nav
+      %ul.nav.pull-right
         %li
           - if current_user
             = link_to_if current_user, 'Logout', destroy_user_session_path, :class => 'brand logout'
