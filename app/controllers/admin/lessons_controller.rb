@@ -29,8 +29,8 @@ class Admin::LessonsController < Admin::ApplicationController
       @lesson.lesson_descriptions.build(:lang => l.code3)
       @lesson.lesson_transcripts.build(:lang => l.code3)
     }
-    @lesson_transcripts = sort_transcripts
     @lesson_descriptions = sort_descriptions
+    @lesson_transcripts = sort_transcripts
   end
 
   def create
@@ -39,10 +39,8 @@ class Admin::LessonsController < Admin::ApplicationController
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/container."
     else
-      params[:lesson][:lesson_descriptions_attributes].each do |k, v|
-        @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
-      end
       @lesson_descriptions = sort_descriptions
+      @lesson_transcripts = sort_transcripts
       render :action => 'new'
     end
   end
