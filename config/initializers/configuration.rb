@@ -12,6 +12,6 @@ RSS_CATEGORIES = [
   {:id => 3662, :name => 'RSS_update'},
 ]
 
-MAIN_DESCR_LANGS = ['ENG', 'RUS', 'HEB']
+MAIN_LANGS = ['ENG', 'RUS', 'HEB']
 
 DEFAULT_FILE_SERVER = 'FILES-EU'

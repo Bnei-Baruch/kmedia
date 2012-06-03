@@ -44,6 +44,9 @@
           %td
             = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Long Description', edit_long_descr_admin_lesson_path(lesson) do
               .unable Long Description
+
+            = link_to_if can?(:update, lesson) || can?(:edit_all_lesson_fields, lesson), 'Transcript', edit_transcript_admin_lesson_path(lesson) do
+              .unable Transcript
           %td
             = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
               .unable Destroy

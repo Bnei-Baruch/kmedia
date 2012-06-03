@@ -6,6 +6,11 @@ class Lesson < ActiveRecord::Base
       where(:lang => code3)
     end
   end
+  has_many :lesson_transcripts, :foreign_key => :lessonid do
+    def by_language(code3)
+      where(:lang => code3)
+    end
+  end
   belongs_to :lecturer, :foreign_key => :lecturerid
   belongs_to :content_type
   has_and_belongs_to_many :file_assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
@@ -18,7 +23,7 @@ class Lesson < ActiveRecord::Base
     lesson.file_assets.each { |a| a.delete }
   end
 
-  accepts_nested_attributes_for :lesson_descriptions
+  accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 
   attr_accessor :v_lessondate, :catalog_tokens, :rss
   attr_accessor :container_ids
@@ -56,6 +61,9 @@ class Lesson < ActiveRecord::Base
     end
     text :descr, :as => :user_text do
       lesson_descriptions.select([:lessondesc, :descr]).map(&:descr).join(' ')
+    end
+    text :transcript, :as => :user_text do
+      lesson_transcripts.select([:transcript]).map(&:transcript).join(' ')
     end
 
     integer :secure

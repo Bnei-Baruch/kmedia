@@ -8,7 +8,8 @@ gem 'mysql2', '>= 0.3'
 gem 'haml'
 gem 'sass', :tag => '3.0.24'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
-gem 'simple_form', '~> 2.0.0.rc' #:git => 'git://github.com/plataformatec/simple_form.git'
+gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'nokogiri'
 
 gem 'thin'
 
@@ -21,6 +22,8 @@ gem 'sunspot_solr'
 gem 'progress_bar' # for sunspot
 
 gem 'therubyracer'
+gem  "mime-types", '1.17.2'
+gem "ckeditor", "3.7.0.rc3"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

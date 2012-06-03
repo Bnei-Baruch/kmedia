@@ -67,13 +67,13 @@ class Admin::CatalogsController < Admin::ApplicationController
     catalog_descriptions_main = {}
     catalog_descriptions_all = []
     @catalog.catalog_descriptions.each{|x|
-      if MAIN_DESCR_LANGS.include? x.lang
+      if MAIN_LANGS.include? x.lang
         catalog_descriptions_main[x.lang] = x
       else
         catalog_descriptions_all << x
       end
     }
-    MAIN_DESCR_LANGS.map{|l| catalog_descriptions_main[l]} + catalog_descriptions_all.sort_by{|x| x.lang }
+    MAIN_LANGS.map{|l| catalog_descriptions_main[l]} + catalog_descriptions_all.sort_by{|x| x.lang }
   end
   
 end

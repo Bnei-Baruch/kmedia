@@ -9,6 +9,9 @@
         = link_to_if can?(:update, @lesson) || can?(:edit_descriptions, @lesson), 'Edit Long Description', edit_long_descr_admin_lesson_path(@lesson) do
           .unable Edit Long Description
       %li
+        = link_to_if can?(:update, @lesson) || can?(:edit_transcripts, @lesson), 'Edit Transcript', edit_transcript_admin_lesson_path(@lesson) do
+          .unable Edit Transcript
+      %li
         = link_to_if can?(:destroy, @lesson), "Destroy", admin_lesson_path(@lesson), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
           %a.unable Destroy
       %li= link_to "View All", admin_lessons_path
@@ -46,6 +49,28 @@
           %td= admin_lesson_desc.created.try(:to_date)
           %td= admin_lesson_desc.updated.try(:to_date)
           %td= admin_lesson_desc.lessondescid
+%section
+  %strong Transcripts:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Language
+        %th TOC
+        %th Transcript
+        %th Created on
+        %th Updated on
+        %th ID
+    %tbody
+      - @lesson.lesson_transcripts.each do |t|
+        - next if (t.transcript).blank?
+        %tr
+          %td= t.lang
+          %td= t.toc
+          %td= t.transcript
+          %td= t.created_at.try(:to_date)
+          %td= t.updated_at.try(:to_date)
+          %td= t.id
+
 %section
   %strong Catalogs:
   %table.table.table-striped.table-bordered.table-condensed

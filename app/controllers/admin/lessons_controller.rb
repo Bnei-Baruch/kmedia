@@ -1,5 +1,5 @@
 class Admin::LessonsController < Admin::ApplicationController
-  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr,]
+  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr, :edit_transcript, :update_transcript]
 
   def index
     @filter = params[:filter]
@@ -27,7 +27,9 @@ class Admin::LessonsController < Admin::ApplicationController
     @lesson.catalogs << @rss # Add it to RSS by default
     @languages.each { |l|
       @lesson.lesson_descriptions.build(:lang => l.code3)
+      @lesson.lesson_transcripts.build(:lang => l.code3)
     }
+    @lesson_transcripts = sort_transcripts
     @lesson_descriptions = sort_descriptions
   end
 
@@ -46,14 +48,7 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def edit
-    @lesson = Lesson.find(params[:id])
-    authorize! :edit, @lesson
-
-    lang_codes = @lesson.lesson_descriptions.map(&:lang)
-    @languages.each { |l|
-      @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
-    }
-    @lesson_descriptions = sort_descriptions
+    authorize_and_build_language_maps
   end
 
   def update
@@ -64,40 +59,48 @@ class Admin::LessonsController < Admin::ApplicationController
     if operator_changed_secure_field?
       @lesson.secure_changed=true
     end
-
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
     else
-      params[:lesson][:lesson_descriptions_attributes].each do |k, v|
-        @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
-      end
+      #params[:lesson][:lesson_descriptions_attributes].each do |k, v|
+      #  @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
+      #end
       @lesson_descriptions = sort_descriptions
       render :action => 'edit'
     end
   end
 
   def edit_long_descr
-    @lesson = Lesson.find(params[:id])
-    authorize! :edit, @lesson
+    authorize_and_build_language_maps
+  end
 
-    lang_codes = @lesson.lesson_descriptions.map(&:lang)
-    @languages.each { |l|
-      @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
-    }
-    @lesson_descriptions = sort_descriptions
+  def edit_transcript
+    authorize_and_build_language_maps
+  end
+
+  def update_transcript
+    @lesson = Lesson.find(params[:id])
+    authorize! :update, @lesson
+
+    @lesson.attributes = params[:lesson]
+    generate_transcript_table_of_content
+    if @lesson.lesson_transcripts.each(&:save)
+      redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated container transcript."
+    else
+      @lesson_transcripts = sort_transcripts
+      render :action => 'edit_transcript'
+    end
   end
 
   def update_long_descr
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
-    if @lesson.update_attributes(params[:lesson])
-      redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated contaner description."
+    @lesson.attributes = params[:lesson]
+    if @lesson.lesson_descriptions.each(&:save)
+      redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated container long description."
     else
-      params[:lesson][:lesson_descriptions_attributes].each do |k, v|
-        @lesson.lesson_descriptions.build(v) if v[:lessondesc].blank?
-      end
       @lesson_descriptions = sort_descriptions
-      render :action => 'edit'
+      render :action => 'edit_long_descr'
     end
   end
 
@@ -162,10 +165,10 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def merge
     @lesson = Lesson.find(params[:id])
-    merge_ids = params[:lesson][:container_ids].map(&:to_i)#.reject{|m| m == 0}
+    merge_ids = params[:lesson][:container_ids].map(&:to_i) #.reject{|m| m == 0}
     merges = Lesson.where(:lessonid => merge_ids).each { |merge|
       # copy files
-      merge.file_assets.each {|fa|
+      merge.file_assets.each { |fa|
         @lesson.file_assets << fa rescue nil
       }
       # empty files from merged container
@@ -174,7 +177,7 @@ class Admin::LessonsController < Admin::ApplicationController
       merge.destroy
     }
     # clear all selections
-    Lesson.where(:marked_for_merge => true).each{|lesson| lesson.update_attribute(:marked_for_merge, false) }
+    Lesson.where(:marked_for_merge => true).each { |lesson| lesson.update_attribute(:marked_for_merge, false) }
     render :show
   end
 
@@ -188,24 +191,63 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def sort_descriptions
-    lesson_descriptions_main = { }
+    lesson_descriptions_main = {}
     lesson_descriptions_all = []
     @lesson.lesson_descriptions.each { |x|
-      if MAIN_DESCR_LANGS.include? x.lang
+      if MAIN_LANGS.include? x.lang
         lesson_descriptions_main[x.lang] = x
       else
         lesson_descriptions_all << x
       end
     }
-    MAIN_DESCR_LANGS.map { |l| lesson_descriptions_main[l] } + lesson_descriptions_all.sort_by { |x| x.lang }
+    MAIN_LANGS.map { |l| lesson_descriptions_main[l] } + lesson_descriptions_all.sort_by { |x| x.lang }
+  end
+
+  def sort_transcripts
+    lesson_transcripts_main = {}
+    lesson_transcripts_all = []
+    @lesson.lesson_transcripts.each { |x|
+      if MAIN_LANGS.include? x.lang
+        lesson_transcripts_main[x.lang] = x
+      else
+        lesson_transcripts_all << x
+      end
+    }
+    MAIN_LANGS.map { |l| lesson_transcripts_main[l] } + lesson_transcripts_all.sort_by { |x| x.lang }
   end
 
   def operator_changed_secure_field?
     if @current_user.role?(:operator)
       changed_fields = @lesson.changes
-      return changed_fields.size == 1  && (changed_fields.has_key? ("secure"))
+      return changed_fields.size == 1 && (changed_fields.has_key? ("secure"))
     end
     return false
   end
 
+  def authorize_and_build_language_maps
+    @lesson = Lesson.find(params[:id])
+    authorize! :edit, @lesson
+
+    lang_codes = @lesson.lesson_descriptions.map(&:lang)
+    transcript_lang_codes = @lesson.lesson_transcripts.map(&:lang)
+    @languages.each { |l|
+      @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
+      @lesson.lesson_transcripts.build(:lang => l.code3) unless  transcript_lang_codes.include?(l.code3)
+
+    }
+    @lesson_descriptions = sort_descriptions
+    @lesson_transcripts = sort_transcripts
+  end
+
+  def generate_transcript_table_of_content
+    @lesson.lesson_transcripts.each do |t|
+      doc = Nokogiri::HTML.parse(t.transcript)
+      toc=""
+      doc.xpath('//h1').each do |h_tag|
+        toc = toc << "<br/>" if !toc.empty?
+        toc = toc + h_tag.content
+      end
+      t.toc = toc
+    end
+  end
 end
