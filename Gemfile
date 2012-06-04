@@ -8,7 +8,8 @@ gem 'mysql2', '>= 0.3'
 gem 'haml'
 gem 'sass', :tag => '3.0.24'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
-gem 'simple_form', '~> 2.0.0.rc' #:git => 'git://github.com/plataformatec/simple_form.git'
+gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'nokogiri'
 gem "ckeditor", "3.7.0.rc3"
 gem 'thin'
 
