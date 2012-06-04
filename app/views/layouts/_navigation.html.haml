@@ -1,23 +1,29 @@
-- if current_user
-  .current_user
-    =current_user.email
-    (
-    = current_user.roles.collect{|r| r.name}.join(', ')
-    )
-  = simple_form_for [:admin, Search.new], :html => {:class => 'bp'} do |f|
-    = f.input :search, :label => false
-    = f.submit :Search
-    %div(style="margin: -10px")
-      לצורך חיפוש מדוייק יש לרשום לפני ואחרי תוכן החיפוש *". לדוגמה:
-      <code style="direction: ltr; float: left; padding: 3px 10px;">"*clip_mi-shiur-boker*"</code>
-  %nav.main
-    = link_to_if can?(:update, Lesson), 'Containers', admin_lessons_path do
-      %a.unable Containers
-    = link_to_if can?(:update, User), 'Users', admin_users_path do
-      %a.unable Users
-    = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
-      %a.unable Catalogs
-    .secondary
-      = link_to_if can?(:update, Catalog), 'Containers\' patterns', admin_lessondesc_patterns_path do
-        %a.unable Containers' patterns
-      = link_to_if current_user, 'Logout', destroy_user_session_path
+/ ПОМЕСТИТЕ ЭТОТ ТЕГ В РАЗДЕЛ заголовка
+=javascript_include_tag "http://partner.googleadservices.com/gampad/google_service.js"
+
+:javascript
+  GS_googleAddAdSenseService("ca-pub-9068547212525872");
+  GS_googleEnableAllServices();
+:javascript
+  GA_googleAddSlot("ca-pub-9068547212525872", "Kabbalah_media");
+:javascript
+  GA_googleFetchAds();
+/ КОНЕЦ ТЕГА ДЛЯ РАЗДЕЛА заголовка
+/ ПОМЕСТИТЕ ЭТОТ ТЕГ В НУЖНОЕ МЕСТО Kabbalah_media
+:javascript
+  GA_googleFillSlot("Kabbalah_media");
+/ КОНЕЦ ТЕГА ДЛЯ МЕСТА Kabbalah_media
+.navbar
+  .navbar-inner
+    .container
+      =link_to "Kabbalah<br/><span>Media.info</span>".html_safe, '#', :class => 'brand span2'
+      = simple_form_for [@search || Search.new], :html => {:class => 'navbar-search span8', :method => :get} do |f|
+        = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query'}
+        = f.button :submit
+
+      %ul.nav.pull-right
+        %li
+          - if current_user
+            = link_to_if current_user, 'Logout', destroy_user_session_path, :class => 'brand logout'
+          - else
+            = link_to 'Login', new_user_session_path, :class => 'login'

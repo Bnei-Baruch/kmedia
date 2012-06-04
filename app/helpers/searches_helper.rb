@@ -1,24 +1,19 @@
 module SearchesHelper
-  def best_hit_description(hit)
-    if highlight = hit.highlight(:body)
-      highlight.format { |word| "<strong>#{word}</strong>" }
-    else
-      result = hit.result
-      klass = result.class
-      case
-        when klass == Asset
-          result.filename
-        when klass == Lesson
-          result.lessonname
-        when klass == LessondescPattern
-          result.description
-        when klass == LessonDescription
-          result.lessondesc
-        when klass == Catalog
-          result.catalognodename.gsub(/\//, ' / ')
-        else
-          ''
-      end
+  def languages_to_list
+    Language.all.map do |l|
+      [l.language, l.code3]
+    end
+  end
+
+  def content_types_to_list
+    ContentType.all.map do |ct|
+      [ct.name, ct.id.to_s]
+    end
+  end
+
+  def file_type_ids_to_list
+    FileType.all.map do |ct|
+      [ct.typename.humanize, ct.typename]
     end
   end
 end

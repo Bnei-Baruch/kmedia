@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -30,7 +32,7 @@ puts '--> Languages'
 {:code3 => "CHN", :language =>"Chinese", :locale => 'zh'},
 {:code3 => "FAR", :language =>"Persian", :locale => 'fa'},
 {:code3 => "ROU", :language =>"Romanian", :locale => 'ro'},
-].each{|e| Language.find_or_create_by_locale_and_language(e)}
+].each{|e| Language.find_or_create_by_locale(e)}
 
 puts '--> Roles'
 [
@@ -38,6 +40,9 @@ puts '--> Roles'
   {:name => 'ArchiveAdmin', :description => 'הכל חוץ ממחיקת קבצים וניהול הרשאות'},
   {:name => 'Operator', :description => 'עדכון פרטים מרשימות קיימות (לא יכול להוסיף קטלוג, שפה או מרצה חדשים) ותיאורים. אסור לטפל בהרשאות של קבצים.'},
   {:name => 'ContentManager', :description => 'יכול לעדכן רק תיאורים, כולל תוכניות ישנות'},
+  {:name => 'APIUser', :description => 'API user to create/update data in DB'},
+  {:name => 'PSearchUser', :description => 'Search via API with ability to select secure > 0'},
+  {:name => 'SearchUser', :description => 'Search via API without ability to select secure > 0'},
 ].each{|r| Role.find_or_create_by_name(r)}
 
 puts '--> Users'
@@ -53,5 +58,33 @@ puts '--> Users'
   user = User.find_or_create_by_email(e[:user])
   user.roles << Role.find_by_name(e[:role])
 }
+
+puts '--> Container Types'
+[
+    {:name => 'Program', :pattern => 'program'},
+    {:name => 'Short clip', :pattern => 'clip'},
+    {:name => 'Song', :pattern => 'song'},
+    {:name => 'Lesson', :pattern => 'lesson'},
+    {:name => 'Lecture', :pattern => 'lecture'},
+    {:name => 'Book', :pattern => 'book'},
+    {:name => 'Declamation', :pattern => 'declamation'},
+    {:name => 'Audio Disk', :pattern => 'audiodisk'},
+    {:name => 'Video Disk', :pattern => 'videodisk'},
+    {:name => 'Text', :pattern => 'text'},
+    {:name => 'Transcript', :pattern => 'tamlil', :secure => 4},
+    {:name => 'Magazine', :pattern => 'magazine'},
+].each{|r| ContentType.find_or_create_by_pattern(r)}
+
+
+puts '--> Departments'
+[
+    {:name => 'צוות שיעור בוקר'},
+    {:name => 'קבלה מדיה רוסית'},
+    {:name => 'קבלה מדיה עברית'},
+    {:name => 'מילות מפתח עברית'},
+    {:name => 'מילות מפתח רוסית'},
+    {:name => 'תיאורים נוספים'},
+].each { |r| Department.find_or_create_by_name(r) }
+
 
 puts '--> Done'

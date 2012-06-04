@@ -1,0 +1,6 @@
+json.content_types @languages do |language|
+  json.id language.id
+  json.locale language.locale
+  json.code3 language.code3
+  json.language language.language
+end

@@ -1,4 +1,4 @@
-class Admin::CatalogsController < ApplicationController
+class Admin::CatalogsController < Admin::ApplicationController
   load_and_authorize_resource :only => [:show, :new, :destroy, :edit, :update, :create]
   rescue_from ActiveRecord::RecordNotFound do |exception|
     redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
@@ -7,7 +7,7 @@ class Admin::CatalogsController < ApplicationController
   def index
     @catalogs = Catalog.
         accessible_by(current_ability, :index).
-        order('catalognodename ASC')
+        order('catalognodename ASC').includes(:parent)
     if params[:q]
       @catalogs = @catalogs.where("catalognodename like ?", "%#{params[:q]}%")
     else
@@ -21,6 +21,7 @@ class Admin::CatalogsController < ApplicationController
   end
 
   def show
+    @lessons = @catalog.lessons.includes([:content_type, :language, ])
   end
 
   def new

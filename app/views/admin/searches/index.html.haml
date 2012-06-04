@@ -1,70 +1,94 @@
-- title "Search results for #{@query}"
-%h4== Displaying posts #{(@search.results.current_page - 1) * @search.results.limit_value + 1} - #{[@search.results.current_page * @search.results.limit_value, @search.total].min} of #{@search.total}
-%br
-= paginate @search.hits, :window => 8
-%br
-%table.admin_table.bp
-  %thead
-    %tr
-      %th ID
-      %th Type
-      %th Name
-      %th Hits
-  - @search.each_hit_with_result do |hit, result|
-    - klass = result.class
-    %tr(class="#{cycle('odd', 'even')}")
-      - case
-      - when klass == Asset
-        - asset = result
-        %td= asset.fileid
-        %td= link_to 'Asset', admin_asset_path(asset)
-        %td= "#{asset.filename} (#{asset.filesize})"
-      - when klass == Lesson
-        - lesson = result
-        %td= lesson.lessonid
-        %td= link_to 'Container', admin_lesson_path(lesson)
-        %td= lesson.lessonname
-      - when klass == LessondescPattern
-        - pattern = result
-        %td= pattern.id
-        %td= link_to 'Containers\' pattern', admin_lessondesc_pattern_path(pattern)
-        %td
-          = pattern.pattern
-          (
-          = pattern.lang
-          )(
-          = pattern.description
-          )
-      - when klass == LessonDescription
-        - lesson_description = result
-        %td= lesson_description.lessondescid
-        %td= link_to 'Container_Description', admin_lesson_path(lesson_description.lesson.id) if lesson_description.lesson
-        %td
-          = lesson_description.lessondesc
-          (
-          = lesson_description.lang
-          )
-      - when klass == Catalog
-        - catalog = result
-        %td= result.catalognodeid
-        %td= link_to klass, admin_catalog_path(catalog)
-        %td
-          - if catalog.parent
-            %span.small
-              = catalog.parent.catalognodename.gsub(/\//, ' / ')
-              (
-              = catalog.parentnodeid
-              ) /
-          %span.bold
-            = catalog.catalognodename.gsub(/\//, ' / ')
-            %span.small
-              (
-              = catalog.catalognodeid
-              )
-      - else
-        %td(rowspan=3)= "Unknown: #{klass}"
-      %td= best_hit_description(hit)
+%header.subhead#overview
+  %h2 Search results
 
-%br
-= paginate @search, :window => 8
-%br
+%section
+  - if @results.is_a?(String) || !@results || @results.results.empty?
+    - if @results.is_a?(String)
+      %h4 Please contact your system administrator:
+      = @results
+    - else
+      No results
+  - else
+    %h3
+      Request:
+      =@search.query_string
+    %h4.clear== Results #{(@results.results.current_page - 1) * @results.results.limit_value + 1} - #{[@results.results.current_page * @results.results.limit_value, @results.total].min} of #{@results.total}
+    = paginate @results.hits, :window => 8
+
+    %table.table.table-striped.table-bordered.table-condensed
+      %thead
+        %tr
+          %th ID
+          %th Type
+          %th Name
+      %tbody
+        - @results.each_hit_with_result do |hit, result|
+          - klass = result.class
+          %tr
+            - case
+            - when klass == FileAsset
+              - asset = result
+              %td= asset.fileid
+              %td= link_to 'File', admin_file_asset_path(asset)
+              %td= "#{asset.filename} (#{asset.filesize} bytes)"
+            - when klass == Lesson
+              - lesson = result
+              %td= lesson.lessonid
+              %td= link_to 'Container', admin_lesson_path(lesson)
+              %td= lesson.lessonname
+            - when klass == LessondescPattern
+              - pattern = result
+              %td= pattern.id
+              %td= link_to 'Containers\' pattern', admin_lessondesc_pattern_path(pattern)
+              %td
+                = pattern.pattern
+                (
+                = pattern.lang
+                )(
+                = pattern.description
+                )
+            - when klass == LessonDescription
+              - lesson_description = result
+              %td= lesson_description.lessondescid
+              %td
+                - if lesson_description.lesson
+                  = link_to 'Lesson_Description', admin_lesson_path(lesson_description.lesson.id)
+                - else
+                  Lesson Description
+              %td
+                = lesson_description.lessondesc
+                (
+                = lesson_description.lang
+                )
+            - when klass == CatalogDescription
+              - catalog_description = result
+              %td= catalog_description.catnodedescid
+              %td
+                - if catalog_description.catalog
+                  = link_to 'Catalog Description', admin_catalog_path(catalog_description.catalog.id)
+                - else
+                  Catalog Description
+              %td
+                = catalog_description.catalognodename
+                (
+                = catalog_description.lang
+                )
+            - when klass == Catalog
+              - catalog = result
+              %td= result.catalognodeid
+              %td= link_to klass, admin_catalog_path(catalog)
+              %td
+                - if catalog.parent
+                  %span.small
+                    = catalog.parent.catalognodename.gsub(/\//, ' / ')
+                    (
+                    = catalog.parentnodeid
+                    ) /
+                %span.bold
+                  = catalog.catalognodename.gsub(/\//, ' / ')
+                  %span.small
+                    (
+                    = catalog.catalognodeid
+                    )
+            - else
+              %td(colspan=3)= "Unknown: #{klass}"

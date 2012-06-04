@@ -13,3 +13,5 @@ config/database.yml
 *.jar
 *.pid
 Gemfile.lock
+solr/data/*
+.sass-cache/

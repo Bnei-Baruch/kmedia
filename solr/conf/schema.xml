@@ -59,35 +59,52 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="rand" class="solr.RandomSortField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
-    <fieldType name="text" class="solr.TextField" omitNorms="false">
-      <!-- ZZZ analyzer>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StandardFilterFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer-->
-	  <analyzer type="index">
+    <!-- ZZZ analyzer>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.StandardFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer-->
+    <!-- For regular users text fields -->
+    <fieldType name="user_text" class="solr.TextField" omitNorms="false">
+      <analyzer type="index">
 	    <tokenizer class="solr.StandardTokenizerFactory"/>
 	    <filter class="solr.StandardFilterFactory"/>
 	    <filter class="solr.LowerCaseFilterFactory"/>
-	    <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
 	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
 	    <filter class="solr.TrimFilterFactory" />
-	    <filter class="solr.WordDelimiterFilterFactory"
-		    generateNumberParts="1"/>
-	    <filter class="solr.EdgeNGramFilterFactory"
-	      minGramSize="1"
-	      maxGramSize="30"/>
-	  </analyzer>
+        <filter class="solr.EdgeNGramFilterFactory"
+        side="front"
+        minGramSize="4"
+        maxGramSize="30"/>
+      </analyzer>
 	  <analyzer type="query">
 	    <tokenizer class="solr.StandardTokenizerFactory"/>
 	    <filter class="solr.StandardFilterFactory"/>
 	    <filter class="solr.LowerCaseFilterFactory"/>
-	    <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
 	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
 	    <filter class="solr.TrimFilterFactory" />
-	    <filter class="solr.WordDelimiterFilterFactory"
-		    generateNumberParts="1"/>
 	  </analyzer>
+    </fieldType>
+    <!-- *** This fieldType is used by Sunspot! *** -->
+    <fieldType name="text" class="solr.TextField" omitNorms="false">
+      <!-- For Administrator text fields -->
+      <analyzer type="index">
+	    <tokenizer class="solr.PatternTokenizerFactory" pattern="[-_.]"/>
+	    <filter class="solr.StandardFilterFactory"/>
+	    <filter class="solr.LowerCaseFilterFactory"/>
+	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
+	    <filter class="solr.TrimFilterFactory" />
+	    <filter class="solr.NGramFilterFactory"
+	      minGramSize="1"
+	      maxGramSize="150"/>
+	  </analyzer>
+	  <analyzer type="query">
+	    <tokenizer class="solr.PatternTokenizerFactory" pattern="[-_.]"/>
+	    <filter class="solr.StandardFilterFactory"/>
+	    <filter class="solr.LowerCaseFilterFactory"/>
+	    <filter class="solr.ISOLatin1AccentFilterFactory"/>
+	    <filter class="solr.TrimFilterFactory" />
+      </analyzer>
     </fieldType>
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="boolean" class="solr.BoolField" omitNorms="true"/>

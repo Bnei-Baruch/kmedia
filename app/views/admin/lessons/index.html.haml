@@ -1,44 +1,49 @@
-- title "Containers"
-%p
-  = link_to_if can?(:create, Lesson), "New Container", new_admin_lesson_path do
-    .unable New Container
-%p.filter
-  %span Filter:&nbsp;
-  = link_to 'All Containers', admin_lessons_path(:filter => 'all'), :class => show_all_selected?
-  |
-  = link_to 'Containers for update', admin_lessons_path, :class => filtered_selected?
-= paginate @lessons
-%br
-%table.admin_table.bp
-  %thead
-    %tr
-      %th ID
-      %th Name
-      %th Created
-      %th Updated
-      %th Language
-      %th Secure
-      %th(colspan=3) Actions
-  - @lessons.each do |lesson|
-    - secure = SECURITY.select{|s| s[:level] == lesson.secure }.first[:name].downcase
-    %tr(class="#{cycle('odd', 'even')} #{secure}")
-      %td= lesson.lessonid
-      %td= lesson.lessonname
-      %td.small= lesson.created.try(:to_date)
-      %td.small= lesson.updated.try(:to_date)
-      %td= lesson.lang
-      %td.small= secure
-      %td= link_to 'Show', admin_lesson_path(lesson)
-      %td
-        = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Edit', edit_admin_lesson_path(lesson) do
-          .unable Edit
-      %td
-        = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete do
-          .unable Destroy
-%br
-= paginate @lessons
-%br
+%header.subhead#overview
+  %h2 Containers
+  %p
+    = link_to_if can?(:create, Lesson), "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right' do
+      .unable New Container
+  %h4.clear Filter:&nbsp;
+  .subnav
+    %ul.nav.nav-pills
+      %li
+      = content_tag :li, :class => show_all_selected? do
+        =link_to 'All Containers', admin_lessons_path(:filter => 'all')
+      = content_tag :li, :class => filtered_selected? do
+        = link_to 'Containers to update', admin_lessons_path
+      - if can?(:edit_secure_changed_field, @lesson)
+        = content_tag :li, :class => secure_changed?, :title => 'Security Level changed by operator' do
+          = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
 
-%p
-  = link_to_if can?(:create, Lesson), "New Container", new_admin_lesson_path do
-    .unable New Container
+%section
+  = paginate @lessons
+
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Created
+        %th Updated
+        %th Language
+        %th Secure
+        %th(colspan=4) Actions
+    %tbody
+      - @lessons.each do |lesson|
+        %tr
+          %td{:class => lesson.marked_for_merge ? 'btn btn-warning' : ''}= lesson.lessonid
+          %td= lesson.lessonname.truncate(57, :omission => '&hellip;').html_safe
+          %td= lesson.created.try(:to_date)
+          %td= lesson.updated.try(:to_date)
+          %td= lesson.lang
+          %td= display_secure(lesson.secure)
+          %td= link_to 'Show', admin_lesson_path(lesson)
+          %td
+            = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Edit', edit_admin_lesson_path(lesson) do
+              .unable Edit
+          %td
+            = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Long Description', edit_long_descr_admin_lesson_path(lesson) do
+              .unable Long Description
+          %td
+            = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
+              .unable Destroy
