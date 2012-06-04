@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304101228) do
+ActiveRecord::Schema.define(:version => 20120415184654) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -183,9 +183,10 @@ ActiveRecord::Schema.define(:version => 20120304101228) do
     t.date     "lessondate"
     t.string   "lang",             :limit => 3
     t.integer  "lecturerid"
-    t.integer  "secure",                          :default => 0, :null => false
+    t.integer  "secure",                          :default => 0,     :null => false
     t.integer  "content_type_id"
     t.boolean  "marked_for_merge"
+    t.boolean  "secure_changed",                  :default => false
   end
 
   add_index "lessons", ["lang"], :name => "lessonlangidx"

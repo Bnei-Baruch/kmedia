@@ -1,5 +1,7 @@
 Kmedia::Application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
+
   devise_for :users
   resources :users
   resources :searches
@@ -28,8 +30,10 @@ Kmedia::Application.routes.draw do
       member do
         get 'parse_lesson_name'
         get 'edit_long_descr'
-        put 'update_long_descr'
+        get 'edit_transcript'
         get 'mark_for_merge'
+        put 'update_long_descr'
+        put 'update_transcript'
         get 'merge_get_list'
         post 'merge'
       end
