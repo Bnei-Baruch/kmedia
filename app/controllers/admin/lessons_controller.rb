@@ -56,7 +56,7 @@ class Admin::LessonsController < Admin::ApplicationController
     authorize! :update, @lesson
 
     @lesson.attributes = params[:lesson]
-    @lesson.secure_changed = true if operator_changed_secure_field?
+    @lesson.secure_changed = operator_changed_secure_field?
 
     @lesson.auto_parsed = false
 
@@ -164,7 +164,7 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def merge
     @lesson = Lesson.find(params[:id])
-    merge_ids = params[:lesson][:container_ids].map(&:to_i) #.reject{|m| m == 0}
+    merge_ids = params[:lesson][:container_ids].map(&:to_i)
     merges = Lesson.where(:lessonid => merge_ids).each { |merge|
       # copy files
       merge.file_assets.each { |fa|
@@ -216,14 +216,6 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def operator_changed_secure_field?
-    if @current_user.role?(:operator)
-      changed_fields = @lesson.changes
-      return changed_fields.size == 1 && (changed_fields.has_key? ("secure"))
-    end
-    return false
-  end
-
-  def empty_file?
     if @current_user.role?(:operator)
       changed_fields = @lesson.changes
       return changed_fields.size == 1 && (changed_fields.has_key? ("secure"))
