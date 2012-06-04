@@ -14,6 +14,8 @@
       - if can?(:edit_secure_changed_field, @lesson)
         = content_tag :li, :class => secure_changed?, :title => 'Security Level changed by operator' do
           = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
+      = content_tag :li, :class => no_files?, :title => 'No files associated' do
+        = link_to 'Empty', admin_lessons_path(:filter => 'no_files')
 
 %section
   = paginate @lessons

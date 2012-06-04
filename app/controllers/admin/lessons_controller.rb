@@ -7,6 +7,8 @@ class Admin::LessonsController < Admin::ApplicationController
                  Lesson
                elsif @filter && @filter == 'secure_changed'
                  Lesson.secure_changed
+               elsif @filter && @filter == 'no_files'
+                 Lesson.no_files
                else
                  Lesson.need_update
                end.ordered.page(params[:page])
@@ -214,6 +216,14 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def operator_changed_secure_field?
+    if @current_user.role?(:operator)
+      changed_fields = @lesson.changes
+      return changed_fields.size == 1 && (changed_fields.has_key? ("secure"))
+    end
+    return false
+  end
+
+  def empty_file?
     if @current_user.role?(:operator)
       changed_fields = @lesson.changes
       return changed_fields.size == 1 && (changed_fields.has_key? ("secure"))

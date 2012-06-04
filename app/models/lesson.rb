@@ -64,6 +64,10 @@ class Lesson < ActiveRecord::Base
   NEED_UPDATE
   )
   scope :secure_changed, where(:secure_changed => true)
+  scope :no_files, where(<<-NO_FILES
+  (SELECT count(1) FROM lessonfiles WHERE lessonfiles.lessonid = lessons.lessonid) = 0
+  NO_FILES
+  )
 
   def to_label
     lessonname
