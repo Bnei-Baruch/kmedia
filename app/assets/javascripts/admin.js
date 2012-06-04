@@ -7,6 +7,7 @@
 //= require_self
 //= require_tree ./common
 //= require_tree ./admin
+//= require ckeditor/init
 
 $(function () {
     $("#lesson_catalog_tokens").tokenInput("/admin/catalogs.json", {
