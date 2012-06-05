@@ -11,11 +11,12 @@
         =link_to 'All Containers', admin_lessons_path(:filter => 'all')
       = content_tag :li, :class => filtered_selected? do
         = link_to 'Containers to update', admin_lessons_path
-      - if can?(:edit_secure_changed_field, @lesson)
+      - if can?(:special_admin_features, @lesson)
         = content_tag :li, :class => secure_changed?, :title => 'Security Level changed by operator' do
           = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
-      = content_tag :li, :class => no_files?, :title => 'No files associated' do
-        = link_to 'Empty', admin_lessons_path(:filter => 'no_files')
+      - if can?(:special_admin_features, @lesson)
+        = content_tag :li, :class => no_files?, :title => 'No files associated' do
+          = link_to 'Empty', admin_lessons_path(:filter => 'no_files')
 
 %section
   = paginate @lessons
