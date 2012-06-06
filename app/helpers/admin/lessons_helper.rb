@@ -10,4 +10,8 @@ module Admin::LessonsHelper
   def secure_changed?
     @filter == 'secure_changed' ? 'active' : ''
   end
+
+  def no_files?
+    @filter == 'no_files' ? 'active' : ''
+  end
 end

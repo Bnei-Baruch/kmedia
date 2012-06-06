@@ -90,4 +90,35 @@ HAML
     klass = security.first[:klass]
     name == 'unsecure' ? 'non-secure' : "<span class='label label-#{klass}'>#{name.humanize}</span>".html_safe
   end
+
+  def display_transcripts(f, transcripts, source, target)
+    engine = Haml::Engine.new <<-HAML
+- counter = 0
+= form.simple_fields_for :#{source}, transcripts do |transcript_f|
+  - language = transcript_f.object.language
+  - if counter == 0
+    <div class="row">
+  - if counter < 3 # 3 separate columns
+    .span4
+      = transcript_f.input :lang, :as => :hidden
+      = transcript_f.input :#{target}, :as => :ckeditor, :label => language.to_s, :input_html => {:namespace => "transcript", :toolbar=>"Plus", :class => language.code3.downcase}
+  - if counter == 3
+    </div>
+    .accordion-heading
+      %a.accordion-toggle(data-toggle="collapse" href="#other-languages") Other Languages
+    <div id="other-languages" class="collapse">
+  - if counter >= 3
+    - if counter % 3 == 0
+      <div class="row">
+    .span4
+      = transcript_f.input :lang, :as => :hidden
+      = transcript_f.input :#{target}, :as => :ckeditor, :label => language.to_s, :input_html => {:namespace => "transcript", :toolbar=>"Plus", :class => language.code3.downcase}
+    - if counter % 3 == 2
+      </div>
+  - counter += 1
+</div>
+    HAML
+    engine.render self, :form => f, :transcripts => transcripts
+  end
+
 end
