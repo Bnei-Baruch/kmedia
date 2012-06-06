@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304101228) do
+ActiveRecord::Schema.define(:version => 20120513100454) do
 
   create_table "answers", :id => false, :force => true do |t|
     t.timestamp "datetime",                               :null => false
@@ -49,12 +49,13 @@ ActiveRecord::Schema.define(:version => 20120304101228) do
   add_index "booksdesc", ["fileid"], :name => "fileid"
 
   create_table "catalognode", :primary_key => "catalognodeid", :force => true do |t|
-    t.string   "catalognodename", :limit => 100, :default => "",  :null => false
+    t.string   "catalognodename", :limit => 100, :default => "",   :null => false
     t.integer  "parentnodeid"
     t.datetime "created"
     t.datetime "updated"
-    t.integer  "catorder",                       :default => 999, :null => false
-    t.integer  "secure",                         :default => 0,   :null => false
+    t.integer  "catorder",                       :default => 999,  :null => false
+    t.integer  "secure",                         :default => 0,    :null => false
+    t.boolean  "delta",                          :default => true, :null => false
   end
 
   add_index "catalognode", ["catalognodename", "parentnodeid"], :name => "cnnamepid", :unique => true
@@ -113,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20120304101228) do
     t.datetime "updated"
     t.string   "lastuser",   :limit => 7
     t.integer  "fileclicks",                :default => 0
+    t.boolean  "delta",                     :default => true,      :null => false
     t.integer  "secure",                    :default => 0
   end
 
@@ -149,7 +151,7 @@ ActiveRecord::Schema.define(:version => 20120304101228) do
   add_index "lecturerdesc", ["lecturerid", "lang"], :name => "lecturerid", :unique => true
 
   create_table "lessondesc", :primary_key => "lessondescid", :force => true do |t|
-    t.integer  "lessonid",                     :default => 0, :null => false
+    t.integer  "lessonid",                     :default => 0,    :null => false
     t.string   "lessondesc"
     t.string   "lang",            :limit => 3
     t.datetime "created"
@@ -157,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20120304101228) do
     t.text     "descr"
     t.string   "lessondesc_flat"
     t.text     "descr_flat"
+    t.boolean  "delta",                        :default => true, :null => false
   end
 
   add_index "lessondesc", ["lessondesc", "descr"], :name => "lessondesc"
@@ -169,6 +172,7 @@ ActiveRecord::Schema.define(:version => 20120304101228) do
     t.string   "lang"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delta",       :default => true, :null => false
   end
 
   create_table "lessonfiles", :id => false, :force => true do |t|
@@ -183,9 +187,11 @@ ActiveRecord::Schema.define(:version => 20120304101228) do
     t.date     "lessondate"
     t.string   "lang",             :limit => 3
     t.integer  "lecturerid"
-    t.integer  "secure",                          :default => 0, :null => false
+    t.integer  "secure",                          :default => 0,     :null => false
     t.integer  "content_type_id"
     t.boolean  "marked_for_merge"
+    t.boolean  "secure_changed",                  :default => false
+    t.boolean  "auto_parsed",                     :default => false
   end
 
   add_index "lessons", ["lang"], :name => "lessonlangidx"
@@ -302,8 +308,8 @@ ActiveRecord::Schema.define(:version => 20120304101228) do
     t.datetime "updated_at"
     t.string   "first_name",                            :default => ""
     t.string   "last_name",                             :default => ""
-    t.integer  "department_id"
     t.string   "authentication_token"
+    t.integer  "department_id"
     t.datetime "reset_password_sent_at"
   end
 

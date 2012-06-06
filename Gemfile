@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.5'
 gem 'jquery-rails'
 
 gem 'mysql2', '>= 0.3'
@@ -33,6 +33,7 @@ group :development, :test do
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
   gem 'bullet'
+  gem "sextant" # rake routes in the browser /rails/routes
 end
 
 gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => "2.0"
