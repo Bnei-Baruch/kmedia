@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.5'
 gem 'jquery-rails'
 
 gem 'mysql2', '>= 0.3'
@@ -8,8 +8,10 @@ gem 'mysql2', '>= 0.3'
 gem 'haml'
 gem 'sass', :tag => '3.0.24'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
-gem 'simple_form', '~> 2.0.0.rc' #:git => 'git://github.com/plataformatec/simple_form.git'
-gem "ckeditor", "3.7.0.rc3"
+gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'nokogiri'
+gem "ckeditor", "3.7.1"
+gem "paperclip"
 gem 'thin'
 
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
@@ -33,6 +35,7 @@ group :development, :test do
   gem "nifty-generators"
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
   gem 'bullet'
+  gem "sextant" # rake routes in the browser /rails/routes
 end
 
 gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git', :branch => "2.0"

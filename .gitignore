@@ -2,7 +2,7 @@
 .bundle
 db/schema.rb
 db/*.sqlite3
-log/*.log
+log/*
 tmp/**/*
 config/database.yml
 .idea/
@@ -13,5 +13,5 @@ config/database.yml
 *.jar
 *.pid
 Gemfile.lock
-solr/data/*
+solr/data/**/*
 .sass-cache/
