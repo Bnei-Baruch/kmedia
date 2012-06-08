@@ -9,13 +9,13 @@ module Utils
       descriptions_main = { }
       descriptions_all = []
       descriptions.each { |x|
-        if MAIN_DESCR_LANGS.include? x.lang
+        if MAIN_LANGS.include? x.lang
           descriptions_main[x.lang] = x
         else
           descriptions_all << x
         end
       }
-      MAIN_DESCR_LANGS.map { |d| descriptions_main[d] } + descriptions_all.sort_by { |x| x.lang }
+      MAIN_LANGS.map { |d| descriptions_main[d] } + descriptions_all.sort_by { |x| x.lang }
     end
 
   end
