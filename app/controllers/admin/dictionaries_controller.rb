@@ -28,6 +28,8 @@ class Admin::DictionariesController < Admin::ApplicationController
   # GET /admin/dictionaries/1/edit
   def edit
     @dictionary = Dictionary.find(params[:id])
+    authorize! :edit, @dictionary
+
     @descriptions = Utils::I18n.sort_descriptions(@dictionary.dictionary_descriptions)
   end
 
@@ -49,10 +51,11 @@ class Admin::DictionariesController < Admin::ApplicationController
   def update
     @dictionary = Dictionary.find(params[:id])
     authorize! :update, @dictionary
+
     @descriptions = Utils::I18n.sort_descriptions(@dictionary.dictionary_descriptions)
 
-    if @admin_dictionary.update_attributes(params[:dictionary])
-      redirect_to @dictionary, notice: 'Dictionary was successfully updated.'
+    if @dictionary.update_attributes(params[:dictionary])
+      redirect_to admin_dictionary_path(@dictionary), notice: 'Dictionary was successfully updated.'
     else
       render action: 'edit'
     end
@@ -63,6 +66,7 @@ class Admin::DictionariesController < Admin::ApplicationController
   def destroy
     @dictionary = Dictionary.find(params[:id])
     authorize! :destroy, @dictionary
+
     @dictionary.destroy
     redirect_to admin_dictionaries_url, notice: 'Successfully destroyed admin/dictionary.'
   end

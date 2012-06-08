@@ -19,9 +19,8 @@ class Dictionary < ActiveRecord::Base
 
   # --- Accessors ---
 
-  attr_accessible :suid, :dictionary_descriptions_attributes, :labels_attributes
+  attr_accessible :suid, :dictionary_descriptions_attributes
   accepts_nested_attributes_for :dictionary_descriptions, allow_destroy: true
-  accepts_nested_attributes_for :labels, allow_destroy: true
 
   # --- Validations ---
 

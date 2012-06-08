@@ -28,6 +28,8 @@ class Admin::LabelsController < ApplicationController
   # GET /labels/1/edit
   def edit
     @label = Label.find(params[:id])
+    authorize! :edit, @label
+
     params[:dictionary_id] = @label.dictionary.id
     @descriptions = Utils::I18n.sort_descriptions(@label.label_descriptions)
   end
@@ -39,9 +41,8 @@ class Admin::LabelsController < ApplicationController
     params[:label].delete(:dictionary_id)
 
     @label = Label.new(params[:label])
-    @label.dictionary=dictionary
-
     authorize! :create, @label
+    @label.dictionary=dictionary
 
     if @label.save
       redirect_to admin_label_path(@label), notice: 'Successfully created admin/label.'
@@ -55,6 +56,7 @@ class Admin::LabelsController < ApplicationController
   def update
     @label = Label.find(params[:id])
     authorize! :update, @label
+
     @descriptions = Utils::I18n.sort_descriptions(@label.label_descriptions)
 
     params[:label].delete(:dictionary_id)
