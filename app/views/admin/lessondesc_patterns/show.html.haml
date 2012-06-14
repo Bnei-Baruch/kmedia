@@ -14,3 +14,15 @@
   = display_show_item('Pattern', @lessondesc_pattern.pattern.gsub(/\s/, '&#9251;'))
   = display_show_item('Description', @lessondesc_pattern.description)
   = display_show_item('Lang', @lessondesc_pattern.lang)
+%section
+  %strong Catalogs:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th ID
+        %th Name
+    %tbody
+      - @lessondesc_pattern.catalogs.each do |catalog|
+        %tr
+          %td= catalog.catalognodeid
+          %td= catalog.catalognodename

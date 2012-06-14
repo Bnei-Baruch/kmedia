@@ -25,6 +25,11 @@ $(function () {
         },
         prePopulate:$("#lesson_catalog_tokens").data("pre")
     });
+    $("#lessondesc_pattern_catalog_tokens").tokenInput("/admin/catalogs.json", {
+        crossDomain:false,
+        preventDuplicates:true,
+        prePopulate:$("#lessondesc_pattern_catalog_tokens").data("pre")
+    });
     $("#catalog_parentnodeid").tokenInput("/admin/catalogs.json", {
         crossDomain:false,
         preventDuplicates:true,
