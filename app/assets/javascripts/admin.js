@@ -63,11 +63,52 @@ function auto_parse() {
         dataType = element.attr('data-type') || ($.ajaxSettings && $.ajaxSettings.dataType);
         $.ajax({
             url:url, type:method, data:data, dataType:dataType,
-            success: function(data) {
+            success:function (data) {
                 eval(data);
             }
         });
 
         e.preventDefault();
     });
+}
+
+// Batch operations
+$(function () {
+    // Check all
+    $('#batch-all').click(function () {
+        $(this).closest('table').find('.batch').prop('checked', $(this).prop('checked'));
+    });
+
+    // Perform action
+    $('#batch-action').change(function () {
+        action = $(this).val();
+        if (action != '') {
+            $('.batch:checked').each(function (index, element) {
+                submit_action(action, element);
+            });
+        }
+    });
+})
+
+function submit_action(action, element) {
+    var $element = $(element);
+    var form = $element.closest('form');
+    var url = form.attr('action') + '/catalogs/' + container_id + '/batch';
+
+    $element.siblings('img').show();
+
+    $.getJSON(
+        url,
+        { batch_type: action }
+    ).error(function (data) {
+            alert('Error: Unable to ' + action + '@' + url + ': (' + data.statusText + ')');
+        }).success(function (data) {
+            if (data.ok) {
+                $element.prop('checked', false);
+            } else {
+                alert('Error: Unable to ' + action + '@' + url + ': (' + data.msg + ')');
+            }
+        }).complete(function () {
+            $element.siblings('img').hide();
+        });
 }
