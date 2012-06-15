@@ -11,7 +11,7 @@
     .span12
       %p(align="right")
         - if @dictionary.persisted?
-          = link_to "New label", new_admin_label_path(dictionary_id: f.object.id), class: 'btn btn-success btn-large pull-right'
+          = link_to "New label", new_admin_dictionary_label_path(dictionary_id: f.object.id), class: 'btn btn-success btn-large pull-right'
         - else
           Save dictionary before adding new labels
       %br
@@ -25,12 +25,12 @@
           - @dictionary.labels.each do |label|
             %tr
               %td= label.to_s
-              %td= link_to 'Show', admin_label_path(label)
+              %td= link_to 'Show', admin_dictionary_label_path(@dictionary, label)
               %td
-                = link_to_if can?(:update, label) || can?(:edit_descriptions, label), 'Edit', edit_admin_label_path(label) do
+                = link_to_if can?(:update, label) || can?(:edit_descriptions, label), 'Edit', edit_admin_dictionary_label_path(@dictionary, label) do
                   .unable Edit
               %td
-                = link_to_if can?(:destroy, label), 'Destroy', admin_label_path(label), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
+                = link_to_if can?(:destroy, label), 'Destroy', admin_dictionary_label_path(@dictionary, label), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
                   .unable Destroy
   %hr.soften
   = display_actions f, admin_dictionaries_url

@@ -3,10 +3,10 @@
   .subnav
     %ul.nav.nav-pills
       %li
-        = link_to_if can?(:update, @label), "Edit", edit_admin_label_path(@label) do
+        = link_to_if can?(:update, @label), "Edit", edit_admin_dictionary_label_path(@label.dictionary, @label) do
           %a.unable Edit
       %li
-        = link_to_if can?(:destroy, @label), "Destroy", admin_label_path(@label), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+        = link_to_if can?(:destroy, @label), "Destroy", admin_dictionary_label_path(@label.dictionary, @label), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
           %a.unable Destroy
 
 %section.well

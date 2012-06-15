@@ -19,6 +19,7 @@ class Admin::LabelsController < ApplicationController
   def new
     @label = Label.new
     @label.suid = "lbl_uid"
+    @label.dictionary = Dictionary.find(params[:dictionary_id])
     Language.all.each do |language|
       @label.label_descriptions.build(lang: language.code3)
     end
@@ -45,7 +46,7 @@ class Admin::LabelsController < ApplicationController
     @label.dictionary=dictionary
 
     if @label.save
-      redirect_to admin_label_path(@label), notice: 'Successfully created admin/label.'
+      redirect_to admin_dictionary_label_path(@label.dictionary, @label), notice: 'Successfully created admin/label.'
     else
       render action: 'new'
     end
@@ -61,7 +62,7 @@ class Admin::LabelsController < ApplicationController
 
     params[:label].delete(:dictionary_id)
     if @label.update_attributes(params[:label])
-      redirect_to admin_label_path(@label), notice: 'Label was successfully updated.'
+      redirect_to admin_dictionary_label_path(@label.dictionary, @label), notice: 'Label was successfully updated.'
     else
       render action: 'edit'
     end

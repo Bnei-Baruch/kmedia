@@ -57,8 +57,9 @@ Kmedia::Application.routes.draw do
     end
     resources :lessondesc_patterns
     resources :searches
-    resources :dictionaries
-    resources :labels
+    resources :dictionaries do
+      resources :labels
+    end
 
     namespace :api do
       resources :tokens, :only => [:create, :destroy]

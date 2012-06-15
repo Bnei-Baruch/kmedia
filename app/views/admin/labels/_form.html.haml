@@ -1,4 +1,4 @@
-= simple_form_for [:admin, @label] do |f|
+= simple_form_for [:admin, @label.dictionary, @label] do |f|
   = display_actions f, admin_dictionary_url(params[:dictionary_id])
 
   = f.hidden_field :dictionary_id, value: params[:dictionary_id]

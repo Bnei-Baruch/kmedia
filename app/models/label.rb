@@ -25,6 +25,9 @@ class Label < ActiveRecord::Base
 
   # --- Validations ---
 
+  # make sure we have a dictionary
+  validates :dictionary, presence: true
+
   # suid stands for Short Unique Identifier
   # Its intended to replace internal DB ids in externally visible urls
   # It must consist of letters, dot and dash only. Length must be between 3 to 20.
