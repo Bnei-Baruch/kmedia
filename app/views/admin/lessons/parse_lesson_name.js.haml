@@ -23,6 +23,7 @@ var $descr_pattern;
 - unless @catalogs.nil?
   // Adding catalogs associated with matched pattern
   // Clearing the previous catalogs because we can not know if they were set by user or by default value in the "new'" method
+  // When the catalog is added the rss checkbox is being checked in the onAdd function defined in the admin.js
   $('#lesson_catalog_tokens').tokenInput("clear");
   - @catalogs.each do |c|
     var catalog = {id: #{c.catalognodeid}, name: '#{c.catalognodename}' };
