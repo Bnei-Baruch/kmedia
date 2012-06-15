@@ -166,6 +166,7 @@ class Lesson < ActiveRecord::Base
         c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
         sp.descriptions.each { |pattern|
           c.lesson_descriptions.build(:lang => pattern.lang, :lessondesc => pattern.description)
+          c.catalogs = pattern.catalogs unless pattern.catalogs.empty?
         }
         c.content_type_id = sp.content_type.id
         c.secure = sp.content_security_level

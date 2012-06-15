@@ -11,6 +11,7 @@
       %tr
         %th Pattern
         %th Description
+        %th Catalogs
         %th Lang
         %th(colspan=3) Actions
     %tbody
@@ -18,7 +19,8 @@
         %tr(class="#{cycle('odd', 'even')}")
           %td= lessondesc_pattern.pattern
           %td= lessondesc_pattern.description
+          %td= lessondesc_pattern.catalogs.uniq.map{|c| c.catalognodename}.join(', ')
           %td= lessondesc_pattern.lang
           %td= link_to 'Show', [:admin, lessondesc_pattern]
           %td= link_to 'Edit', edit_admin_lessondesc_pattern_path(lessondesc_pattern)
-          %td= link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete
+          %td= link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
