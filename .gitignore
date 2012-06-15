@@ -15,3 +15,5 @@ config/database.yml
 Gemfile.lock
 solr/data/**/*
 .sass-cache/
+public/assets/**/*
+public/assets/*

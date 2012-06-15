@@ -16,18 +16,18 @@ class Admin::CatalogsController < Admin::ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @catalogs.map { |c| {:id => c.catalognodeid, :name => c.catalognodename} } }
+      format.json { render :json => @catalogs.map { |c| { :id => c.catalognodeid, :name => c.catalognodename } } }
     end
   end
 
   def show
-    @lessons = @catalog.lessons.includes([:content_type, :language, ])
+    @lessons = @catalog.lessons.includes([:content_type, :language,])
   end
 
   def new
     @languages = Language.order('code3').all
     lang_codes = @catalog.catalog_descriptions.map(&:lang)
-    @languages.each{ |l|
+    @languages.each { |l|
       @catalog.catalog_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
     @catalog_descriptions = sort_descriptions
@@ -44,7 +44,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   def edit
     @languages = Language.order('code3').all
     lang_codes = @catalog.catalog_descriptions.map(&:lang)
-    @languages.each{ |l|
+    @languages.each { |l|
       @catalog.catalog_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
     }
     @catalog_descriptions = sort_descriptions
@@ -63,18 +63,33 @@ class Admin::CatalogsController < Admin::ApplicationController
     redirect_to admin_catalogs_url, :notice => "Successfully destroyed catalog."
   end
 
+  def batch
+    container = Lesson.find(params[:lesson_id]) rescue nil
+    render :json => { ok: false, msg: "Unable to find container #{params[:lesson_id]}" } and return unless container
+
+    case
+      when md = /security_(?<security_level>[0-4])/.match(params[:batch_type])
+        container.update_attribute(:secure, md[:security_level])
+      else
+        render :json => { ok: false, msg: "Unknown request #{params[:batch_type]}" } and return
+    end
+    respond_to do |format|
+      format.json { render :json => { ok: true } }
+    end
+  end
+
   private
   def sort_descriptions
-    catalog_descriptions_main = {}
+    catalog_descriptions_main = { }
     catalog_descriptions_all = []
-    @catalog.catalog_descriptions.each{|x|
+    @catalog.catalog_descriptions.each { |x|
       if MAIN_LANGS.include? x.lang
         catalog_descriptions_main[x.lang] = x
       else
         catalog_descriptions_all << x
       end
     }
-    MAIN_LANGS.map{|l| catalog_descriptions_main[l]} + catalog_descriptions_all.sort_by{|x| x.lang }
+    MAIN_LANGS.map { |l| catalog_descriptions_main[l] } + catalog_descriptions_all.sort_by { |x| x.lang }
   end
-  
+
 end

@@ -7,19 +7,19 @@ Kmedia::Application.routes.draw do
   resources :searches
   resources :ui
 
-  resources :catalogs, :only => :index  do
+  resources :catalogs, :only => :index do
     post :index, :on => :collection
   end
 
-  resources :content_types, :only => :index  do
+  resources :content_types, :only => :index do
     post :index, :on => :collection
   end
 
-  resources :file_types, :only => :index  do
+  resources :file_types, :only => :index do
     post :index, :on => :collection
   end
 
-  resources :languages, :only => :index  do
+  resources :languages, :only => :index do
     post :index, :on => :collection
   end
 
@@ -40,7 +40,13 @@ Kmedia::Application.routes.draw do
       collection do
         get 'parse_new_lesson_name'
       end
+      resources :catalogs do
+        member do
+          get 'batch'
+        end
+      end
     end
+
     resources :file_assets
     resources :catalogs
     resources :departments
@@ -51,6 +57,9 @@ Kmedia::Application.routes.draw do
     end
     resources :lessondesc_patterns
     resources :searches
+    resources :dictionaries do
+      resources :labels
+    end
 
     namespace :api do
       resources :tokens, :only => [:create, :destroy]

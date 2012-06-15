@@ -1,0 +1,13 @@
+= simple_form_for [:admin, @label.dictionary, @label] do |f|
+  = display_actions f, admin_dictionary_url(params[:dictionary_id])
+
+  = f.hidden_field :dictionary_id, value: params[:dictionary_id]
+
+  = display_errors f
+
+  %hr.soften
+  = f.input :suid, label: 'System name', hint: 'Short unique identifier, length 3..20'
+  %hr.soften
+  = display_descriptions f, @descriptions, 'label_descriptions', 'text'
+  %hr.soften
+  = display_actions f, admin_dictionary_url(params[:dictionary_id])

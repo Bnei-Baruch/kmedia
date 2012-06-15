@@ -47,9 +47,21 @@
 
 %section
   %strong Containers:
+  - if can?(:update, @catalog)
+    .pull-right
+      %select{:id => 'batch-action'}
+        %option{:value => ''}= '-- Select Batch Action --'
+        = SECURITY.each do |security|
+          %option{:value => "security_#{security[:level]}"}
+            Set security to
+            = security[:name]
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
+        - if can?(:update, @catalog)
+          %th
+            = check_box_tag 'batch-all', 'batch', false
+            all
         %th Id
         %th Name
         %th Type
@@ -59,9 +71,20 @@
     %tbody
       - @lessons.each do |lesson|
         %tr
+          - if can?(:update, @catalog)
+            %td
+              = simple_form_for [:admin, lesson] do |f|
+                = check_box_tag '', 'batch', false, :class => :batch
+                = image_tag 'ajax-loader.gif', :class => 'hidden'
           %td= lesson.lessonid
           %td= lesson.lessonname
           %td= lesson.content_type.try(:name)
           %td= display_secure(lesson.secure)
           %td= lesson.language
           %td= lesson.updated
+
+#please-wait.fade.hidden
+  %h1 Please wait
+
+:javascript
+  var container_id = #{@catalog.id};
