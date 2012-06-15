@@ -1,0 +1,8 @@
+%header.subhead#overview
+  %h2 Edit Dictionary
+  .subnav
+    %ul.nav.nav-pills
+      %li= link_to "Show", admin_dictionary_path(@dictionary)
+      %li= link_to "View all Dictionaries", admin_dictionaries_path
+
+= render 'form'

@@ -4,23 +4,8 @@ class AddContentTypeToContainer < ActiveRecord::Migration
       t.string :name
       t.string :pattern
     end
-    add_column :lessons, :content_type_id, :integer
+    add_column :lessons, :container_type_id, :integer
     Lesson.reset_column_information
-
-    [
-        {:name => 'Program', :pattern => 'program'},
-        {:name => 'Short clip', :pattern => 'clip'},
-        {:name => 'Song', :pattern => 'song'},
-        {:name => 'Lesson', :pattern => 'lesson'},
-        {:name => 'Lecture', :pattern => 'lecture'},
-        {:name => 'Book', :pattern => 'book'},
-        {:name => 'Declamation', :pattern => 'declamation'},
-        {:name => 'Audio Disk', :pattern => 'audiodisk'},
-        {:name => 'Video Disk', :pattern => 'videodisk'},
-        {:name => 'Text', :pattern => 'text'},
-        {:name => 'Transcript', :pattern => 'tamlil'},
-        {:name => 'Magazine', :pattern => 'magazine'},
-    ].each { |r| ContentType.create(r) }
   end
 
   def self.down

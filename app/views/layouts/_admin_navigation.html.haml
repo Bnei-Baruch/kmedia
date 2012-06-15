@@ -34,5 +34,9 @@
               %li
                 = link_to_if can?(:update, Department), 'Departments', admin_departments_path do
                   .unable Departments
+              %li
+                = link_to_if can?(:update, Dictionary), 'Dictionaries', admin_dictionaries_path do
+                  .unable Dictionaries
+
 
 

@@ -1,0 +1,36 @@
+= simple_form_for [:admin, @dictionary] do |f|
+  = display_errors f
+
+  %hr.soften
+  = f.input :suid, label: 'System name', hint: 'Short unique identifier, length 3..20'
+  %hr.soften
+  = display_descriptions f, @descriptions, 'dictionary_descriptions', 'topic'
+  %hr.soften
+  .row
+    %h3 Labels
+    .span12
+      %p(align="right")
+        - if @dictionary.persisted?
+          = link_to "New label", new_admin_dictionary_label_path(dictionary_id: f.object.id), class: 'btn btn-success btn-large pull-right'
+        - else
+          Save dictionary before adding new labels
+      %br
+      %br
+      %table.table.table-striped.table-bordered.table-condensed
+        %thead
+          %tr
+            %th Label
+            %th(colspan="3") Actions
+        %tbody
+          - @dictionary.labels.each do |label|
+            %tr
+              %td= label.to_s
+              %td= link_to 'Show', admin_dictionary_label_path(@dictionary, label)
+              %td
+                = link_to_if can?(:update, label) || can?(:edit_descriptions, label), 'Edit', edit_admin_dictionary_label_path(@dictionary, label) do
+                  .unable Edit
+              %td
+                = link_to_if can?(:destroy, label), 'Destroy', admin_dictionary_label_path(@dictionary, label), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
+                  .unable Destroy
+  %hr.soften
+  = display_actions f, admin_dictionaries_url
