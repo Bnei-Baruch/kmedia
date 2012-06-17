@@ -1,0 +1,52 @@
+%header.subhead#overview
+  %h2 Dictionary
+  .subnav
+    %ul.nav.nav-pills
+      %li
+        = link_to_if can?(:update, @dictionary), "Edit", edit_admin_dictionary_path(@dictionary) do
+          %a.unable Edit
+      %li
+        = link_to_if can?(:destroy, @dictionary), "Destroy", admin_dictionary_path(@dictionary), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+          %a.unable Destroy
+      %li= link_to "View All", admin_dictionaries_path
+
+%section.well
+  = display_show_item('ID', @dictionary.id)
+  = display_show_item('System name', @dictionary.suid)
+  = display_show_item('Created', @dictionary.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @dictionary.updated_at.to_s(:long_ordinal))
+  = display_show_item('Total labels', @dictionary.labels.size)
+%section
+  %strong Descriptions:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Language
+        %th Topic translation
+        %th Created on
+        %th Updated on
+        %th ID
+    %tbody
+      - @dictionary.dictionary_descriptions.each do |descr|
+        %tr
+          %td= descr.lang
+          %td= descr.topic
+          %td= descr.created_at.try(:to_date)
+          %td= descr.updated_at.try(:to_date)
+          %td= descr.id
+%section
+  %strong Labels:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Label
+        %th Created on
+        %th Updated on
+        %th ID
+    %tbody
+      - @dictionary.labels.each do |label|
+        %tr
+          %td= link_to "#{label.to_s}", admin_dictionary_label_path(@dictionary, label)
+          %td= label.created_at.try(:to_date)
+          %td= label.updated_at.try(:to_date)
+          %td= label.id

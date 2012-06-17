@@ -1,0 +1,7 @@
+%header.subhead#overview
+  %h2 Edit Label
+  .subnav
+    %ul.nav.nav-pills
+      %li= link_to "Show", admin_dictionary_label_path(@label.dictionary, @label)
+
+= render 'form'

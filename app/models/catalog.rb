@@ -5,6 +5,7 @@ class Catalog < ActiveRecord::Base
   has_and_belongs_to_many :lessons, :join_table => "catnodelessons", :foreign_key => "catalognodeid",
                           :association_foreign_key => "lessonid", :order => "lessonname ASC, date(updated) DESC"
 
+  has_and_belongs_to_many :lessondesc_patterns, :uniq => true
   has_many :catalog_descriptions, :foreign_key => :catalognodeid, :dependent => :destroy
   accepts_nested_attributes_for :catalog_descriptions, :reject_if => proc { |attributes| attributes['catalognodename'].blank? }
 

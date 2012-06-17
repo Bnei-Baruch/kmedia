@@ -121,6 +121,7 @@ class Admin::LessonsController < Admin::ApplicationController
     @language = sp.language
     @lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
     @descriptions = sp.descriptions
+    @catalogs = @descriptions.select {|d| !d.catalogs.empty?}.first.try(:catalogs)
     @content_type_id = sp.content_type.id
     @security = sp.content_security_level
     render :parse_lesson_name, :layout => false
@@ -249,4 +250,12 @@ class Admin::LessonsController < Admin::ApplicationController
       t.toc = toc
     end
   end
+
+  def get_catalogs_from_matched_description_patterns
+    @descriptions.each do |d|
+      return d.catalogs unless d.catalogs.empty?
+    end
+    return nil
+  end
+
 end
