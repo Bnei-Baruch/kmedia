@@ -1,7 +1,11 @@
-json.content_types @file_types do |file_type|
+json.id 0
+json.item @file_types do |file_type|
   json.id file_type.id
   json.typename file_type.typename
 
-  json.extensions file_type.extlist.split /,/
+  json.extensions file_type.extlist.split(/,/) do |ext|
+    json.id ext
+    json.text ext
+  end
   json.pic file_type.pic
 end
