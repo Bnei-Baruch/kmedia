@@ -4,10 +4,15 @@
 //= require jquery.alphanumeric
 //= require jquery_ujs
 //= require bootstrap
-//= require_self
 //= require_tree ./common
 //= require_tree ./admin
+//= require_self
 //= require ckeditor/init
+//= require ckeditor/config
+
+// We have to submit ID=0 for new lesson
+
+// Batch operations
 
 $(function () {
     $("#lesson_catalog_tokens").tokenInput("/admin/catalogs.json", {
@@ -51,8 +56,6 @@ $(function () {
     });
 
 });
-
-// We have to submit ID=0 for new lesson
 function auto_parse() {
     $('a.auto-parse').live('click', function (e) {
         var element = $(this);
@@ -71,8 +74,6 @@ function auto_parse() {
         e.preventDefault();
     });
 }
-
-// Batch operations
 $(function () {
     // Check all
     $('#batch-all').click(function () {

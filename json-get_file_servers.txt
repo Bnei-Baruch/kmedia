@@ -1,1 +1,0 @@
-{"requestUrl":"http://localhost:3000/admin/api/api/get_file_servers","requestMethod":"POST","requestBody":"{\"auth_token\":\"totxKnBeZZ8j4vVpqoWy\", \"filename\": \"xxx\"}","headers":["Content-Type","application/json"]}

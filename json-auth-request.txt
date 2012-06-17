@@ -1,1 +1,0 @@
-{"requestUrl":"http://localhost:3000/admin/api/tokens.json","requestMethod":"POST","requestBody":"{\n\"email\" : \"api@kbb1.com\",\n\"password\": \"kmedia-api-user\"\n}\n","headers":["Content-Type","application/json"]}

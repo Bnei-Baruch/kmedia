@@ -59,7 +59,7 @@ Kmedia::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline
-  config.assets.compile = false
+  config.assets.compile = true
   config.assets.precompile += %w( admin.js user.js )
   config.assets.precompile += %w( admin.css user.css )
 
