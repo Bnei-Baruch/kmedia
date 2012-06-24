@@ -65,11 +65,22 @@
         - next if (t.transcript).blank?
         %tr
           %td= t.lang
-          %td= t.toc
-          %td= t.transcript
+          %td= t.toc.html_safe
+          %td
+            %a.btn{"data-toggle" => "modal", :href => "#myModal#{t.id}"}
+              see transcript
+            .modal.hide{:id => "myModal#{t.id}"}
+              .modal-header
+                %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                %h3=t.toc.html_safe
+              .modal-body
+                %p=t.transcript.html_safe
+              .modal-footer
+                %a.btn.btn-primary{"data-dismiss" => "modal", :href => "#"} Close
           %td= t.created_at.try(:to_date)
           %td= t.updated_at.try(:to_date)
           %td= t.id
+
 
 %section
   %strong Catalogs:
