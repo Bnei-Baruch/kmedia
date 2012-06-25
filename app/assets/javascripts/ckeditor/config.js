@@ -28,7 +28,7 @@ CKEDITOR.editorConfig = function (config) {
     config.toolbar_Plus =
         [
             ['Bold', 'Italic', 'Underline'],
-            ['Link', 'Unlink','Anchor'],
+            ['Link', 'Unlink', 'Anchor'],
             ['Maximize', 'Source'],
             ['RemoveFormat', 'Format', 'FontSize'],
             ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
