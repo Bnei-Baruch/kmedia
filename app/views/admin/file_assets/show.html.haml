@@ -5,11 +5,12 @@
       -if can?(:update, @asset)
         %li
           =link_to "Edit", edit_admin_file_asset_path(@asset)
-      %li
-        =link_to_if can?(:destroy, @asset), "Destroy", [:admin, @asset], :confirm => 'Are you sure?', :method => :delete do
-          = link_to 'Destroy', '/#'
-      %li
-        = link_to "View All Files", admin_file_assets_path
+      -if can?(:destroy, @asset)
+        %li
+          =link_to "Destroy", [:admin, @asset], :confirm => 'Are you sure?', :method => :delete, :class => 'label label-important'
+      -if can?(:read, @asset)
+        %li
+          = link_to "View All Files", admin_file_assets_path
       %li
         - if @asset.lessons.first
           = link_to 'Show Container', admin_lesson_path(@asset.lessons.first) #TODO: Display table of lessons in case file can belong to multiple lessons

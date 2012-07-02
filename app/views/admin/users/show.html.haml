@@ -2,12 +2,15 @@
   %h2 User
   .subnav
     %ul.nav.nav-pills
-      %li
-        = link_to_if can?(:update, @user), "Edit", edit_admin_user_path(@user) do
-          %a.unable Edit
-      %li
-        = link_to_if can?(:destroy, @user), "Destroy", admin_user_path(@user), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
-          %a.unable Destroy
+      -if can?(:update, @user)
+        %li
+          = link_to "Edit", edit_admin_user_path(@user)
+      -if can?(:destroy, @user)
+        %li
+          = link_to "Destroy", admin_user_path(@user), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
+      -if can?(:read, @user)
+        %li
+          = link_to "View All", admin_users_path
 
 %section.well
   = display_show_item('ID', @user.id)

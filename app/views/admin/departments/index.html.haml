@@ -1,8 +1,8 @@
 %header.subhead#overview
   %h2 Departments
-  %p
-    = link_to_if can?(:create, Department), "New Department", new_admin_department_path, :class => 'btn btn-success btn-large pull-right' do
-      .unable New Department
+  -if can?(:create, Department)
+    %p
+      = link_to "New Department", new_admin_department_path, :class => 'btn btn-success btn-large pull-right'
 
 %section
   = paginate @departments
@@ -12,19 +12,19 @@
       %tr
         %th ID
         %th Name
-        %th(colspan="3") Actions
+        = display_actions_title(Department)
     %tbody
-      - @departments.each do |d|
+      - @departments.each do |department|
         %tr(class="#{cycle('odd', 'even')}")
-          %td= d.id
-          %td= d.name
-          %td
-            = link_to_if can?(:show, d), "Show", admin_department_path(d.id) do
-              %span.unable Show
-          %td
-            = link_to_if can?(:update, d), 'Edit', edit_admin_department_path(d) do
-              %span.unable Edit
-          %td
-            = link_to_if can?(:delete, d), 'Destroy', admin_department_path(d), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
-              %span.unable Destroy
+          %td= department.id
+          %td= department.name
+          -if can?(:read, department)
+            %td
+              = link_to 'Show', admin_department_path(department.id)
+          -if can?(:update, department)
+            %td
+              = link_to 'Edit', edit_admin_department_path(department)
+          -if can?(:destroy, department)
+            %td
+              = link_to 'Destroy', admin_department_path(department), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
 

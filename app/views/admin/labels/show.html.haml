@@ -2,12 +2,12 @@
   %h2 Label
   .subnav
     %ul.nav.nav-pills
-      %li
-        = link_to_if can?(:update, @label), "Edit", edit_admin_dictionary_label_path(@label.dictionary, @label) do
-          %a.unable Edit
-      %li
-        = link_to_if can?(:destroy, @label), "Destroy", admin_dictionary_label_path(@label.dictionary, @label), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
-          %a.unable Destroy
+      -if can?(:update, @label)
+        %li
+          = link_to "Edit", edit_admin_dictionary_label_path(@label.dictionary, @label)
+      -if can?(:destroy, @label)
+        %li
+          = link_to "Destroy", admin_dictionary_label_path(@label.dictionary, @label), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
 
 %section.well
   = display_show_item('ID', @label.id)

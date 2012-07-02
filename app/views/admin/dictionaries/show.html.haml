@@ -2,13 +2,15 @@
   %h2 Dictionary
   .subnav
     %ul.nav.nav-pills
-      %li
-        = link_to_if can?(:update, @dictionary), "Edit", edit_admin_dictionary_path(@dictionary) do
-          %a.unable Edit
-      %li
-        = link_to_if can?(:destroy, @dictionary), "Destroy", admin_dictionary_path(@dictionary), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
-          %a.unable Destroy
-      %li= link_to "View All", admin_dictionaries_path
+      -if can?(:update, @dictionary)
+        %li
+          = link_to "Edit", edit_admin_dictionary_path(@dictionary)
+      -if can?(:destroy, @dictionary)
+        %li
+          = link_to "Destroy", admin_dictionary_path(@dictionary), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
+      -if can?(:read, @dictionary)
+        %li
+          = link_to "View All", admin_dictionaries_path
 
 %section.well
   = display_show_item('ID', @dictionary.id)
