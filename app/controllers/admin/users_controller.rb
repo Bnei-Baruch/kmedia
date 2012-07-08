@@ -1,7 +1,8 @@
 class Admin::UsersController < Admin::ApplicationController
   before_filter :get_user, :only => [:index, :new, :edit, :become]
   before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create, :become]
-  load_and_authorize_resource :only => [:show, :new, :destroy, :edit, :update]
+  load_resource :only => [:show, :new, :destroy, :edit, :update]
+  authorize_resource
 
   # GET /users
   # GET /users.xml

@@ -2,6 +2,7 @@ class Admin::LessonsController < Admin::ApplicationController
   before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr, :edit_transcript, :update_transcript]
 
   def index
+    authorize! :index, Lesson
     @filter = params[:filter]
     @lessons = if @filter && @filter == 'all'
                  Lesson
@@ -17,6 +18,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def show
     begin
       @lesson = Lesson.find(params[:id])
+      authorize! :show, @lesson
     rescue
       redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
       return
@@ -26,6 +28,7 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def new
     @lesson = Lesson.new
+    authorize! :new, @lesson
     @lesson.catalogs << @rss # Add it to RSS by default
     @languages.each { |l|
       @lesson.lesson_descriptions.build(:lang => l.code3)
@@ -79,7 +82,7 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def update_transcript
     @lesson = Lesson.find(params[:id])
-    authorize! :update, @lesson
+    authorize! :edit_descriptions, @lesson
 
     @lesson.attributes = params[:lesson]
     generate_transcript_table_of_content
@@ -93,7 +96,7 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def update_long_descr
     @lesson = Lesson.find(params[:id])
-    authorize! :update, @lesson
+    authorize! :edit_descriptions, @lesson
     @lesson.attributes = params[:lesson]
     if @lesson.lesson_descriptions.each(&:save)
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated container long description."
@@ -226,7 +229,7 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def authorize_and_build_language_maps
     @lesson = Lesson.find(params[:id])
-    authorize! :edit, @lesson
+    authorize! :edit_descriptions, @lesson
 
     lang_codes = @lesson.lesson_descriptions.map(&:lang)
     transcript_lang_codes = @lesson.lesson_transcripts.map(&:lang)

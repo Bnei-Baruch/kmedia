@@ -1,9 +1,11 @@
 require "utils/i18n"
 
 class Admin::LabelsController < ApplicationController
+
   # GET /labels
   # GET /labels.json
   def index
+    authorize! :index, Label
     @labels = Label.page(params[:page])
   end
 
@@ -11,6 +13,7 @@ class Admin::LabelsController < ApplicationController
   # GET /labels/1.json
   def show
     @label = Label.find(params[:id])
+    authorize! :show, @label
     @descriptions = Utils::I18n.sort_descriptions(@label.label_descriptions)
   end
 
@@ -18,6 +21,7 @@ class Admin::LabelsController < ApplicationController
   # GET /labels/new.json
   def new
     @label = Label.new
+    authorize! :new, @label
     @label.suid = "lbl_uid"
     @label.dictionary = Dictionary.find(params[:dictionary_id])
     Language.all.each do |language|

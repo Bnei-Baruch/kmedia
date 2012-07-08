@@ -119,10 +119,10 @@
           %td= asset.filelang
           -if can?(:read, asset)
             %td
-              = link_to 'Show', [:admin, asset]
+              = link_to 'Show', admin_file_asset_path(asset)
           -if can?(:update, asset)
             %td
               = link_to 'Edit', edit_admin_file_asset_path(asset)
           -if can?(:destroy, asset)
             %td
-              = link_to 'Destroy', [:admin, asset], :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
+              = link_to 'Destroy', admin_file_asset_path(asset), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
