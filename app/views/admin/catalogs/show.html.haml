@@ -2,13 +2,15 @@
   %h2 Catalog
   .subnav
     %ul.nav.nav-pills
-      %li
-        = link_to_if can?(:update, @catalog), "Edit", edit_admin_catalog_path(@catalog) do
-          %a.unable Edit
-      %li
-        = link_to_if can?(:destroy, @catalog), "Destroy", admin_catalog_path(@catalog), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
-          %a.unable Destroy
-      %li= link_to "View All", admin_catalogs_path
+      -if can?(:update, @catalog)
+        %li
+          = link_to "Edit", edit_admin_catalog_path(@catalog)
+      -if can?(:destroy, @catalog)
+        %li
+          = link_to "Destroy", admin_catalog_path(@catalog), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
+      -if can?(:read, @catalog)
+        %li
+          = link_to "View All", admin_catalogs_path
 
 %section.well
   %p

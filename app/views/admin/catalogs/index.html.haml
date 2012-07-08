@@ -1,8 +1,8 @@
 %header.subhead#overview
   %h2 Catalogs
-  %p
-    = link_to_if can?(:create, Catalog), "New Catalog", new_admin_catalog_path, :class => 'btn btn-success btn-large pull-right' do
-      .unable New Catalog
+  - if can?(:create, Catalog)
+    %p
+      = link_to "New Catalog", new_admin_catalog_path, :class => 'btn btn-success btn-large pull-right'
 
 %section
   = paginate @catalogs
@@ -14,7 +14,7 @@
         %th Created
         %th Updated
         %th Secure
-        %th(colspan=3) Actions
+        = display_actions_title(Catalog)
     %tbody
       - @catalogs.each do |catalog|
         %tr(class="#{cycle('odd', 'even')}")
@@ -35,10 +35,12 @@
           %td.small= catalog.updated.to_date
           - secure = SECURITY.select{|s| s[:level] == catalog.secure }.first[:name].downcase
           %td= secure
-          %td= link_to 'Show', [:admin, catalog]
-          %td
-            = link_to_if can?(:update, catalog), 'Edit', edit_admin_catalog_path(catalog) do
-              .unable Edit
-          %td
-            = link_to_if can?(:destroy, catalog), 'Destroy', admin_catalog_path(catalog), :confirm => 'Are you sure?', :method => :delete do
-              .unable Destroy
+          -if can?(:read, catalog)
+            %td
+              = link_to 'Show', [:admin, catalog]
+          -if can?(:update, catalog)
+            %td
+              = link_to 'Edit', edit_admin_catalog_path(catalog)
+          -if can?(:destroy, catalog)
+            %td
+              = link_to 'Destroy', admin_catalog_path(catalog), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'

@@ -1,8 +1,8 @@
 %header.subhead#overview
   %h2 Containers
-  %p
-    = link_to_if can?(:create, Lesson), "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right' do
-      .unable New Container
+  -if can?(:create, Lesson)
+    %p
+      = link_to "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right'
   %h4.clear Filter:&nbsp;
   .subnav
     %ul.nav.nav-pills
@@ -11,10 +11,9 @@
         =link_to 'All Containers', admin_lessons_path(:filter => 'all')
       = content_tag :li, :class => filtered_selected? do
         = link_to 'Containers to update', admin_lessons_path
-      - if can?(:special_admin_features, @lesson)
+      -if can?(:special_admin_features, @lesson)
         = content_tag :li, :class => secure_changed?, :title => 'Security Level changed by operator' do
           = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
-      - if can?(:special_admin_features, @lesson)
         = content_tag :li, :class => no_files?, :title => 'No files associated' do
           = link_to 'Empty', admin_lessons_path(:filter => 'no_files')
 
@@ -30,9 +29,9 @@
         %th Updated
         %th Language
         %th Secure
-        %th(colspan=4) Actions
+        = display_actions_title_for_lessons
     %tbody
-      - @lessons.each do |lesson|
+      -@lessons.each do |lesson|
         %tr
           %td{:class => lesson.marked_for_merge ? 'btn btn-warning' : ''}= lesson.lessonid
           %td= lesson.lessonname.truncate(57, :omission => '&hellip;').html_safe
@@ -41,15 +40,13 @@
           %td= lesson.lang
           %td= display_secure(lesson.secure)
           %td= link_to 'Show', admin_lesson_path(lesson)
-          %td
-            = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Edit', edit_admin_lesson_path(lesson) do
-              .unable Edit
-          %td
-            = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Long Description', edit_long_descr_admin_lesson_path(lesson) do
-              .unable Long Description
-            %br
-            = link_to_if can?(:update, lesson) || can?(:edit_descriptions, lesson), 'Transcript', edit_transcript_admin_lesson_path(lesson) do
-              .unable Transcript
-          %td
-            = link_to_if can?(:destroy, lesson), 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger' do
-              .unable Destroy
+          -if can?(:edit_descriptions, lesson)
+            %td
+              = link_to 'Edit', edit_admin_lesson_path(lesson)
+            %td
+              = link_to 'Long Description', edit_long_descr_admin_lesson_path(lesson)
+              %br
+              = link_to 'Transcript', edit_transcript_admin_lesson_path(lesson)
+          -if can?(:destroy, lesson)
+            %td
+              = link_to 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
