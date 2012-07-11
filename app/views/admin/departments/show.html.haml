@@ -2,12 +2,14 @@
   %h2 Department
   .subnav
     %ul.nav.nav-pills
-      %li
-        = link_to_if can?(:update, @department), "Edit", edit_admin_department_path(@department) do
-          %a.unable Edit
-      %li
-        = link_to_if can?(:destroy, @department), "Destroy", admin_department_path(@department), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
-          %a.unable Destroy
-
+      -if can?(:update, @department)
+        %li
+          = link_to "Edit", edit_admin_department_path(@department)
+      -if can?(:destroy, @department)
+        %li
+          = link_to "Destroy", admin_department_path(@department), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
+      -if can?(:read, @department)
+        %li
+          = link_to "View All", admin_departments_path
 %section.well
   = display_show_item('Name', @department.name)

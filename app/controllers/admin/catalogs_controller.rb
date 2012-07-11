@@ -1,5 +1,6 @@
 class Admin::CatalogsController < Admin::ApplicationController
-  load_and_authorize_resource :only => [:show, :new, :destroy, :edit, :update, :create]
+  load_resource :only => [:show, :new, :destroy, :edit, :update, :create]
+  authorize_resource
   rescue_from ActiveRecord::RecordNotFound do |exception|
     redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
   end

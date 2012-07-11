@@ -1,7 +1,8 @@
 %header.subhead#overview
   %h2 Container Description Patterns
-  %p
-    = link_to "New Pattern", new_admin_lessondesc_pattern_path, :class => 'btn btn-success btn-large pull-right'
+  -if can?(:create, LessondescPattern)
+    %p
+      = link_to "New Pattern", new_admin_lessondesc_pattern_path, :class => 'btn btn-success btn-large pull-right'
 
 %section
   = paginate @lessondesc_patterns
@@ -13,7 +14,7 @@
         %th Description
         %th Catalogs
         %th Lang
-        %th(colspan=3) Actions
+        = display_actions_title(LessondescPattern)
     %tbody
       - for lessondesc_pattern in @lessondesc_patterns
         %tr(class="#{cycle('odd', 'even')}")
@@ -21,6 +22,12 @@
           %td= lessondesc_pattern.description
           %td= lessondesc_pattern.catalogs.uniq.map{|c| c.catalognodename}.join(', ')
           %td= lessondesc_pattern.lang
-          %td= link_to 'Show', [:admin, lessondesc_pattern]
-          %td= link_to 'Edit', edit_admin_lessondesc_pattern_path(lessondesc_pattern)
-          %td= link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
+          -if can?(:read, lessondesc_pattern)
+            %td
+              = link_to 'Show', [:admin, lessondesc_pattern]
+          -if can?(:update, lessondesc_pattern)
+            %td
+              = link_to 'Edit', edit_admin_lessondesc_pattern_path(lessondesc_pattern)
+          -if can?(:destroy, lessondesc_pattern)
+            %td
+              = link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'

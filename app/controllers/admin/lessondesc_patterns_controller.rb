@@ -1,20 +1,18 @@
 class Admin::LessondescPatternsController < Admin::ApplicationController
   before_filter :common_set, :only => [:new, :create, :edit, :update]
+  load_and_authorize_resource
 
   def index
-    @lessondesc_patterns = LessondescPattern.order(:pattern).page(params[:page]).per(50)
+    @lessondesc_patterns = @lessondesc_patterns.order(:pattern).page(params[:page]).per(50)
   end
 
   def show
-    @lessondesc_pattern = LessondescPattern.find(params[:id])
   end
 
   def new
-    @lessondesc_pattern = LessondescPattern.new
   end
 
   def create
-    @lessondesc_pattern = LessondescPattern.new(params[:lessondesc_pattern])
     if @lessondesc_pattern.save
       redirect_to [:admin, @lessondesc_pattern], :notice => "Successfully created Container Description pattern."
     else
@@ -23,11 +21,9 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
   end
 
   def edit
-    @lessondesc_pattern = LessondescPattern.find(params[:id])
   end
 
   def update
-    @lessondesc_pattern = LessondescPattern.find(params[:id])
     if @lessondesc_pattern.update_attributes(params[:lessondesc_pattern])
       redirect_to [:admin, @lessondesc_pattern], :notice  => "Successfully updated Container Description pattern."
     else
@@ -36,7 +32,6 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
   end
 
   def destroy
-    @lessondesc_pattern = LessondescPattern.find(params[:id])
     @lessondesc_pattern.destroy
     redirect_to admin_lessondesc_patterns_url, :notice => "Successfully destroyed Container Description pattern."
   end

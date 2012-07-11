@@ -1,8 +1,9 @@
 class Admin::FileAssetsController < Admin::ApplicationController
   before_filter :set_fields, :only => [:new, :create, :edit, :update]
+  load_and_authorize_resource
 
   def index
-    @file_assets = FileAsset.page(params[:page])
+    @file_assets = @file_assets.page(params[:page])
   end
 
   def show

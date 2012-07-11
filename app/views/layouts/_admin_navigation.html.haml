@@ -13,30 +13,31 @@
           = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query span5'}
           = f.button :submit, :class => 'span2', :style => 'float: right;'
           = f.input :model, :label => false, :collection => Search.models, :prompt => false, :input_html => {:class => 'search-query span2'}
-        %ul.nav
-          %li
-            = link_to_if can?(:update, Lesson), 'Containers', admin_lessons_path do
-              .unable Containers
-          %li
-            = link_to_if can?(:update, User), 'Users', admin_users_path do
-              .unable Users
-          %li
-            = link_to_if can?(:update, Catalog), 'Catalogs', admin_catalogs_path do
-              .unable Catalogs
-          %li.dropdown#menu1
-            %a.dropdown-toggle{:href => "#menu1", :"data-toggle" => "dropdown"}
-              Other
-              %b.caret
-            %ul.dropdown-menu
-              %li
-                = link_to_if can?(:update, Catalog), "Containers' patterns", admin_lessondesc_patterns_path do
-                  .unable Containers' patterns
-              %li
-                = link_to_if can?(:update, Department), 'Departments', admin_departments_path do
-                  .unable Departments
-              %li
-                = link_to_if can?(:update, Dictionary), 'Dictionaries', admin_dictionaries_path do
-                  .unable Dictionaries
+        %ul.nav{:class => 'pull-left span5'}
+          - if can?(:edit_descriptions, Lesson)
+            %li
+              = link_to 'Containers', admin_lessons_path
+          - if can?(:update, User)
+            %li
+              = link_to 'Users', admin_users_path
+          - if can?(:read, Catalog)
+            %li
+              = link_to 'Catalogs', admin_catalogs_path
+          - if can?(:update, LessondescPattern) || can?(:update, Department) || can?(:update, Dictionary)
+            %li.dropdown#menu1
+              %a.dropdown-toggle{:href => "#menu1", :"data-toggle" => "dropdown"}
+                Other
+                %b.caret
+              %ul.dropdown-menu
+                - if can?(:update, LessondescPattern)
+                  %li
+                    = link_to "Containers' patterns", admin_lessondesc_patterns_path
+                - if can?(:update, Department)
+                  %li
+                    = link_to 'Departments', admin_departments_path
+                - if can?(:update, Dictionary)
+                  %li
+                  = link_to 'Dictionaries', admin_dictionaries_path
 
 
 
