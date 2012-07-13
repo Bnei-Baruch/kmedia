@@ -32,6 +32,19 @@ class Dictionary < ActiveRecord::Base
   # --- Public methods ---
 
   def to_s
-    dictionary_descriptions.where(lang: ('HEB')).first.topic + " [ #{suid} ]"
+    suid
   end
+
+  # --- Static methods ---
+
+  # select all dictionaries with a suid starting with the prefix
+  def self.suid_starts_with(prefix)
+    Dictionary.select(:suid).where("suid LIKE ?", prefix + '%').order("suid asc")
+  end
+
+  # generate next automatic suid
+  def self.next_suid
+    'dict_' + (Dictionary.count(conditions: "suid LIKE 'dict_%'") + 1).to_s
+  end
+
 end

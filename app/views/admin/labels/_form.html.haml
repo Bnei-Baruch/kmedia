@@ -6,8 +6,10 @@
   = display_errors f
 
   %hr.soften
-  = f.input :suid, label: 'System name', hint: 'Short unique identifier, length 3..20'
+  = display_suid_field f
   %hr.soften
-  = display_descriptions f, @descriptions, 'label_descriptions', 'text'
+  .row
+    %h3 Transcriptions
+    = display_descriptions f, @descriptions, 'label_descriptions', 'text'
   %hr.soften
   = display_actions f, admin_dictionary_url(params[:dictionary_id])
