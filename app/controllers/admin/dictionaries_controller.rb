@@ -18,7 +18,7 @@ class Admin::DictionariesController < Admin::ApplicationController
   # GET /admin/dictionaries/new.json
   def new
     @dictionary = Dictionary.new
-    @dictionary.suid = "dict_uid"
+    @dictionary.suid = Dictionary.next_suid
     Language.all.each do |language|
       @dictionary.dictionary_descriptions.build(lang: language.code3)
     end
@@ -71,5 +71,9 @@ class Admin::DictionariesController < Admin::ApplicationController
     redirect_to admin_dictionaries_url, notice: 'Successfully destroyed admin/dictionary.'
   end
 
+  def existing_suids
+    existing_dictionaries = Dictionary.suid_starts_with(params[:suid])
+    render json: existing_dictionaries.map{|dict| dict.suid }.to_json
+  end
 
 end

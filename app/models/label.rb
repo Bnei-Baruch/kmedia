@@ -36,6 +36,19 @@ class Label < ActiveRecord::Base
   # --- Public methods ---
 
   def to_s
-    label_descriptions.where(lang: ('HEB')).first.text + " [ #{suid} ]"
-    end
+    suid
+  end
+
+  # --- Static methods ---
+
+  # select all labels with a suid starting with the prefix
+  def self.suid_starts_with(prefix)
+    Label.select(:suid).where("suid LIKE ?", prefix + '%').order("suid asc")
+  end
+
+  # generate next automatic suid
+  def self.next_suid
+    'lbl_' + (Label.count(conditions: "suid LIKE 'lbl_%'") + 1).to_s
+  end
+
 end

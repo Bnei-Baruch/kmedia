@@ -1,6 +1,6 @@
 require "utils/i18n"
 
-class Admin::LabelsController < ApplicationController
+class Admin::LabelsController < Admin::ApplicationController
   # GET /labels
   # GET /labels.json
   def index
@@ -18,7 +18,7 @@ class Admin::LabelsController < ApplicationController
   # GET /labels/new.json
   def new
     @label = Label.new
-    @label.suid = "lbl_uid"
+    @label.suid = Label.next_suid
     @label.dictionary = Dictionary.find(params[:dictionary_id])
     Language.all.each do |language|
       @label.label_descriptions.build(lang: language.code3)
@@ -79,5 +79,10 @@ class Admin::LabelsController < ApplicationController
 
     redirect_to admin_dictionary_url(dictionary), notice: 'Successfully destroyed admin/label.'
   end
+
+  def existing_suids
+     existing_labels = Label.suid_starts_with(params[:suid])
+     render json: existing_labels.map{|lbl| lbl.suid }.to_json
+   end
 
 end
