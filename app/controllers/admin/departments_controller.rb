@@ -7,7 +7,7 @@ class Admin::DepartmentsController < Admin::ApplicationController
   end
 
   def index
-    @departments = @departments.page(params[:page])
+    @departments = @departments.order(sort_order).page(params[:page])
   end
 
 

@@ -12,7 +12,7 @@ class Admin::LessonsController < Admin::ApplicationController
                  Lesson.no_files
                else
                  Lesson.need_update
-               end.ordered.page(params[:page])
+               end.order(sort_order).page(params[:page])
   end
 
   def show
@@ -259,6 +259,16 @@ class Admin::LessonsController < Admin::ApplicationController
       return d.catalogs unless d.catalogs.empty?
     end
     return nil
+  end
+
+  def default_sort_column
+    "created"
+  end
+
+  def sort_order
+    sort_line = sort_column + " " + sort_direction
+    #secondary sort parameter
+    sort_line+= ", " + "lessonname asc" unless params[:sort].equal?("lessonname")
   end
 
 end

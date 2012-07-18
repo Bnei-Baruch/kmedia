@@ -250,3 +250,18 @@ hr.soften {
     border-radius: 0;
   }
 }
+
+th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+
+}
+th .asc {
+  background-image: url(/images/arrup.gif);
+
+}
+
+th .desc {
+  background-image: url(/images/arrdown.gif);
+}

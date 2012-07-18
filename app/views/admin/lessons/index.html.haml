@@ -8,7 +8,7 @@
     %ul.nav.nav-pills
       %li
       = content_tag :li, :class => show_all_selected? do
-        =link_to 'All Containers', admin_lessons_path(:filter => 'all')
+        = link_to 'All Containers', admin_lessons_path(:filter => 'all')
       = content_tag :li, :class => filtered_selected? do
         = link_to 'Containers to update', admin_lessons_path
       -if can?(:special_admin_features, @lesson)
@@ -23,12 +23,12 @@
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
-        %th ID
-        %th Name
-        %th Created
-        %th Updated
-        %th Language
-        %th Secure
+        %th= sortable("lessonid", "ID", @filter)
+        %th= sortable("lessonname", "Name", @filter)
+        %th= sortable("created", "Created", @filter)
+        %th= sortable("updated", "Updated", @filter)
+        %th= sortable("lang", "Language", @filter)
+        %th= sortable("secure", "Secure", @filter)
         = display_actions_title_for_lessons
     %tbody
       -@lessons.each do |lesson|

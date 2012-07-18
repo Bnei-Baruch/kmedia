@@ -10,10 +10,10 @@
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
-        %th Pattern
-        %th Description
-        %th Catalogs
-        %th Lang
+        %th= sortable("pattern", "Pattern")
+        %th= sortable("description", "Description")
+        %th= sortable("catalognode.catalognodename", "Catalogs")
+        %th= sortable("lang", "Lang")
         = display_actions_title(LessondescPattern)
     %tbody
       - for lessondesc_pattern in @lessondesc_patterns

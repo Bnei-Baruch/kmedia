@@ -8,7 +8,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   def index
     @catalogs = Catalog.
         accessible_by(current_ability, :index).
-        order('catalognodename ASC').includes(:parent)
+        order(sort_order).includes(:parent)
     if params[:q]
       @catalogs = @catalogs.where("catalognodename like ?", "%#{params[:q]}%")
     else
@@ -91,6 +91,14 @@ class Admin::CatalogsController < Admin::ApplicationController
       end
     }
     MAIN_LANGS.map { |l| catalog_descriptions_main[l] } + catalog_descriptions_all.sort_by { |x| x.lang }
+  end
+
+  def default_sort_column
+    "catalognodename"
+  end
+
+  def default_sort_direction
+    "asc"
   end
 
 end

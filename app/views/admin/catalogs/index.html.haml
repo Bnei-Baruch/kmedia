@@ -10,10 +10,10 @@
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
-        %th Catalog
-        %th Created
-        %th Updated
-        %th Secure
+        %th= sortable("catalognodename", "Catalog")
+        %th= sortable("created", "Created")
+        %th= sortable("updated", "Updated")
+        %th= sortable("secure", "Secure")
         = display_actions_title(Catalog)
     %tbody
       - @catalogs.each do |catalog|

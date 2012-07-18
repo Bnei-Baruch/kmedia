@@ -9,7 +9,7 @@ class Admin::UsersController < Admin::ApplicationController
   # GET /users.json                                       HTML and AJAX
   #-----------------------------------------------------------------------
   def index
-    @users = User.accessible_by(current_ability, :index).order(:first_name,:last_name).page(params[:page]).includes([:department, :roles])
+    @users = User.accessible_by(current_ability, :index).order(sort_order).page(params[:page]).includes([:department, :roles])
   end
 
   # GET /users/new
@@ -112,5 +112,22 @@ class Admin::UsersController < Admin::ApplicationController
   #----------------------------------------
   def get_user
     @current_user = current_user
+  end
+
+  def default_sort_column
+    "name"
+  end
+
+  def sort_order
+    #special case because the name column holds both first and last names
+    default = "first_name "+sort_direction+", last_name "+sort_direction
+    if (sort_column.eql?("name"))
+      sort_line = default
+    else
+      sort_line = sort_column + " " + sort_direction
+      #add secondary sort
+      sort_line+= ", " + default
+    end
+    sort_line
   end
 end
