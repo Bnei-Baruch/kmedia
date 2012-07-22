@@ -253,15 +253,13 @@ hr.soften {
 
 th .current {
   padding-right: 12px;
-  background-repeat: no-repeat;
-  background-position: right center;
-
 }
-th .asc {
-  background-image: url(/images/arrup.gif);
+
+th .asc:after {
+  content: "▲";
 
 }
 
-th .desc {
-  background-image: url(/images/arrdown.gif);
+th .desc:after {
+  content: "▼";
 }

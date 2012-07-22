@@ -16,11 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def sort_column
-    params[:sort].nil? ?  default_sort_column : params[:sort]
+    params[:sort] || default_sort_column
   end
 
   def sort_order
-    sort_line = sort_column + " " + sort_direction
+    sort_column + " " + sort_direction
   end
 
   def default_sort_column
