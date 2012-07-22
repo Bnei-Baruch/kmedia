@@ -3,7 +3,7 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
   load_and_authorize_resource
 
   def index
-    @lessondesc_patterns = @lessondesc_patterns.order(:pattern).page(params[:page]).per(50)
+    @lessondesc_patterns = @lessondesc_patterns.order(sort_order).includes([:catalogs]).page(params[:page]).per(50)
   end
 
   def show
@@ -40,5 +40,9 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
 
   def common_set
     @languages = Language.order('code3').all
+  end
+
+  def default_sort_column
+    "pattern"
   end
 end

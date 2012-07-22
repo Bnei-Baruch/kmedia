@@ -10,11 +10,11 @@
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
-        %th ID
-        %th Name
-        %th Email
-        %th Roles
-        %th Department
+        %th= sortable("id", "ID")
+        %th= sortable("name", "Name")
+        %th= sortable("email", "Email")
+        %th= sortable("roles.name", "Roles")
+        %th= sortable("department_id", "Department")
         = display_actions_title(User)
         -if current_user.role?(:super_admin)
           %th Become

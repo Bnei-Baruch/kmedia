@@ -250,3 +250,16 @@ hr.soften {
     border-radius: 0;
   }
 }
+
+th .current {
+  padding-right: 12px;
+}
+
+th .asc:after {
+  content: "▲";
+
+}
+
+th .desc:after {
+  content: "▼";
+}
