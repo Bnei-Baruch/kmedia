@@ -29,22 +29,24 @@ class Dictionary < ActiveRecord::Base
   # It must consist of letters, dot and dash only. Length must be between 3 to 20.
   validates :suid, presence: true, uniqueness: true, length: 3..20, format: /[\w\.\-]+/
 
+  before_save do |dict|
+    dict.suid = dict.suid.downcase
+  end
+
   # --- Public methods ---
 
   def to_s
     suid
   end
 
-  # --- Static methods ---
-
   # select all dictionaries with a suid starting with the prefix
   def self.suid_starts_with(prefix)
-    Dictionary.select(:suid).where("suid LIKE ?", prefix + '%').order("suid asc")
+    Dictionary.select(:suid).where("suid LIKE ?", prefix.downcase + '%').order("suid asc")
   end
 
   # generate next automatic suid
   def self.next_suid
-    'dict_' + (Dictionary.count(conditions: "suid LIKE 'dict_%'") + 1).to_s
+    "dict_#{Dictionary.count(conditions: "suid LIKE 'dict_%'") + 1}"
   end
 
 end

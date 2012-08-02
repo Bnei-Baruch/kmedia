@@ -6,15 +6,15 @@ $ ->
 
 register_handlers = () ->
   suid = $('input[name="label[suid]"]')
-  if (suid.length > 0)
+  if suid.length > 0
     on_success = (data) ->
       container = $('#existing_suids')
-      if (data.length > 0)
+      if data.length > 0
         container.html(data.toString())
-        container.attr 'class', 'alert alert-error'
+          .attr('class', 'alert alert-error')
       else
         container.html(suid.val() + ' is free to use.')
-        container.attr 'class', 'alert alert-success'
+          .attr('class', 'alert alert-success')
 
     suid.keyup (e) =>
       if(suid.val().length > 2)
