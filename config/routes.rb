@@ -58,6 +58,10 @@ Kmedia::Application.routes.draw do
     resources :lessondesc_patterns
     resources :searches
     resources :dictionaries do
+      collection do
+        get :existing_suids
+        get "labels/existing_suids", to: "labels#existing_suids"
+      end
       resources :labels
     end
 
