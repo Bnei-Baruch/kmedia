@@ -33,9 +33,24 @@ class Label < ActiveRecord::Base
   # It must consist of letters, dot and dash only. Length must be between 3 to 20.
   validates :suid, presence: true, uniqueness: true, length: 3..20, format: /[\w\.\-]+/
 
+  before_save do |lbl|
+    lbl.suid = lbl.suid.downcase
+  end
+
   # --- Public methods ---
 
   def to_s
-    label_descriptions.where(lang: ('HEB')).first.text + " [ #{suid} ]"
-    end
+    suid
+  end
+
+  # select all labels with a suid starting with the prefix
+  def self.suid_starts_with(prefix)
+    Label.select(:suid).where("suid LIKE ?", prefix.downcase + '%').order("suid asc")
+  end
+
+  # generate next automatic suid
+  def self.next_suid
+    "lbl_#{Label.count(conditions: "suid LIKE 'lbl_%'") + 1}"
+  end
+
 end

@@ -14,6 +14,7 @@
       = f.input :servername, :collection => @servers, :value_method => :servername, :label_method => :to_s, :label => 'Server', :prompt => '-- Please select server --', :disabled => disabled, :input_html => {:class => 'span5'}
       = f.input :filestatus, :disabled => disabled, :label => 'Status', :input_html => {:class => 'span5'}
       = f.input :fileclicks, :disabled => disabled, :label => 'Clicks', :input_html => {:class => 'span5'}
+      = f.input :secure, :collection =>  @security, :prompt => nil, :label => 'Security Level', :disabled => disabled
 
   %hr.soften
   = display_actions f, admin_lessons_url
