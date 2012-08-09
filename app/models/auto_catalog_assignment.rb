@@ -57,8 +57,8 @@ class AutoCatalogAssignment < ActiveRecord::Base
   end
 
   def self.in_time_frame(string_start_time, string_end_time)
-    start_time = Time.parse(string_start_time).in_time_zone 'Jerusalem'
-    end_time = Time.parse(string_end_time).in_time_zone 'Jerusalem'
+    start_time = Time.use_zone('Jerusalem'){ Time.zone.parse(string_start_time) }
+    end_time = Time.use_zone('Jerusalem'){ Time.zone.parse(string_end_time) }
     in_time_frame = @lesson_part_arrival.between?(start_time, end_time)
     my_logger.info("In time frame #{string_start_time} till #{string_end_time} = #{in_time_frame}")
     in_time_frame
@@ -79,7 +79,7 @@ class AutoCatalogAssignment < ActiveRecord::Base
       update_record
     elsif first_lesson_time
       my_logger.info("Matched first part, there were no preparation part today")
-      #there were no preparation part today and it's time for first lesson part'
+      # there were no preparation part today and it's time for first lesson part
       @record.counter=0
       match_part(lesson, 'Lessons/Morning/First part')
     end
