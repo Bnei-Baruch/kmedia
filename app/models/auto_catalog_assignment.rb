@@ -1,11 +1,10 @@
 class AutoCatalogAssignment < ActiveRecord::Base
 
   def self.match_catalog(lesson)
-    @@lesson_part_arrival = DateTime.now.in_time_zone 'Jerusalem'
+    @lesson_part_arrival = DateTime.now.in_time_zone 'Jerusalem'
     log_lesson_arrival(lesson)
-    unless lesson_of_Interest(lesson)
-      return
-    end
+    return unless lesson_of_interest(lesson)
+
 
     load_record
     case @record.counter
@@ -24,15 +23,17 @@ class AutoCatalogAssignment < ActiveRecord::Base
     end
   end
 
-  def self.lesson_of_Interest(lesson)
-    lesson_of_interest = lesson.content_type.try(:name).eql?("Lesson") && in_time_frame('02:55am', '06:50am') && lesson.lessondate.today?
-    my_logger.info("Lesson of interest return #{lesson_of_interest}")
+  def self.lesson_of_interest(lesson)
+    today_lesson = @lesson_part_arrival.to_date == lesson.lessondate
+    my_logger.info("Today's lesson = #{today_lesson}")
+    lesson_of_interest = lesson.content_type.try(:name).eql?("Lesson") && in_time_frame('02:55am', '06:50am') && today_lesson
+    my_logger.info("Lesson of interest = #{lesson_of_interest}")
     lesson_of_interest
   end
 
 
   def self.load_record
-    @record = AutoCatalogAssignment.all.first
+    @record = AutoCatalogAssignment.first
     unless @record.nil?
       # reset the counter if it is a new day
       @record.counter = -1 unless @record.last_date.in_time_zone('Jerusalem').today?
@@ -58,29 +59,29 @@ class AutoCatalogAssignment < ActiveRecord::Base
   def self.in_time_frame(string_start_time, string_end_time)
     start_time = Time.parse(string_start_time).in_time_zone 'Jerusalem'
     end_time = Time.parse(string_end_time).in_time_zone 'Jerusalem'
-    in_time_frame = @@lesson_part_arrival.between?(start_time, end_time)
-    my_logger.info("In time frame #{string_start_time} till #{string_end_time} returned #{in_time_frame}")
+    in_time_frame = @lesson_part_arrival.between?(start_time, end_time)
+    my_logger.info("In time frame #{string_start_time} till #{string_end_time} = #{in_time_frame}")
     in_time_frame
   end
 
 
   def self.update_record
-    @record.last_date=DateTime.now.in_time_zone 'Jerusalem'
+    @record.last_date = @lesson_part_arrival
     @record.counter += 1
     @record.save
     my_logger.info("Record saved, record: counter = #{record.counter}, last date= #{record.last_date}")
   end
 
   def self.match_preparation_part(lesson)
-    if (preparation_time)
+    if preparation_time
       my_logger.info("Matched preparation part")
       lesson.catalogs << Catalog.find_by_catalognodename('Lessons/Morning/Preparation')
       update_record
-    elsif (first_lesson_time)
+    elsif first_lesson_time
       my_logger.info("Matched first part, there were no preparation part today")
       #there were no preparation part today and it's time for first lesson part'
       @record.counter=0
-      match_part(lesson, 'Lessons/Morning/First part');
+      match_part(lesson, 'Lessons/Morning/First part')
     end
   end
 
@@ -96,7 +97,7 @@ class AutoCatalogAssignment < ActiveRecord::Base
 
   def self.log_lesson_arrival(lesson)
     my_logger.info("###############################################################")
-    my_logger.info("lesson arrived #{lesson.lessonname} at #{@@lesson_part_arrival}")
+    my_logger.info("lesson arrived #{lesson.lessonname} at #{@lesson_part_arrival}")
   end
 
 end
