@@ -36,8 +36,10 @@ class AutoCatalogAssignment < ActiveRecord::Base
     @record = AutoCatalogAssignment.first
     unless @record.nil?
       # reset the counter if it is a new day
-      @record.counter = -1 unless @record.last_date.in_time_zone('Jerusalem').today?
-      my_logger.info("New Day began, reset counter") unless @record.last_date.in_time_zone('Jerusalem').today?
+      unless @record.last_date.in_time_zone('Jerusalem').today?
+        @record.counter = -1
+        my_logger.info("New Day began, reset counter")
+      end
     else
       # initialize
       @record = AutoCatalogAssignment.new
@@ -69,7 +71,7 @@ class AutoCatalogAssignment < ActiveRecord::Base
     @record.last_date = @lesson_part_arrival
     @record.counter += 1
     @record.save
-    my_logger.info("Record saved, record: counter = #{record.counter}, last date= #{record.last_date}")
+    my_logger.info("Record saved, record: counter = #{@record.counter}, last date= #{@record.last_date}")
   end
 
   def self.match_preparation_part(lesson)
