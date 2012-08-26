@@ -11,15 +11,15 @@ class AutoCatalogAssignment < ActiveRecord::Base
       when -1
         match_preparation_part(lesson)
       when 0
-        match_part(lesson, 'Lessons/Morning/First part')
+        match_part(lesson, 'lesson_first-part')
       when 1
-        match_part(lesson, 'Lessons/Morning/Second part')
+        match_part(lesson, 'lesson_second-part')
       when 2
-        match_part(lesson, 'Lessons/Morning/Third part')
+        match_part(lesson, 'lesson_third-part')
       when 3
-        match_part(lesson, 'Lessons/Morning/Fourth part')
+        match_part(lesson, 'lesson_fourth-part')
       when 4
-        match_part(lesson, 'Lessons/Morning/Fifth part')
+        match_part(lesson, 'lesson_fifth-part')
     end
   end
 
@@ -41,9 +41,9 @@ class AutoCatalogAssignment < ActiveRecord::Base
     else
       # initialize
       @record = AutoCatalogAssignment.new
-      @record.last_date = Time.yesterday.in_time_zone('Jerusalem').to_date
+      @record.last_date = Date.yesterday.to_time.in_time_zone('Jerusalem').to_date
       @record.counter = -1
-      my_logger.info("Initializing autoCatalogAssignment record: counter = #{record.counter}, last date= #{record.last_date}")
+      my_logger.info("Initializing autoCatalogAssignment record: counter = #{@record.counter}, last date= #{@record.last_date}")
     end
   end
 
@@ -75,13 +75,13 @@ class AutoCatalogAssignment < ActiveRecord::Base
   def self.match_preparation_part(lesson)
     if preparation_time
       my_logger.info("Matched preparation part")
-      lesson.catalogs << Catalog.find_by_catalognodename('Lessons/Morning/Preparation')
+      lesson.catalogs << Catalog.find_by_catalognodename('lesson_preparation')
       update_record
     elsif first_lesson_time
       my_logger.info("Matched first part, there were no preparation part today")
       # there were no preparation part today and it's time for first lesson part
       @record.counter=0
-      match_part(lesson, 'Lessons/Morning/First part')
+      match_part(lesson, 'lesson_first-part')
     end
   end
 
