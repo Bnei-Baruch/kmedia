@@ -14,7 +14,7 @@ gem "ckeditor", "3.7.1"
 gem "paperclip"
 gem 'thin'
 
-gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
+gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
 
 gem "cancan"
 gem 'devise'

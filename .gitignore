@@ -17,4 +17,4 @@ solr/data/**/*
 .sass-cache/
 public/assets/**/*
 public/assets/*
-/php/
+php

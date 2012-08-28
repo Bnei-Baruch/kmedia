@@ -1,4 +1,5 @@
 json.id 0
+json.record 'content_types'
 json.item @content_types do |content_type|
   json.id content_type.id
   json.name content_type.name
