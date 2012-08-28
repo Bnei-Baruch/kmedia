@@ -178,7 +178,7 @@ class Lesson < ActiveRecord::Base
         languages.each { |l|
           c.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
         }
-        AutoCatalogAssignment.match_catalog(c)
+        AutoCatalogAssignment.match_catalog(c) unless dry_run
       end
     }
 
