@@ -8,7 +8,7 @@ class StringParser
     month = @string[/((19|20)\d\d)-(0?[1-9]|1[012])-([^a-z0-9][1-9]|0[1-9]|[12][0-9]|3[01])/, 3]
     day = @string[/((19|20)\d\d)-(0?[1-9]|1[012])-([^a-z0-9][1-9]|0[1-9]|[12][0-9]|3[01])/, 4]
     if year.blank? || month.blank? || day.blank?
-      raise 'Unable to parse date'
+      Date.today.to_s.split('-')
     else
       [year.to_i, month.to_i, day.to_i]
     end
@@ -16,7 +16,7 @@ class StringParser
 
   def language
     lang = Language.all.map(&:code3).join('|').downcase
-    @string[/([^a-z0-9])(#{lang})([^a-z0-9])/, 2] || @string[/^(#{lang})([^a-z0-9])/, 1] || raise('Unable to parse language')
+    @string[/([^a-z0-9])(#{lang})([^a-z0-9])/, 2] || @string[/^(#{lang})([^a-z0-9])/, 1] || 'eng'
   end
 
   def lecturer_rav?
