@@ -21,6 +21,8 @@ class AutoCatalogAssignment < ActiveRecord::Base
       when 4
         match_part(lesson, 'lesson_fifth-part')
     end
+
+    log_results(lesson)
   end
 
   def self.lesson_of_interest(lesson)
@@ -98,8 +100,22 @@ class AutoCatalogAssignment < ActiveRecord::Base
   end
 
   def self.log_lesson_arrival(lesson)
-    my_logger.info("###############################################################")
+    #my_logger.info("###############################################################")
     my_logger.info("lesson arrived #{lesson.lessonname} at #{@lesson_part_arrival}")
+    my_logger.info("lesson associated to catalogs #{get_catalogs_names(lesson.catalogs)}")
+  end
+
+  def self.log_results(lesson)
+    my_logger.info("lesson  #{lesson.lessonname} catalog assignment finished. Lesson associated to #{lesson.catalogs.size} catalogs")
+    my_logger.info("lesson associated to catalogs #{get_catalogs_names(lesson.catalogs)}")
+  end
+
+  def self.get_catalogs_names(catalogs)
+    names = []
+    catalogs.each{|c|
+      names << c.catalognodename
+    }
+    names.join(",")
   end
 
 end
