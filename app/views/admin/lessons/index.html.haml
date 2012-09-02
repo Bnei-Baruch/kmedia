@@ -16,6 +16,8 @@
           = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
         = content_tag :li, :class => no_files?, :title => 'No files associated' do
           = link_to 'Empty', admin_lessons_path(:filter => 'no_files')
+        = content_tag :li, :class => lost?, :title => 'No specific catalog associated' do
+          = link_to 'Lost', admin_lessons_path(:filter =>'lost')
 
 %section
   = paginate @lessons
