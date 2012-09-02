@@ -69,6 +69,14 @@ class Lesson < ActiveRecord::Base
   NO_FILES
   )
 
+  scope :lost, where(<<-LOST
+  lessonid not in
+    (SELECT distinct lessonid from catnodelessons INNER JOIN `catalognode` ON `catalognode`.`catalognodeid` = `catnodelessons`.`catalognodeid` WHERE
+    (catalognodename NOT IN ('Lessons','lesson_first-part','lesson_second-part','lesson_third-part','lesson_fourth-part',
+    'lesson_fifth-part','RSS_update','Video','Audio')))
+  LOST
+  )
+
   def to_label
     lessonname
   end

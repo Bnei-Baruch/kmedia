@@ -10,6 +10,8 @@ class Admin::LessonsController < Admin::ApplicationController
                  Lesson.secure_changed
                elsif @filter && @filter == 'no_files'
                  Lesson.no_files
+               elsif @filter && @filter == 'lost'
+                 Lesson.lost
                else
                  Lesson.need_update
                end.order(sort_order).page(params[:page])
