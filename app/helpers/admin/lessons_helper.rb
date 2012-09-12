@@ -14,4 +14,8 @@ module Admin::LessonsHelper
   def no_files?
     @filter == 'no_files' ? 'active' : ''
   end
+
+  def lost?
+    @filter == 'lost' ? 'active' : ''
+  end
 end
