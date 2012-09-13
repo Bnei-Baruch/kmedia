@@ -79,7 +79,8 @@ class AutoCatalogAssignment < ActiveRecord::Base
   def self.match_preparation_part(lesson)
     if preparation_time
       my_logger.info("Matched preparation part")
-      lesson.catalogs << Catalog.find_by_catalognodename('lesson_preparation')
+      catalog = Catalog.find_by_catalognodename('lesson_preparation')
+      lesson.catalogs << catalog unless lesson.catalogs.include? catalog
       update_record
     elsif first_lesson_time
       my_logger.info("Matched first part, there were no preparation part today")
@@ -91,7 +92,8 @@ class AutoCatalogAssignment < ActiveRecord::Base
 
   def self.match_part(lesson, catalog_name)
     my_logger.info("Assigning lesson to catalog #{catalog_name}")
-    lesson.catalogs << Catalog.find_by_catalognodename(catalog_name)
+    catalog = Catalog.find_by_catalognodename(catalog_name)
+    lesson.catalogs << catalog unless lesson.catalogs.include? catalog
     update_record
   end
 
