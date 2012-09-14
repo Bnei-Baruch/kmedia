@@ -18,4 +18,8 @@ module Admin::LessonsHelper
   def lost?
     @filter == 'lost' ? 'active' : ''
   end
+
+  def by_security?
+    @filter == 'by_security' ? 'active' : ''
+  end
 end
