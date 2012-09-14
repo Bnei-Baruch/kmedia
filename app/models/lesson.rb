@@ -77,6 +77,8 @@ class Lesson < ActiveRecord::Base
   LOST
   )
 
+  scope :security, lambda{|sec| where(:secure => sec)}
+
   def to_label
     lessonname
   end
