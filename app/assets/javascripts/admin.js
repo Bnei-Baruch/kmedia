@@ -3,12 +3,23 @@
 //= require jquery.tokeninput
 //= require jquery.alphanumeric
 //= require jquery_ujs
-//= require bootstrap
 //= require_tree ./common
 //= require_tree ./admin
 //= require_self
 //= require ckeditor/init
 //= require ckeditor/config
+
+//= require bootstrap-transition
+//= require bootstrap-alert
+//= require bootstrap-button
+//= require bootstrap-carousel
+//= require bootstrap-collapse
+//= require bootstrap-dropdown
+//= require bootstrap-modal
+//= require bootstrap-tab
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+//= require bootstrap-typeahead
 
 // We have to submit ID=0 for new lesson
 
