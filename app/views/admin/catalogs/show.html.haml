@@ -25,6 +25,7 @@
       (
       = @catalog.catalognodeid
       )
+  = display_show_item('Visibility', VISIBILITY.select{|s| s[:id] == @catalog.visibility }.first[:name], true)
   = display_show_item('Created', @catalog.created.to_s(:long_ordinal))
   = display_show_item('Updated', @catalog.updated.to_s(:long_ordinal))
 
