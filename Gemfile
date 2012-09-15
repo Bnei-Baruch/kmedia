@@ -14,7 +14,7 @@ gem "ckeditor", "3.7.1"
 gem "paperclip"
 gem 'thin'
 
-gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
+gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
 
 gem "cancan"
 gem 'devise'
@@ -28,12 +28,18 @@ gem 'therubyracer', '0.9.10'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem "debugger"
-  gem "ruby-debug-ide"
-  gem "ruby-debug-base19x", '>=0.11.30.pre7'
+  gem "ruby-debug-base19x", '>= 0.11.30.pre10'
+  gem "ruby-debug-ide", '>= 0.4.17.beta14'
   gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
-  gem "nifty-generators"
-  gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
+  gem "sextant" # rake routes in the browser
+  gem 'thin'
+
+  #gem "debugger"
+  #gem "ruby-debug-ide"
+  #gem "ruby-debug-base19x", '>=0.11.30.pre7'
+  #gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
+  #gem "nifty-generators"
+  #gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
   gem 'bullet'
   gem "sextant" # rake routes in the browser /rails/routes
   gem "rspec-rails", "~> 2.0"

@@ -7,15 +7,29 @@
   .subnav
     %ul.nav.nav-pills
       %li
-      = content_tag :li, :class => show_all_selected? do
-        = link_to 'All Containers', admin_lessons_path(:filter => 'all')
-      = content_tag :li, :class => filtered_selected? do
-        = link_to 'Containers to update', admin_lessons_path
+        = content_tag :li, :class => show_all_selected? do
+          = link_to 'All Containers', admin_lessons_path(:filter => 'all')
+      %li
+        = content_tag :li, :class => filtered_selected? do
+          = link_to 'Containers to update', admin_lessons_path
       -if can?(:special_admin_features, @lesson)
-        = content_tag :li, :class => secure_changed?, :title => 'Security Level changed by operator' do
-          = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
-        = content_tag :li, :class => no_files?, :title => 'No files associated' do
-          = link_to 'Empty', admin_lessons_path(:filter => 'no_files')
+        %li
+          = content_tag :li, :class => secure_changed?, :title => 'Security Level changed by operator' do
+            = link_to 'Security changed', admin_lessons_path(:filter => 'secure_changed')
+        %li
+          = content_tag :li, :class => no_files?, :title => 'No files associated' do
+            = link_to 'Empty', admin_lessons_path(:filter => 'no_files')
+        %li
+          = content_tag :li, :class => lost?, :title => 'No specific catalog associated' do
+            = link_to 'Lost', admin_lessons_path(:filter =>'lost')
+        %li.dropdown#by_security{:class => by_security?}
+          %a.dropdown-toggle{:href => "#by_security", :"data-toggle" => "dropdown"}
+            Security
+            %b.caret
+          %ul.dropdown-menu
+            -SECURITY.each do |s|
+              %li
+                = link_to s[:name].humanize, admin_lessons_path(:filter => 'by_security', :security => s[:level])
 
 %section
   = paginate @lessons

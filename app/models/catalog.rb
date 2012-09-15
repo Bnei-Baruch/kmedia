@@ -16,6 +16,8 @@ class Catalog < ActiveRecord::Base
     boolean :secure
   end
 
+  scope :secure, lambda { |level| where("secure <= ?", level) }
+
   before_create :create_timestamps
   before_update :update_timestamps
 

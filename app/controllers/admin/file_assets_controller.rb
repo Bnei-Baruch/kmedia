@@ -46,5 +46,6 @@ class Admin::FileAssetsController < Admin::ApplicationController
   def set_fields
     @languages = Language.order('code3').all
     @servers = Server.order('servername ASC').all
+    @security = SECURITY.collect { |s| [s[:name], s[:level]] }
   end
 end

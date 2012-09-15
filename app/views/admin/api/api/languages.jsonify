@@ -1,7 +1,9 @@
 json.id 0
+json.record 'languages'
 json.item @languages do |language|
   json.id language.id
   json.locale language.locale
   json.code3 language.code3
   json.language language.language
+  json.text language.language
 end

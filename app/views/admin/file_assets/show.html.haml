@@ -30,6 +30,7 @@
   = display_show_item 'Status', @asset.filestatus
   = display_show_item 'Last user', @asset.lastuser
   = display_show_item 'Clicks', @asset.fileclicks
+  = display_show_item('Secure', display_secure(@asset.secure), true)
 
 %section
   %strong Descriptions:

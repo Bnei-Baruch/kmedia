@@ -4,24 +4,9 @@ Kmedia::Application.routes.draw do
 
   devise_for :users
   resources :users
+  resources :lessons, :only => [:index, :show]
   resources :searches
   resources :ui
-
-  resources :catalogs, :only => :index do
-    post :index, :on => :collection
-  end
-
-  resources :content_types, :only => :index do
-    post :index, :on => :collection
-  end
-
-  resources :file_types, :only => :index do
-    post :index, :on => :collection
-  end
-
-  resources :languages, :only => :index do
-    post :index, :on => :collection
-  end
 
   namespace(:admin) {
     root :to => "searches#index"
@@ -71,6 +56,9 @@ Kmedia::Application.routes.draw do
       resources :api, :only => [] do
         collection do
           post :register_file, :get_file_servers
+          post :content_types, :file_types, :catalogs
+        end
+        member do
         end
       end
     end

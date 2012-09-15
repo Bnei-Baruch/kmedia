@@ -71,6 +71,16 @@ class Lesson < ActiveRecord::Base
   NO_FILES
   )
 
+  scope :lost, where(<<-LOST
+  lessonid not in
+    (SELECT distinct lessonid from catnodelessons INNER JOIN `catalognode` ON `catalognode`.`catalognodeid` = `catnodelessons`.`catalognodeid` WHERE
+    (catalognodename NOT IN ('Lessons','lesson_first-part','lesson_second-part','lesson_third-part','lesson_fourth-part',
+    'lesson_fifth-part','RSS_update','Video','Audio')))
+  LOST
+  )
+
+  scope :security, lambda{|sec| where(:secure => sec)}
+
   def to_label
     lessonname
   end
@@ -154,6 +164,8 @@ class Lesson < ActiveRecord::Base
   # @param files - array of name-server-size-time objects
   def self.add_update(container_name, files, dry_run = false)
     raise 'Container\'s name cannot be blank' if container_name.blank?
+    my_logger.info("###############################################################")
+    my_logger.info("Container arrived #{container_name} dry_run= #{dry_run}")
 
     # Create/update container
     container = Lesson.find_or_initialize_by_lessonname(container_name) { |c|
@@ -162,14 +174,16 @@ class Lesson < ActiveRecord::Base
         # Try to update auto-fill-able fields
         # Only for new containers
         c.catalogs << Catalog.find_by_catalognodename('Video') rescue raise('Unable to find catalog "Video"')
+        my_logger.info("Catalogs after video assignment: #{get_catalogs_names(c.catalogs)}")
         sp = ::StringParser.new container_name
         c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Time.now.to_date
         c.lang = sp.language.upcase rescue 'ENG'
         c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
         sp.descriptions.each { |pattern|
           c.lesson_descriptions.build(:lang => pattern.lang, :lessondesc => pattern.description)
-          c.catalogs = pattern.catalogs unless pattern.catalogs.empty?
+          c.catalogs << pattern.catalogs unless pattern.catalogs.empty?
         }
+        my_logger.info("Catalogs after assignment from pattern: #{get_catalogs_names(c.catalogs)}")
         c.content_type_id = sp.content_type.id
         c.secure = sp.content_security_level
         c.auto_parsed = true
@@ -180,9 +194,10 @@ class Lesson < ActiveRecord::Base
         languages.each { |l|
           c.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
         }
+        AutoCatalogAssignment.match_catalog(c) unless dry_run
       end
     }
-
+    my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")
     dry_run || container.save!(:validate => false)
 
     (files || []).each do |file|
@@ -246,4 +261,15 @@ class Lesson < ActiveRecord::Base
     true
   end
 
+  def self.my_logger
+    @@my_logger ||= Logger.new("#{Rails.root}/log/autoCatalogAssignment.log")
+  end
+
+  def self.get_catalogs_names(catalogs)
+    names = []
+    catalogs.each{|c|
+      names << c.catalognodename
+    }
+    names.join(",")
+  end
 end
