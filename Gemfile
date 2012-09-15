@@ -36,6 +36,7 @@ group :development, :test do
   gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
   gem 'bullet'
   gem "sextant" # rake routes in the browser /rails/routes
+  gem "rspec-rails", "~> 2.0"
 end
 
 gem 'bootstrap-sass', '~> 2.0.4.0'

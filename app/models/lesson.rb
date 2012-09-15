@@ -19,6 +19,8 @@ class Lesson < ActiveRecord::Base
                           :association_foreign_key => "catalognodeid", :order => "catalognodename"
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
+  has_and_belongs_to_many :labels, uniq: true, join_table: 'lessons_labels'
+
   before_destroy do |lesson|
     lesson.file_assets.each { |a|
       # Do not destroy files that belongs to more than one container

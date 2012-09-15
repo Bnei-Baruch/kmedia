@@ -85,8 +85,26 @@ class Admin::LabelsController < Admin::ApplicationController
   end
 
   def existing_suids
-     existing_labels = Label.suid_starts_with(params[:suid])
-     render json: existing_labels.map{|lbl| lbl.suid }.to_json
-   end
+    existing_labels = Label.suid_starts_with(params[:suid])
+    render json: existing_labels.map{|lbl| lbl.suid }.to_json
+  end
+
+  def assignable
+    @labels = Label
+    .select("suid,text")
+    .order("text asc")
+    .accessible_by(current_ability, :index)
+
+    if params[:q]
+      @labels = @labels .joins(:label_descriptions).where("lang='ENG' and text like ?", "%#{params[:q]}%")
+    else
+      @labels = @labels.page(params[:page])
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @labels.map { |l| { :id => l.suid, :name => l.text } } }
+    end
+  end
 
 end

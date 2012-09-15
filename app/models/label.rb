@@ -17,6 +17,8 @@ class Label < ActiveRecord::Base
     end
   end
 
+  has_and_belongs_to_many :lessons, uniq: true, join_table: 'lessons_labels'
+
   # --- Accessors ---
 
   attr_accessible :suid, :label_descriptions_attributes
@@ -41,6 +43,10 @@ class Label < ActiveRecord::Base
 
   def to_s
     suid
+  end
+
+  def display_name
+    label_descriptions.select {|d| d.lang == 'ENG'}[0].text
   end
 
   # select all labels with a suid starting with the prefix

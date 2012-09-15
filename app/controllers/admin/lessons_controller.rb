@@ -58,7 +58,15 @@ class Admin::LessonsController < Admin::ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
 
+    labelIds = params[:lesson][:labels]
+    params[:lesson].delete(:labels)
+    labels = []
+    unless labelIds.empty?
+      labels = labelIds.split(",").map { |suid| Label.find_by_suid(suid) }
+    end
+
     @lesson.attributes = params[:lesson]
+    @lesson.labels = labels
     @lesson.secure_changed = operator_changed_secure_field?
 
     @lesson.auto_parsed = false
