@@ -27,6 +27,7 @@
       )
   = display_show_item('Created', @catalog.created.to_s(:long_ordinal))
   = display_show_item('Updated', @catalog.updated.to_s(:long_ordinal))
+  = display_show_item('Secure', display_secure(@catalog.secure), true)
 
 %section
   %strong Descriptions:
