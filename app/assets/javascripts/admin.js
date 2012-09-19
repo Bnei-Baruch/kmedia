@@ -9,6 +9,7 @@
 //= require ckeditor/init
 //= require ckeditor/config
 
+// We removed the bootstrap-scrollspy because it caused a bug of setting dropdown tab active after scroll
 //= require bootstrap-transition
 //= require bootstrap-alert
 //= require bootstrap-button

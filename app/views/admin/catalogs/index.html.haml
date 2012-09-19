@@ -33,8 +33,7 @@
                 )
           %td.small= catalog.created.to_date
           %td.small= catalog.updated.to_date
-          - secure = SECURITY.select{|s| s[:level] == catalog.secure }.first[:name].downcase
-          %td= secure
+          %td= display_secure(catalog.secure)
           -if can?(:read, catalog)
             %td
               = link_to 'Show', [:admin, catalog]
