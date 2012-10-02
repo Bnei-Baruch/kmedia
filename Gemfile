@@ -44,7 +44,7 @@ group :development, :test do
   #gem "sextant" # rake routes in the browser /rails/routes
 end
 
-gem 'bootstrap-sass', '~> 2.0.4.0'
+gem 'bootstrap-sass', '~> 2.1.0.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
