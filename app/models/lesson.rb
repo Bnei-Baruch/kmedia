@@ -171,7 +171,8 @@ class Lesson < ActiveRecord::Base
       if c.new_record?
         # Try to update auto-fill-able fields
         # Only for new containers
-        c.catalogs << Catalog.find_by_catalognodename('Video') rescue raise('Unable to find catalog "Video"')
+        video = Catalog.find_by_catalognodename('Video') rescue raise('Unable to find catalog "Video"')
+        c.catalogs << video unless c.catalogs.include? video
         my_logger.info("Catalogs after video assignment: #{get_catalogs_names(c.catalogs)}")
         sp = ::StringParser.new container_name
         c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Time.now.to_date
@@ -179,7 +180,9 @@ class Lesson < ActiveRecord::Base
         c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
         sp.descriptions.each { |pattern|
           c.lesson_descriptions.build(:lang => pattern.lang, :lessondesc => pattern.description)
-          c.catalogs << pattern.catalogs unless pattern.catalogs.empty?
+          pattern.catalogs.each {|pc|
+            c.catalogs << pc unless c.catalogs.include? pc
+          }
         }
         my_logger.info("Catalogs after assignment from pattern: #{get_catalogs_names(c.catalogs)}")
         c.content_type_id = sp.content_type.id
