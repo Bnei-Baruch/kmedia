@@ -14,6 +14,8 @@
         %th= sortable("created", "Created")
         %th= sortable("updated", "Updated")
         %th= sortable("secure", "Secure")
+        %th= sortable("visible", "Visibility")
+        %th= sortable("open", "State")
         = display_actions_title(Catalog)
     %tbody
       - @catalogs.each do |catalog|
@@ -34,6 +36,8 @@
           %td.small= catalog.created.to_date
           %td.small= catalog.updated.to_date
           %td= display_secure(catalog.secure)
+          %td= catalog.visible ? 'visible' : 'hidden'
+          %td= catalog.open ? 'open' : 'closed'
           -if can?(:read, catalog)
             %td
               = link_to 'Show', [:admin, catalog]

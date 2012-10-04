@@ -10,7 +10,8 @@ class Admin::CatalogsController < Admin::ApplicationController
         accessible_by(current_ability, :index).
         order(sort_order).includes(:parent)
     if params[:q]
-      @catalogs = @catalogs.where("catalognodename like ?", "%#{params[:q]}%")
+      # request for catalogs from ui token input box
+      @catalogs = get_catalogs_for_token_input
     else
       @catalogs = @catalogs.page(params[:page])
     end
@@ -52,7 +53,9 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def update
-    if @catalog.update_attributes(params[:catalog])
+    @catalog.attributes = params[:catalog]
+    update_children_visibility if visibility_changed?
+    if @catalog.save
       redirect_to admin_catalog_path(@catalog), :notice => "Successfully updated catalog."
     else
       render :action => 'edit'
@@ -100,5 +103,43 @@ class Admin::CatalogsController < Admin::ApplicationController
   def default_sort_direction
     "asc"
   end
+
+  def update_children_visibility
+  # when catalog visibility changes update visibility to it children
+    children = get_all_children(@catalog).flatten
+    ids = children.collect(&:catalognodeid)
+    Catalog.update_all({:visible => @catalog.visible}, ["catalognodeid IN (?)", ids]) unless ids.empty?
+  end
+
+  def visibility_changed?
+    @catalog.changes.has_key? ("visible")
+  end
+
+  # We use recursion method to fetch all the children for catalog node => should be changed after moving to postgres
+  # Gets all children(descendants) for the given catalog node
+  def get_all_children(catalog)
+    all_children = []
+    for child in catalog.children
+      all_children << get_all_children(child)
+    end
+
+    if catalog.children.empty?
+      return catalog
+    else
+      all_children << catalog
+      return all_children
+    end
+  end
+
+  # Gets catalogs for token input box
+  def get_catalogs_for_token_input
+    if params[:open]
+      # adding an ability to filter for closed or open catalogs
+      @catalogs.where("catalognodename like ? AND open = ?", "%#{params[:q]}%",params[:open].to_bool )
+    else
+      @catalogs.where("catalognodename like ?", "%#{params[:q]}%")
+    end
+  end
+
 
 end
