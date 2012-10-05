@@ -91,19 +91,19 @@ class Admin::LabelsController < Admin::ApplicationController
 
   def assignable
     @labels = Label
-    .select("suid,text")
+    .select("labels.id, text")
     .order("text asc")
     .accessible_by(current_ability, :index)
 
     if params[:q]
-      @labels = @labels .joins(:label_descriptions).where("lang='ENG' and text like ?", "%#{params[:q]}%")
+      @labels = @labels.joins(:label_descriptions).where("lang='ENG' and text like ?", "%#{params[:q]}%")
     else
       @labels = @labels.page(params[:page])
     end
 
     respond_to do |format|
       format.html
-      format.json { render :json => @labels.map { |l| { :id => l.suid, :name => l.text } } }
+      format.json { render :json => @labels.map { |lbl| { :id => lbl.id, :name => lbl.text } } }
     end
   end
 
