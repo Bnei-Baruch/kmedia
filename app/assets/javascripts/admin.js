@@ -27,8 +27,7 @@
 // Batch operations
 
 $(function () {
-    // we don't allowed to add lesson to closed catalog so we add "open" parameter to the query
-    $("#lesson_catalog_tokens").tokenInput("/admin/catalogs.json?open=true", {
+    $("#lesson_catalog_tokens").tokenInput("/admin/catalogs.json", {
         crossDomain:false,
         preventDuplicates:true,
         onAdd:function (item) {

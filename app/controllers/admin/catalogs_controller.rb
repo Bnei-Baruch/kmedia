@@ -11,7 +11,7 @@ class Admin::CatalogsController < Admin::ApplicationController
         order(sort_order).includes(:parent)
     if params[:q]
       # request for catalogs from ui token input box
-      @catalogs = get_catalogs_for_token_input
+      @catalogs = @catalogs.where("catalognodename like ? AND open = ?", "%#{params[:q]}%", true )
     else
       @catalogs = @catalogs.page(params[:page])
     end
@@ -118,27 +118,11 @@ class Admin::CatalogsController < Admin::ApplicationController
   # We use recursion method to fetch all the children for catalog node => should be changed after moving to postgres
   # Gets all children(descendants) for the given catalog node
   def get_all_children(catalog)
-    all_children = []
-    for child in catalog.children
-      all_children << get_all_children(child)
+    return catalog if catalog.children.empty?
+    all_children = catalog.children.inject([]) do |result, child|
+      result << get_all_children(child)
     end
-
-    if catalog.children.empty?
-      return catalog
-    else
-      all_children << catalog
-      return all_children
-    end
-  end
-
-  # Gets catalogs for token input box
-  def get_catalogs_for_token_input
-    if params[:open]
-      # adding an ability to filter for closed or open catalogs
-      @catalogs.where("catalognodename like ? AND open = ?", "%#{params[:q]}%",params[:open].to_bool )
-    else
-      @catalogs.where("catalognodename like ?", "%#{params[:q]}%")
-    end
+    all_children << catalog
   end
 
 
