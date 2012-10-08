@@ -11,7 +11,7 @@ class Admin::CatalogsController < Admin::ApplicationController
         order(sort_order).includes(:parent)
     if params[:q]
       # request for catalogs from ui token input box
-      @catalogs = @catalogs.where("catalognodename like ? AND open = ?", "%#{params[:q]}%", true )
+      @catalogs = @catalogs.open_matching_string(params[:q])
     else
       @catalogs = @catalogs.page(params[:page])
     end
@@ -106,6 +106,7 @@ class Admin::CatalogsController < Admin::ApplicationController
 
   def update_children_visibility
   # when catalog visibility changes update visibility to it children
+    return if @catalog.children.empty?
     children = get_all_children(@catalog).flatten
     ids = children.collect(&:catalognodeid)
     Catalog.update_all({:visible => @catalog.visible}, ["catalognodeid IN (?)", ids]) unless ids.empty?
@@ -119,10 +120,9 @@ class Admin::CatalogsController < Admin::ApplicationController
   # Gets all children(descendants) for the given catalog node
   def get_all_children(catalog)
     return catalog if catalog.children.empty?
-    all_children = catalog.children.inject([]) do |result, child|
+    all_children = catalog.children.inject([catalog]) do |result, child|
       result << get_all_children(child)
     end
-    all_children << catalog
   end
 
 
