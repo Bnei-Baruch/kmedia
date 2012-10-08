@@ -33,6 +33,16 @@ class Lesson < ActiveRecord::Base
 
   validates :lessonname, :lang, :catalogs, :content_type_id, :presence => true
 
+   class OpenCatalogsValidator < ActiveModel::Validator
+     def validate(record)
+       record.catalogs.each do |catalog|
+           record.errors[:base]<< "Catalog is closed" unless catalog.open
+       end
+     end
+   end
+
+  validates_with OpenCatalogsValidator
+
   class NonemptyValidator < ActiveModel::Validator
     #, :fields => [:lesson_descriptions]
     def validate(record)

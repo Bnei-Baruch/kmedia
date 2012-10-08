@@ -17,6 +17,7 @@ class Catalog < ActiveRecord::Base
   end
 
   scope :secure, lambda { |level| where("secure <= ?", level) }
+  scope :open_matching_string, lambda { |string| where("catalognodename like ? AND open = ?", "%#{string}%", true )}
 
   before_create :create_timestamps
   before_update :update_timestamps
