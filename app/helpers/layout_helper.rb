@@ -91,6 +91,14 @@ HAML
     name == 'unsecure' ? 'non-secure' : "<span class='label label-#{klass}'>#{name.humanize}</span>".html_safe
   end
 
+  def display_visibility(visibility)
+    visibility ? 'Visible' : 'Hidden'
+  end
+
+  def display_catalog_state(state)
+    state ? 'Open' : 'Closed'
+  end
+
   def display_transcripts(f, transcripts, source, target)
     engine = Haml::Engine.new <<-HAML
 - counter = 0

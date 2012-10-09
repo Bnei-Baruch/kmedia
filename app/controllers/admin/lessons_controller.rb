@@ -15,7 +15,7 @@ class Admin::LessonsController < Admin::ApplicationController
                    Lesson.lost
                  when 'by_security'
                    Lesson.security(params[:security])
-                 when nil
+                 else
                    Lesson.need_update
                end.order(sort_order).page(params[:page])
   end

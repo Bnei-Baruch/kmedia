@@ -11,6 +11,9 @@
       - else
         = f.input :parentnodeid, :label => 'Parent'
     = f.input :catalognodename, :label => 'Name'
+    - if can?(:special_admin_features, @catalog)
+      = f.input :visible, :as => :boolean, :inline_label => 'Visible', :label => false
+      = f.input :open, :as => :boolean, :inline_label => 'Open', :label => false
   %hr.soften
   = display_descriptions f, @catalog_descriptions, 'catalog_descriptions', 'catalognodename'
   %hr.soften
