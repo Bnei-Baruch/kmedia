@@ -22,6 +22,14 @@ class Catalog < ActiveRecord::Base
   before_create :create_timestamps
   before_update :update_timestamps
 
+  class ParentValidator < ActiveModel::Validator
+    def validate(catalog)
+      catalog.errors[:parentnodeid]<< "Catalog can't be a parent of himself" if catalog.parentnodeid = catalog.catalognodeid
+    end
+  end
+
+  validates_with ParentValidator
+
   def create_timestamps
     write_attribute :created, Time.now
     write_attribute :updated, Time.now
