@@ -1,11 +1,19 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Admin::LabelsController do
 
-  it "list assignable labels" do
-    label = Label.create(suid: 'lbl')
-    get :assignable
-    expect(assigns(:labels)).to eq([widget])
+  login_admin
+
+  describe ".existing_suids" do
+
+    context 'when no labels' do
+      it "return empty result" do
+        get :existing_suids
+        response.should be_success
+      end
+    end
 
   end
+
 end
+
