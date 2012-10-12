@@ -20,13 +20,13 @@ class Ability
       can [:read, :create, :update, :edit_descriptions, :edit_all_lesson_fields], Lesson
       can :read, Catalog
       #- handling the lessons with changed security or with no files
-      cannot :special_admin_features, Lesson
+      cannot :special_admin_features, [Lesson, Catalog]
     elsif user.role? :content_manager
       #- Content manager - Can edit long/short descriptions and transcripts
       can [:read, :update, :edit_descriptions], Lesson
       cannot :edit_all_lesson_fields, Lesson
       #- handling the lessons with changed security or with no files
-      cannot :special_admin_features, Lesson
+      cannot :special_admin_features, [Lesson, Catalog]
     elsif user.role? :PSearchUser
       can :search_secure, :all
     else # Guest
