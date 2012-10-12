@@ -86,7 +86,7 @@ class Admin::LabelsController < Admin::ApplicationController
 
   def existing_suids
      existing_labels = Label.suid_starts_with(params[:suid])
-     if (existing_labels.nil?)
+     if existing_labels.nil?
        existing_labels = {}
      end
 

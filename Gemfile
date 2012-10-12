@@ -14,7 +14,7 @@ gem "ckeditor", "3.7.1"
 gem "paperclip"
 gem 'thin'
 
-gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
+gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
 
 gem "cancan"
 gem 'devise'
@@ -34,12 +34,17 @@ group :development, :test do
   gem "sextant" # rake routes in the browser
   gem 'thin'
 
-  gem "rspec-rails", "~> 2.0"
-  gem "shoulda-matchers"
-  gem 'factory_girl_rails'
+  #gem "debugger"
+  #gem "ruby-debug-ide"
+  #gem "ruby-debug-base19x", '>=0.11.30.pre7'
+  #gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
+  #gem "nifty-generators"
+  #gem 'mongrel', '>= 1.2.0.pre2' #for ruby v1.9.2
+  gem 'bullet'
+  #gem "sextant" # rake routes in the browser /rails/routes
 end
 
-gem 'bootstrap-sass', '~> 2.0.4.0'
+gem 'bootstrap-sass', '~> 2.1.0.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
