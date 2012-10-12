@@ -85,8 +85,12 @@ class Admin::LabelsController < Admin::ApplicationController
   end
 
   def existing_suids
-    existing_labels = Label.suid_starts_with(params[:suid])
-    render json: existing_labels.map{|lbl| lbl.suid }.to_json
+     existing_labels = Label.suid_starts_with(params[:suid])
+     if (existing_labels.nil?)
+       existing_labels = {}
+     end
+
+     render json: existing_labels.map{|lbl| lbl.suid }.to_json
   end
 
   def assignable
