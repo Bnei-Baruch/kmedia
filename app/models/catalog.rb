@@ -24,7 +24,7 @@ class Catalog < ActiveRecord::Base
 
   class ParentValidator < ActiveModel::Validator
     def validate(catalog)
-      catalog.errors[:parentnodeid]<< "Catalog can't be a parent of himself" if catalog.parentnodeid = catalog.catalognodeid
+      catalog.errors[:parentnodeid] << "Catalog can't be a parent of himself" if catalog.parentnodeid == catalog.catalognodeid
     end
   end
 
