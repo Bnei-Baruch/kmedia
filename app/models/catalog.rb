@@ -22,6 +22,14 @@ class Catalog < ActiveRecord::Base
   before_create :create_timestamps
   before_update :update_timestamps
 
+  class ParentValidator < ActiveModel::Validator
+    def validate(catalog)
+      catalog.errors[:parentnodeid] << "Catalog can't be an ancestor of himself" if catalog.ancestors.include? catalog
+    end
+  end
+
+  validates_with ParentValidator
+
   def create_timestamps
     write_attribute :created, Time.now
     write_attribute :updated, Time.now
