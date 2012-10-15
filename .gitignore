@@ -17,5 +17,6 @@ solr/data/**/*
 .sass-cache/
 public/assets/**/*
 public/assets/*
+php
 .rspec
 development.log
