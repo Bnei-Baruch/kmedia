@@ -53,10 +53,10 @@ $(function () {
         tokenLimit:1,
         prePopulate:$("#catalog_parentnodeid").data("pre")
     });
-    $("#lesson_labels").tokenInput("/admin/dictionaries/labels/assignable.json", {
+    $("#lesson_label_tokens").tokenInput("/admin/dictionaries/labels/assignable.json", {
         crossDomain:false,
         preventDuplicates:true,
-        prePopulate:$("#lesson_labels").data("pre")
+        prePopulate:$("#lesson_label_tokens").data("pre")
     });
 
     // Limit name of catalog to lowercase english letters and digits, '-'

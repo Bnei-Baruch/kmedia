@@ -30,7 +30,7 @@ class Lesson < ActiveRecord::Base
 
   accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 
-  attr_accessor :v_lessondate, :catalog_tokens, :rss
+  attr_accessor :v_lessondate, :catalog_tokens, :rss,:label_tokens
   attr_accessor :container_ids
 
   validates :lessonname, :lang, :catalogs, :content_type_id, :presence => true
@@ -147,6 +147,10 @@ class Lesson < ActiveRecord::Base
 
   def catalog_tokens=(ids)
     self.catalog_ids = ids.split(',')
+  end
+
+  def label_tokens=(ids)
+    self.label_ids = ids.split(',')
   end
 
   def rss

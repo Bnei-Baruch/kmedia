@@ -44,10 +44,11 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def create
-    labels = extract_labels()
-    @lesson = Lesson.new(params[:lesson])
-    @lesson.labels = labels
+    @lesson = Lesson.new
     authorize! :create, @lesson
+
+    @lesson.attributes=params[:lesson]
+
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/container."
     else
@@ -65,9 +66,7 @@ class Admin::LessonsController < Admin::ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
 
-    labels = extract_labels()
     @lesson.attributes = params[:lesson]
-    @lesson.labels = labels
     @lesson.secure_changed = operator_changed_secure_field?
 
     @lesson.auto_parsed = false
@@ -278,16 +277,6 @@ class Admin::LessonsController < Admin::ApplicationController
     sort_line = sort_column + " " + sort_direction
     #secondary sort parameter
     sort_line+= ", " + "lessonname asc" unless params[:sort].equal?("lessonname")
-  end
-
-  def extract_labels
-    labelIds = params[:lesson][:labels]
-    params[:lesson].delete(:labels)
-    labels = []
-    unless labelIds.empty?
-      labels = labelIds.split(",").map { |id| Label.find(id) }
-    end
-    labels
   end
 
 end
