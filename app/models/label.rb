@@ -21,9 +21,8 @@ class Label < ActiveRecord::Base
 
   # --- Accessors ---
 
-  attr_accessible :suid, :label_descriptions_attributes
+  attr_accessible :suid, :dictionary_id, :label_descriptions_attributes
   accepts_nested_attributes_for :label_descriptions, allow_destroy: true
-  accepts_nested_attributes_for :dictionary
 
   # --- Validations ---
 
@@ -51,7 +50,9 @@ class Label < ActiveRecord::Base
 
   # select all labels with a suid starting with the prefix
   def self.suid_starts_with(prefix)
-    Label.select(:suid).where("suid LIKE ?", prefix.downcase + '%').order("suid asc") unless prefix.blank?
+    labels={}
+    labels = Label.select(:suid).where("suid LIKE ?", prefix.downcase + '%').order("suid asc") unless prefix.blank?
+    labels
   end
 
   # generate next automatic suid

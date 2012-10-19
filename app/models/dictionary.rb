@@ -41,7 +41,9 @@ class Dictionary < ActiveRecord::Base
 
   # select all dictionaries with a suid starting with the prefix
   def self.suid_starts_with(prefix)
-    Dictionary.select(:suid).where("suid LIKE ?", prefix.downcase + '%').order("suid asc")
+    dictionaries={}
+    dictionaries=Dictionary.select(:suid).where("suid LIKE ?", prefix.downcase + '%').order("suid asc") unless prefix.blank?
+    dictionaries
   end
 
   # generate next automatic suid
