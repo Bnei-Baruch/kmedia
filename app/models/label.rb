@@ -17,7 +17,7 @@ class Label < ActiveRecord::Base
     end
   end
 
-  has_and_belongs_to_many :lessons, uniq: true, join_table: 'lessons_labels'
+  has_and_belongs_to_many :lessons, uniq: true
 
   # --- Accessors ---
 
