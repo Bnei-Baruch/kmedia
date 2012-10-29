@@ -37,6 +37,17 @@
                   %p=c.catalognodename
         - else
           = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lesson.catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename}}.to_json}
+      .list.clear
+        - if disabled
+          %p.input.string.optional
+            %label(for="lesson_label_tokens" class="string optional") Labels
+            %ul.token-input-list
+              - @lesson.labels.each do |lbl|
+                %li.token-input-token
+                  %p=lbl.display_name
+        - else
+          = f.input :label_tokens, :label => 'Labels', :input_html => {"data-pre" => @lesson.labels.map{|lbl| {:id => lbl.id, :name => lbl.display_name}}.to_json}
+
   %hr.soften
   = display_descriptions f, @lesson_descriptions, 'lesson_descriptions', 'lessondesc'
   %hr.soften

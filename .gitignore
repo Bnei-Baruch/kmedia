@@ -18,3 +18,5 @@ solr/data/**/*
 public/assets/**/*
 public/assets/*
 php
+.rspec
+development.log

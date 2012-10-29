@@ -44,8 +44,11 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def create
-    @lesson = Lesson.new(params[:lesson])
+    @lesson = Lesson.new
     authorize! :create, @lesson
+
+    @lesson.attributes=params[:lesson]
+
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/container."
     else
