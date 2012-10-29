@@ -11,6 +11,7 @@
     %thead
       %tr
         %th= sortable("catalognodename", "Catalog")
+        %th= sortable("label", "Label")
         %th= sortable("created", "Created")
         %th= sortable("updated", "Updated")
         %th= sortable("secure", "Secure")
@@ -33,6 +34,7 @@
                 (
                 = catalog.catalognodeid
                 )
+          %td.small= catalog.label
           %td.small= catalog.created.to_date
           %td.small= catalog.updated.to_date
           %td= display_secure(catalog.secure)

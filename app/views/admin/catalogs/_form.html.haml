@@ -12,6 +12,7 @@
         = f.input :parentnodeid, :label => 'Parent'
     = f.input :catalognodename, :label => 'Name'
     - if can?(:special_admin_features, @catalog)
+      = f.input :label, :label => 'Label'
       = f.input :visible, :as => :boolean, :inline_label => 'Visible', :label => false
       = f.input :open, :as => :boolean, :inline_label => 'Open', :label => false
   %hr.soften
