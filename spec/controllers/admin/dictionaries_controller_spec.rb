@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Admin::LabelsController do
+describe Admin::DictionariesController do
 
   login_admin
 
