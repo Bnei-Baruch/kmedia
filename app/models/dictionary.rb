@@ -8,7 +8,7 @@ class Dictionary < ActiveRecord::Base
   # --- Members ---
 
   # Dictionary's labels
-  has_many :labels , dependent: :destroy
+  has_many :labels, dependent: :destroy
 
   # dictionary topic is translated
   has_many :dictionary_descriptions, dependent: :destroy do
@@ -41,9 +41,7 @@ class Dictionary < ActiveRecord::Base
 
   # select all dictionaries with a suid starting with the prefix
   def self.suid_starts_with(prefix)
-    dictionaries={}
-    dictionaries=Dictionary.select(:suid).where("suid LIKE ?", prefix.downcase + '%').order("suid asc") unless prefix.blank?
-    dictionaries
+    prefix.blank? ? {} : Dictionary.select(:suid).where("suid LIKE ?", prefix.downcase + '%').order("suid asc")
   end
 
   # generate next automatic suid
