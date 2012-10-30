@@ -46,6 +46,7 @@ Kmedia::Application.routes.draw do
       collection do
         get :existing_suids
         get "labels/existing_suids", to: "labels#existing_suids"
+        get "labels/assignable", to: "labels#assignable"
       end
       resources :labels
     end

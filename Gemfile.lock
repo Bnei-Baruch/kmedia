@@ -22,11 +22,10 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: https://github.com/amerine/acts_as_tree.git
-  revision: 5b987737ce4bae6e3dec9b2556ccc9814bd8a623
+  remote: https://github.com/parasew/acts_as_tree.git
+  revision: ed52495d1671c99e1add582628403bf8104e9077
   specs:
-    acts_as_tree (1.1.0)
-      activerecord (>= 3.0.0)
+    acts_as_tree (1.2.3)
 
 GEM
   remote: http://rubygems.org/
@@ -63,8 +62,6 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.0.4.1)
     builder (3.0.0)
-    bullet (4.1.6)
-      uniform_notifier (~> 1.0.0)
     cancan (1.6.8)
     ckeditor (3.7.1)
       mime-types
@@ -84,12 +81,18 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (0.12.10)
     exception_notification (2.6.1)
       actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
     fattr (2.2.1)
     haml (3.1.7)
     highline (1.6.14)
@@ -155,6 +158,19 @@ GEM
       json (~> 1.4)
     rsolr (1.0.8)
       builder (>= 2.1.2)
+    rspec (2.11.0)
+      rspec-core (~> 2.11.0)
+      rspec-expectations (~> 2.11.0)
+      rspec-mocks (~> 2.11.0)
+    rspec-core (2.11.1)
+    rspec-expectations (2.11.3)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.11.3)
+    rspec-rails (2.11.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.11.0)
     ruby-debug-base19x (0.11.30.pre10)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
@@ -172,6 +188,8 @@ GEM
     sextant (0.1.3)
       activesupport (>= 3.2)
       rails (>= 3.2)
+    shoulda-matchers (1.4.0)
+      activesupport (>= 3.0.0)
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -199,7 +217,6 @@ GEM
     uglifier (1.2.7)
       execjs (>= 0.3.0)
       multi_json (~> 1.3)
-    uniform_notifier (1.0.2)
     warden (1.2.1)
       rack (>= 1.0)
     yajl-ruby (1.1.0)
@@ -210,12 +227,12 @@ PLATFORMS
 DEPENDENCIES
   acts_as_tree!
   bootstrap-sass (~> 2.0.4.0)
-  bullet
   cancan
   ckeditor (= 3.7.1)
   coffee-rails (~> 3.2.0)
   devise
   exception_notification
+  factory_girl_rails
   haml
   jquery-rails
   jsonify-rails
@@ -226,11 +243,13 @@ DEPENDENCIES
   paperclip
   progress_bar
   rails (= 3.2.5)
+  rspec-rails (~> 2.0)
   ruby-debug-base19x (>= 0.11.30.pre10)
   ruby-debug-ide (>= 0.4.17.beta14)
   sass
   sass-rails (~> 3.2.0)
   sextant
+  shoulda-matchers
   simple_form!
   sunspot_rails
   sunspot_solr
