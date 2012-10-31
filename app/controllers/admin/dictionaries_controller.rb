@@ -36,7 +36,7 @@ class Admin::DictionariesController < Admin::ApplicationController
     if @dictionary.save
       redirect_to admin_dictionary_path(@dictionary), notice: 'Successfully created dictionary.'
     else
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -48,7 +48,7 @@ class Admin::DictionariesController < Admin::ApplicationController
     if @dictionary.update_attributes(params[:dictionary])
       redirect_to admin_dictionary_path(@dictionary), notice: 'Dictionary was successfully updated.'
     else
-      render action: 'edit'
+      render :edit
     end
   end
 

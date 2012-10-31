@@ -39,7 +39,7 @@ class Admin::LabelsController < Admin::ApplicationController
     if @label.save
       redirect_to admin_dictionary_label_path(@label.dictionary, @label), notice: 'Successfully created admin/label.'
     else
-      render action: 'new'
+      render :new
     end
   end
 
@@ -51,7 +51,7 @@ class Admin::LabelsController < Admin::ApplicationController
     if @label.update_attributes(params[:label])
       redirect_to admin_dictionary_label_path(@label.dictionary, @label), notice: 'Label was successfully updated.'
     else
-      render action: 'edit'
+      render :edit
     end
   end
 
