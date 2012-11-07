@@ -39,16 +39,17 @@ body {
     clear: left;
     li {
       a {
-        color: rgba(255, 255, 255, 0.8);
         &:hover {
-          color: white;
+          color: rgba(0, 0, 0, 0.3);
         }
       }
       ul.dropdown-menu{
         a {
           color: #555;
+          background: rgba(255, 255, 255, 0.8);
           &:hover {
             color: black;
+            background: rgba(0, 0, 0, 0.1);
           }
         }
       }
