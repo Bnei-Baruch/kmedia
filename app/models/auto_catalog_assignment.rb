@@ -77,7 +77,7 @@ class AutoCatalogAssignment < ActiveRecord::Base
   end
 
   def self.match_preparation_part(lesson)
-    if preparation_time
+    if preparation_time || preparation_part_already_matched(lesson)
       my_logger.info("Matched preparation part")
       catalog = Catalog.find_by_catalognodename('lesson_preparation')
       lesson.catalogs << catalog unless lesson.catalogs.include? catalog
@@ -118,6 +118,10 @@ class AutoCatalogAssignment < ActiveRecord::Base
       names << c.catalognodename
     }
     names.join(",")
+  end
+
+  def self.preparation_part_already_matched(lesson)
+    lesson.catalogs.include? Catalog.find_by_catalognodename('lesson_preparation')
   end
 
 end
