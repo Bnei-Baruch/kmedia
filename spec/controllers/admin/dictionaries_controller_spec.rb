@@ -2,7 +2,13 @@ require "spec_helper"
 
 describe Admin::DictionariesController do
 
-  login_admin
+  describe "as operator" do
+    it "index action should assign @dictionaries" do
+      get :index
+      assigns(:dictionaries)
+    end
+
+  end
 
   # still an empty test [WIP]
 

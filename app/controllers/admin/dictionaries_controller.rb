@@ -18,10 +18,7 @@ class Admin::DictionariesController < Admin::ApplicationController
   # GET /admin/dictionaries/new
   # GET /admin/dictionaries/new.json
   def new
-    @dictionary.suid = Dictionary.next_suid
-    Language.all.each do |language|
-      @dictionary.dictionary_descriptions.build(lang: language.code3)
-    end
+    @dictionary.fill_defaults
     @descriptions = Utils::I18n.sort_descriptions(@dictionary.dictionary_descriptions)
   end
 

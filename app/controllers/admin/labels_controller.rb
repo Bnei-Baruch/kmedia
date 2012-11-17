@@ -18,12 +18,7 @@ class Admin::LabelsController < Admin::ApplicationController
   # GET /labels/new
   # GET /labels/new.json
   def new
-    @label.suid = Label.next_suid
-    @label.dictionary = Dictionary.find(params[:dictionary_id])
-    Language.all.each do |language|
-      @label.label_descriptions.build(lang: language.code3)
-    end
-
+    @label.fill_defaults(params[:dictionary_id])
     @descriptions = Utils::I18n.sort_descriptions(@label.label_descriptions)
   end
 
@@ -72,7 +67,7 @@ class Admin::LabelsController < Admin::ApplicationController
     @labels = Label
     .select("labels.id, text")
     .order("text asc")
-    .accessible_by(current_ability, :index)
+    .accessible_by(current_ability)
 
     if params[:q]
       @labels = @labels.joins(:label_descriptions).where("lang='ENG' and text like ?", "%#{params[:q]}%")
