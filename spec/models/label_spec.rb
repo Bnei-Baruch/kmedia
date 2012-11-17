@@ -58,7 +58,7 @@ describe Label do
     label.display_name.should eq "english description"
   end
 
-  context "Label#next_suid" do
+  describe "Label#next_suid" do
     it "generates next suids correctly" do
       Label.next_suid.should eq 'lbl_1'
       label.suid='lbl_1'
@@ -67,7 +67,7 @@ describe Label do
     end
   end
 
-  context "Label#suid_starts_with" do
+  describe "Label#suid_starts_with" do
     it "return {} for blank prefix" do
       Label.suid_starts_with(' ').should be_empty
     end

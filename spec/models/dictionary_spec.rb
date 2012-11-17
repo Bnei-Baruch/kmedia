@@ -50,7 +50,7 @@ describe Dictionary do
     dictionary.to_s.should eq dictionary.suid
   end
 
-  context "Dictionary#next_suid" do
+  describe "Dictionary#next_suid" do
     it "generates next suids correctly" do
       Dictionary.next_suid.should eq 'dict_1'
       dictionary.suid='dict_1'
@@ -59,7 +59,7 @@ describe Dictionary do
     end
   end
 
-  context "Dictionary#suid_starts_with" do
+  describe "Dictionary#suid_starts_with" do
     it "return {} for blank prefix" do
       Dictionary.suid_starts_with(' ').should be_empty
     end
