@@ -26,6 +26,7 @@
   = display_show_item 'Type', @asset.filetype
   = display_show_item 'Language', @asset.filelang
   = display_show_item 'Size', number_to_human_size(@asset.filesize)
+  = display_show_item 'Playtime (secs)', convert_seconds_to_human_readable(@asset.playtime_secs)
   = display_show_item 'Server name', @asset.servername
   = display_show_item 'Status', @asset.filestatus
   = display_show_item 'Last user', @asset.lastuser

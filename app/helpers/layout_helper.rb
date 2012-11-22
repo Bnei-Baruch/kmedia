@@ -91,6 +91,22 @@ HAML
     name == 'unsecure' ? 'non-secure' : "<span class='label label-#{klass}'>#{name.humanize}</span>".html_safe
   end
 
+  def convert_seconds_to_human_readable(duration)
+    x = duration.to_i
+    return 'N/A' if x == 0
+
+    seconds = x % 60
+    x /= 60
+    minutes = x % 60
+    x /= 60
+    hours = x % 24
+    x /= 24
+    days = x
+
+    return "#{'%02x' % days} #{'%02x' % hours}:#{'%02x' % minutes}:#{'%02x' % seconds}" if days > 0
+    return "#{'%02x' % hours}:#{'%02x' % minutes}:#{'%02x' % seconds}"
+  end
+
   def display_visibility(visibility)
     visibility ? 'Visible' : 'Hidden'
   end

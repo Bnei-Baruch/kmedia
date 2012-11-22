@@ -221,6 +221,7 @@ class Lesson < ActiveRecord::Base
       name = file['file']
       server = file['server'] || DEFAULT_FILE_SERVER
       size = file['size'] || 0
+      playtime_secs = file['playtime_secs'] || 0
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
       extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
@@ -236,9 +237,9 @@ class Lesson < ActiveRecord::Base
         secure = sp.content_security_level
 
         file_asset = FileAsset.new(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
-                                   lastuser: 'system', servername: server, secure: secure)
+                                   playtime_secs: playtime_secs, lastuser: 'system', servername: server, secure: secure)
       elsif !dry_run
-        file_asset.update_attributes(filedate: datetime, filesize: size, lastuser: 'system', servername: server)
+        file_asset.update_attributes(filedate: datetime, filesize: size, playtime_secs: playtime_secs, lastuser: 'system', servername: server)
       end
 
       if !dry_run && !container.file_asset_ids.include?(file_asset.id)
