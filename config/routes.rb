@@ -2,13 +2,19 @@ Kmedia::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  devise_for :users
+  devise_for :users  do
+    get '/login' => 'devise/sessions#new'
+  end
   resources :users
 
   #resources :lessons, :only => [:index, :show] -- for RSS
 
   resources :searches
-  resources :ui, :only => [:index, :show]
+  resources :ui, :only => [:index, :show] do
+    collection do
+      get 'homepage'
+    end
+  end
 
   namespace(:admin) {
     root :to => "searches#index"
@@ -66,5 +72,5 @@ Kmedia::Application.routes.draw do
     end
   }
 
-  root :to => "ui#index"
+  root :to => "ui#homepage"
 end

@@ -28,20 +28,22 @@ class Lesson < ActiveRecord::Base
     }
   end
 
+  LESSON_CONTENT_TYPE_ID = ContentType.find_by_pattern('lesson').id
+
   accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 
-  attr_accessor :v_lessondate, :catalog_tokens, :rss,:label_tokens
+  attr_accessor :v_lessondate, :catalog_tokens, :rss, :label_tokens
   attr_accessor :container_ids
 
   validates :lessonname, :lang, :catalogs, :content_type_id, :presence => true
 
-   class OpenCatalogsValidator < ActiveModel::Validator
-     def validate(record)
-       record.catalogs.each do |catalog|
-           record.errors[:base]<< "Catalog is closed" unless catalog.open
-       end
-     end
-   end
+  class OpenCatalogsValidator < ActiveModel::Validator
+    def validate(record)
+      record.catalogs.each do |catalog|
+        record.errors[:base]<< "Catalog is closed" unless catalog.open
+      end
+    end
+  end
 
   validates_with OpenCatalogsValidator
 
@@ -49,7 +51,7 @@ class Lesson < ActiveRecord::Base
     #, :fields => [:lesson_descriptions]
     def validate(record)
       # At least ENG, RUS and HEB must be non-empty
-      lds = { }
+      lds = {}
       record.lesson_descriptions.map { |x| lds[x.lang] = x.lessondesc }
       if lds['ENG'].blank? || lds['RUS'].blank? || lds['HEB'].blank?
         record.errors[:base] << "Empty Basic Description(s)"
@@ -89,7 +91,7 @@ class Lesson < ActiveRecord::Base
   LOST
   )
 
-  scope :security, lambda{|sec| where(:secure => sec)}
+  scope :security, lambda { |sec| where(:secure => sec) }
 
   def to_label
     lessonname
@@ -163,6 +165,27 @@ class Lesson < ActiveRecord::Base
     end
   end
 
+  def self.last_lesson(before_lesson, after_lesson)
+    lesson = where(content_type_id: LESSON_CONTENT_TYPE_ID)
+    if before_lesson
+      last_date = Lesson.find(before_lesson).lessondate
+      ll = lesson.where('updated < ?', last_date).order('updated desc').first
+      next_lesson = true
+      prev_lesson = lesson.where('updated <= ?', ll.lessondate - 1).order('updated desc').count > 0
+    elsif after_lesson
+      last_date = Lesson.find(after_lesson).lessondate
+      ll = lesson.where('updated > ?', last_date).order('updated desc').first
+      prev_lesson = true
+      next_lesson = lesson.where('updated > ?', ll.lessondate + 1).count > 0
+    else
+      ll = lesson.last
+      last_date = ll.lessondate
+      prev_lesson = lesson.where('updated <= ?', last_date - 1).order('updated desc').count > 0
+      next_lesson = lesson.where('updated >= ?', last_date + 1).order('updated desc').count > 0
+    end
+    [ll, prev_lesson, next_lesson]
+  end
+
   # Register file(s) into a container.
   #
   # Both file(s) and container may exist and will be updated.
@@ -196,7 +219,7 @@ class Lesson < ActiveRecord::Base
         c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
         sp.descriptions.each { |pattern|
           c.lesson_descriptions.build(:lang => pattern.lang, :lessondesc => pattern.description)
-          pattern.catalogs.each {|pc|
+          pattern.catalogs.each { |pc|
             c.catalogs << pc unless c.catalogs.include? pc
           }
         }
@@ -285,7 +308,7 @@ class Lesson < ActiveRecord::Base
 
   def self.get_catalogs_names(catalogs)
     names = []
-    catalogs.each{|c|
+    catalogs.each { |c|
       names << c.catalognodename
     }
     names.join(",")

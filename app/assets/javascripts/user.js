@@ -5,6 +5,8 @@
 //= require_tree ./common
 //= require_tree ./user
 //= require bootstrap
+//= require_tree ../../../lib/assets/javascripts/daterange
+//= require jquery.zclip.min
 
 $(document).ready(function () {
 
@@ -35,4 +37,83 @@ $(document).ready(function () {
 
     });
 
+    $('.show-tooltip').tooltip();
+
+    $('.toggle .switch').click(function () {
+        $('.toggle .switch div').toggleClass('left right');
+        $('.toggle .switch div i').toggleClass('icon-km-small-white-video icon-km-small-white-audio');
+    });
+    $('.toggle .left-switch-link').click(function () {
+        $('.toggle .switch div').removeClass('right').addClass('left');
+        $('.toggle .switch div i').removeClass('icon-km-small-white-audio').addClass('icon-km-small-white-video');
+    });
+    $('.toggle .right-switch-link').click(function () {
+        $('.toggle .switch div').removeClass('left').addClass('right');
+        $('.toggle .switch div i').removeClass('icon-km-small-white-video').addClass('icon-km-small-white-audio');
+    });
+
+});
+
+// search page support
+function content_type(type) {
+    $('#search_content_type_id').val(type);
+    $('#new_search').submit();
+
+    return false;
+}
+
+function media_type(type) {
+    $('#search_media_type_id').val(type);
+    $('#new_search').submit();
+
+    return false;
+}
+
+function date_type(start, end) {
+    $('#search_dates_range').val($('#dates_range').val());
+//    $('#new_search').submit();
+    if (start.getFullYear() == 1000) {
+        $('.daterange').html('Anytime');
+    } else if (start.valueOf() == end.valueOf()) {
+        $('.daterange').html(start.toString('MMMM d, yyyy'));
+    } else {
+//        $('span.daterange').html(start.toString('MMM d, yyyy') + ' - ' + end.toString('MMM d, yyyy'));
+        $('.daterange').html(start.toString('MMMM d, yyyy') + '<br/><i class="icon-km-all"></i> ' + end.toString('MMMM d, yyyy'));
+    }
+
+    return false;
+}
+
+function bind_zero_clipboard() {
+    $('a.clipboard').zclip({
+        path: '/ZeroClipboard.swf',
+        clickAfter: false,
+        copy: function () {
+            return $(this).attr('href');
+        }
+    });
+}
+$(document).ready(function () {
+    $('#dates_range').daterangepicker({
+        opens: (typeof opens_dates_range == 'undefined') ? '' : opens_dates_range,
+        format: 'yyyy-MM-dd',
+        locale: (typeof locale_dates_range == 'undefined') ? '' : locale_dates_range,
+        ranges: {
+            'Anytime': ['1000', '3000'],
+            'Today': ['today', 'today'],
+            'Yesterday': ['yesterday', 'yesterday'],
+            'Last 7 Days': [Date.today().add({ days: -6 }), 'today'],
+            'Last 30 Days': [Date.today().add({ days: -29 }), 'today'],
+            'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
+            'Last Month': [Date.today().moveToFirstDayOfMonth().add({ months: -1 }), Date.today().moveToFirstDayOfMonth().add({ days: -1 })]
+        }
+    }, function (start, end) {
+        date_type(start, end);
+    });
+
+    bind_zero_clipboard();
+
+    $('.languages-bar a[data-toggle="tab"]').on('shown', function (e) {
+        bind_zero_clipboard();
+    });
 });

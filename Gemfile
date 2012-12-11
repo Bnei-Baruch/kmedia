@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 gem 'jquery-rails'
 
 gem 'mysql2', '>= 0.3'
@@ -54,7 +54,7 @@ gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass
 # in production environments by default.
 group :assets do
   gem 'sass-rails', "~> 3.2.0"
-  gem 'coffee-rails', "~> 3.2.0"
+  gem 'coffee-rails', "~> 3.2.0", :require => 'coffee_script'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -62,3 +62,20 @@ gem 'term-ansicolor'
 gem 'exception_notification'
 gem 'jsonify-rails'
 gem 'yajl-ruby', :require => "yajl" # Required if we want json with utf8 strings
+
+# mp3 info
+# require 'open-uri'
+# m = Mp3Info.open(open('http://files.kabbalahmedia.info/audio/rus_t_rav_achana_2012-11-21_lesson.mp3'))
+# m.length # in seconds
+gem 'ruby-mp3info', :require => 'mp3info'
+
+# wma/wmv/asf info
+# f = WmaInfo.new('data/3.wmv')
+# f.info['playtime_seconds']
+gem 'moumar-wmainfo-rb', :git => 'https://github.com/moumar/wmainfo-rb.git', :require => 'wmainfo'
+
+#gem 'mp4info', git: 'git://github.com/arbarlow/ruby-mp4info.git', require: 'mp4info'
+# info = MP4Info.open('data/4.mp4')
+# info.SECS or "#{info.MM}:#{info.SS}.#{info.MS}"
+
+# antiword - to extract text from .doc file

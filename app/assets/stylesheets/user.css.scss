@@ -4,6 +4,14 @@
 */
 @import "bootstrap";
 @import "icon-km";
+@import "daterangepicker.css";
+
+// Bootstrap override begin
+.caret {
+  margin-top: 8px !important;
+}
+
+// Bootstrap override end
 
 body {
   background: #ccc;
@@ -12,10 +20,6 @@ body {
 
 #sidebar {
   background: #fff;
-  //opacity: 0.5;
-  //margin-right: 20px;
-  //width: 200px;
-  //@include box-shadow(0 1px 2px rgba(0,0,0,0.5));
   @include border-radius(5px);
   padding: 0 0 15px;
 }
@@ -52,34 +56,6 @@ header {
   }
 }
 
-//.item {
-//  background: #777;
-//  margin-bottom: 20px;
-//  margin-top: 10px;
-//  @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.7));
-//  border-radius: 5px;
-//  @include clearfix;
-//  .meta {
-//    text-align: center;
-//    padding: 0 10px;
-//    width: 60px;
-//    float: left;
-//  }
-//  .data {
-//    background: #fff;
-//    position: relative;
-//    border-radius: 0 5px 5px 0;
-//    float: right;
-//    overflow: hidden;
-//    padding: 0 10px;
-//    width: 600px;
-//    h4 {
-//      margin-top: 0;
-//      padding-top: 10px;
-//    }
-//  }
-//}
-
 .padding-both {
   padding: 0 10px;
 }
@@ -101,6 +77,12 @@ header {
   h3, h4 {
     margin: 0 0 10px;
     line-height: 1.2;
+    small.pull-right {
+      line-height: 38px;
+      a.active {
+        text-decoration: underline;
+      }
+    }
   }
   table {
     font-size: 12px;
@@ -109,7 +91,6 @@ header {
 
 .item-list {
   background: #777;
-  overflow: hidden;
   padding: 0;
   .span1 {
     margin-right: -20px;
@@ -123,12 +104,17 @@ header {
     .badge {
       display: block;
       margin-bottom: 6px;
-      padding: 1px 6px 2px;
+      padding: 3px 0 2px;
+      font-size: 10px;
+    }
+    .padding-both-8 {
+      padding: 0 8px;
     }
   }
   .span8 {
     background: #fff;
     padding: 10px 0;
+    @include border-radius(0 5px 5px 0);
   }
 }
 
@@ -229,6 +215,11 @@ header {
   .pagination ul {
     background: #fff;
   }
+  ul > .disabled {
+    & > span, & > a, & > a:hover {
+      background-color: #F5F5F5;
+    }
+  }
 }
 
 .categories_window_body {
@@ -292,6 +283,7 @@ header {
   .navbar {
     font-size: 13px;
     text-align: center;
+    position: relative;
     .nav {
       float: none;
       margin: 0;
@@ -312,10 +304,122 @@ header {
     margin: 0;
     width: 0 !important;
   }
+  .category-modal {
+    margin: 0;
+    top: 45px;
+    left: -1px;
+    position: absolute;
+    width: 100%;
+  }
 }
 
-.pagination .disabled span, .pagination .disabled a, .pagination .disabled a:hover {
-  background-color: #F5F5F5;
-  color: #999999;
-  cursor: default;
+.toggle {
+  width: 200px;
+  margin: 7px 0;
+  i {
+    vertical-align: baseline;
+  }
+  .left-switch-link, .right-switch-link {
+    float: right;
+    line-height: 26px;
+  }
+  .switch {
+    cursor: pointer;
+    float: right;
+    width: 66px;
+    height: 22px;
+    position: relative;
+    background: #d6d6d6;
+    padding: 3px;
+    margin: 0 7px;
+    @include border-radius(4px);
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.2));
+    div {
+      position: absolute;
+      width: 30px;
+      height: 20px;
+      padding: 0;
+      top: 3px;
+      @include transition(left 0.1s);
+      i {
+        opacity: 1;
+        margin: 4px 0 6px;
+      }
+    }
+  }
+  .left {
+    left: 3px;
+  }
+  .right {
+    left: 37px;
+  }
+  i {
+    margin: 5px 10px 5px 11px;
+    opacity: 0.3;
+  }
 }
+
+.media-table {
+  font-size: 12px;
+  tbody td, thead th {
+    padding: 0 5px;
+    text-align: center;
+    position: relative;
+  }
+  tbody td {
+    vertical-align: middle;
+  }
+  thead th {
+    white-space: nowrap;
+  }
+  .left-aligned-column {
+    text-align: left;
+  }
+  a {
+    display: block;
+  }
+}
+
+.tab-content {
+  overflow: visible;
+}
+
+#dates_range {
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  padding: 3px 15px;
+  margin-right: -15px;
+  margin-left: -15px;
+  .daterange {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    color: #0088cc;
+  }
+  .caret {
+    position: absolute;
+    top: 0;
+    right: 15px;
+  }
+}
+
+.daterangepicker.opensright {
+  margin-left: 19px;
+  margin-top: 4px;
+  &::after {
+    left: 84px;
+  }
+  &::before {
+    left: 83px;
+  }
+  .ranges {
+    margin: 5px 10px !important;
+    li {
+      margin-bottom: 5px;
+      @include border-radius(2px);
+    }
+  }
+  .calendar {
+    margin: 5px 10px 5px 0;
+  }
+}
+

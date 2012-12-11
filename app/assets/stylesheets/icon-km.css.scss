@@ -3,24 +3,21 @@
   width: 16px;
   height: 17px;
   line-height: 17px;
-  background-image: asset-url('km_icons.png', image) !important;
+  background-image: url(https://dl.dropbox.com/u/208274/km_icons.png)!important; //asset-url('km_icons.png', image) !important;
 }
-
 [class^="icon-km-big"],
 [class*=" icon-km-big"] {
   width: 48px;
   height: 48px;
   line-height: 48px;
 }
-
 [class^="icon-km-small"],
 [class*=" icon-km-small"] {
   width: 11px;
   height: 12px;
   line-height: 12px;
-  margin: 0;
+  margin:0 2px;
 }
-
 [class^="icon-km-special"],
 [class*=" icon-km-special"] {
   width: 14px;
@@ -28,181 +25,62 @@
   line-height: 15px;
 }
 
-.active .icon-km-all {
-  background-position: 0 0;
-}
+.active > .icon-km-all          { background-position:0 0; }
+.active > .icon-km-lesson       { background-position:-24px 0; }
+.active > .icon-km-lecture      { background-position:-48px 0; }
+.active > .icon-km-program      { background-position:-72px 0; }
+.active > .icon-km-song         { background-position:-96px 0; }
+.active > .icon-km-clip         { background-position:-120px 0; }
+.active > .icon-km-book         { background-position:-144px 0; }
+.active > .icon-km-declamation  { background-position:-168px 0; }
+.active > .icon-km-audio        { background-position:-192px 0; }
+.active > .icon-km-video        { background-position:-216px 0; }
+.active > .icon-km-text         { background-position:-240px 0; }
+.active > .icon-km-image        { background-position:-264px 0; }
+.active > .icon-km-today        { background-position:-288px 0; }
+.active > .icon-km-week         { background-position:-312px 0; }
+.active > .icon-km-month        { background-position:-336px 0; }
+.active > .icon-km-daterange    { background-position:-360px 0; }
 
-.active .icon-km-lesson {
-  background-position: -24px 0;
-}
+.icon-km-all          { background-position:0 -24px; }
+.icon-km-lesson       { background-position:-24px -24px; }
+.icon-km-lecture      { background-position:-48px -24px; }
+.icon-km-program      { background-position:-72px -24px; }
+.icon-km-song         { background-position:-96px -24px; }
+.icon-km-clip         { background-position:-120px -24px; }
+.icon-km-book         { background-position:-144px -24px; }
+.icon-km-declamation  { background-position:-168px -24px; }
+.icon-km-audio        { background-position:-192px -24px; }
+.icon-km-video        { background-position:-216px -24px; }
+.icon-km-text         { background-position:-240px -24px; }
+.icon-km-image        { background-position:-264px -24px; }
+.icon-km-today        { background-position:-288px -24px; }
+.icon-km-week         { background-position:-312px -24px; }
+.icon-km-month        { background-position:-336px -24px; }
+.icon-km-daterange    { background-position:-360px -24px; }
 
-.active .icon-km-lecture {
-  background-position: -48px 0;
-}
+.icon-km-big-,
+.icon-km-big-lesson       { background-position:0 -48px; }
+.icon-km-big-lecture      { background-position:-48px -48px; }
+.icon-km-big-program      { background-position:-96px -48px; }
+.icon-km-big-song         { background-position:-144px -48px; }
+.icon-km-big-clip         { background-position:-192px -48px; }
+.icon-km-big-book         { background-position:-240px -48px; }
+.icon-km-big-declamation  { background-position:-288px -48px; }
 
-.active .icon-km-program {
-  background-position: -72px 0;
-}
+.icon-km-small-audio        { background-position:0 -120px; }
+.icon-km-small-video        { background-position:-24px -120px; }
+.icon-km-small-text         { background-position:-48px -120px; }
+.icon-km-small-image        { background-position:-72px -120px; }
 
-.active .icon-km-song {
-  background-position: -96px 0;
-}
+.icon-km-small-white-audio        { background-position:0 -96px; }
+.icon-km-small-white-video        { background-position:-24px -96px; }
+.icon-km-small-white-text         { background-position:-48px -96px; }
+.icon-km-small-white-image        { background-position:-72px -96px; }
 
-.active .icon-km-clip {
-  background-position: -120px 0;
-}
-
-.active .icon-km-book {
-  background-position: -144px 0;
-}
-
-.active .icon-km-declamation {
-  background-position: -168px 0;
-}
-
-.active .icon-km-audio {
-  background-position: -192px 0;
-}
-
-.active .icon-km-video {
-  background-position: -216px 0;
-}
-
-.active .icon-km-text {
-  background-position: -240px 0;
-}
-
-.active .icon-km-image {
-  background-position: -264px 0;
-}
-
-.active .icon-km-today {
-  background-position: -288px 0;
-}
-
-.active .icon-km-week {
-  background-position: -312px 0;
-}
-
-.active .icon-km-month {
-  background-position: -336px 0;
-}
-
-.active .icon-km-daterange {
-  background-position: -360px 0;
-}
-
-.icon-km-all {
-  background-position: 0 -24px;
-}
-
-.icon-km-lesson {
-  background-position: -24px -24px;
-}
-
-.icon-km-lecture {
-  background-position: -48px -24px;
-}
-
-.icon-km-program {
-  background-position: -72px -24px;
-}
-
-.icon-km-song {
-  background-position: -96px -24px;
-}
-
-.icon-km-clip {
-  background-position: -120px -24px;
-}
-
-.icon-km-book {
-  background-position: -144px -24px;
-}
-
-.icon-km-declamation {
-  background-position: -168px -24px;
-}
-
-.icon-km-audio {
-  background-position: -192px -24px;
-}
-
-.icon-km-video {
-  background-position: -216px -24px;
-}
-
-.icon-km-text {
-  background-position: -240px -24px;
-}
-
-.icon-km-image {
-  background-position: -264px -24px;
-}
-
-.icon-km-today {
-  background-position: -288px -24px;
-}
-
-.icon-km-week {
-  background-position: -312px -24px;
-}
-
-.icon-km-month {
-  background-position: -336px -24px;
-}
-
-.icon-km-daterange {
-  background-position: -360px -24px;
-}
-
-.icon-km-big-lesson {
-  background-position: 0 -48px;
-}
-
-.icon-km-big-lecture {
-  background-position: -48px -48px;
-}
-
-.icon-km-big-program {
-  background-position: -96px -48px;
-}
-
-.icon-km-big-song {
-  background-position: -144px -48px;
-}
-
-.icon-km-big-clip {
-  background-position: -192px -48px;
-}
-
-.icon-km-big-book {
-  background-position: -240px -48px;
-}
-
-.icon-km-big-declamation {
-  background-position: -288px -48px;
-}
-
-.icon-km-small-audio {
-  background-position: 0 -96px;
-}
-
-.icon-km-small-video {
-  background-position: -24px -96px;
-}
-
-.icon-km-small-text {
-  background-position: -48px -96px;
-}
-
-.icon-km-small-image {
-  background-position: -72px -96px;
-}
-
-.icon-km-special-close {
+.icon-km-special-close  {
   background-position: 0 -120px;
   position: absolute;
-  top: 9px;
-  right: 9px;
+  top:9px;
+  right:9px;
 }

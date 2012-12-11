@@ -1,3 +1,6 @@
 .row.show-grid
   = render :partial => 'sidebar'
-  = render :partial => 'index_content'
+  - if @results.is_a?(String) || !@results || @results.results.empty?
+    No results
+  - else
+    = render :partial => 'show_content'

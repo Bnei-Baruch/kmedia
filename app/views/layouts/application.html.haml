@@ -11,6 +11,8 @@
     %meta(name="author" content="")
 
     = stylesheet_link_tag 'user'
+    :javascript
+      var zclip_list = new Array;
 
     = csrf_meta_tag
     = yield(:head)
@@ -23,8 +25,7 @@
   %body
     = render 'common/navbar'
     .container
-      .topbanner
-      -#= render 'common/header'
+      = render 'common/topbanner'
       = yield
 
     = javascript_include_tag 'user'
