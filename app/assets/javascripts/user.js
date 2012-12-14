@@ -16,7 +16,15 @@ $(document).ready(function () {
     });
 
     //Categories Popup
-    $('.categories a').click(function () {
+    $('#content .nav li').on('click', function () {
+        $('#content .nav li').removeClass('active');
+        $('.category-modal').modal('hide');
+        $(this).addClass('active');
+    });
+    $('.category-modal').on('hidden', function () {
+        $('#content .nav li').removeClass('active');
+    });
+    $('.categories a').on('click', function () {
         var current_column = $(this).parents('.categories');
         var current_links = current_column.find('a');
         var item_index = current_links.index(this);

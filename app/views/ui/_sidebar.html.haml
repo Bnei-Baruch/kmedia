@@ -1,22 +1,6 @@
 #sidebar.span3
   %ul.nav.nav-list
     %li.nav-header Filter by Date
-    -#%li(class='#{@active_date_type == 'anytime' ? 'active' : 'x'}')
-    -#  %a{:href => '#', :onclick => 'return date_type("anytime");'}
-    -#    %i.icon-km-all
-    -#    Anytime
-    -#%li(class='#{@active_date_type == 'today' ? 'active' : 'x'}')
-    -#  %a{:href => '#', :onclick => 'return date_type("today");'}
-    -#    %i.icon-km-today
-    -#    Today
-    -#%li(class='#{@active_date_type == 'this_week' ? 'active' : 'x'}')
-    -#  %a{:href => '#', :onclick => 'return date_type("this_week");'}
-    -#    %i.icon-km-week
-    -#    Current Week
-    -#%li(class='#{@active_date_type == 'this_month' ? 'active' : 'x'}')
-    -#  %a{:href => '#', :onclick => 'return date_type("this_month");'}
-    -#    %i.icon-km-month
-    -#    Current Month
     %li
       %a#dates_range(href='javascript:;')
         %i.icon-km-month
