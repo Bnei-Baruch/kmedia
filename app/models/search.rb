@@ -75,18 +75,14 @@ class Search
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
 
         query.with(:lessondate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
-        query.with(:lessondate).greater_than @date_from if @date_from.present?
-        query.with(:lessondate).less_than @date_to if @date_to.present?
+        query.with(:lessondate).greater_than @date_from if @date_from.present? && !@date_to.present?
+        query.with(:lessondate).less_than @date_to if @date_to.present? && @date_to.present?
+
+        query.order_by :lessondate
       end
     rescue Net::HTTPFatalError => e
-      if e.data.kind_of?(Net::HTTPInternalServerError)
-        if /<h1>([^\n]+)\n/ =~ e.data.body
-          @error = "---- Solr exception -----#{$1}"
-        else
-          @error = "---- Solr exception -----#{$!}"
-        end
-        false
-      end
+      @error = set_search_network_error(e)
+      false
     rescue
       @error = "---- Solr exception -----#{$!}"
       false
@@ -108,15 +104,21 @@ class Search
         query.order_by order
       end
     rescue Net::HTTPFatalError => e
-      if e.data.kind_of?(Net::HTTPInternalServerError)
-        if /<h1>([^\n]+)\n/ =~ e.data.body
-          "---- Solr exception: #{$1}"
-        else
-          "---- Solr exception: #{$!}"
-        end
-      end
+      @error = set_search_network_error(e)
+      false
     rescue
       "---- Solr exception: #{$!}"
+    end
+  end
+
+  private
+  def set_search_error(e)
+    if e.data.kind_of?(Net::HTTPInternalServerError)
+      if /<h1>([^\n]+)\n/ =~ e.data.body
+        "---- Solr exception: #{$1}"
+      else
+        "---- Solr exception: #{$!}"
+      end
     end
   end
 
