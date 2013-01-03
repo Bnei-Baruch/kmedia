@@ -12,7 +12,8 @@ gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
 gem 'nokogiri'
 gem "ckeditor", "3.7.1"
 gem "paperclip"
-gem 'thin'
+#gem 'thin'
+gem 'puma'
 
 gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
 
@@ -31,7 +32,6 @@ group :development, :test do
   gem "ruby-debug-base19x", '>= 0.11.30.pre10'
   gem "ruby-debug-ide", '>= 0.4.17.beta14'
   gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
-  gem 'thin'
   gem "sextant" # rake routes in the browser
   gem 'bullet'
 
