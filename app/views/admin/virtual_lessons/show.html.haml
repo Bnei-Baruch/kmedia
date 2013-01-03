@@ -1,0 +1,49 @@
+%header.subhead#overview
+  %h2 Virtual Lesson
+  .subnav
+    %ul.nav.nav-pills
+      -if can?(:edit_descriptions, @virtual_lesson)
+        %li
+          = link_to "Edit", edit_admin_virtual_lesson_path(@virtual_lesson)
+      -if can?(:destroy, @virtual_lesson)
+        %li
+          = link_to "Destroy", admin_virtual_lesson_path(@virtual_lesson), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
+      -if can?(:read, @virtual_lesson)
+        %li
+          = link_to "View All", admin_virtual_lessons_path
+
+%section.well
+  = display_show_item('ID', @virtual_lesson.id)
+  = display_show_item('Film Date', @virtual_lesson.film_date)
+  = display_show_item('Created', @virtual_lesson.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @virtual_lesson.updated_at.to_s(:long_ordinal))
+
+%section
+  %strong Lessons:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Filming Date
+        %th Created Date
+        %th Updated Date
+        %th Language
+    %tbody
+      - @virtual_lesson.lessons.each do |asset|
+        %tr
+          %td= asset.id
+          %td= asset.lessonname
+          %td= asset.lessondate.try(:to_date)
+          %td= asset.created.try(:to_date)
+          %td= asset.updated.try(:to_date)
+          %td= asset.lang
+          -if can?(:read, asset)
+            %td
+              = link_to 'Show', admin_file_asset_path(asset)
+          -if can?(:update, asset)
+            %td
+              = link_to 'Edit', edit_admin_file_asset_path(asset)
+          -if can?(:destroy, asset)
+            %td
+              = link_to 'Destroy', admin_file_asset_path(asset), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
