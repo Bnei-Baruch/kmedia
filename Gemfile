@@ -12,7 +12,7 @@ gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
 gem 'nokogiri'
 gem "ckeditor", "3.7.1"
 gem "paperclip"
-#gem 'thin'
+gem 'thin'
 gem 'puma'
 
 gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
