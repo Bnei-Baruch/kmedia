@@ -30,6 +30,8 @@ class FileAsset < ActiveRecord::Base
   before_create :create_timestamps
   before_update :update_timestamps
 
+  scope :latest_updates, -> amount {order('updated DESC').limit(amount) }
+
   def create_timestamps
     write_attribute :created, Time.now
     write_attribute :updated, Time.now
@@ -43,11 +45,20 @@ class FileAsset < ActiveRecord::Base
     server.httpurl + '/' + filename
   end
 
+  def download_url
+    uri = URI(server.httpurl)
+    "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{filename}"
+  end
+
   def typename
     FileType.ext_to_type(filetype)
   end
 
   def icon
     FileType.ext_to_icon(filetype)
+  end
+
+  def <=>(other)
+    self.filetype <=> other.filetype
   end
 end

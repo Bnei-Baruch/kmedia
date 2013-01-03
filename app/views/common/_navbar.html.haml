@@ -1,0 +1,17 @@
+.navbar.navbar-fixed-top.navbar-inverse
+  .navbar-inner
+    .container
+      %a{:class => 'brand', :href => '#'} Kabbalah Media
+      %ul.nav
+        %li.active
+          = link_to 'Home', root_path
+        %li
+          %a{:href => '#'} Link
+        %li
+          %a{:href => '#'} Link
+      = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'form-search navbar-search pull-right', :method => :get} do |f|
+        = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query span4', :text => 'Search'}, :wrapper => :bootstrap_search
+        = f.input :content_type_id, as: :hidden
+        = f.input :media_type_id, as: :hidden
+        = f.input :date_type, as: :hidden
+        = f.input :dates_range, as: :hidden

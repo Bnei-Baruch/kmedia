@@ -55,6 +55,17 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :bootstrap_search, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+    b.use :placeholder
+    b.use :label, :class => 'control-label'
+    b.use :tag => 'div', :class => 'input-append controls error' do |ba|
+      ba.use :input
+      ba.use :submit_button
+      ba.use :error, :tag => 'span', :class => 'help-inline'
+      ba.use :hint,  :tag => 'p', :class => 'help-block'
+    end
+  end
+
   config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
     b.use :placeholder
     b.use :label, :class => 'control-label'
@@ -167,4 +178,19 @@ SimpleForm.setup do |config|
 
   # Cache simple form inputs discovery
   # config.cache_discovery = !Rails.env.development?
+end
+
+module SimpleForm
+  module Components
+    module Description
+      def submit_button
+        "<button class='btn' type='submit'>#{options[:input_html][:text] || 'Search'}</button>"
+      end
+    end
+  end
+  module Inputs
+    class Base
+      include SimpleForm::Components::Description
+    end
+  end
 end

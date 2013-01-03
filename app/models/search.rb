@@ -3,8 +3,8 @@ class Search
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :query_string, :language_ids, :content_type_ids, :file_type_ids, :media_type_ids,
-                :catalog_id, :catalog_ids, :date_from, :date_to, :model
+  attr_accessor :query_string, :content_type_id, :file_type_ids, :media_type_id, :date_type, :dates_range, :date_from, :date_to,
+                :catalog_id, :catalog_ids, :model, :language_ids
 
   attr_accessor :error
 
@@ -45,21 +45,33 @@ class Search
 
   def file_type_ids=(ids)
     @file_type_ids = ids.select { |id| id.present? }
-    @media_type_ids = ids.select { |id| id.present? }.map do |fname|
-      FileType.find(fname).try(:extlist).split(',')
-    end.flatten.uniq.compact
   end
 
-  def content_type_ids=(ids)
-    @content_type_ids = ids.select { |id| id.present? }
+  def media_type_id=(name)
+    @media_type_id = (name == 'all' || name.blank?) ? nil : name
+    @media_exts = (name == 'all' || name.blank?) ? [] : FileType.find_by_typename(name == 'image' ? 'graph' : name).extlist.split(',')
   end
 
-  def date_to=(string)
-    @date_to = string.to_date
+  def content_type_id=(id)
+    @content_type_id = id == '0' ? nil : id
   end
 
-  def date_from=(string)
-    @date_from = string.to_date
+  def date_from
+    if @date_type == 'range'
+      m = /([^\s]+)\s+-\s+(.*)/.match(@dates_range)
+      Time.parse(m[1])
+    else
+      Time.now
+    end
+  end
+
+  def date_to
+    if @date_type == 'range'
+      m = /([^\s]+)\s+-\s+(.*)/.match(@dates_range)
+      Time.parse(m[2])
+    else
+      Time.now
+    end
   end
 
   def search_full_text(page_no)
@@ -69,16 +81,29 @@ class Search
         query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => 30
         query.with(:secure, 0)
-        query.with(:content_type_id).any_of @content_type_ids if @content_type_ids.present?
+        query.with(:content_type_id, @content_type_id) if @content_type_id.present?
         query.with(:file_language_ids).any_of @language_ids if @language_ids.present?
-        query.with(:media_type_ids).any_of @media_type_ids if @media_type_ids.present?
+        query.with(:media_type_ids).any_of @media_exts if @media_type_id.present?
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
 
-        query.with(:lessondate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
-        query.with(:lessondate).greater_than @date_from if @date_from.present? && !@date_to.present?
-        query.with(:lessondate).less_than @date_to if @date_to.present? && @date_to.present?
+        case @date_type
+          when 'today'
+            query.with(:lessondate).between Range.new(Time.now.beginning_of_day, Time.now.end_of_day)
+          when 'this_week'
+            query.with(:lessondate).between Range.new(Time.now.beginning_of_week, Time.now.end_of_week)
+          when 'this_month'
+            query.with(:lessondate).between Range.new(Time.now.beginning_of_month, Time.now.end_of_month)
+          when 'this_year'
+            query.with(:lessondate).between Range.new(Time.now.beginning_of_year, Time.now.end_of_year)
+          when 'range'
+            query.with(:lessondate).between Range.new(date_from, date_to)
 
-        query.order_by :lessondate
+          #query.with(:lessondate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
+          #query.with(:lessondate).greater_than @date_from if @date_from.present? && !@date_to.present?
+          #query.with(:lessondate).less_than @date_to if @date_to.present? && @date_to.present?
+        end
+
+        query.order_by :lessondate, :desc
       end
     rescue Net::HTTPFatalError => e
       @error = set_search_network_error(e)

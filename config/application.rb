@@ -51,5 +51,14 @@ module Kmedia
     config.filter_parameters += [:password]
 
     config.jsonify_format = :compile
+
+    config.active_record.schema_format = :sql
+
+    # don't generate RSpec tests for views and helpers
+    # we’re using Cucumber scenarios (integration tests)
+    config.generators do |g|
+      g.view_specs false
+      g.helper_specs false
+    end
   end
 end

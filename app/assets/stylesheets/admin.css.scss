@@ -37,22 +37,6 @@ body {
   }
   ul.nav {
     clear: left;
-    li {
-      a {
-        color: rgba(255, 255, 255, 0.8);
-        &:hover {
-          color: white;
-        }
-      }
-      ul.dropdown-menu{
-        a {
-          color: #555;
-          &:hover {
-            color: black;
-          }
-        }
-      }
-    }
   }
 }
 

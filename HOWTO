@@ -1,0 +1,8 @@
+Import MySQL DB:
+cd to the dump location
+mysql -uroot -p
+mysql> use `kmedia`
+mysql> source kabbalahmedia.sql
+
+Change root password:
+http://ubuntu.flowconsult.at/en/mysql-set-change-reset-root-password/

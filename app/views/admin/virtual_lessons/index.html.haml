@@ -1,0 +1,30 @@
+%header.subhead#overview
+  %h2 Virtual Lessons
+  -#-if can?(:create, Lesson)
+  -#  %p
+  -#    = link_to "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right'
+
+%section
+  = paginate @virtual_lessons
+
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th= sortable("id", "ID", @filter)
+        %th= sortable("film_date", "Film Date", @filter)
+        %th= sortable("lessons", "Lessons", @filter)
+        %th= sortable("created_at", "Created", @filter)
+        %th= sortable("updated_at", "Updated", @filter)
+        = display_actions_title_for_lessons
+    %tbody
+      -@virtual_lessons.each do |virtual_lesson|
+        %tr
+          %td= virtual_lesson.id
+          %td= virtual_lesson.film_date.try(:to_date)
+          %td= virtual_lesson.lessons.count
+          %td= virtual_lesson.created_at.try(:to_date)
+          %td= virtual_lesson.updated_at.try(:to_date)
+          %td= link_to 'Show', admin_virtual_lesson_path(virtual_lesson)
+          -if can?(:destroy, virtual_lesson)
+            %td
+              = link_to 'Destroy', admin_virtual_lesson_path(virtual_lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'

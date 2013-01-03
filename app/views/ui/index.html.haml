@@ -1,7 +1,6 @@
-.row
-  .span3
-    left column
-  .span7
-    middle column
-  .span2
-    right column
+.row.show-grid
+  = render :partial => 'sidebar'
+  - if @results.is_a?(String) || !@results || @results.results.empty?
+    No results
+  - else
+    = render :partial => 'show_content'

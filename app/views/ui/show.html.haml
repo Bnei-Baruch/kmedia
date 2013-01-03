@@ -1,0 +1,54 @@
+.row.show-grid
+  = render :partial => 'sidebar'
+  #content.span9
+    .item
+      .padding-both
+        %h3
+          Item Metadata
+        %dl.dl-horizontal
+          %dt Item Name
+          %dd!= lesson_title(@item)
+          %dt Item Type
+          %dd= type_of_item_text(@item)
+          %dt Date
+          %dd= creation_date(@item)
+          %dt Description
+          %dd= lesson_description(@item)
+        %h3 Available Media
+        - available_languages = available_languages(@item.file_assets)
+        .languages-bar
+          %ul.nav.nav-tabs
+            %li.tabs-title Available languages:
+            %li.active
+              %a{:href => "#all-media", :'data-toggle' => 'tab'} All
+            - available_languages.each do |l|
+              %li
+                %a{:href => "##{l}-media", :'data-toggle' => 'tab'}= l.upcase
+        .tab-content
+          #all-media.active.tab-pane.fade.in
+            %table.media-table.table.table-striped.table-hover.table-bordered
+              %thead
+                %tr
+                  %th.left-aligned-column Date
+                  %th.left-aligned-column Container Name
+                  %th File Type
+                  %th Language
+                  %th Download
+                  %th Copy Link
+              %tbody
+                = list_items_all(@item)
+
+          - available_languages.each do |l|
+            .tab-pane.fade.in{:id => "#{l}-media"}
+              %table.media-table.table.table-striped.table-hover.table-bordered
+                %thead
+                  %tr
+                    %th.left-aligned-column Date
+                    %th.left-aligned-column Container Name
+                    %th File Type
+                    %th Language
+                    %th Download
+                    %th Copy Link
+                %tbody
+                  = list_items_lang(@item, l)
+
