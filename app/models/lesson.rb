@@ -30,6 +30,12 @@ class Lesson < ActiveRecord::Base
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType.find_by_pattern('lesson').id
+  PREPARATION = Catalog.find_by_catalognodename('lesson_preparation').id
+  FIRST_PART = Catalog.find_by_catalognodename('lesson_first-part').id
+  SECOND_PART = Catalog.find_by_catalognodename('lesson_second-part').id
+  THIRD_PART = Catalog.find_by_catalognodename('lesson_third-part').id
+  FOURTH_PART = Catalog.find_by_catalognodename('lesson_fourth-part').id
+  FIFTH_PART = Catalog.find_by_catalognodename('lesson_fifth-part').id
 
   accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 
@@ -167,22 +173,20 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.last_lesson(before_lesson, after_lesson)
-    lesson = where(content_type_id: LESSON_CONTENT_TYPE_ID)
     if before_lesson
-      last_date = Lesson.find(before_lesson).lessondate
-      ll = lesson.where('updated < ?', last_date).order('updated desc').first
+      last_date = VirtualLesson.find(before_lesson).created_at
+      ll = VirtualLesson.where('created_at < ?', last_date).order('created_at desc').first
       next_lesson = true
-      prev_lesson = lesson.where('updated <= ?', ll.lessondate - 1).order('updated desc').count > 0
+      prev_lesson = VirtualLesson.where('created_at < ?', ll.created_at).count > 0
     elsif after_lesson
-      last_date = Lesson.find(after_lesson).lessondate
-      ll = lesson.where('updated > ?', last_date).order('updated desc').first
+      last_date = VirtualLesson.find(after_lesson).first.created_at
+      ll = VirtualLesson.where('created_at > ?', last_date).order('created_at desc').first
       prev_lesson = true
-      next_lesson = lesson.where('updated > ?', ll.lessondate + 1).count > 0
+      next_lesson = VirtualLesson.where('created_at > ?', ll.created_at).count > 0
     else
-      ll = lesson.last
-      last_date = ll.lessondate
-      prev_lesson = lesson.where('updated <= ?', last_date - 1).order('updated desc').count > 0
-      next_lesson = lesson.where('updated >= ?', last_date + 1).order('updated desc').count > 0
+      ll = VirtualLesson.last
+      prev_lesson = VirtualLesson.where('created_at < ?', ll.created_at).count > 0
+      next_lesson = false
     end
     [ll, prev_lesson, next_lesson]
   end
@@ -236,10 +240,12 @@ class Lesson < ActiveRecord::Base
           c.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
         }
         AutoCatalogAssignment.match_catalog(c) unless dry_run
+        create_virtual_lesson(container) unless dry_run
       end
     }
     my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")
-    dry_run || container.save!(:validate => false)
+
+    container.save!(:validate => false) unless dry_run
 
     (files || []).each do |file|
       name = file['file']
@@ -312,6 +318,27 @@ class Lesson < ActiveRecord::Base
     catalogs.each { |c|
       names << c.catalognodename
     }
-    names.join(",")
+    names.join(',')
   end
+
+  def self.create_virtual_lesson(container)
+    return unless container.content_type_id == LESSON_CONTENT_TYPE_ID # Not a lesson
+    return if container.virtual_lesson.present? # Already belongs to some virtual lesson
+
+    ids = container.catalogs.map(&:id)
+    if ids.include?(FIRST_PART) ||
+        ids.include?(SECOND_PART) ||
+        ids.include?(THIRD_PART) ||
+        ids.include?(FOURTH_PART) ||
+        ids.include?(FIFTH_PART)
+      # first_part - create a new container or add to last_container
+      # second_part...fifth_part - add to last_container
+      vl = VirtualLesson.last
+      vl = nil if vl.film_date != container.lessondate # first part without preparation or non-first part comes first... happens...
+    end
+
+    vl = VirtualLesson.create({film_date: container.lessondate}, without_protection: true) unless vl
+    container.virtual_lesson = vl
+  end
+
 end

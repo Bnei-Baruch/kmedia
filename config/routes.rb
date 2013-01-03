@@ -19,6 +19,8 @@ Kmedia::Application.routes.draw do
   namespace(:admin) {
     root :to => "searches#index"
 
+    resources :virtual_lessons
+
     resources :lessons do
       member do
         get 'parse_lesson_name'

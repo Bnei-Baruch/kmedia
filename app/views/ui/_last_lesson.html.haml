@@ -2,15 +2,16 @@
   .padding-both
     %h4.clearfix
       %a.pull-left
-        = @last_lesson.lessonname
-        = @last_lesson.created.strftime '%Y-%02m-%02d'
+        - @last_lessons.each do |ll|
+          = ll.lessonname
+        = @last_lessons[0].created.strftime '%Y-%02m-%02d'
       .pull-right
         - if @prev_lesson
-          = link_to '<', url_for(:before_lesson => @last_lesson.lessonid)
+          = link_to '<', url_for(:before_lesson => @last_virtual_lesson.id)
         - else
           &lt;
         - if @next_lesson
-          = link_to '>', url_for(:after_lesson => @last_lesson.lessonid)
+          = link_to '>', url_for(:after_lesson => @last_virtual_lesson.id)
         - else
           &gt;
     - available_languages = @last_lesson
