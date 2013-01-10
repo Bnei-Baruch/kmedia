@@ -77,7 +77,7 @@ class Search
   def search_full_text(page_no)
     query_text = query_string_normalized
     begin
-      Sunspot.search(Lesson) do |query|
+      Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions, :server]) do |query|
         query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => 30
         query.with(:secure, 0)
@@ -97,10 +97,6 @@ class Search
             query.with(:lessondate).between Range.new(Time.now.beginning_of_year, Time.now.end_of_year)
           when 'range'
             query.with(:lessondate).between Range.new(date_from, date_to)
-
-          #query.with(:lessondate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
-          #query.with(:lessondate).greater_than @date_from if @date_from.present? && !@date_to.present?
-          #query.with(:lessondate).less_than @date_to if @date_to.present? && @date_to.present?
         end
 
         query.order_by :lessondate, :desc

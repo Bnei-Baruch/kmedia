@@ -4,7 +4,7 @@ module SearchHelper
     pattern = item.content_type.try(:pattern)
     pattern = 'program' if pattern == 'magazine'
     pattern = 'image' if pattern == 'graph'
-    "<i class='icon-km-big-#{}'></i>".html_safe
+    "<i class='icon-km-big-#{pattern}'></i>".html_safe
   end
 
   def type_of_item_text(item)
@@ -16,7 +16,7 @@ module SearchHelper
   end
 
   def item_includes(item)
-    FileType.map_file_exts_to_types(item.file_assets.map(&:filetype)).inject('') do |memo, type|
+    FileType.map_file_exts_to_types(item.file_assets.map(&:filetype).uniq).inject('') do |memo, type|
       memo + case type
                when 'text'
                  '<i class="icon-km-small-text"></i>&nbsp;'
@@ -34,8 +34,8 @@ module SearchHelper
     end.html_safe
   end
 
-  def lesson_title(item)
-    (item.lesson_descriptions.select { |d| d.lang == @language } || item.lesson_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:lessondesc) || item.lessonname
+  def lesson_title(item, description)
+    description || item.lessonname
   end
 
   def lesson_description(item)
@@ -48,12 +48,12 @@ module SearchHelper
 
   def download_items(item, type, lang, play = false)
     # Find requested language
-    lang = Language.find_by_locale(lang).code3
+    lang = Language::LOCALE_CODE3[lang]
     # We'll show file assets as Button group
     file_assets = '<div class="btn-group pull-left">'
     # Select only files of requested type (video/audio/text) and language
     item.file_assets.select do |x|
-      FileType.ext_to_type(x.filetype) == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
+      FileType::EXT_TYPE[x.filetype] == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
       # Order by ext and split into chunks according to ext
     end.sort.chunk { |fa| fa.filetype }.each do |filetype, files|
       filetype.upcase!
@@ -121,7 +121,7 @@ module SearchHelper
   end
 
   def available_languages(file_assets)
-    file_assets.map(&:filelang).uniq.map { |l| Language.find_by_code3(l).locale rescue 'en' }
+    file_assets.map(&:filelang).uniq.map { |l| Language::CODE3_LOCALE[l] rescue 'en' }
   end
 
   def content_type(type, active)

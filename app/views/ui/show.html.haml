@@ -5,15 +5,16 @@
       .padding-both
         %h3
           Item Metadata
+        - description = lesson_description(@item)
         %dl.dl-horizontal
           %dt Item Name
-          %dd!= lesson_title(@item)
+          %dd!= lesson_title(@item, description)
           %dt Item Type
           %dd= type_of_item_text(@item)
           %dt Date
           %dd= creation_date(@item)
           %dt Description
-          %dd= lesson_description(@item)
+          %dd= description
         %h3 Available Media
         - available_languages = available_languages(@item.file_assets)
         .languages-bar

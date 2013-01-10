@@ -240,7 +240,7 @@ class Lesson < ActiveRecord::Base
           c.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
         }
         AutoCatalogAssignment.match_catalog(c) unless dry_run
-        create_virtual_lesson(container) unless dry_run
+        create_virtual_lesson(c) unless dry_run
       end
     }
     my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")

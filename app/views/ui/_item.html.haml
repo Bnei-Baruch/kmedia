@@ -1,3 +1,4 @@
+- description = lesson_description(item)
 .item.item-list
   .row
     .span1
@@ -13,7 +14,7 @@
           %a{:href => ui_path(item)}
             = item.id
             &nbsp;
-            != lesson_title(item)
+            != lesson_title(item, description)
         - available_languages = available_languages(item.file_assets)
         .languages-bar
           %ul.nav.nav-tabs
