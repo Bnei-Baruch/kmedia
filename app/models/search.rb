@@ -77,8 +77,8 @@ class Search
   def search_full_text(page_no)
     query_text = query_string_normalized
     begin
-      Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions, :servers]) do |query|
-        query.fulltext query_text, :highlight => true unless query_text.blank?
+      Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions]) do |query|
+          query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => 30
         query.with(:secure, 0)
         query.with(:content_type_id, @content_type_id) if @content_type_id.present?

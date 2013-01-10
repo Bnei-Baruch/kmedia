@@ -7,9 +7,14 @@ class Language < ActiveRecord::Base
   has_many :label_descriptions, :foreign_key => :lang, :primary_key => :code3
 
   # code3 => locale
-  CODE3_LOCALE = Hash[Language.all.map{|l| [l.code3, l.locale]}].freeze
+  CODE3_LOCALE = Hash.new('en')
+  Language.all.map{|l| CODE3_LOCALE[l.code3] = l.locale}
+  CODE3_LOCALE.freeze
+
   # locale => code3
-  LOCALE_CODE3 = Hash[Language.all.map{|l| [l.locale, l.code3]}].freeze
+  LOCALE_CODE3 = Hash.new('ENG')
+  Language.all.map{|l| LOCALE_CODE3[l.locale] = l.code3}
+  LOCALE_CODE3.freeze
 
   def to_s
     "#{language} (#{code3.upcase})"
