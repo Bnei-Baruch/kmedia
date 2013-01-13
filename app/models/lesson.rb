@@ -258,14 +258,19 @@ class Lesson < ActiveRecord::Base
 
       file_asset = FileAsset.find_by_filename(name)
 
-      playtime_secs = file['playtime_secs'] ||
-          if extension == 'mp3'
-            m = Mp3Info.open(open(server.httpurl + '/' + name))
-            m.length.round(0)
-          elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
-            f = WmaInfo.new(open(server.httpurl + '/' + name))
-            f.info['playtime_seconds']
-          end || 0
+      playtime_secs =
+          begin
+            file['playtime_secs'] ||
+                if extension == 'mp3'
+                  m = Mp3Info.open(open(server.httpurl + '/' + name))
+                  m.length.round(0)
+                elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
+                  f = WmaInfo.new(open(server.httpurl + '/' + name))
+                  f.info['playtime_seconds']
+                end || 0
+          rescue
+            0
+          end
 
       if file_asset.nil?
         # New file
