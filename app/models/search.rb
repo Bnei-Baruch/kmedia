@@ -56,21 +56,16 @@ class Search
     @content_type_id = id == '0' ? nil : id
   end
 
-  def date_from
-    if @date_type == 'range'
-      m = /([^\s]+)\s+-\s+(.*)/.match(@dates_range)
-      Time.parse(m[1])
-    else
-      Time.now
-    end
+  def date_one_day
+    Time.parse(@dates_range)
   end
 
-  def date_to
-    if @date_type == 'range'
-      m = /([^\s]+)\s+-\s+(.*)/.match(@dates_range)
-      Time.parse(m[2])
-    else
-      Time.now
+  def date_range
+    begin
+      m = /^([a-zA-Z0-9\s,]+).*?\s([a-zA-Z0-9\s,]+)$/.match(@dates_range)
+      [Time.parse(m[1]), Time.parse(m[2])]
+    rescue
+      [nil, nil]
     end
   end
 
@@ -78,7 +73,7 @@ class Search
     query_text = query_string_normalized
     begin
       Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions]) do |query|
-          query.fulltext query_text, :highlight => true unless query_text.blank?
+        query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => 30
         query.with(:secure, 0)
         query.with(:content_type_id, @content_type_id) if @content_type_id.present?
@@ -87,16 +82,12 @@ class Search
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
 
         case @date_type
-          when 'today'
-            query.with(:lessondate).between Range.new(Time.now.beginning_of_day, Time.now.end_of_day)
-          when 'this_week'
-            query.with(:lessondate).between Range.new(Time.now.beginning_of_week, Time.now.end_of_week)
-          when 'this_month'
-            query.with(:lessondate).between Range.new(Time.now.beginning_of_month, Time.now.end_of_month)
-          when 'this_year'
-            query.with(:lessondate).between Range.new(Time.now.beginning_of_year, Time.now.end_of_year)
+          when 'one_day'
+            date = date_one_day
+            query.with(:lessondate).between Range.new(date.beginning_of_day, date.end_of_day)
           when 'range'
-            query.with(:lessondate).between Range.new(date_from, date_to)
+            beginning, ending = date_range
+            query.with(:lessondate).between Range.new(beginning.beginning_of_day, ending.end_of_day) unless beginning.nil? || ending.nil?
         end
 
         query.order_by :lessondate, :desc

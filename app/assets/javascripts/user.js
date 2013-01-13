@@ -1,12 +1,12 @@
 //= require jquery
 //= require modernizr.custom
 //= require jquery_ujs
-//= require_self
 //= require_tree ./common
 //= require_tree ./user
 //= require bootstrap
 //= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
+//= require_self
 
 $(document).ready(function () {
 
@@ -78,16 +78,19 @@ function media_type(type) {
 }
 
 function date_type(start, end) {
-    $('#search_dates_range').val($('#dates_range').val());
-//    $('#new_search').submit();
     if (start.getFullYear() == 1000) {
         $('.daterange').html('Anytime');
+        $('#search_date_type').val('anytime');
     } else if (start.valueOf() == end.valueOf()) {
         $('.daterange').html(start.toString('MMMM d, yyyy'));
+        $('#search_date_type').val('one_day');
     } else {
-//        $('span.daterange').html(start.toString('MMM d, yyyy') + ' - ' + end.toString('MMM d, yyyy'));
         $('.daterange').html(start.toString('MMMM d, yyyy') + '<br/><i class="icon-km-all"></i> ' + end.toString('MMMM d, yyyy'));
+        $('#search_date_type').val('range');
     }
+
+    $('#search_dates_range').val($('.daterange').html());
+    $('#new_search').submit();
 
     return false;
 }
@@ -118,6 +121,10 @@ $(document).ready(function () {
     }, function (start, end) {
         date_type(start, end);
     });
+
+    if ($('.daterange').html() == '') {
+        $('.daterange').html('Anytime');
+    }
 
     bind_zero_clipboard();
 

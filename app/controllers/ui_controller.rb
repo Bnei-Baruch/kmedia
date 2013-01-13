@@ -31,6 +31,7 @@ class UiController < ApplicationController
     @active_media_type = @search.media_type_id.blank? ? 'all' : @search.media_type_id
     @active_date_type = @search.date_type.blank? ? 'anytime' : @search.date_type
     @dates_range = @search.dates_range
+    @date_type = @search.date_type
     @results = @search.search_full_text params[:page]
   end
 end
