@@ -191,6 +191,23 @@ class Lesson < ActiveRecord::Base
     [ll, prev_lesson, next_lesson]
   end
 
+  def self.get_appropriate_lessons(filter, security)
+    case filter
+      when 'all'
+        Lesson
+      when 'secure_changed'
+        Lesson.secure_changed
+      when 'no_files'
+        Lesson.no_files
+      when 'lost'
+        Lesson.lost
+      when 'by_security'
+        Lesson.security(security)
+      else
+        Lesson.need_update
+    end
+  end
+
   # Register file(s) into a container.
   #
   # Both file(s) and container may exist and will be updated.
