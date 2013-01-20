@@ -3,7 +3,23 @@
 //= require jquery_ujs
 //= require_tree ./common
 //= require_tree ./user
-//= require bootstrap
+
+// require bootstrap
+
+//= require bootstrap-transition
+//= require bootstrap-affix
+//= require bootstrap-alert
+//= require bootstrap-button
+// require bootstrap-carousel
+// require bootstrap-collapse
+//= require bootstrap-dropdown
+// require bootstrap-modal ############################## This causes -tab not to work
+// require bootstrap-scrollspy
+//= require bootstrap-tab
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+// require bootstrap-typeahead
+
 //= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
 //= require_self
@@ -73,6 +89,11 @@ function content_type(type) {
 function media_type(type) {
     $('#search_media_type_id').val(type);
     $('#new_search').submit();
+
+    return false;
+}
+
+function language_search(){
 
     return false;
 }

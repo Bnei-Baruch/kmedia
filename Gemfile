@@ -6,7 +6,7 @@ gem 'jquery-rails'
 gem 'mysql2', '>= 0.3'
 
 gem 'haml'
-gem 'sass', :tag => '3.0.24'
+gem 'sass' #, :tag => '3.0.24'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
 gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
 gem 'nokogiri'
@@ -23,7 +23,7 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'progress_bar' # for sunspot
 
-gem 'therubyracer', '0.9.10'
+gem 'therubyracer' #, '0.9.10'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -34,10 +34,6 @@ group :development, :test do
   gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
   gem "sextant" # rake routes in the browser
   gem 'bullet'
-
-  gem 'rspec-rails', '>= 2.10.1'
-  gem "shoulda-matchers"
-  gem "factory_girl_rails", ">= 3.3.0"
 end
 
 group :test do
@@ -46,6 +42,9 @@ group :test do
   gem 'capybara', '>= 1.1.2'
   gem 'database_cleaner', '>= 0.7.2'
   gem 'launchy', '>= 2.1.0'
+  gem 'rspec-rails', '>= 2.10.1'
+  gem "shoulda-matchers"
+  gem "factory_girl_rails", ">= 3.3.0"
 end
 
 gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git' #'~> 2.2.1.0'
@@ -64,7 +63,7 @@ gem 'jsonify-rails'
 gem 'yajl-ruby', :require => "yajl" # Required if we want json with utf8 strings
 
 # mp3 info
-# require 'open-uri'
+require 'open-uri'
 # m = Mp3Info.open(open('http://files.kabbalahmedia.info/audio/rus_t_rav_achana_2012-11-21_lesson.mp3'))
 # m.length # in seconds
 gem 'ruby-mp3info', :require => 'mp3info'

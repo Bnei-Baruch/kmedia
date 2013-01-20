@@ -77,7 +77,7 @@ module SearchHelper
 
   def list_items_lang(item, lang, file_assets = nil)
     # Find requested language
-    lang = Language.find_by_locale(lang).code3
+    lang = Language::LOCALE_CODE3[lang]
     # Select only files of requested language
     file_assets = (file_assets || item.file_assets).select do |x|
       (x.filelang.blank? ? 'ENG' : x.filelang) == lang

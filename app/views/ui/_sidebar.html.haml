@@ -1,42 +1,49 @@
-#sidebar.span3
-  %ul.nav.nav-list
-    %li.nav-header Filter by Date
-    %li
-      %a#dates_range(href='javascript:;')
-        %i.icon-km-month
-        %span.daterange= @search ? @search.dates_range : 'Anytime'
-        %span.caret
-        :javascript
-          opens_dates_range = 'right';
-          locale_dates_range = {
-            applyLabel: 'Apply',
-            clearLabel:"Clear",
-            fromLabel: 'From',
-            toLabel: 'To',
-            weekLabel: 'W',
-            customRangeLabel: 'Custom Range',
-            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            firstDay: 1
-          };
+.span3
+  #sidebar(data-spy="affix")
+    %ul.nav.nav-list
+      %li.nav-header Filter by Date
+      %li
+        %a#dates_range(href='javascript:;')
+          %i.icon-km-month
+          %span.daterange= @search ? @search.dates_range : 'Anytime'
+          %span.caret
+          :javascript
+            opens_dates_range = 'right';
+            locale_dates_range = {
+              applyLabel: 'Apply',
+              clearLabel:"Clear",
+              fromLabel: 'From',
+              toLabel: 'To',
+              weekLabel: 'W',
+              customRangeLabel: 'Custom Range',
+              daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+              monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              firstDay: 1
+            };
 
-    %li.divider
-  %ul.nav.nav-list
-    - active = ''
-    %li.nav-header Filter by Content Type
-    != content_type('all', @active_content_type)
-    != content_type('lesson', @active_content_type)
-    != content_type('lecture', @active_content_type)
-    != content_type('program', @active_content_type)
-    != content_type('song', @active_content_type)
-    != content_type('clip', @active_content_type)
-    != content_type('book', @active_content_type)
-    != content_type('declamation', @active_content_type)
-    %li.divider
-  %ul.nav.nav-list
-    %li.nav-header Filter by Media Type
-    != media_type('all', @active_media_type)
-    != media_type('audio', @active_media_type)
-    != media_type('video', @active_media_type)
-    != media_type('text', @active_media_type)
-    != media_type('image', @active_media_type)
+      %li.divider
+    %ul.nav.nav-list
+      %li.nav-header Filter by Content Type
+      != content_type('all', @active_content_type)
+      != content_type('lesson', @active_content_type)
+      != content_type('lecture', @active_content_type)
+      != content_type('program', @active_content_type)
+      != content_type('song', @active_content_type)
+      != content_type('clip', @active_content_type)
+      != content_type('book', @active_content_type)
+      != content_type('declamation', @active_content_type)
+      %li.divider
+    %ul.nav.nav-list
+      %li.nav-header Filter by Media Type
+      != media_type('all', @active_media_type)
+      != media_type('audio', @active_media_type)
+      != media_type('video', @active_media_type)
+      != media_type('text', @active_media_type)
+      != media_type('image', @active_media_type)
+      %li.divider
+    %ul.nav.nav-list
+      %li.nav-header Filter by Language
+      %li
+        %a(href='javascript:' onclick='return language_search(\"#{type}\");')
+          "<i class='icon-km-#{type}'></i> #{type.humanize}</a>"
+
