@@ -276,17 +276,27 @@ class Lesson < ActiveRecord::Base
       file_asset = FileAsset.find_by_filename(name)
 
       playtime_secs =
-          begin
-            file['playtime_secs'] > 0 ? file['playtime_secs'] :
-                if extension == 'mp3'
-                  m = Mp3Info.open(open(server.httpurl + '/' + name))
-                  m.length.round(0)
-                elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
-                  f = WmaInfo.new(open(server.httpurl + '/' + name))
-                  f.info['playtime_seconds']
-                end || 0
-          rescue
+          if dry_run
+            my_logger.info("DRU_RUN; 0 secs")
             0
+          else
+            begin
+              my_logger.info("WET_RUN; ??? secs")
+              secs = file['playtime_secs'].to_i > 0 ? file['playtime_secs'].to_i :
+                  if extension == 'mp3'
+                    m = Mp3Info.open(open(server.httpurl + '/' + name))
+                    my_logger.info("WET_RUN; MP3 #{m.length.round(0)} secs")
+                    m.length.round(0)
+                  elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
+                    f = WmaInfo.new(open(server.httpurl + '/' + name))
+                    my_logger.info("WET_RUN; WMA #{f.info['playtime_seconds']} secs")
+                    f.info['playtime_seconds']
+                  end || 0
+              my_logger.info("WET_RUN; #{secs} secs FIN")
+            rescue
+              my_logger.info("WET_RUN; UPS")
+              0
+            end
           end
 
       if file_asset.nil?
