@@ -4,21 +4,7 @@
 //= require_tree ./common
 //= require_tree ./user
 
-// require bootstrap
-
-//= require bootstrap-transition
-//= require bootstrap-affix
-//= require bootstrap-alert
-//= require bootstrap-button
-// require bootstrap-carousel
-// require bootstrap-collapse
-//= require bootstrap-dropdown
-// require bootstrap-modal ############################## This causes -tab not to work
-// require bootstrap-scrollspy
-//= require bootstrap-tab
-//= require bootstrap-tooltip
-//= require bootstrap-popover
-// require bootstrap-typeahead
+//=require bootstrap
 
 //= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
@@ -32,13 +18,13 @@ $(document).ready(function () {
     });
 
     //Categories Popup
-    $('#content .nav li').on('click', function () {
-        $('#content .nav li').removeClass('active');
+    $('#content .navbar-inner li').on('click', function () {
+        $('#content .navbar-inner li').removeClass('active');
         $('.category-modal').modal('hide');
         $(this).addClass('active');
     });
     $('.category-modal').on('hidden', function () {
-        $('#content .nav li').removeClass('active');
+        $('#content .navbar-inner li').removeClass('active');
     });
     $('.categories a').on('click', function () {
         var current_column = $(this).parents('.categories');
@@ -94,6 +80,8 @@ function media_type(type) {
 }
 
 function language_search(){
+    $('#search_language_ids').val($('#language_ids').val());
+    $('#new_search').submit();
 
     return false;
 }

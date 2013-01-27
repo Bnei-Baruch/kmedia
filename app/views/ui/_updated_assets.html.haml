@@ -19,29 +19,29 @@
         - available_languages.each do |l|
           %li
             %a{:href => "##{l}-media", :'data-toggle' => 'tab'}= l.upcase
-      .tab-content
-        #all-media.active.tab-pane.fade.in
+    .tab-content
+      #all-media.active.tab-pane.fade.in
+        %table.media-table.table.table-striped.table-hover.table-bordered
+          %thead
+            %tr
+              %th.left-aligned-column Date
+              %th.left-aligned-column Container Name
+              %th Type
+              %th Language
+              %th Download
+              %th Copy<br/>Link
+          %tbody
+            = list_items_all(nil, @updated_assets)
+      - available_languages.each do |l|
+        .tab-pane.fade.in{:id => "#{l}-media"}
           %table.media-table.table.table-striped.table-hover.table-bordered
             %thead
               %tr
                 %th.left-aligned-column Date
                 %th.left-aligned-column Container Name
-                %th Type
+                %th File Type
                 %th Language
                 %th Download
-                %th Copy<br/>Link
+                %th Copy Link
             %tbody
-              = list_items_all(nil, @updated_assets)
-        - available_languages.each do |l|
-          .tab-pane.fade.in{:id => "#{l}-media"}
-            %table.media-table.table.table-striped.table-hover.table-bordered
-              %thead
-                %tr
-                  %th.left-aligned-column Date
-                  %th.left-aligned-column Container Name
-                  %th File Type
-                  %th Language
-                  %th Download
-                  %th Copy Link
-              %tbody
-                = list_items_lang(nil, l, @updated_assets)
+              = list_items_lang(nil, l, @updated_assets)
