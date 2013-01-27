@@ -32,6 +32,7 @@ class UiController < ApplicationController
     @active_date_type = @search.date_type.blank? ? 'anytime' : @search.date_type
     @dates_range = @search.dates_range
     @date_type = @search.date_type
+    @language_ids = @search.language_ids
     @results = @search.search_full_text params[:page]
   end
 end

@@ -23,6 +23,9 @@ body {
   @include border-radius(5px);
   padding: 0 0 15px;
   width: 220px;
+  #language_ids {
+    width:  190px;
+  }
 }
 
 header {

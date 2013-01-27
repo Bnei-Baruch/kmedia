@@ -40,7 +40,7 @@ class Search
   end
 
   def language_ids=(ids)
-    @language_ids = ids.select { |id| id.present? }
+    @language_ids = ids
   end
 
   def file_type_ids=(ids)
@@ -52,8 +52,8 @@ class Search
     @media_exts = (name == 'all' || name.blank?) ? [] : FileType.find_by_typename(name == 'image' ? 'graph' : name).extlist.split(',')
   end
 
-  def content_type_id=(id)
-    @content_type_id = id == '0' ? nil : id
+  def language_id=(id)
+    @language_id = Language::LOCALE_CODE3[id]
   end
 
   def date_one_day
@@ -77,7 +77,7 @@ class Search
         query.paginate :page => page_no, :per_page => 30
         query.with(:secure, 0)
         query.with(:content_type_id, @content_type_id) if @content_type_id.present?
-        query.with(:file_language_ids).any_of @language_ids if @language_ids.present?
+        query.with(:file_language_ids, [@language_ids]) if @language_ids.present?
         query.with(:media_type_ids).any_of @media_exts if @media_type_id.present?
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
 
