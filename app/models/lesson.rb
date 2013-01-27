@@ -277,7 +277,7 @@ class Lesson < ActiveRecord::Base
 
       playtime_secs =
           begin
-            file['playtime_secs'] ||
+            file['playtime_secs'] > 0 ? file['playtime_secs'] :
                 if extension == 'mp3'
                   m = Mp3Info.open(open(server.httpurl + '/' + name))
                   m.length.round(0)
