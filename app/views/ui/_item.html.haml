@@ -15,7 +15,7 @@
             = item.id
             &nbsp;
             != lesson_title(item, description)
-        - available_languages = available_languages(item.file_assets)
+        - available_languages = FileAsset.available_languages(item.file_assets)
         .languages-bar
           %ul.nav.nav-tabs
             %li.tabs-title Available languages:

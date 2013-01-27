@@ -30,7 +30,7 @@ class FileAsset < ActiveRecord::Base
   before_create :create_timestamps
   before_update :update_timestamps
 
-  scope :latest_updates, -> amount {order('updated DESC').limit(amount).includes(:server) }
+  scope   :latest_updates, -> amount {order('updated DESC').limit(amount).includes(:server) }
 
   def create_timestamps
     write_attribute :created, Time.now
@@ -61,4 +61,9 @@ class FileAsset < ActiveRecord::Base
   def <=>(other)
     self.filetype <=> other.filetype
   end
+
+  def self.available_languages(file_assets)
+    file_assets.map(&:filelang).uniq.map { |l| Language::CODE3_LOCALE[l] rescue 'en' }
+  end
+
 end

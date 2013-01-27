@@ -120,10 +120,6 @@ module SearchHelper
     list.html_safe
   end
 
-  def available_languages(file_assets)
-    file_assets.map(&:filelang).uniq.map { |l| Language::CODE3_LOCALE[l] rescue 'en' }
-  end
-
   def content_type(type, active)
     "<li class='#{active == type ? 'active' : 'x'}'>" +
         "<a href='javascript:' onclick='return content_type(\"#{ContentType.find_by_pattern(type).try(:id)}\");'>" +
