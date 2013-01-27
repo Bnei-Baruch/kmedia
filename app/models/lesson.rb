@@ -293,8 +293,8 @@ class Lesson < ActiveRecord::Base
                     f.info['playtime_seconds']
                   end || 0
               my_logger.info("WET_RUN; #{secs} secs FIN")
-            rescue
-              my_logger.info("WET_RUN; UPS")
+            rescue Exception => e
+              my_logger.info("WET_RUN; UPS #{e.message}")
               0
             end
           end
