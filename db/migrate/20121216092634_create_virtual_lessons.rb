@@ -58,5 +58,11 @@ class CreateVirtualLessons < ActiveRecord::Migration
   end
 
   def down
+    say 'Remove lessons'
+    Lesson.update_all(:virtual_lesson_id => nil)
+
+    say 'Remove virtual lessons'
+    VirtualLesson.delete_all
+
   end
 end
