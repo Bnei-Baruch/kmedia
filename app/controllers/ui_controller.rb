@@ -4,9 +4,9 @@ class UiController < ApplicationController
 
   # Homepage
   def homepage
-    @last_virtual_lesson, @prev_lesson, @next_lesson = Lesson.last_lesson(params[:before_lesson], params[:after_lesson])
+    @last_virtual_lesson, @prev_lesson, @next_lesson = VirtualLesson.last_lesson(params[:before_lesson], params[:after_lesson])
     @last_lessons = @last_virtual_lesson.lessons
-    @available_last_lessons_languages = FileAsset.available_languages(@updated_assets)
+    @available_last_lessons_languages = FileAsset.available_languages(@last_lessons)
     @updated_assets = FileAsset.latest_updates(params[:amount_of_updated].to_i > 0 ? params[:amount_of_updated].to_i : 25)
     @available_updated_assets_languages = FileAsset.available_languages(@updated_assets)
   end

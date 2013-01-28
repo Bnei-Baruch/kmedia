@@ -63,8 +63,9 @@ class FileAsset < ActiveRecord::Base
   end
 
   def self.available_languages(file_assets)
-    file_assets.nil? ? nil :
-    file_assets.map(&:filelang).uniq.map { |l| Language::CODE3_LOCALE[l] rescue 'en' }
+    return nil if file_assets.nil?
+    field = file_assets[0].respond_to?(:filelang) ? :filelang : :lang
+    file_assets.map(&field).uniq.map { |l| Language::CODE3_LOCALE[l] rescue 'en' }
   end
 
 end

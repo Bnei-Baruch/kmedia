@@ -27,6 +27,8 @@ class Lesson < ActiveRecord::Base
       # Do not destroy files that belongs to more than one container
       a.delete if a.lesson_ids.length == 1
     }
+    # remove empty virtual lessons
+    # ZZZ
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType.find_by_pattern('lesson').id
@@ -172,25 +174,6 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def self.last_lesson(before_lesson, after_lesson)
-    if before_lesson
-      last_date = VirtualLesson.find(before_lesson).created_at
-      ll = VirtualLesson.where('created_at < ?', last_date).order('created_at desc').first
-      next_lesson = true
-      prev_lesson = VirtualLesson.where('created_at < ?', ll.created_at).count > 0
-    elsif after_lesson
-      last_date = VirtualLesson.find(after_lesson).first.created_at
-      ll = VirtualLesson.where('created_at > ?', last_date).order('created_at desc').first
-      prev_lesson = true
-      next_lesson = VirtualLesson.where('created_at > ?', ll.created_at).count > 0
-    else
-      ll = VirtualLesson.last
-      prev_lesson = VirtualLesson.where('created_at < ?', ll.created_at).count > 0
-      next_lesson = false
-    end
-    [ll, prev_lesson, next_lesson]
-  end
-
   def self.get_appropriate_lessons(filter, security)
     case filter
       when 'all'
@@ -277,22 +260,24 @@ class Lesson < ActiveRecord::Base
 
       playtime_secs =
           if dry_run
-            my_logger.info("DRU_RUN; 0 secs")
             0
           else
             begin
-              my_logger.info("WET_RUN; ??? secs")
-              secs = file['playtime_secs'].to_i > 0 ? file['playtime_secs'].to_i :
-                  if extension == 'mp3'
-                    m = Mp3Info.open(open(server.httpurl + '/' + name))
-                    my_logger.info("WET_RUN; MP3 #{m.length.round(0)} secs")
-                    m.length.round(0)
-                  elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
-                    f = WmaInfo.new(open(server.httpurl + '/' + name))
-                    my_logger.info("WET_RUN; WMA #{f.info['playtime_seconds']} secs")
-                    f.info['playtime_seconds']
-                  end || 0
-              my_logger.info("WET_RUN; #{secs} secs FIN")
+              if file['playtime_secs'].to_i > 0
+                file['playtime_secs'].to_i
+              else
+                server_url = Server.find(server)
+                uri = URI(server_url)
+                path = "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{name}"
+
+                if extension == 'mp3'
+                  m = Mp3Info.open(open(path))
+                  m.length.round(0)
+                elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
+                  f = WmaInfo.new(open(path))
+                  f.info['playtime_seconds']
+                end || 0
+              end
             rescue Exception => e
               my_logger.info("WET_RUN; UPS #{e.message}")
               0
@@ -364,6 +349,7 @@ class Lesson < ActiveRecord::Base
   def self.create_virtual_lesson(container)
     return unless container.content_type_id == LESSON_CONTENT_TYPE_ID # Not a lesson
     return if container.virtual_lesson.present? # Already belongs to some virtual lesson
+    return if container.secure != 0 # Ignore secure containers
 
     ids = container.catalogs.map(&:id)
     if ids.include?(FIRST_PART) ||

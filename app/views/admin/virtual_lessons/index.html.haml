@@ -10,11 +10,13 @@
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
-        %th= sortable("id", "ID", @filter)
-        %th= sortable("film_date", "Film Date", @filter)
-        %th= sortable("lessons", "Lessons", @filter)
-        %th= sortable("created_at", "Created", @filter)
-        %th= sortable("updated_at", "Updated", @filter)
+        %th ID
+        %th Film Date
+        %th Containers
+        %th Files
+        %th Created
+        %th Updated
+        %th Position
         = display_actions_title_for_lessons
     %tbody
       -@virtual_lessons.each do |virtual_lesson|
@@ -22,8 +24,10 @@
           %td= virtual_lesson.id
           %td= virtual_lesson.film_date.try(:to_date)
           %td= virtual_lesson.lessons.count
+          %td= virtual_lesson.lessons.map(&:file_assets).flatten.length
           %td= virtual_lesson.created_at.try(:to_date)
           %td= virtual_lesson.updated_at.try(:to_date)
+          %td= virtual_lesson.position
           %td= link_to 'Show', admin_virtual_lesson_path(virtual_lesson)
           -if can?(:destroy, virtual_lesson)
             %td

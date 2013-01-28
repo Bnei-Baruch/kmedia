@@ -16,6 +16,7 @@ gem 'thin'
 gem 'puma'
 
 gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
+gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
 
 gem "cancan"
 gem 'devise'

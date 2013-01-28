@@ -7,7 +7,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
   # GET /virtual_lesson.json                                       HTML and AJAX
   #-----------------------------------------------------------------------
   def index
-    @virtual_lessons = VirtualLesson.order(sort_order).page(params[:page])
+    @virtual_lessons = VirtualLesson.includes(:lessons).includes(lessons: :file_assets).order('film_date DESC, position ASC').page(params[:page])
   end
 
   # GET /virtual_lesson/new
