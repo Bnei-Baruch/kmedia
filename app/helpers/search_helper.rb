@@ -53,7 +53,7 @@ module SearchHelper
     file_assets = '<div class="btn-group pull-left">'
     # Select only files of requested type (video/audio/text) and language
     item.file_assets.select do |x|
-      FileType::EXT_TYPE[x.filetype] == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
+      FileType::EXT_TYPE[x.filetype.downcase] == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
       # Order by ext and split into chunks according to ext
     end.sort.chunk { |fa| fa.filetype }.each do |filetype, files|
       filetype.upcase!
