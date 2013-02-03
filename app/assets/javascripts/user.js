@@ -139,7 +139,5 @@ $(document).ready(function () {
         bind_zero_clipboard();
     });
 
-    $('#language_ids').click(function(){
-        language_search();
-    });
+    $('#language_ids').change(language_search);
 });
