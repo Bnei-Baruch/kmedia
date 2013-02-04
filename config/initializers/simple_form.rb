@@ -66,6 +66,12 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :bootstrap_top_search, :tag => 'div' do |b|
+    b.use :placeholder
+    b.use :input
+    b.use :search_submit_button
+  end
+
   config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
     b.use :placeholder
     b.use :label, :class => 'control-label'
@@ -185,6 +191,9 @@ module SimpleForm
     module Description
       def submit_button
         "<button class='btn' type='submit'>#{options[:input_html][:text] || 'Search'}</button>"
+      end
+      def search_submit_button
+        " <button class='btn' type='submit'>#{options[:input_html][:text] || 'Search'}</button>"
       end
     end
   end

@@ -1,7 +1,7 @@
 .navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
     .container
-      %a{:class => 'brand', :href => '#'} Kabbalah Media
+      = link_to 'Kabbalah Media', root_url(), class: :brand
       %ul.nav
         %li.active
           = link_to 'Home', root_path
@@ -9,10 +9,10 @@
           %a{:href => '#'} Link
         %li
           %a{:href => '#'} Link
-      = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'form-search navbar-search pull-right', :method => :get} do |f|
-        = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query span4', :text => 'Search'}, :wrapper => :bootstrap_search
-        = f.input :content_type_id, as: :hidden
-        = f.input :media_type_id, as: :hidden
-        = f.input :date_type, as: :hidden
-        = f.input :dates_range, as: :hidden
-        = f.input :language_ids, as: :hidden
+      = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form pull-right', :method => :get} do |f|
+        = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'span4', :text => 'Search'}, :wrapper => 'bootstrap_top_search'
+        = f.input :content_type_id, as: :hidden, :wrapper => 'default'
+        = f.input :media_type_id, as: :hidden, :wrapper => 'default'
+        = f.input :date_type, as: :hidden, :wrapper => 'default'
+        = f.input :dates_range, as: :hidden, :wrapper => 'default'
+        = f.input :language_ids, as: :hidden, :wrapper => 'default'

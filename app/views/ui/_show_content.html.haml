@@ -2,7 +2,7 @@
   = render 'list_header'
   = render 'tags_cloud'
   - if @results.is_a?(String) || !@results || @results.results.empty?
-    No results
+    %h4 No results
   - else
     %h4== Results #{(@results.results.current_page - 1) * @results.results.limit_value + 1} - #{[@results.results.current_page * @results.results.limit_value, @results.total].min} of #{@results.total}
 

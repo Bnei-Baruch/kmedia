@@ -1,5 +1,4 @@
 //= require jquery
-//= require modernizr.custom
 //= require jquery_ujs
 //= require_tree ./common
 //= require_tree ./user
