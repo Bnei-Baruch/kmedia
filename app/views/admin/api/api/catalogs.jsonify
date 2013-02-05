@@ -1,4 +1,4 @@
-json.id @root.id
+json.id @root.nil? ? nil : @root.id
 json.record 'catalogs'
 json.item @catalogs do |catalog|
   json.id catalog.id
