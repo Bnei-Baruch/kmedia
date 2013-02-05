@@ -33,9 +33,9 @@ class UiController < ApplicationController
     @active_content_type = @search.content_type_id.blank? ? 'all' : ContentType.find(@search.content_type_id).pattern
     @active_media_type = @search.media_type_id.blank? ? 'all' : @search.media_type_id
     @active_date_type = @search.date_type.blank? ? 'anytime' : @search.date_type
+    @active_language = @search.language_ids.blank? ? 'all' : @search.language_ids
     @dates_range = @search.dates_range
     @date_type = @search.date_type
-    @language_ids = @search.language_ids
     @results = @search.search_full_text params[:page]
   end
 end
