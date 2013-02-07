@@ -2,7 +2,9 @@ class ChangeVirtualLessonsSetup < ActiveRecord::Migration
   def up
 
     say 'Add column'
-    add_column :virtual_lessons, :position, :integer
+    unless column_exists? :virtual_lessons, :position
+      add_column :virtual_lessons, :position, :integer
+    end
 
     say 'Remove secure virtual lessons'
     vlids = Lesson.where('secure > 0').all.map(&:virtual_lesson_id).compact.sort.uniq

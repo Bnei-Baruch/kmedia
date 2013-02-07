@@ -1,5 +1,4 @@
 //= require jquery
-//= require modernizr.custom
 //= require jquery_ujs
 //= require_tree ./common
 //= require_tree ./user
@@ -82,8 +81,6 @@ function media_type(type) {
 function language_search(){
     $('#search_language_ids').val($('#language_ids').val());
     $('#new_search').submit();
-
-    return false;
 }
 
 function date_type(start, end) {
@@ -140,4 +137,6 @@ $(document).ready(function () {
     $('.languages-bar a[data-toggle="tab"]').on('shown', function (e) {
         bind_zero_clipboard();
     });
+
+    $('#language_ids').change(language_search);
 });

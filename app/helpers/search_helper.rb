@@ -19,15 +19,15 @@ module SearchHelper
     FileType.map_file_exts_to_types(item.file_assets.map(&:filetype).uniq).inject('') do |memo, type|
       memo + case type
                when 'text'
-                 '<i class="icon-km-small-text"></i>&nbsp;'
+                 '<i class="icon-km-small-white-text"></i>&nbsp;'
                when 'video'
-                 '<i class="icon-km-small-video"></i>&nbsp;'
+                 '<i class="icon-km-small-white-video"></i>&nbsp;'
                when 'audio'
-                 '<i class="icon-km-small-audio"></i>&nbsp;'
+                 '<i class="icon-km-small-white-audio"></i>&nbsp;'
                when 'magazine', 'program'
-                 '<i class="icon-km-small-program"></i>&nbsp;'
+                 '<i class="icon-km-small-white-program"></i>&nbsp;'
                when 'image', 'graph'
-                 '<i class="icon-km-small-image"></i>&nbsp;'
+                 '<i class="icon-km-small-white-image"></i>&nbsp;'
                else
                  ''
              end
@@ -53,7 +53,7 @@ module SearchHelper
     file_assets = '<div class="btn-group pull-left">'
     # Select only files of requested type (video/audio/text) and language
     item.file_assets.select do |x|
-      FileType::EXT_TYPE[x.filetype] == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
+      FileType::EXT_TYPE[x.filetype.downcase] == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
       # Order by ext and split into chunks according to ext
     end.sort.chunk { |fa| fa.filetype }.each do |filetype, files|
       filetype.upcase!

@@ -8,6 +8,9 @@ class CreateVirtualLessons < ActiveRecord::Migration
   FIFTH_PART = Catalog.find_by_catalognodename('lesson_fifth-part').id
 
   def up
+    unless column_exists? :virtual_lessons, :position
+      add_column :virtual_lessons, :position, :integer
+    end
 
     Lesson.where(content_type_id: LESSON_CONTENT_TYPE_ID).where(virtual_lesson_id: nil).where('lessondate IS NOT NULL').order('lessondate asc, created asc').all.each do |lesson|
       printf 'Lesson %d: ' % lesson.id

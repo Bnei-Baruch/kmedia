@@ -45,7 +45,7 @@
       %li.nav-header Filter by Language
       %li
         = select_tag :language_ids,
-            options_for_select(['All'] + Language.order(:language).all.map{|l| ["#{l.language} (#{l.locale})", l.code3]}, selected: @language_ids),
-            onclick: 'return language_search();', include_blank: false
+            options_for_select([['All', 'all']] + Language.order(:language).all.map{|l| ["#{l.language} (#{l.locale})", l.code3]}, selected: @active_language),
+            include_blank: false
 
 
