@@ -155,12 +155,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def catalogs
     # map locale to code3
     @language = Language.find_by_locale(params[:locale] || 'en').try(:code3) || 'ENG'
-    if params[:root].empty?
-      @catalogs = Catalog.secure(@secure).roots
-    else
-      @root = Catalog.secure(@secure).where(:catalognodeid => params[:root])
-      @catalogs = @root.children
-    end
+    @catalogs = Catalog.children_catalogs(params[:root],@secure);
   end
 
   # List of content types
