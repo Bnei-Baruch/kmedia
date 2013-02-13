@@ -48,7 +48,7 @@ class Catalog < ActiveRecord::Base
       children_catalogs = Catalog.secure(secure).roots
     else
       catalog = Catalog.secure(secure).where(catalognodeid: id).first
-      children_catalogs = catalog.children
+      children_catalogs = catalog.children.secure(secure)
     end
   end
 end
