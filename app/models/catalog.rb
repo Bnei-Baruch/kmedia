@@ -17,13 +17,13 @@ class Catalog < ActiveRecord::Base
   end
 
   scope :secure, lambda { |level| where("secure <= ?", level) }
-  scope :open_matching_string, lambda { |string| where("catalognodename like ? AND open = ?", "%#{string}%", true )}
+  scope :open_matching_string, lambda { |string| where("catalognodename like ? AND open = ?", "%#{string}%", true) }
   scope :visible, where(:visible => true)
 
   before_create :create_timestamps
   before_update :update_timestamps
 
-  validates :label, :uniqueness => true, :format => { :with => /^[a-zA-Z0-9_-]*$/ }
+  validates :label, :uniqueness => true, :format => {:with => /^[a-zA-Z0-9_-]*$/}
 
   class ParentValidator < ActiveModel::Validator
     def validate(catalog)
@@ -45,11 +45,15 @@ class Catalog < ActiveRecord::Base
   # returns children catalogs for the given catalog id
   # will return roots catalogs if the provided id is nil or empty
   def self.children_catalogs(id, secure)
-    if id.blank?
-      children_catalogs = Catalog.secure(secure).visible.roots
-    else
-      catalog = Catalog.secure(secure).where(catalognodeid: id).first
-      children_catalogs = catalog.children.secure(secure).visible
+    begin
+      if id.blank?
+        children_catalogs = Catalog.secure(secure).visible.roots
+      else
+        catalog = Catalog.secure(secure).where(catalognodeid: id).first
+        children_catalogs = catalog.children.secure(secure).visible
+      end
+    rescue
+      nil
     end
   end
 end
