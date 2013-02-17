@@ -105,9 +105,7 @@ module SearchHelper
                  ''
              end
       filesize = fa.filesize.to_f / 1024 / 1024
-      secs = fa.playtime_secs % 60
-      mins = fa.playtime_secs / 60 % 60
-      hours = fa.playtime_secs / 60 / 60 % 60
+      playtime = fa.playtime_secs.to_i
 
       list += <<-LIST
       <tr>
@@ -120,7 +118,7 @@ module SearchHelper
         <td><a href='#{fa.download_url}' title='#{title}' class='download'><i class='icon-download'></i></a></td>
         <td><a href='#{fa.url}' title='#{title}' class='clipboard'><i class='icon-circle-arrow-right'></i></a></td>
         <td>#{"%.2f" % filesize}Mb</td>
-        <td>#{fa.playtime_secs.to_i <= 0 ? '' : "#{hours}:#{mins}:#{secs}"}</td>
+        <td>#{playtime <= 0 ? '' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}</td>
       </tr>
       LIST
     end
