@@ -29,6 +29,8 @@
               %th Language
               %th Download
               %th Copy<br/>Link
+              %th File Size
+              %th Play Time
           %tbody
             = list_items_all(nil, @updated_assets)
       - @available_updated_assets_languages.each do |l|
@@ -41,6 +43,9 @@
                 %th File Type
                 %th Language
                 %th Download
-                %th Copy Link
+                %th Copy<br/>Link
+                %th File Size
+                %th Play Time
+
             %tbody
               = list_items_lang(nil, l, @updated_assets)

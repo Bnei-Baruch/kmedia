@@ -65,7 +65,13 @@ class FileAsset < ActiveRecord::Base
   def self.available_languages(file_assets)
     return nil if file_assets.nil?
     field = file_assets[0].respond_to?(:filelang) ? :filelang : :lang
-    file_assets.map(&field).uniq.map { |l| Language::CODE3_LOCALE[l] rescue 'en' }
+    code3s = file_assets.map(&field).uniq.map { |l| Language::CODE3_LOCALE[l] }
+    languages = []
+    MAIN_LOCALES.each {|locale|
+      languages << code3s.select{|code3| code3 == locale }
+    }
+    languages << code3s.sort.reject{|code3| MAIN_LOCALES.include?(code3) }
+    languages.flatten.compact
   end
 
 end

@@ -14,6 +14,9 @@ Kmedia::Application.routes.draw do
     collection do
       get 'homepage'
     end
+    member do
+      get 'homepage_show'
+    end
   end
 
   namespace(:admin) {

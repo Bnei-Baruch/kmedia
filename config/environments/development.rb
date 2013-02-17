@@ -45,4 +45,12 @@ Kmedia::Application.configure do
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.logger = Logger.new("log/#{Rails.env}.log", 8, 4 * 1024 ** 2)
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.rails_logger = true
+    Bullet.console = true
+    Bullet.disable_browser_cache = true
+  end
 end

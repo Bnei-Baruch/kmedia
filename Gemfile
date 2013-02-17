@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 gem 'jquery-rails'
 
 gem 'mysql2', '>= 0.3'
@@ -8,7 +8,7 @@ gem 'mysql2', '>= 0.3'
 gem 'haml'
 gem 'sass' #, :tag => '3.0.24'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
-gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git', :branch => 'v2.1'
 gem 'nokogiri'
 gem "ckeditor", "3.7.1"
 gem "paperclip"
@@ -16,7 +16,6 @@ gem 'thin'
 gem 'puma'
 
 gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
-gem 'acts_as_list', :git => 'git://github.com/swanandp/acts_as_list.git'
 
 gem "cancan"
 gem 'devise'
@@ -32,21 +31,22 @@ gem 'therubyracer' #, '0.9.10'
 group :development, :test do
   gem "ruby-debug-base19x", '>= 0.11.30.pre10'
   gem "ruby-debug-ide", '>= 0.4.17.beta14'
-  gem 'linecache19', :git => 'git://github.com/mark-moseley/linecache'
   gem "sextant" # rake routes in the browser
   gem 'bullet'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
-group :test do
-  gem "email_spec", ">= 1.2.1"
-  gem 'cucumber-rails', '>= 1.3.0', :require => false
-  gem 'capybara', '>= 1.1.2'
-  gem 'database_cleaner', '>= 0.7.2'
-  gem 'launchy', '>= 2.1.0'
-  gem 'rspec-rails', '>= 2.10.1'
-  gem "shoulda-matchers"
-  gem "factory_girl_rails", ">= 3.3.0"
-end
+#group :test do
+#  gem "email_spec", ">= 1.2.1"
+#  gem 'cucumber-rails', '>= 1.3.0', :require => false
+#  gem 'capybara', '>= 1.1.2'
+#  gem 'database_cleaner', '>= 0.7.2'
+#  gem 'launchy', '>= 2.1.0'
+#  gem 'rspec-rails', '>= 2.10.1'
+#  gem "shoulda-matchers"
+#  gem "factory_girl_rails", ">= 3.3.0"
+#end
 
 gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git' #'~> 2.2.1.0'
 

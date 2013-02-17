@@ -44,13 +44,13 @@ class Catalog < ActiveRecord::Base
 
   # returns children catalogs for the given catalog id
   # will return roots catalogs if the provided id is nil or empty
-  def self.children_catalogs(id, secure)
+  def self.children_catalogs(id = nil, secure = 0)
     begin
       if id.blank?
-        children_catalogs = Catalog.secure(secure).visible.roots
+        Catalog.secure(secure).visible.roots
       else
         catalog = Catalog.secure(secure).where(catalognodeid: id).first
-        children_catalogs = catalog.children.secure(secure).visible
+        catalog.children.secure(secure).visible
       end
     rescue
       nil

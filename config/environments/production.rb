@@ -3,7 +3,7 @@ Kmedia::Application.configure do
 
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Kmedia] ",
-    :sender_address => %{"notifier" <notifier@example.com>},
+    :sender_address => %{"notifier" <notifier@kmedia.com>},
     :exception_recipients => %w{gshilin@gmail.com},
     :normalize_subject => true
   # The production environment is meant for finished, "live" apps.

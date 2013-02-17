@@ -1,21 +1,17 @@
 .row.show-grid
   = render :partial => 'sidebar'
+  - description = lesson_description(@item)
   #content.span9
     .item
       .padding-both
         %h3
-          Item Metadata
-        - description = lesson_description(@item)
-        %dl.dl-horizontal
-          %dt Item Name
-          %dd!= lesson_title(@item, description)
-          %dt Item Type
-          %dd= type_of_item_text(@item)
-          %dt Date
-          %dd= creation_date(@item)
-          %dt Description
-          %dd= description
-        %h3 Available Media
+          != type_of_item_text(@item)
+          \:
+          = lesson_title(@item, description)
+          (
+          = creation_date(@item)
+          )
+        .description= description
         .languages-bar
           %ul.nav.nav-tabs
             %li.tabs-title Available languages:
@@ -34,7 +30,9 @@
                   %th File Type
                   %th Language
                   %th Download
-                  %th Copy Link
+                  %th Copy<br/>Link
+                  %th File Size
+                  %th Play Time
               %tbody
                 = list_items_all(@item)
 
@@ -48,7 +46,9 @@
                     %th File Type
                     %th Language
                     %th Download
-                    %th Copy Link
+                    %th Copy<br/>Link
+                    %th File Size
+                    %th Play Time
                 %tbody
                   = list_items_lang(@item, l)
 

@@ -1,6 +1,7 @@
 /*
 *= require_self
 *= require_tree ./user
+*= require theme/style
 */
 @import "bootstrap";
 @import "icon-km";
@@ -333,6 +334,14 @@ header {
     margin: 5px 10px 5px 11px;
     opacity: 0.3;
   }
+}
+
+.description {
+  margin:  10px 0;
+}
+
+.projekktor {
+  clear: both;
 }
 
 .media-table {

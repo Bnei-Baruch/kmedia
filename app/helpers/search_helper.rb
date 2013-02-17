@@ -104,6 +104,11 @@ module SearchHelper
                else
                  ''
              end
+      filesize = fa.filesize.to_f / 1024 / 1024
+      secs = fa.playtime_secs % 60
+      mins = fa.playtime_secs / 60 % 60
+      hours = fa.playtime_secs / 60 / 60 % 60
+
       list += <<-LIST
       <tr>
         <td class='left-aligned-column'>#{fa.filedate.strftime '%Y-%02m-%02d'}</td>
@@ -114,6 +119,8 @@ module SearchHelper
         <td>#{fa.filelang}</td>
         <td><a href='#{fa.download_url}' title='#{title}' class='download'><i class='icon-download'></i></a></td>
         <td><a href='#{fa.url}' title='#{title}' class='clipboard'><i class='icon-circle-arrow-right'></i></a></td>
+        <td>#{"%.2f" % filesize}Mb</td>
+        <td>#{fa.playtime_secs.to_i <= 0 ? '' : "#{hours}:#{mins}:#{secs}"}</td>
       </tr>
       LIST
     end

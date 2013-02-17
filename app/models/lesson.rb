@@ -279,7 +279,7 @@ class Lesson < ActiveRecord::Base
                 end || 0
               end
             rescue Exception => e
-              my_logger.info("WET_RUN; UPS #{e.message}")
+              my_logger.info("WET_RUN; UPS(#{path}) #{e.message}")
               0
             end
           end
@@ -351,6 +351,7 @@ class Lesson < ActiveRecord::Base
     return if container.virtual_lesson.present? # Already belongs to some virtual lesson
     return if container.secure != 0 # Ignore secure containers
 
+    vl = nil
     ids = container.catalogs.map(&:id)
     if ids.include?(FIRST_PART) ||
         ids.include?(SECOND_PART) ||
@@ -363,8 +364,9 @@ class Lesson < ActiveRecord::Base
       vl = nil if vl.film_date != container.lessondate # first part without preparation or non-first part comes first... happens...
     end
 
-    vl = VirtualLesson.create({film_date: container.lessondate}, without_protection: true) unless vl
+    position = VirtualLesson.where('film_date = ?', container.lessondate).count
+    vl = VirtualLesson.create({film_date: container.lessondate, position: position}, without_protection: true) if vl.nil?
     container.virtual_lesson = vl
+    vl
   end
-
 end

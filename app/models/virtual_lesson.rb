@@ -1,33 +1,68 @@
 class VirtualLesson < ActiveRecord::Base
   has_many :lessons
 
-  acts_as_list :scope => "film_date"
-
-  def self.last_lesson(before_lesson, after_lesson)
-    if before_lesson
-      next_lesson = true
-
-      last_lesson = VirtualLesson.find(before_lesson)
-      ll = last_lesson.lower_item
-      unless ll
-        ll = VirtualLesson.where('film_date < ?', last_lesson.film_date).order('film_date DESC, position ASC').first
-      end
-      prev_lesson = ll
-    elsif after_lesson
-      prev_lesson = true
-
-      last_lesson = VirtualLesson.find(after_lesson)
-      ll = last_lesson.higher_item
-      unless ll
-        ll = VirtualLesson.where('film_date > ?', last_lesson.film_date).order('film_date DESC, position ASC').last
-      end
-      next_lesson = ll
+  def self.last_lesson(lesson_id)
+    if lesson_id.nil?
+      # Return the latest lesson
+      last_lesson = VirtualLesson.order('film_date DESC, position DESC').first
     else
-      ll = VirtualLesson.order('film_date DESC, position ASC').first
-      next_lesson = false
-      prev_lesson = VirtualLesson.last_lesson(ll.id, nil)
+      last_lesson = VirtualLesson.find(lesson_id)
     end
-    [ll, prev_lesson, next_lesson]
+
+    next_lesson = VirtualLesson.where('film_date = ? AND position > ?', last_lesson.film_date, last_lesson.position).order('position ASC').first ||
+        VirtualLesson.where('film_date > ?', last_lesson.film_date).order('film_date ASC, position ASC').first
+    prev_lesson = VirtualLesson.where('film_date = ? AND position < ?', last_lesson.film_date, last_lesson.position).order('position DESC').first ||
+        VirtualLesson.where('film_date < ?', last_lesson.film_date).order('film_date DESC, position DESC').first
+
+    [last_lesson, prev_lesson, next_lesson]
+  end
+
+  def virtual_name
+    if lessons.count == 1
+      lessons.first.lesson_descriptions.select { |ld| ld.lang == 'ENG' }.first.lessondesc
+    else
+      "Morning Lesson @ #{film_date}"
+    end
+  rescue "Lesson"
+  end
+
+  def lessons_ordered_by_parts
+    result = []
+    list = self.lessons.count > 1 ? self.lessons.includes(:catalogs, :file_assets) : self.lessons.includes(:catalogs, :file_assets, :lesson_descriptions)
+    return nil unless list
+
+    result << list.select do |l|
+      ids = l.catalogs.map(&:id)
+      ids.include?(Lesson::PREPARATION)
+    end
+    result << list.select do |l|
+      ids = l.catalogs.map(&:id)
+      ids.include?(Lesson::FIRST_PART)
+    end
+    result << list.select do |l|
+      ids = l.catalogs.map(&:id)
+      ids.include?(Lesson::SECOND_PART)
+    end
+    result << list.select do |l|
+      ids = l.catalogs.map(&:id)
+      ids.include?(Lesson::THIRD_PART)
+    end
+    result << list.select do |l|
+      ids = l.catalogs.map(&:id)
+      ids.include?(Lesson::FOURTH_PART)
+    end
+    result << list.select do |l|
+      ids = l.catalogs.map(&:id)
+      ids.include?(Lesson::FIFTH_PART)
+    end
+
+    result.flatten!
+    result.compact!
+
+    # There are no parts in this lesson, just one lesson (parashat shavua, etc.)
+    result = list.all if result.blank?
+
+    result
   end
 
 end
