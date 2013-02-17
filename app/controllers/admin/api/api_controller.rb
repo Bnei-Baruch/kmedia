@@ -95,19 +95,19 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     unless current_user.roles.include? api_role
       logger.info("User #{email} is not an API user.")
-      render :status => 401, :json => { :message => "Not an API user.", code: false }
+      render :status => 401, :json => {:message => "Not an API user.", code: false}
       return
     end
 
     render json:
                begin
                  Lesson.add_update(params[:container], params[:files], params[:dry_run] || params[:dry_run] == 'true')
-                 { message: "Success", code: true }
+                 {message: "Success", code: true}
                rescue Exception => e
                  message = "Exception: #{e.message}\n\n\tBacktrace: #{e.backtrace.join("\n\t")}"
                  logger.error "#{message}\n\n\tParams: #{params.inspect}"
                  ExceptionNotifier::Notifier.exception_notification(request.env, e).deliver if Rails.env.production?
-                 { message: message, code: false }
+                 {message: message, code: false}
                end
   end
 
@@ -126,7 +126,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # @returns {found: true, "server":"FILES-EU"}
   def get_file_servers
     file = FileAsset.find_by_filename(params[:filename] || '')
-    render json: { found: !file.nil?, server: (file.try(:servername) || DEFAULT_FILE_SERVER) }
+    render json: {found: !file.nil?, server: (file.try(:servername) || DEFAULT_FILE_SERVER)}
   end
 
   # List of catalogs
@@ -155,9 +155,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def catalogs
     # map locale to code3
     @language = Language.find_by_locale(params[:locale] || 'en').try(:code3) || 'ENG'
-
-    @root = Catalog.secure(@secure).where(:catalognodeid => params[:root]).first
-    @catalogs = @root.children
+    @catalogs = Catalog.children_catalogs(params[:root],@secure);
   end
 
   # List of content types

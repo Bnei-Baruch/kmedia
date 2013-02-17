@@ -267,7 +267,7 @@ class Lesson < ActiveRecord::Base
                 file['playtime_secs'].to_i
               else
                 server_url = Server.find(server)
-                uri = URI(server_url)
+                uri = URI(server_url.httpurl)
                 path = "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{name}"
 
                 if extension == 'mp3'
