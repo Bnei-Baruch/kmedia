@@ -18,6 +18,7 @@ class Catalog < ActiveRecord::Base
 
   scope :secure, lambda { |level| where("secure <= ?", level) }
   scope :open_matching_string, lambda { |string| where("catalognodename like ? AND open = ?", "%#{string}%", true )}
+  scope :visible, where(:visible => true)
 
   before_create :create_timestamps
   before_update :update_timestamps
@@ -45,10 +46,10 @@ class Catalog < ActiveRecord::Base
   # will return roots catalogs if the provided id is nil or empty
   def self.children_catalogs(id, secure)
     if id.blank?
-      children_catalogs = Catalog.secure(secure).roots
+      children_catalogs = Catalog.secure(secure).visible.roots
     else
       catalog = Catalog.secure(secure).where(catalognodeid: id).first
-      children_catalogs = catalog.children.secure(secure)
+      children_catalogs = catalog.children.secure(secure).visible
     end
   end
 end
