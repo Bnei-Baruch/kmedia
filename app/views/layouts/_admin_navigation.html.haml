@@ -32,6 +32,12 @@
                 - if can?(:update, LessondescPattern)
                   %li
                     = link_to "Containers' patterns", admin_lessondesc_patterns_path
+                - if can?(:update, Catalog)
+                  %li
+                    = link_to "Selected catalogs", admin_selected_catalogs_path
+                - if can?(:update, VirtualLesson)
+                  %li
+                    = link_to "Virtual lessons", admin_virtual_lessons_path
                 - if can?(:update, Department)
                   %li
                     = link_to 'Departments', admin_departments_path

@@ -1,4 +1,5 @@
 //= require jquery
+//= require jquery-ui
 //= require modernizr.custom
 //= require jquery.tokeninput
 //= require jquery.alphanumeric
@@ -67,7 +68,7 @@ $(function () {
         $("#catalog_catalognodename").val(text.replace(/[\s_]/g, '-').toLowerCase());
     });
 
-    $('#lesson_rss').live('click', function () {
+    $('#lesson_rss').on('click', function () {
         if ($(this).is(':checked')) {
             // Add RSS categories to catalogs
             $('#lesson_catalog_tokens').tokenInput("add", rss_catalog);

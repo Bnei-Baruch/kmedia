@@ -2,7 +2,8 @@ Kmedia::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  devise_for :users  do
+  devise_for :users
+  devise_scope :user do
     get '/login' => 'devise/sessions#new'
   end
   resources :users
@@ -42,6 +43,16 @@ Kmedia::Application.routes.draw do
         member do
           get 'batch'
         end
+      end
+    end
+
+    resources :selected_catalogs, only: [:index, :new] do
+      collection do
+        post 'set_selected'
+        get 'autocomplete'
+      end
+      member do
+        delete 'unset_selected'
       end
     end
 
