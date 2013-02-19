@@ -70,7 +70,7 @@ class Admin::LabelsController < Admin::ApplicationController
     .accessible_by(current_ability)
 
     if params[:q]
-      @labels = @labels.joins(:label_descriptions).where("lang='ENG' and text like ?", "%#{params[:q]}%")
+      @labels = @labels.joins(:label_descriptions).where("text like ?", "%#{params[:q]}%")
     else
       @labels = @labels.page(params[:page])
     end
