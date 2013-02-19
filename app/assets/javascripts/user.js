@@ -171,8 +171,8 @@ function start_projekktor() {
         minHeight: 280,
         minWidth: 370,
         forceFullViewport: true,
-        poster: '/assets/cover-audio.jpg',
-        cover: '/assets/cover-audio.jpg',
+        poster: '/assets/cover-audio.png',
+        cover: '/assets/cover-audio.png',
         playerFlashMP4: '/assets/jarisplayer.swf',
         playerFlashMP3: '/assets/jarisplayer.swf',
         messages: {
