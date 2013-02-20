@@ -4,20 +4,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def index
     authorize! :index, Lesson
     @filter = params[:filter]
-    @lessons = case @filter
-                 when 'all'
-                   Lesson
-                 when 'secure_changed'
-                   Lesson.secure_changed
-                 when 'no_files'
-                   Lesson.no_files
-                 when 'lost'
-                   Lesson.lost
-                 when 'by_security'
-                   Lesson.security(params[:security])
-                 else
-                   Lesson.need_update
-               end.order(sort_order).page(params[:page])
+    @lessons = Lesson.get_appropriate_lessons(@filter, params[:security]).order(sort_order).page(params[:page])
   end
 
   def show

@@ -7,7 +7,9 @@ class LessondescPattern < ActiveRecord::Base
   validates :lang, :description, :presence => true
 
   scope :pattern_matches, lambda{ |string|
-    where("'#{string}' regexp pattern")
+    where("LENGTH(pattern) = (
+             SELECT LENGTH(pattern) AS len FROM `lessondesc_patterns` WHERE '#{string}' regexp pattern  ORDER BY len DESC LIMIT 1
+           ) AND '#{string}' regexp pattern")
   }
 
   attr_accessor  :catalog_tokens

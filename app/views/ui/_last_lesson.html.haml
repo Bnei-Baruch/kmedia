@@ -1,0 +1,112 @@
+.item
+  .padding-both
+    %h4.clearfix
+      .pull-left
+        != @lesson_name
+      .pull-right
+        - if @prev_lesson
+          = link_to '< Prev', homepage_show_ui_path(@prev_lesson.id)
+        - else
+          &lt; Prev
+        - if @next_lesson
+          = link_to 'Next >', homepage_show_ui_path(@next_lesson.id)
+        - else
+          Next &gt;
+    .languages-bar
+      %ul.nav.nav-tabs
+        %li.tabs-title Available languages:
+        - @available_last_lessons_languages.each do |l|
+          %li{:class => (l == @active_tab ? 'active' : '')}
+            %a{:href => "##{l}-player", :'data-toggle' => 'tab'}= l.upcase
+  .tab-content
+    - @available_last_lessons_languages.each do |language|
+      .tab-pane.fade.in{:id => "#{language}-player", :class => (language == @active_tab ? 'active' : '')}
+        .row
+          .span5
+            .padding-left
+              %h4.pull-left Play:
+              .pull-right.toggle
+                %a.right-switch-link(href="javascript:;") audio
+                .switch
+                  %i.icon-km-small-video>
+                  %i.icon-km-small-audio>
+                  .left.btn.btn-mini.btn-primary(href="javascript:;")>
+                    %i.icon-km-small-white-video>
+                %a.left-switch-link(href="javascript:;") video
+              %div(class="video-#{language} projekktor")
+              %script(type="text/javascript")
+                var playlist_#{language}_video = [
+                - total_lessons = @last_lessons.count - 1
+                - @last_lessons.each_with_index do |lesson, index|
+                  {
+                  = list_assets(lesson, language, ['wmv', 'mp4'], 'video/mp4')
+                  }
+                  - unless index == total_lessons
+                    ,
+                ];
+                var playlist_#{language}_audio = [
+                - @last_lessons.each_with_index do |lesson, index|
+                  {
+                  = list_assets(lesson, language, ['mp3'], 'audio/mpeg')
+                  }
+                  - unless index == total_lessons
+                    ,
+                ];
+              - unless @last_lessons.count == 1
+                .btn-toolbar
+                  .btn-group
+                    - @last_lessons.each_with_index do |lesson, index|
+                      %button.btn.btn-mini{:'data-item-index' => index}= lesson_part(lesson, language)
+                  -# Oleg - design
+                  -#.btn-group.pull-right
+                  -#  %button.btn.btn-mini
+                  -#    %i.icon-picture
+                  -#    Images
+                  -#  %button.btn.btn-mini
+                  -#    %i.icon-list
+                  -#    Text
+          .span4
+            .padding-right
+              %h4 Download:
+              %table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
+                %thead
+                  %tr
+                    %th.left-aligned-column Lesson Part
+                    %th
+                      %i.icon-km-small-video
+                    %th
+                      %i.icon-km-small-video
+                    %th
+                      %i.icon-km-small-audio
+                    %th
+                      %i.icon-km-small-text
+                    %th
+                      %i.icon-km-small-image
+                %tbody
+                  - @last_lessons.each do |lesson|
+                    %tr
+                      %td.left-aligned-column= link_to lesson_part(lesson, language), ui_path(lesson)
+                      %td= show_asset(lesson, language, 'wmv')
+                      %td= show_asset(lesson, language, 'mp4')
+                      %td= show_asset(lesson, language, 'mp3')
+                      %td= show_asset(lesson, language, 'doc')
+                      %td= show_asset(lesson, language, 'zip')
+                  -# Decided not to implement (Gorodetsky)
+                  -#%tr
+                  -#  %td.left-aligned-column
+                  -#    %a{:href => '#cat1', :'data-toggle' => "modal"} Whole Lesson (N/A)
+                  -#  %td
+                  -#    %a{:href => '#'}
+                  -#      %i.icon-download
+                  -#  %td
+                  -#    %a{:href => '#'}
+                  -#      %i.icon-download
+                  -#  %td
+                  -#    %a{:href => '#'}
+                  -#      %i.icon-download
+                  -#  %td
+                  -#    %a{:href => '#'}
+                  -#      %i.icon-download
+                  -#  %td
+                  -#    %a{:href => '#'}
+                  -#      %i.icon-download

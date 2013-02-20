@@ -1,22 +1,37 @@
 !!! 5
 %html
   %head
+
     %title
-      = content_for?(:title) ? yield(:title) : "Kabbala Media"
+      = content_for?(:title) ? yield(:title) : 'Kabbalah Media'
+    %meta{'charset' => 'utf-8'}/
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %meta(name="description" content="")
+    %meta(name="author" content="")
+
     = stylesheet_link_tag 'user'
-    = javascript_include_tag 'user'
+    = stylesheet_link_tag asset_path("theme/style.css"), media: :all
+
+    :javascript
+      var zclip_list = new Array;
+
     = csrf_meta_tag
     = yield(:head)
-  %body(data-spy="scroll" data-target=".subnav" data-offset="50" data-rendering="true")
-    - if current_user
-      = render 'layouts/admin_navigation'
-    - else
-      .container
-        = render 'layouts/navigation'
-    .container
-      - flash.each do |name, msg|
-        - klass = (name.to_s == 'error' || name.to_s == 'alert') ? 'alert fade in alert-error' : 'alert fade in alert-info'
-        = content_tag :div, "<a class='close' data-dismiss='alert' href='#'>&times;</a>#{msg}".html_safe, :class => klass
-      .common_background= yield
 
+    = javascript_include_tag 'modernizr.custom'
+
+    -#<link rel="shortcut icon" href="../../docs/assets/ico/favicon.ico">
+    -#<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../docs/assets/ico/apple-touch-icon-144-precomposed.png">
+    -#<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../docs/assets/ico/apple-touch-icon-114-precomposed.png">
+    -#<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../docs/assets/ico/apple-touch-icon-72-precomposed.png">
+    -#<link rel="apple-touch-icon-precomposed" href="../../docs/assets/ico/apple-touch-icon-57-precomposed.png">
+
+    = render 'common/topbanner_head'
+  %body
+    = render 'common/navbar'
+    .container
+      = render 'common/topbanner'
+      = yield
+
+    = javascript_include_tag 'user'

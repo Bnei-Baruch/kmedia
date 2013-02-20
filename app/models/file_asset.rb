@@ -30,6 +30,8 @@ class FileAsset < ActiveRecord::Base
   before_create :create_timestamps
   before_update :update_timestamps
 
+  scope   :latest_updates, -> amount {order('updated DESC').limit(amount) }
+
   def create_timestamps
     write_attribute :created, Time.now
     write_attribute :updated, Time.now
@@ -40,7 +42,12 @@ class FileAsset < ActiveRecord::Base
   end
 
   def url
-    server.httpurl + '/' + filename
+    Server::NAME_URL[servername] + '/' + filename
+  end
+
+  def download_url
+    uri = URI(Server::NAME_URL[servername])
+    "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{filename}"
   end
 
   def typename
@@ -50,4 +57,21 @@ class FileAsset < ActiveRecord::Base
   def icon
     FileType.ext_to_icon(filetype)
   end
+
+  def <=>(other)
+    self.filetype <=> other.filetype
+  end
+
+  def self.available_languages(file_assets)
+    return nil if file_assets.nil?
+    field = file_assets[0].respond_to?(:filelang) ? :filelang : :lang
+    code3s = file_assets.map(&field).uniq.map { |l| Language::CODE3_LOCALE[l] }
+    languages = []
+    MAIN_LOCALES.each {|locale|
+      languages << code3s.select{|code3| code3 == locale }
+    }
+    languages << code3s.sort.reject{|code3| MAIN_LOCALES.include?(code3) }
+    languages.flatten.compact
+  end
+
 end

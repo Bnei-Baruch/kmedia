@@ -37,22 +37,6 @@ body {
   }
   ul.nav {
     clear: left;
-    li {
-      a {
-        color: rgba(255, 255, 255, 0.8);
-        &:hover {
-          color: white;
-        }
-      }
-      ul.dropdown-menu{
-        a {
-          color: #555;
-          &:hover {
-            color: black;
-          }
-        }
-      }
-    }
   }
 }
 
@@ -262,4 +246,39 @@ th .asc:after {
 
 th .desc:after {
   content: "▼";
+}
+
+ul.ui-autocomplete {
+  position: absolute;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: solid 1px #999;
+  cursor: default;
+  li {
+    background-color: #FFF;
+    border-top: solid 1px #DDD;
+    margin: 0;
+    padding: 0;
+    a {
+      color: #000;
+      display: block;
+      padding: 3px;
+    }
+    a.ui-state-hover, a.ui-state-active {
+      background-color: #FFFCB2;
+    }
+  }
+}
+
+.ui-state-focus {
+  background: #0088cc;
+}
+
+.ui-helper-hidden-accessible {
+  margin-left: 10px;
+}
+
+.ui-autocomplete-loading {
+  background: white asset-url('ajax-loader.gif', image) right center no-repeat;
 }

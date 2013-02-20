@@ -18,6 +18,8 @@ module Kmedia
     # Version of your file_assets, change this if you want to expire all your file_assets
     config.assets.version = '1.0'
 
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'projekktor')
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into file_assets in config/initializers
     # -- all .rb file_assets in that directory are automatically loaded.
@@ -52,7 +54,13 @@ module Kmedia
 
     config.jsonify_format = :compile
 
+    config.active_record.schema_format = :sql
+
+    # don't generate RSpec tests for views and helpers
+    # we’re using Cucumber scenarios (integration tests)
     config.generators do |g|
+      g.view_specs false
+      g.helper_specs false
       g.test_framework :rspec,
                        :fixtures => true,
                        :view_specs => false,
@@ -62,7 +70,5 @@ module Kmedia
                        :request_specs => true
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
-
-
   end
 end

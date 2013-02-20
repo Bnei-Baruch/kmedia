@@ -1,0 +1,67 @@
+%header.subhead#overview
+  %h2 Virtual Lesson
+  .subnav
+    %ul.nav.nav-pills
+      -if can?(:edit_descriptions, @virtual_lesson)
+        %li
+          = link_to "Edit", edit_admin_virtual_lesson_path(@virtual_lesson)
+      -if can?(:destroy, @virtual_lesson)
+        %li
+          = link_to "Destroy", admin_virtual_lesson_path(@virtual_lesson), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
+      -if can?(:read, @virtual_lesson)
+        %li
+          = link_to "View All", admin_virtual_lessons_path
+
+%section.well
+  = display_show_item('ID', @virtual_lesson.id)
+  = display_show_item('Film Date', @virtual_lesson.film_date)
+  = display_show_item('Created', @virtual_lesson.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @virtual_lesson.updated_at.to_s(:long_ordinal))
+
+%section
+  %strong Lessons:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Filming Date
+        %th Created Date
+        %th Updated Date
+        %th Language
+    %tbody
+      - @virtual_lesson.lessons.each do |lesson|
+        %tr
+          %td= lesson.id
+          %td= lesson.lessonname
+          %td= lesson.lessondate.try(:to_date)
+          %td= lesson.created.try(:to_date)
+          %td= lesson.updated.try(:to_date)
+          %td= lesson.lang
+        %tr
+          %td(colspan="6")
+            %strong Files:
+            %table.table.table-striped.table-bordered.table-condensed
+              %thead
+                %tr
+                  %th ID
+                  %th Name
+                  %th Security
+                  %th File Size
+                  %th File Duration
+                  %th Recorded at
+                  %th Created on
+                  %th Updated on
+                  %th Language
+              %tbody
+                - lesson.file_assets.each do |asset|
+                  %tr
+                    %td= link_to asset.fileid, asset.url, :target => '_blank'
+                    %td= asset.filename
+                    %td= display_secure asset.secure
+                    %td= number_to_human_size asset.filesize
+                    %td= convert_seconds_to_human_readable asset.playtime_secs
+                    %td= asset.filedate.try(:to_date)
+                    %td= asset.created.try(:to_date)
+                    %td= asset.updated.try(:to_date)
+                    %td= asset.filelang

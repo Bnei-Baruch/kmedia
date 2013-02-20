@@ -17,12 +17,13 @@ class Catalog < ActiveRecord::Base
   end
 
   scope :secure, lambda { |level| where("secure <= ?", level) }
-  scope :open_matching_string, lambda { |string| where("catalognodename like ? AND open = ?", "%#{string}%", true )}
+  scope :open_matching_string, lambda { |string| where("catalognodename like ? AND open = ?", "%#{string}%", true) }
+  scope :visible, where(:visible => true)
 
   before_create :create_timestamps
   before_update :update_timestamps
 
-  validates :label, :uniqueness => true, :format => { :with => /^[a-zA-Z0-9_-]*$/ }
+  validates :label, :uniqueness => true, :format => {:with => /^[a-zA-Z0-9_-]*$/}
 
   class ParentValidator < ActiveModel::Validator
     def validate(catalog)
@@ -39,6 +40,29 @@ class Catalog < ActiveRecord::Base
 
   def update_timestamps
     write_attribute :updated, Time.now
+  end
+
+  # returns children catalogs for the given catalog id
+  # will return roots catalogs if the provided id is nil or empty
+  def self.children_catalogs(id = nil, secure = 0)
+    begin
+      if id.blank?
+        Catalog.secure(secure).visible.roots
+      else
+        catalog = Catalog.secure(secure).where(catalognodeid: id).first
+        catalog.children.secure(secure).visible
+      end
+    rescue
+      nil
+    end
+  end
+
+  def self.selected_catalogs
+    self.where(selected_catalog: true).limit(5).includes(:parent)
+  end
+
+  def self.count_selected_catalogs
+    self.where(selected_catalog: true).count
   end
 
 end

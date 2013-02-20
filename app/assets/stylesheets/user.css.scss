@@ -3,80 +3,432 @@
 *= require_tree ./user
 */
 @import "bootstrap";
+@import "icon-km";
+@import "daterangepicker.css";
 
-body {
-  font-family: Arial;
-  padding-top: 90px;
+// Bootstrap override begin
+.caret {
+  margin-top: 8px !important;
 }
 
-.clear {
+// Bootstrap override end
+
+body {
+  background: #ccc;
+  margin-top: 46px;
+}
+
+#sidebar {
+  background: #fff;
+  @include border-radius(5px);
+  padding: 0 0 15px;
+  width: 220px;
+  #language_ids {
+    width:  190px;
+  }
+}
+
+header {
+  margin: 20px 0 30px;
+  h1 {
+    margin: 0 0 10px;
+  }
+  .row {
+    position: relative;
+  }
+  form {
+    position: absolute;
+    bottom: 0;
+  }
+  .nav li {
+    width: 20%;
+    text-align: center;
+  }
+  .main_title {
+    text-shadow: 0px 1px 0px #eee;
+  }
+}
+
+.tags {
+  margin-bottom: 20px;
+  line-height: 14px;
+  height: 38px;
+  overflow: hidden;
+  a {
+    display: inline-block;
+    margin: 0 3px 3px 0;
+  }
+}
+
+.padding-both {
+  padding: 0 10px;
+}
+
+.padding-left {
+  padding: 0 0 0 10px;
+}
+
+.padding-right {
+  padding: 0 10px 0 0;
+}
+
+.item {
+  background: #fff;
+  @include border-radius(5px);
+  @include box-shadow((0 0 7px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.7)));
+  margin: 0 0 20px;
+  padding: 10px 0;
+  h3, h4 {
+    margin: 0 0 10px;
+    line-height: 1.2;
+    small.pull-right {
+      line-height: 38px;
+      a.active {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+    }
+  }
+  table {
+    font-size: 12px;
+  }
+}
+
+.item-list {
+  background: #777;
+  padding: 0;
+  .span1 {
+    margin-right: -20px;
+    width: 80px;
+    text-align: center;
+    hr {
+      margin: 0 auto 5px;
+      border-top: 1px solid #555;
+      border-bottom: 1px solid #818181;
+    }
+    .badge {
+      display: block;
+      margin-bottom: 6px;
+      padding: 3px 0 2px;
+      font-size: 10px;
+    }
+    .padding-both-8 {
+      padding: 0 8px;
+    }
+  }
+  .span8 {
+    background: #fff;
+    padding: 10px 0;
+    @include border-radius(0 5px 5px 0);
+  }
+}
+
+.languages-bar {
+  margin: 0 -10px 10px;
+
+  .nav-tabs {
+    margin: 0;
+    border: 1px solid #b3b3b3;
+    border-width: 1px 0;
+    background: #d8d8d8;
+    li {
+      float: right;
+      border-left: 1px solid #b3b3b3;
+      /*  border-width:1px 0 0 1px;*/
+
+      &.tabs-title {
+        float: left;
+        line-height: 30px;
+        border: 0 none;
+        font-style: italic;
+        padding: 0 0 0 10px;
+      }
+    }
+    & > li > a {
+      margin: 0;
+      width: 29px;
+      height: 29px;
+      padding: 0;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 0;
+      text-shadow: 0 1px #e4e4e4;
+    }
+    & > li > a, & > .active > a, & > .active > a:hover {
+      border-width: 1px 0 0 1px;
+      border-color: #e4e4e4;
+    }
+    & > .active > a, & > .active > a:hover {
+      border-color: white;
+    }
+  }
+}
+
+.pagination {
+  text-align: center;
+  .pagination ul {
+    background: #fff;
+  }
+  ul > .disabled {
+    & > span, & > a, & > a:hover {
+      background-color: #F5F5F5;
+    }
+  }
+}
+
+.topbanner {
+  width: 550px;
+  height: 80px;
+  margin: 10px auto;
+}
+
+.navbar-fixed-top {
+  z-index: 1200;
+}
+
+#content {
+  position: relative;
+  .navbar {
+    font-size: 13px;
+    .nav {
+      float: none;
+      margin: 0;
+      text-align: center;
+      li.active {
+        position: relative;
+        &:before, &:after {
+          position: absolute;
+          content: '';
+          border-style: solid;
+          bottom: -9px;
+          left: 50%;
+          z-index: 1100;
+        }
+        &:before {
+          border-width: 0 8px 8px 8px;
+          border-color: #cccccc;
+          border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
+          margin-left: -8px;
+        }
+        &:after {
+          border-width: 0 6px 6px 6px;
+          border-color: transparent transparent white transparent;
+          margin-left: -6px;
+        }
+      }
+    }
+    .nav > li {
+      width: 115px;
+    }
+    .nav > li > a {
+      padding: 10px 0;
+    }
+  }
+  .navbar-inner {
+    padding: 0;
+    border: 0 none;
+  }
+  .divider-vertical {
+    margin: 0;
+    width: 0 !important;
+  }
+  .category-modal {
+    margin: 0;
+    top: 48px;
+    left: -1px;
+    position: absolute;
+    width: 100%;
+    .breadcrumb {
+      padding: 0;
+      background-color: #fff;
+      margin: 0;
+    }
+    .modal-body {
+      position: relative;
+      height: 240px;
+      padding: 0;
+      .categories {
+        height: 240px;
+        overflow: auto;
+        overflow-y: scroll;
+        float: left;
+        margin: 0;
+        width: 33%;
+        margin-left: 0.5%;
+        ul {
+          margin: 0;
+          padding: 10px 0;
+          & li {
+            width: 90% !important;
+            padding: 0 5%;
+            text-align: left !important;
+            list-style: none;
+          }
+          li:nth-child(odd) {
+            background: #f0f0f0;
+          }
+
+          .selected {
+            background: #0088CC !important;
+            a {
+              color: #fff;
+            }
+          }
+          a {
+            display: block;
+          }
+        }
+      }
+      .column1 {
+        margin: 0 !important;
+      }
+      .column2, .column3, .column2 ul, .column3 ul {
+        display: none;
+      }
+    }
+  }
+}
+
+.toggle {
+  width: 200px;
+  margin: 7px 0;
+  i {
+    vertical-align: baseline;
+  }
+  .left-switch-link, .right-switch-link {
+    float: right;
+    line-height: 26px;
+  }
+  .switch {
+    cursor: pointer;
+    float: right;
+    width: 66px;
+    height: 22px;
+    position: relative;
+    background: #d6d6d6;
+    padding: 3px;
+    margin: 0 7px;
+    @include border-radius(4px);
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.2));
+    div {
+      position: absolute;
+      width: 30px;
+      height: 20px;
+      padding: 0;
+      top: 3px;
+      @include transition(left 0.1s);
+      i {
+        opacity: 1;
+        margin: 4px 0 6px;
+      }
+    }
+  }
+  .left {
+    left: 3px;
+  }
+  .right {
+    left: 37px;
+  }
+  i {
+    margin: 5px 10px 5px 11px;
+    opacity: 0.3;
+  }
+}
+
+.description {
+  margin:  10px 0;
+}
+
+.projekktor {
   clear: both;
 }
 
-.navbar {
-  .brand {
-    padding: 4px 20px 0;
-    text-transform: uppercase;
-    span {
-      font-size: 14px;
-      letter-spacing: 2.1px;
+.media-table {
+  font-size: 12px;
+  tbody td, thead th {
+    padding: 0 5px;
+    text-align: center;
+    position: relative;
+  }
+  tbody td {
+    vertical-align: middle;
+  }
+  thead th {
+    white-space: nowrap;
+  }
+  .left-aligned-column {
+    text-align: left;
+  }
+  a {
+    display: block;
+  }
+}
+
+.tab-content {
+  overflow: visible;
+}
+
+#dates_range {
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  padding: 3px 15px;
+  margin-right: -15px;
+  margin-left: -15px;
+  .daterange {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    color: #0088cc;
+  }
+  .caret {
+    position: absolute;
+    top: 0;
+    right: 15px;
+  }
+}
+
+.daterangepicker.opensright {
+  padding-bottom: 0;
+  margin-left: 19px;
+  margin-top: 4px;
+  &::after {
+    left: 84px;
+  }
+  &::before {
+    left: 83px;
+  }
+  .ranges {
+    margin: 5px 10px !important;
+    li {
+      margin-bottom: 5px;
+      @include border-radius(2px);
+    }
+  }
+  .calendar {
+    margin: 5px 10px 5px 0;
+  }
+  .footer {
+    padding: 14px 15px 15px;
+    margin-bottom: 0;
+    text-align: right; // right align buttons
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    @include border-radius(0 0 6px 6px);
+    @include box-shadow(inset 0 1px 0 $white);
+    @include clearfix(); // clear it in case folks use .pull-* classes on buttons
+
+    // Properly space out buttons
+    .btn + .btn {
+      margin-left: 5px;
+      margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+    }
+    // but override that for button groups
+    .btn-group .btn + .btn {
+      margin-left: -1px;
+    }
+    // and override it for block buttons as well
+    .btn-block + .btn-block {
+      margin-left: 0;
     }
   }
 }
 
-.navbar-search .search-query {
-  color: black;
-}
-
-.brand.logout {
-  font-size: 14px;
-  line-height: 24px;
-}
-
-.navbar-search {
-  .search-query {
-    background-color: rgba(255, 255, 255, 0.8);
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-    }
-  }
-}
-
-.no-margin {
-  margin: 0 !important;
-}
-
-.user_search label.checkbox {
-  padding-top: 0;
-  display: inline-block;
-  margin-bottom: 0;
-  vertical-align: middle;
-  padding-left: 25px;
-}
-
-/* Space out sub-sections more
--------------------------------------------------- */
-
-/* Faded out hr */
-hr.soften {
-  height: 1px;
-  margin: 30px 0;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-  background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-  border: 0;
-}
-
-#google_ads_iframe_Kabbalah_media {
-  border: 0 none;
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 0 0 3px #666666;
-}
-#google_ads_div_Kabbalah_media_ad_wrapper {
-  margin: 5px 0 0;
-}
-
-.common_background {
-
-}
