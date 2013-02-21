@@ -29,6 +29,7 @@
 
 $(function () {
     $("#lesson_catalog_tokens").tokenInput("/admin/catalogs.json", {
+        minChars: 2
         crossDomain:false,
         preventDuplicates:true,
         onAdd:function (item) {
@@ -44,11 +45,13 @@ $(function () {
         prePopulate:$("#lesson_catalog_tokens").data("pre")
     });
     $("#lessondesc_pattern_catalog_tokens").tokenInput("/admin/catalogs.json", {
+        minChars: 2,
         crossDomain:false,
         preventDuplicates:true,
         prePopulate:$("#lessondesc_pattern_catalog_tokens").data("pre")
     });
     $("#catalog_parentnodeid").tokenInput("/admin/catalogs.json", {
+        minChars: 2,
         crossDomain:false,
         preventDuplicates:true,
         tokenLimit:1,
