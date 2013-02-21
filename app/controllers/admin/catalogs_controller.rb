@@ -18,7 +18,7 @@ class Admin::CatalogsController < Admin::ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @catalogs.map { |c| { :id => c.catalognodeid, :name => c.catalognodename } } }
+      format.json { render :json => @catalogs.multipluck(:'catalognode.catalognodeid as id', :'catalognode.catalognodename as name') }
     end
   end
 
