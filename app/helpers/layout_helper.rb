@@ -145,4 +145,7 @@ HAML
     engine.render self, :form => f, :transcripts => transcripts
   end
 
+  def display_catalog_name(catalog, language)
+    catalog.catalog_descriptions.select{|desc| desc.lang == language}[0].catalognodename rescue catalog.catalognodename
+  end
 end

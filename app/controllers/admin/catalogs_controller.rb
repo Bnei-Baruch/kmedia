@@ -6,19 +6,17 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def index
-    @catalogs = Catalog.
-        accessible_by(current_ability, :index).
-        order(sort_order).includes(:parent)
+    @catalogs = Catalog.accessible_by(current_ability, :index).order(sort_order).includes(:parent)
     if params[:q]
       # request for catalogs from ui token input box
-      @catalogs = @catalogs.open_matching_string(params[:q])
+      @catalogs = @catalogs.open_matching_string(params[:q]).multipluck(:'catalognode.catalognodeid as id', :'catalognode.catalognodename as name')
     else
       @catalogs = @catalogs.page(params[:page])
     end
 
     respond_to do |format|
       format.html
-      format.json { render :json => @catalogs.multipluck(:'catalognode.catalognodeid as id', :'catalognode.catalognodename as name') }
+      format.json { render :json => @catalogs }
     end
   end
 

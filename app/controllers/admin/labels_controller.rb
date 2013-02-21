@@ -64,20 +64,17 @@ class Admin::LabelsController < Admin::ApplicationController
   end
 
   def assignable
-    @labels = Label
-    .select("labels.id, text")
-    .order("text asc")
-    .accessible_by(current_ability)
+    @labels = Label.select("labels.id, text").order("text asc").accessible_by(current_ability)
 
     if params[:q]
-      @labels = @labels.joins(:label_descriptions).where("text like ?", "%#{params[:q]}%")
+      @labels = @labels.joins(:label_descriptions).where("text like ?", "%#{params[:q]}%").multipluck(:'labels.id as id', :'labels.text as name')
     else
       @labels = @labels.page(params[:page])
     end
 
     respond_to do |format|
       format.html
-      format.json { render :json => @labels.map { |lbl| { :id => lbl.id, :name => lbl.text } } }
+      format.json { render :json => @labels }
     end
   end
 

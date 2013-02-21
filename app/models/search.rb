@@ -119,6 +119,15 @@ class Search
     end
   end
 
+  def setup_search
+    @active_content_type = self.content_type_id.blank? ? 'all' : ContentType.find(self.content_type_id).pattern
+    @active_media_type = self.media_type_id.blank? ? 'all' : self.media_type_id
+    @active_date_type = self.date_type.blank? ? 'anytime' : self.date_type
+    @active_language = self.language_ids.blank? ? 'all' : self.language_ids
+    @dates_range = self.dates_range
+    @date_type = self.date_type
+  end
+
   private
   def set_search_error(e)
     if e.data.kind_of?(Net::HTTPInternalServerError)

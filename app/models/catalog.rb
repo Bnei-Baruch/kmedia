@@ -58,7 +58,7 @@ class Catalog < ActiveRecord::Base
   end
 
   def self.selected_catalogs
-    self.where(selected_catalog: true).limit(5).includes(:parent)
+    self.where(selected_catalog: true).limit(5)
   end
 
   def self.count_selected_catalogs

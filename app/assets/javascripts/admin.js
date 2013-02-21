@@ -80,7 +80,7 @@ $(function () {
 
 });
 function auto_parse() {
-    $('a.auto-parse').live('click', function (e) {
+    $('a.auto-parse').on('click', function (e) {
         var element = $(this);
         var method, url, data, dataType;
         method = element.attr('data-method') || 'GET';

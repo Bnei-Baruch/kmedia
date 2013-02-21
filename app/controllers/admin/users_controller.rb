@@ -52,13 +52,13 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.new
     if params[:user][:password].blank? || params[:user][:password] != params[:user][:password_confirmation]
       @user.errors[:password] << "The password you entered is incorrect"
-      render :action => 'new'
+      render :new
     else
       permitted = can? :update, :users
       if @user.update_attributes(params[:user], :without_protection => permitted)
         redirect_to admin_users_url, :notice => "Successfully created user."
       else
-        render :action => 'new'
+        render :new
       end
     end
   end
@@ -78,7 +78,7 @@ class Admin::UsersController < Admin::ApplicationController
 
     if params[:user][:reset_password_token] != @user.reset_password_token
       @user.errors[:first_name] << "Sorry, but you don't have permission to change users' data"
-      render :action => 'edit'
+      render :edit
       return
     end
 
@@ -86,12 +86,11 @@ class Admin::UsersController < Admin::ApplicationController
       permitted = can? :update, :users
       if @user.update_attributes(params[:user], :without_protection => permitted)
         redirect_to admin_user_path(@user), :notice => "Your account has been updated"
-      else
-        render :action => 'edit'
+        return
       end
-    else
-      render :action => 'edit'
     end
+
+    render :edit
   end
 
   def become

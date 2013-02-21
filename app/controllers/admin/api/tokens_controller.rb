@@ -19,7 +19,7 @@ class Admin::Api::TokensController < ApplicationController
     @user = User.find_by_email(email.downcase)
 
     if @user.nil?
-      logger.info("User #{email} failed signin, user cannot be found.")
+      logger.info("User #{email} failed signing in, user cannot be found.")
       render :status => 401, :json => { :message => "Invalid email or password." }
       return
     end
@@ -27,7 +27,7 @@ class Admin::Api::TokensController < ApplicationController
     # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
     @user.ensure_authentication_token!
 
-    if not @user.valid_password?(password)
+    unless @user.valid_password?(password)
       logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
       render :status => 401, :json => { :message => "Invalid email or password.", :token => 0 }
     else

@@ -14,11 +14,6 @@
 
 $(document).ready(function () {
 
-    //Close popups
-    $('.close-popup').click(function () {
-        $(this).parents('.popup').css('display', 'none');
-    });
-
     //Categories Popup
     $('#content .navbar-inner li').on('click', function () {
         $('#content .navbar-inner li').removeClass('active');
@@ -160,6 +155,10 @@ function stop_projekktor() {
 
 function start_projekktor() {
     // Start projekktor on active tab-pane only
+    if ($('.active.tab-pane .projekktor').length == 0){
+        return;
+    }
+
     projekktor_instance = projekktor('.active.tab-pane .projekktor', {
         plugins: ['display', 'controlbar'],
         platforms: ['flash', 'browser', 'ios', 'native'],

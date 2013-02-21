@@ -369,4 +369,42 @@ class Lesson < ActiveRecord::Base
     container.virtual_lesson = vl
     vl
   end
+
+  def self.parse_lesson_name(lessonname, id)
+    lessonname ||=  Lesson.find(id).lessonname
+    sp = ::StringParser.new lessonname
+    @date = sp.date
+    @language = sp.language
+    @lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
+    @descriptions = sp.descriptions
+    @catalogs = @descriptions.select { |d| !d.catalogs.empty? }.first.try(:catalogs)
+    @content_type_id = sp.content_type.id
+    @security = sp.content_security_level
+    [@date, @language, @lecturerid, @descriptions, @catalogs, @content_type_id, @security]
+  end
+
+  def update_attributes(user, attributes)
+    self.attributes = attributes
+    self.secure_changed = self.operator_changed_secure_field?(user)
+    self.auto_parsed = false
+  end
+
+  def operator_changed_secure_field?(user)
+    if user.role?(:operator)
+      changed_fields = self.changes
+      return changed_fields.size == 1 && (changed_fields.has_key? ("secure"))
+    end
+    return false
+  end
+
+  def build_descriptions_and_translations(languages)
+    lang_codes = self.lesson_descriptions.map(&:lang)
+    transcript_lang_codes = self.lesson_transcripts.map(&:lang)
+
+    languages.each { |l|
+      self.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
+      self.lesson_transcripts.build(:lang => l.code3) unless  transcript_lang_codes.include?(l.code3)
+    }
+  end
+
 end

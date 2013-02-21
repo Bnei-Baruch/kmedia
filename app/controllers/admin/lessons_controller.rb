@@ -53,10 +53,7 @@ class Admin::LessonsController < Admin::ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
 
-    @lesson.attributes = params[:lesson]
-    @lesson.secure_changed = operator_changed_secure_field?
-
-    @lesson.auto_parsed = false
+    @lesson.update_attributes @current_user, params[:lesson]
 
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
@@ -110,18 +107,11 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def parse_lesson_name
     if params[:name].blank? && params[:id].blank?
-      render :text => 'alert("Empty Container Name");'
+      render :js => 'alert("Empty Container Name");'
       return
     end
-    lessonname = params[:name] || Lesson.find(params[:id]).lessonname
-    sp = ::StringParser.new lessonname
-    @date = sp.date
-    @language = sp.language
-    @lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
-    @descriptions = sp.descriptions
-    @catalogs = @descriptions.select {|d| !d.catalogs.empty?}.first.try(:catalogs)
-    @content_type_id = sp.content_type.id
-    @security = sp.content_security_level
+    @date, @language, @lecturerid, @descriptions, @catalogs, @content_type_id, @security = Lesson.parse_lesson_name(params[:name], params[:id])
+
     render :parse_lesson_name, :layout => false
   end
 
@@ -134,8 +124,7 @@ class Admin::LessonsController < Admin::ApplicationController
       render :js => 'alert("No such lesson")';
       return
     end
-    lesson.marked_for_merge = !lesson.marked_for_merge
-    lesson.update_attribute(:marked_for_merge, lesson.marked_for_merge)
+    lesson.update_attribute(:marked_for_merge, !lesson.marked_for_merge)
     render :js => lesson.marked_for_merge ?
         "$('.mark_for_merge').addClass('btn-warning').text('Unmark')" :
         "$('.mark_for_merge').removeClass('btn-warning').text('Mark')"
@@ -214,25 +203,11 @@ class Admin::LessonsController < Admin::ApplicationController
     MAIN_LANGS.map { |l| lesson_transcripts_main[l] } + lesson_transcripts_all.sort_by { |x| x.lang }
   end
 
-  def operator_changed_secure_field?
-    if @current_user.role?(:operator)
-      changed_fields = @lesson.changes
-      return changed_fields.size == 1 && (changed_fields.has_key? ("secure"))
-    end
-    return false
-  end
-
   def authorize_and_build_language_maps
     @lesson = Lesson.find(params[:id])
     authorize! :edit_descriptions, @lesson
 
-    lang_codes = @lesson.lesson_descriptions.map(&:lang)
-    transcript_lang_codes = @lesson.lesson_transcripts.map(&:lang)
-    @languages.each { |l|
-      @lesson.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
-      @lesson.lesson_transcripts.build(:lang => l.code3) unless  transcript_lang_codes.include?(l.code3)
-
-    }
+    @lesson.build_descriptions_and_translations(@languages)
     @lesson_descriptions = sort_descriptions
     @lesson_transcripts = sort_transcripts
   end
