@@ -41,7 +41,7 @@ class Admin::LessonsController < Admin::ApplicationController
     else
       @lesson_descriptions = sort_descriptions
       @lesson_transcripts = sort_transcripts
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -60,7 +60,7 @@ class Admin::LessonsController < Admin::ApplicationController
     else 
       @lesson_descriptions = sort_descriptions
       @lesson_transcripts = sort_transcripts
-      render :action => 'edit'
+      render :edit
     end
   end
 
@@ -82,7 +82,7 @@ class Admin::LessonsController < Admin::ApplicationController
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated container transcript."
     else
       @lesson_transcripts = sort_transcripts
-      render :action => 'edit_transcript'
+      render :edit_transcript
     end
   end
 
@@ -94,7 +94,7 @@ class Admin::LessonsController < Admin::ApplicationController
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated container long description."
     else
       @lesson_descriptions = sort_descriptions
-      render :action => 'edit_long_descr'
+      render :edit_long_descr
     end
   end
 

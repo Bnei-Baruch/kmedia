@@ -16,7 +16,7 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
     if @lessondesc_pattern.save
       redirect_to [:admin, @lessondesc_pattern], :notice => "Successfully created Container Description pattern."
     else
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -27,7 +27,7 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
     if @lessondesc_pattern.update_attributes(params[:lessondesc_pattern])
       redirect_to [:admin, @lessondesc_pattern], :notice  => "Successfully updated Container Description pattern."
     else
-      render :action => 'edit'
+      render :edit
     end
   end
 

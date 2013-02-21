@@ -27,7 +27,7 @@ class Admin::DepartmentsController < Admin::ApplicationController
     if @department.save
       redirect_to [:admin, @department], notice: 'Department was successfully created.'
     else
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -36,7 +36,7 @@ class Admin::DepartmentsController < Admin::ApplicationController
     if @department.update_attributes(params[:department])
       redirect_to [:admin, @department], :notice => "Successfully updated Department."
     else
-      render :action => 'edit'
+      render :edit
     end
   end
 

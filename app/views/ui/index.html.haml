@@ -1,3 +1,3 @@
 .row.show-grid
-  = render :partial => 'sidebar'
-  = render :partial => 'show_content'
+  = render 'sidebar', search: @search, active_content_type: @active_content_type, active_media_type: @active_media_type, active_language: @active_language
+  = render 'show_content'

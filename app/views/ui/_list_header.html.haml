@@ -1,14 +1,14 @@
 .navbar
   .navbar-inner
     %ul.nav
-      - @selected_catalogs.each_with_index do |catalog, index|
+      - selected_catalogs.each_with_index do |catalog, index|
         %li
           %a{:href => "#cat#{index}", :'data-toggle' => "modal"}= display_catalog_name(catalog, 'ENG')
         %li.divider-vertical
       %li
         %a{:href => '#all', :'data-toggle' => "modal", :'data-id' => nil} All Categories
 
-- @selected_catalogs.each_with_index do |catalog, index|
+- selected_catalogs.each_with_index do |catalog, index|
   .category-modal.modal.hide(id="cat#{index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false' data-id='#{catalog.id}')
     .modal-header
       %button(type="button" class="close" data-dismiss="modal" aria-hidden="true") ×
@@ -33,7 +33,7 @@
   .modal-body
     .categories.column1
       %ul
-        - @all_catalogs.each do |catalog|
+        - all_catalogs.each do |catalog|
           %li
             %a{:href => 'javascript:;'}= display_catalog_name(catalog, 'ENG')
   .modal-footer

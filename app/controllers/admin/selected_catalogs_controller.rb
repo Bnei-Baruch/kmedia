@@ -17,7 +17,7 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
     else
       @catalog = Catalog.new({catalognodename: name})
       @catalog.errors.add(:catalognodename, "Catalog \"#{name}\" does not exist.")
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -26,7 +26,7 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
     if @catalog.update_attribute(:selected_catalog, :false)
       redirect_to :action => 'index', :notice => "Successfully unselected catalog."
     else
-      render :action => 'index', notice: "Unable to unselect catalog #{@catalog.catalognodename}"
+      render :index, notice: "Unable to unselect catalog #{@catalog.catalognodename}"
     end
   end
 

@@ -37,7 +37,7 @@ class Admin::CatalogsController < Admin::ApplicationController
     if @catalog.save
       redirect_to [:admin, @catalog], :notice => "Successfully created catalog."
     else
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -56,7 +56,7 @@ class Admin::CatalogsController < Admin::ApplicationController
     if @catalog.save
       redirect_to admin_catalog_path(@catalog), :notice => "Successfully updated catalog."
     else
-      render :action => 'edit'
+      render :edit
     end
   end
 

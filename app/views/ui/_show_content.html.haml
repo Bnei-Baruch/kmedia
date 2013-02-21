@@ -1,5 +1,5 @@
 #content.span9
-  = render 'list_header'
+  = render 'list_header', selected_catalogs: @selected_catalogs, all_catalogs: @all_catalogs
   = render 'tags_cloud'
   - if @results.is_a?(String) || !@results || @results.results.empty?
     %h4 No results

@@ -19,7 +19,7 @@ class Admin::FileAssetsController < Admin::ApplicationController
     if @asset.save
       redirect_to [:admin, @asset], :notice => "Successfully created file."
     else
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -32,7 +32,7 @@ class Admin::FileAssetsController < Admin::ApplicationController
     if @asset.update_attributes(params[:file_asset])
       redirect_to [:admin, @asset], :notice => "Successfully updated file."
     else
-      render :action => 'edit'
+      render :edit
     end
   end
 

@@ -8,7 +8,7 @@
     = display_errors f
     -#= devise_error_messages!(@user, 'user')
 
-    = render :partial => 'user_fields', :locals => { :f => f }
+    = render 'user_fields', :locals => { :f => f }
     = f.hidden_field :reset_password_token
     = f.input :password, :hint => "(leave blank if you don't want to change it)", :required => false, :input_html => {:autocomplete => 'off'}
     = f.input :password_confirmation, :input_html => {:autocomplete => 'off'}

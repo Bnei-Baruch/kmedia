@@ -1,5 +1,5 @@
 .row.show-grid
-  = render :partial => 'sidebar'
+  = render 'sidebar', search: @search, active_content_type: @active_content_type, active_media_type: @active_media_type, active_language: @active_language
   - description = lesson_description(@item)
   #content.span9
     .item

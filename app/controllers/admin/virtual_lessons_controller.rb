@@ -51,7 +51,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
     if @user.update_attributes(params[:user], :without_protection => permitted)
       redirect_to admin_users_url, :notice => "Successfully created user."
     else
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -64,7 +64,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
     if @user.update_attributes(params[:user], :without_protection => permitted)
       redirect_to admin_user_path(@user), :notice => "Your account has been updated"
     else
-      render :action => 'edit'
+      render :edit
     end
   end
 

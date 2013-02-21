@@ -2,25 +2,25 @@
   .padding-both
     %h4.clearfix
       .pull-left
-        != @lesson_name
+        != lesson_name
       .pull-right
-        - if @prev_lesson
-          = link_to '< Prev', homepage_show_ui_path(@prev_lesson.id)
+        - if prev_lesson
+          = link_to '< Prev', homepage_show_ui_path(prev_lesson.id)
         - else
           &lt; Prev
-        - if @next_lesson
-          = link_to 'Next >', homepage_show_ui_path(@next_lesson.id)
+        - if next_lesson
+          = link_to 'Next >', homepage_show_ui_path(next_lesson.id)
         - else
           Next &gt;
     .languages-bar
       %ul.nav.nav-tabs
         %li.tabs-title Available languages:
-        - @available_last_lessons_languages.each do |l|
-          %li{:class => (l == @active_tab ? 'active' : '')}
+        - available_languages.each do |l|
+          %li{:class => (l == active_tab ? 'active' : '')}
             %a{:href => "##{l}-player", :'data-toggle' => 'tab'}= l.upcase
   .tab-content
-    - @available_last_lessons_languages.each do |language|
-      .tab-pane.fade.in{:id => "#{language}-player", :class => (language == @active_tab ? 'active' : '')}
+    - available_languages.each do |language|
+      .tab-pane.fade.in{:id => "#{language}-player", :class => (language == active_tab ? 'active' : '')}
         .row
           .span5
             .padding-left
@@ -36,8 +36,8 @@
               %div(class="video-#{language} projekktor")
               %script(type="text/javascript")
                 var playlist_#{language}_video = [
-                - total_lessons = @last_lessons.count - 1
-                - @last_lessons.each_with_index do |lesson, index|
+                - total_lessons = last_lessons.count - 1
+                - last_lessons.each_with_index do |lesson, index|
                   {
                   = list_assets(lesson, language, ['wmv', 'mp4'], 'video/mp4')
                   }
@@ -45,17 +45,17 @@
                     ,
                 ];
                 var playlist_#{language}_audio = [
-                - @last_lessons.each_with_index do |lesson, index|
+                - last_lessons.each_with_index do |lesson, index|
                   {
                   = list_assets(lesson, language, ['mp3'], 'audio/mpeg')
                   }
                   - unless index == total_lessons
                     ,
                 ];
-              - unless @last_lessons.count == 1
+              - unless last_lessons.count == 1
                 .btn-toolbar
                   .btn-group
-                    - @last_lessons.each_with_index do |lesson, index|
+                    - last_lessons.each_with_index do |lesson, index|
                       %button.btn.btn-mini{:'data-item-index' => index}= lesson_part(lesson, language)
                   -# Oleg - design
                   -#.btn-group.pull-right
@@ -83,7 +83,7 @@
                     %th
                       %i.icon-km-small-image
                 %tbody
-                  - @last_lessons.each do |lesson|
+                  - last_lessons.each do |lesson|
                     %tr
                       %td.left-aligned-column= link_to lesson_part(lesson, language), ui_path(lesson)
                       %td= show_asset(lesson, language, 'wmv')
