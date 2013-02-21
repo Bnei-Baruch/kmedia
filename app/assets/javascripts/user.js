@@ -163,7 +163,7 @@ function start_projekktor() {
     projekktor_instance = projekktor('.active.tab-pane .projekktor', {
         plugins: ['display', 'controlbar'],
         platforms: ['flash', 'browser', 'ios', 'native'],
-        autoplay: true,
+        autoplay: false,
         controls: true,
         volume: 0.5,
         height: 280,
@@ -171,8 +171,8 @@ function start_projekktor() {
         minHeight: 280,
         minWidth: 370,
         forceFullViewport: true,
-        poster: '/assets/cover-audio.png',
-        cover: '/assets/cover-audio.png',
+        poster: '/assets/cover-video.jpg',
+        cover: '/assets/cover-video.jpg',
         playerFlashMP4: '/assets/jarisplayer.swf',
         playerFlashMP3: '/assets/jarisplayer.swf',
         messages: {
