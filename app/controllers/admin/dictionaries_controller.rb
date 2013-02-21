@@ -18,10 +18,7 @@ class Admin::DictionariesController < Admin::ApplicationController
   # GET /admin/dictionaries/new
   # GET /admin/dictionaries/new.json
   def new
-    @dictionary.suid = Dictionary.next_suid
-    Language.all.each do |language|
-      @dictionary.dictionary_descriptions.build(lang: language.code3)
-    end
+    @dictionary.fill_defaults
     @descriptions = Utils::I18n.sort_descriptions(@dictionary.dictionary_descriptions)
   end
 
@@ -36,7 +33,7 @@ class Admin::DictionariesController < Admin::ApplicationController
     if @dictionary.save
       redirect_to admin_dictionary_path(@dictionary), notice: 'Successfully created dictionary.'
     else
-      render :action => 'new'
+      render :new
     end
   end
 
@@ -48,7 +45,7 @@ class Admin::DictionariesController < Admin::ApplicationController
     if @dictionary.update_attributes(params[:dictionary])
       redirect_to admin_dictionary_path(@dictionary), notice: 'Dictionary was successfully updated.'
     else
-      render action: 'edit'
+      render :edit
     end
   end
 

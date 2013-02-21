@@ -10,14 +10,14 @@ gem 'sass' #, :tag => '3.0.24'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
 gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git', :branch => 'v2.1'
 gem 'nokogiri'
-gem "ckeditor", "3.7.1"
-gem "paperclip"
+gem 'ckeditor', '3.7.1'
+gem 'paperclip'
 gem 'thin'
 gem 'puma'
 
 gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
 
-gem "cancan"
+gem 'cancan'
 gem 'devise'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
@@ -29,39 +29,42 @@ gem 'therubyracer' #, '0.9.10'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem "ruby-debug-base19x", '>= 0.11.30.pre10'
-  gem "ruby-debug-ide", '>= 0.4.17.beta14'
-  gem "sextant" # rake routes in the browser
+  #gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
+  #gem 'ruby-debug-ide', '>= 0.4.17.beta14'
+  gem 'sextant' # rake routes in the browser
   gem 'bullet'
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
-#group :test do
-#  gem "email_spec", ">= 1.2.1"
+group :test do
+  gem 'rspec-rails', '>= 2.10.1'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails', '>= 3.3.0'
+  gem 'guard-rspec'
+  gem 'rb-inotify', '~> 0.8.8'
+  gem 'simplecov', :require => false
+#  gem 'email_spec', '>= 1.2.1'
 #  gem 'cucumber-rails', '>= 1.3.0', :require => false
 #  gem 'capybara', '>= 1.1.2'
 #  gem 'database_cleaner', '>= 0.7.2'
 #  gem 'launchy', '>= 2.1.0'
-#  gem 'rspec-rails', '>= 2.10.1'
-#  gem "shoulda-matchers"
-#  gem "factory_girl_rails", ">= 3.3.0"
-#end
+end
 
 gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git' #'~> 2.2.1.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "~> 3.2.0"
-  gem 'coffee-rails', "~> 3.2.0", :require => 'coffee_script'
+  gem 'sass-rails', '~> 3.2.0'
+  gem 'coffee-rails', '~> 3.2.0', :require => 'coffee_script'
   gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'term-ansicolor'
 gem 'exception_notification'
 gem 'jsonify-rails'
-gem 'yajl-ruby', :require => "yajl" # Required if we want json with utf8 strings
+gem 'yajl-ruby', :require => 'yajl' # Required if we want json with utf8 strings
 
 # mp3 info
 require 'open-uri'
