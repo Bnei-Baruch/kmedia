@@ -29,7 +29,7 @@
 
 $(function () {
     $("#lesson_catalog_tokens").tokenInput("/admin/catalogs.json", {
-        minChars: 2
+        minChars: 2,
         crossDomain:false,
         preventDuplicates:true,
         onAdd:function (item) {
