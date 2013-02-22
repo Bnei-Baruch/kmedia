@@ -223,6 +223,8 @@ header {
     }
     .nav > li {
       width: 115px;
+      height: 40px;
+      overflow: hidden;
     }
     .nav > li > a {
       padding: 10px 0;
@@ -348,17 +350,25 @@ header {
 }
 
 .media-table {
-  font-size: 12px;
+  font-size: 11px !important;
+  vertical-align: top;
   tbody td, thead th {
     padding: 0 5px;
     text-align: center;
     position: relative;
   }
   tbody td {
-    vertical-align: middle;
+    white-space: nowrap;
+    &.download-url {
+      white-space: normal;
+    }
   }
   thead th {
-    white-space: nowrap;
+    font-size: 9px;
+    line-height: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
   }
   .left-aligned-column {
     text-align: left;

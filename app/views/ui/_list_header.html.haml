@@ -3,7 +3,7 @@
     %ul.nav
       - selected_catalogs.each_with_index do |catalog, index|
         %li
-          %a{:href => "#cat#{index}", :'data-toggle' => "modal"}= display_catalog_name(catalog, 'ENG')
+          %a{:href => "#cat#{index}", :'data-toggle' => "modal"}= display_catalog_name(catalog, 'RUS')
         %li.divider-vertical
       %li
         %a{:href => '#all', :'data-toggle' => "modal", :'data-id' => nil} All Categories
@@ -21,7 +21,7 @@
         %ul
           - catalog.children.each do |cat|
             %li
-              %a{:href => 'javascript:;'}= display_catalog_name(cat, 'ENG')
+              %a{:href => 'javascript:;'}= display_catalog_name(cat, 'RUS')
     .modal-footer
       %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
       %button.btn.btn-primary Choose Category
@@ -35,7 +35,7 @@
       %ul
         - all_catalogs.each do |catalog|
           %li
-            %a{:href => 'javascript:;'}= display_catalog_name(catalog, 'ENG')
+            %a{:href => 'javascript:;'}= display_catalog_name(catalog, 'RUS')
   .modal-footer
     %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
     %button.btn.btn-primary Choose Category

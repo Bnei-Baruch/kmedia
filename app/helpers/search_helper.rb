@@ -90,35 +90,21 @@ module SearchHelper
     # Order by ext
     (file_assets || item.file_assets).sort.each do |fa|
       title = fa.file_asset_descriptions.first.try(:filedesc) || fa.filename
-      type = case FileType.ext_to_type(fa.filetype)
-               when 'text'
-                 '<i class="icon-km-small-text"></i>&nbsp;'
-               when 'video'
-                 '<i class="icon-km-small-video"></i>&nbsp;'
-               when 'audio'
-                 '<i class="icon-km-small-audio"></i>&nbsp;'
-               when 'magazine', 'program'
-                 '<i class="icon-km-small-program"></i>&nbsp;'
-               when 'image', 'graph'
-                 '<i class="icon-km-small-image"></i>&nbsp;'
-               else
-                 ''
-             end
       filesize = fa.filesize.to_f / 1024 / 1024
       playtime = fa.playtime_secs.to_i
 
       list += <<-LIST
       <tr>
         <td class='left-aligned-column'>#{fa.filedate.strftime '%Y-%02m-%02d'}</td>
-        <td class='left-aligned-column'>
+        <td class='left-aligned-column download-url'>
           <a href='#{fa.download_url}' title='#{title}'>#{title}</a>
         </td>
-        <td>#{type}#{fa.filetype}</td>
+        <td>#{fa.filetype}</td>
         <td>#{fa.filelang}</td>
         <td><a href='#{fa.download_url}' title='#{title}' class='download'><i class='icon-download'></i></a></td>
         <td><a href='#{fa.url}' title='#{title}' class='clipboard'><i class='icon-circle-arrow-right'></i></a></td>
         <td>#{"%.2f" % filesize}Mb</td>
-        <td>#{playtime <= 0 ? '' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}</td>
+        <td>#{playtime <= 0 ? '11:11:11' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}</td>
       </tr>
       LIST
     end

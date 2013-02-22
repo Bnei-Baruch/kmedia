@@ -23,14 +23,14 @@
         %table.media-table.table.table-striped.table-hover.table-bordered
           %thead
             %tr
-              %th.left-aligned-column Date
-              %th.left-aligned-column Container Name
+              %th Date
+              %th Container Name
               %th Type
               %th Language
               %th Download
               %th Copy<br/>Link
-              %th File Size
-              %th Play Time
+              %th Size
+              %th Time
           %tbody
             = list_items_all(nil, updated_assets)
       - updated_languages.each do |l|
@@ -38,14 +38,13 @@
           %table.media-table.table.table-striped.table-hover.table-bordered
             %thead
               %tr
-                %th.left-aligned-column Date
-                %th.left-aligned-column Container Name
+                %th Date
+                %th Container Name
                 %th File Type
                 %th Language
                 %th Download
                 %th Copy<br/>Link
-                %th File Size
-                %th Play Time
-
+                %th Size
+                %th Time
             %tbody
               = list_items_lang(nil, l, updated_assets)

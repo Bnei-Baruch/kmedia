@@ -57,12 +57,16 @@ class Catalog < ActiveRecord::Base
     end
   end
 
-  def self.selected_catalogs
-    self.where(selected_catalog: true).limit(5)
+  def self.selected_catalogs(*relations)
+    catalogs = self.where(selected_catalog: true).limit(5)
+    catalogs = catalogs.includes(*relations) unless relations.empty?
+    catalogs
   end
 
-  def self.count_selected_catalogs
-    self.where(selected_catalog: true).count
+  def self.count_selected_catalogs(*relations)
+    catalogs = self.where(selected_catalog: true)
+    catalogs = catalogs.includes(relations) unless relations.empty?
+    catalogs.count
   end
 
 end
