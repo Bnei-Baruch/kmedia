@@ -9,7 +9,9 @@ class Admin::CatalogsController < Admin::ApplicationController
     @catalogs = Catalog.accessible_by(current_ability, :index).order(sort_order).includes(:parent)
     if params[:q]
       # request for catalogs from ui token input box
-      @catalogs = @catalogs.open_matching_string(params[:q]).multipluck(:'catalognode.catalognodeid as id', :'catalognode.catalognodename as name')
+      @catalogs = @catalogs.open_matching_string(params[:q]).
+          multipluck(:'catalognode.catalognodeid', :'catalognode.catalognodename as name').
+          map { |cat| {id: cat['catalognodeid'], name: cat['name']} }
     else
       @catalogs = @catalogs.page(params[:page])
     end
@@ -67,22 +69,22 @@ class Admin::CatalogsController < Admin::ApplicationController
 
   def batch
     container = Lesson.find(params[:lesson_id]) rescue nil
-    render :json => { ok: false, msg: "Unable to find container #{params[:lesson_id]}" } and return unless container
+    render :json => {ok: false, msg: "Unable to find container #{params[:lesson_id]}"} and return unless container
 
     case
       when md = /security_(?<security_level>[0-4])/.match(params[:batch_type])
         container.update_attribute(:secure, md[:security_level])
       else
-        render :json => { ok: false, msg: "Unknown request #{params[:batch_type]}" } and return
+        render :json => {ok: false, msg: "Unknown request #{params[:batch_type]}"} and return
     end
     respond_to do |format|
-      format.json { render :json => { ok: true } }
+      format.json { render :json => {ok: true} }
     end
   end
 
   private
   def sort_descriptions
-    catalog_descriptions_main = { }
+    catalog_descriptions_main = {}
     catalog_descriptions_all = []
     @catalog.catalog_descriptions.each { |x|
       if MAIN_LANGS.include? x.lang
@@ -103,7 +105,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def update_children_visibility
-  # when catalog visibility changes update visibility to it children
+    # when catalog visibility changes update visibility to it children
     return if @catalog.children.empty?
     children = get_all_children(@catalog).flatten
     ids = children.collect(&:catalognodeid)
