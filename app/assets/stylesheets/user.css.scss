@@ -187,7 +187,7 @@ header {
 }
 
 .navbar .brand {
-  padding:  5px 0 0;
+  padding:  5px 20px 0;
 }
 
 #content {
@@ -198,6 +198,11 @@ header {
       float: none;
       margin: 0;
       text-align: center;
+      li {
+        float: none;
+        display: table-cell;
+        vertical-align: middle;
+      }
       li.active {
         position: relative;
         &:before, &:after {
@@ -227,7 +232,8 @@ header {
       overflow: hidden;
     }
     .nav > li > a {
-      padding: 10px 0;
+      padding: 0;
+      line-height: 15px;
     }
   }
   .navbar-inner {
