@@ -17,6 +17,8 @@ class UiController < ApplicationController
 
     @selected_catalogs = Catalog.selected_catalogs(:children)
     @all_catalogs = Catalog.children_catalogs
+
+    render :homepage
   end
   alias_method :homepage_show, :homepage
 
