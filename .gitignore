@@ -5,6 +5,7 @@ db/*.sqlite3
 log/*
 tmp/**/*
 config/database.yml
+config/sunspot.yml
 .idea/
 *_core.*
 *_delta.*
