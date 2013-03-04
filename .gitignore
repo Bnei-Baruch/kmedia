@@ -20,5 +20,6 @@ public/assets/**/*
 public/assets/*
 php
 .rspec
+.rvmrc
 development.log
 coverage/
