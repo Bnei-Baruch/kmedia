@@ -15,8 +15,8 @@ class UiController < ApplicationController
     @updated_assets = FileAsset.latest_updates(params[:amount_of_updated].to_i > 0 ? params[:amount_of_updated].to_i : 25)
     @available_updated_assets_languages = FileAsset.available_languages(@updated_assets)
 
-    @selected_catalogs = Catalog.selected_catalogs(:children)
-    @all_catalogs = Catalog.children_catalogs
+    @selected_catalogs = Catalog.selected_catalogs('RUS')
+    @boost_tree = Catalog.boost_json('RUS')
 
     render :homepage
   end
@@ -29,8 +29,8 @@ class UiController < ApplicationController
 
     @results = @search.search_full_text params[:page]
 
-    @selected_catalogs = Catalog.selected_catalogs(:children)
-    @all_catalogs = Catalog.children_catalogs
+    @selected_catalogs = Catalog.selected_catalogs('RUS')
+    @boost_tree = Catalog.boost_json('RUS')
   end
 
   # Show specific item page

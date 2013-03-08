@@ -66,7 +66,7 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :bootstrap_top_search, :tag => 'div' do |b|
+  config.wrappers :bootstrap_top_search, :tag => 'div', :class => 'input-append' do |b|
     b.use :placeholder
     b.use :input
     b.use :search_submit_button

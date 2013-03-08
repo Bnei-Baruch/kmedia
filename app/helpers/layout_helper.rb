@@ -57,7 +57,7 @@ module LayoutHelper
 .actions
   %button.btn.btn-primary.btn-large{:type => 'submit', :'data-disable-with' => 'Please wait...'} Update
   %button.btn.btn-large{:onclick => "location.href='#{location}'; return false;", :type => 'button'} Cancel
-HAML
+    HAML
     engine.render self, :form => f
   end
 
@@ -71,7 +71,7 @@ HAML
       %button.mark_for_merge.btn{:onclick => "mark_me(this); return false;", :'data-mark-path' => mark_for_merge_admin_lesson_path(@lesson), :class => @lesson.marked_for_merge ? 'btn-warning' : '', :type => 'button'}
         = @lesson.marked_for_merge ? "Unmark" : "Mark"
       %button.btn.btn-danger{:onclick => "merge_to_me_get_list(this); return false;", :'data-merge-path' => merge_get_list_admin_lesson_path(@lesson)}= 'Merge Preview'
-HAML
+    HAML
     engine.render self, :form => f
   end
 
@@ -80,12 +80,12 @@ HAML
 %p
   %strong #{name.humanize}:
   #{as_is ? value : value.to_s.gsub(/\s/, '&nbsp;')}
-HAML
+    HAML
     engine.render
   end
 
   def display_secure(secure_level)
-    security = SECURITY.select{|s| s[:level] == secure_level }
+    security = SECURITY.select { |s| s[:level] == secure_level }
     name = security.first[:name].downcase
     klass = security.first[:klass]
     name == 'unsecure' ? 'non-secure' : "<span class='label label-#{klass}'>#{name.humanize}</span>".html_safe
@@ -145,7 +145,11 @@ HAML
     engine.render self, :form => f, :transcripts => transcripts
   end
 
-  def display_catalog_name(catalog, language)
-    catalog.catalog_descriptions.select{|desc| desc.lang == language}[0].catalognodename rescue catalog.catalognodename
+  def display_catalog_name(catalog)
+    catalog['cname'] || catalog['catalognodename']
+  end
+
+  def display_catalog_link(catalog, children)
+    "#{catalog['cname'] || catalog['catalognodename']} #{children.nil? ? '' : " > (#{children.length})"}"
   end
 end

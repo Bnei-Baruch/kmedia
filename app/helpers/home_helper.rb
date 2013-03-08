@@ -20,12 +20,7 @@ module HomeHelper
       when ids.include?(Lesson::FIFTH_PART)
         'Fifth Part'
       else
-        descr = lesson.lesson_descriptions.select { |ld| ld.lang == language }
-        description = descr.first.lessondesc
-        return description unless description.blank?
-
-        descr = lesson.lesson_descriptions.select { |ld| ld.lang == 'ENG' }
-        descr.first.lessondesc
+        'First Part'
     end
   end
 
