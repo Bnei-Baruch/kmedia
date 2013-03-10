@@ -25,12 +25,40 @@ class FileAsset < ActiveRecord::Base
 
   searchable do
     text :filename
+
+    integer :secure
+
+    string :filelang
+
+    string :filetype
+
+    string :content_type_ids, :multiple => true do
+      begin
+        lessons.map(&:content_type).map(&:id)
+      rescue
+        @error = "no content type"
+        false
+      end
+    end
+
+    string :catalog_ids, :multiple => true do
+      lessons.map(&:catalogs).flatten.map(&:catalognodeid)
+    end
+
+
+    time :filedate
+    time :created
+    time :updated
+
   end
 
   before_create :create_timestamps
   before_update :update_timestamps
 
-  scope   :latest_updates, -> amount {order('updated DESC').limit(amount) }
+  scope :latest_updates, -> amount {order('updated DESC').limit(amount) }
+  scope :secure, lambda { |level| where("secure <= ?", level) }
+  scope :date_within_range, lambda { where("filedate<= ? AND created_at >= ?", Date.today + 100, Date.today - 100) }
+
 
   def create_timestamps
     write_attribute :created, Time.now
@@ -46,8 +74,7 @@ class FileAsset < ActiveRecord::Base
   end
 
   def download_url
-    uri = URI(Server::NAME_URL[servername])
-    "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{filename}"
+    FileAsset.download_url(servername, filename)
   end
 
   def typename
@@ -72,6 +99,11 @@ class FileAsset < ActiveRecord::Base
     }
     languages << code3s.sort.reject{|code3| MAIN_LOCALES.include?(code3) }
     languages.flatten.compact
+  end
+
+  def self.download_url(servername, filename)
+    uri = URI(Server::NAME_URL[servername])
+    "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{filename}"
   end
 
 end

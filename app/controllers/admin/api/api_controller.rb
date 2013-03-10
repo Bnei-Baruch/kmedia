@@ -20,8 +20,8 @@ class Admin::Api::ApiController < Admin::ApplicationController
   #     "file_languages": [<integer>, ...], -- ids of languages
   #     "media_types": [<integer>, ...], -- ids of media types
   #     "catalogs": [<integer>, ...], -- ids of catalogs
-  #     "date_from": <datetime>, -- optional
-  #     "date_to": <datetime>, -- optional
+  #     "from_date": <datetime>, -- optional
+  #     "to_date": <datetime>, -- optional
   #     "series":[<string>, ...], -- optional
   #   }
   # }
@@ -45,6 +45,31 @@ class Admin::Api::ApiController < Admin::ApplicationController
   #       ...
   #     ]
   # }
+
+  def files
+    #all_catalogs=[]
+    #all_catalogs << Catalog.descendant_catalogs_by_catalog_id(params[:catalogs])
+    #all_catalogs_ids = all_catalogs.collect(&:catalognodeid)
+    #
+    #lessons = Lesson.joins(:catalogs).where("catalognode.catalognodeid"=> all_catalogs_ids)
+    #
+    #@file_assets = FileAsset.joins(:lessons).where("lessons.lessonid" => lessons.collect(&:lessonid))
+    #@file_assets = files_in_range(@file_assets,params[:from_date],params[:to_date])
+    #@file_assets
+
+    @search = Search.new(nil)
+
+    @results = @search.search_full_text_files(params[:query_string], params[:content_type_ids],params[:lang_ids],params[:catalog_ids],
+    params[:media_type_ids],params[:from_date],params[:to_date],params[:created_from_date],1)
+    @file_assets = @results.results
+  end
+
+  def files_in_range(files, from_date, to_date)
+    return files if (from_date.blank? && to_date.blank?)
+    return files.where("filedate<= ?",to_date) if from_date.blank?
+    return files.where("filedate>= ?",from_date) if to_date.blank?
+    files.where(:filedate => from_date..to_date)
+  end
 
 
   ###############################################################################################################
@@ -155,7 +180,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def catalogs
     # map locale to code3
     @language = Language.find_by_locale(params[:locale] || 'en').try(:code3) || 'ENG'
-    @catalogs = Catalog.children_catalogs(params[:root],@secure);
+    @catalogs = Catalog.children_catalogs(params[:root], @secure);
   end
 
   # List of content types

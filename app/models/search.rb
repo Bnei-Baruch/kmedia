@@ -116,8 +116,32 @@ class Search
       false
     rescue
       "---- Solr exception: #{$!}"
+      false
     end
   end
+
+  # for the personal library files search
+  def search_full_text_files(query_string, content_type_ids, lang_ids, catalog_ids, media_type_ids, from_date, to_date,
+      created_from_date, page_no)
+    query_text = query_string.gsub(/[_\-.]/, ' ') rescue nil
+    FileAsset.search(include: [:content_type, :lessons, :lesson_descriptions, :catalogs]) do |query|
+      query.fulltext query_text, :highlight => true unless query_text.blank?
+      query.paginate :page => page_no, :per_page => 100
+      query.with(:secure, 0)
+      query.with(:content_type_ids).any_of content_type_ids.split(',') if content_type_ids.present?
+      query.with(:filelang).any_of lang_ids.split(',') if lang_ids.present?
+      query.with(:media_type_ids).any_of media_type_ids.split(',') if media_type_ids.present?
+      query.with(:catalog_ids).any_of catalog_ids.split(',') if catalog_ids.present?
+      query.with(:filedate).between Range.new(from_date, to_date)
+      query.with(:created).greater_than(created_from_date) if created_from_date.present?
+    end
+  rescue Net::HTTPFatalError => e
+    @error = set_search_network_error(e)
+    false
+  rescue
+    "---- Solr exception: #{$!}"
+  end
+
 
   def setup_search
     active_content_type = self.content_type_id.blank? ? 'all' : ContentType.find(self.content_type_id).pattern
