@@ -57,6 +57,21 @@ class Catalog < ActiveRecord::Base
     end
   end
 
+  def self.descendant_catalogs(catalog)
+      return catalog if catalog.children.empty?
+      all_children = catalog.children.inject([catalog]) do |result, child|
+        result << get_all_children(child)
+      end
+  end
+
+  def self.descendant_catalogs_by_catalog_id(catalog_id)
+    begin
+      descendant_catalogs(Catalog.where(catalognodeid: catalog_id).first)
+    rescue
+      nil
+    end
+  end
+
   def self.selected_catalogs(*relations)
     catalogs = self.where(selected_catalog: true).limit(5)
     catalogs = catalogs.includes(*relations) unless relations.empty?
