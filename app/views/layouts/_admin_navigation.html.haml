@@ -9,9 +9,8 @@
       = link_to_if current_user, 'Logout', destroy_user_session_path, :class => 'brand logout'
 
       - if current_user
-        = simple_form_for [:admin, @search || Search.new], :html => {:class => 'navbar-search pull-right', :method => :get} do |f|
-          = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'search-query span5'}
-          = f.button :submit, :class => 'span2', :style => 'float: right;'
+        = simple_form_for [:admin, @search || Search.new], :html => {:class => 'navbar-form pull-right', :method => :get} do |f|
+          = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'span5', :text => 'Search'}, :wrapper => 'bootstrap_top_search'
           = f.input :model, :label => false, :collection => Search.models, :prompt => false, :input_html => {:class => 'search-query span2'}
         %ul.nav{:class => 'pull-left span5'}
           - if can?(:edit_descriptions, Lesson)

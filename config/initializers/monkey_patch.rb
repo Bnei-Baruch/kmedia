@@ -1,6 +1,6 @@
 class String
   def is_binary_data?
-    ( self.count( "^ -~", "^\r\n" ).fdiv(self.size) > 0.3 || self.index( "\x00" ) ) unless empty?
+    (self.count("^ -~", "^\r\n").fdiv(self.size) > 0.3 || self.index("\x00")) unless empty?
   end
 end
 
@@ -8,13 +8,9 @@ end
 module ActiveRecord
   class Base
     def self.multipluck(*args)
-      if args.size == 1
-        pluck(args.first)
-      else
-        connection.select_all(select(args).arel).each do |attrs|
-          attrs.each_key do |attr|
-            attrs[attr] = type_cast_attribute(attr, attrs)
-          end
+      connection.select_all(select(args).arel).each do |attrs|
+        attrs.each_key do |attr|
+          attrs[attr] = type_cast_attribute(attr, attrs)
         end
       end
     end

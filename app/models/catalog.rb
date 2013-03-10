@@ -57,11 +57,18 @@ class Catalog < ActiveRecord::Base
     end
   end
 
+  def self.selected_catalogs
+    self.where(selected_catalog: true).limit(5).includes(:parent)
+  end
+
+  def self.count_selected_catalogs
+    self.where(selected_catalog: true).count
+  end
   def self.descendant_catalogs(catalog)
-      return catalog if catalog.children.empty?
-      all_children = catalog.children.inject([catalog]) do |result, child|
-        result << get_all_children(child)
-      end
+    return catalog if catalog.children.empty?
+    all_children = catalog.children.inject([catalog]) do |result, child|
+      result << get_all_children(child)
+    end
   end
 
   def self.descendant_catalogs_by_catalog_id(catalog_id)
@@ -71,17 +78,4 @@ class Catalog < ActiveRecord::Base
       nil
     end
   end
-
-  def self.selected_catalogs(*relations)
-    catalogs = self.where(selected_catalog: true).limit(5)
-    catalogs = catalogs.includes(*relations) unless relations.empty?
-    catalogs
-  end
-
-  def self.count_selected_catalogs(*relations)
-    catalogs = self.where(selected_catalog: true)
-    catalogs = catalogs.includes(relations) unless relations.empty?
-    catalogs.count
-  end
-
 end

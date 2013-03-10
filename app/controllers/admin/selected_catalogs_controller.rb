@@ -2,7 +2,7 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
   authorize_resource class: Catalog
 
   def index
-    @catalogs = Catalog.selected_catalogs.includes(:parent)
+    @catalogs = Catalog.selected_catalogs_ar('ENG').includes(:parent)
   end
 
   def new

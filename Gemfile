@@ -21,7 +21,7 @@ gem 'cancan'
 gem 'devise'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
-gem 'progress_bar' # for sunspot
+gem 'progress_bar', :git => 'git://github.com/flori/progress_bar.git', :branch => 'betterplace' # for sunspot
 
 gem 'therubyracer' #, '0.9.10'
 

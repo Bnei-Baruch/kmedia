@@ -23,25 +23,47 @@ $(document).ready(function () {
     $('.category-modal').on('hidden', function () {
         $('#content .navbar-inner li').removeClass('active');
     });
-    $('.categories a').on('click', function () {
-        var current_column = $(this).parents('.categories');
-        var current_links = current_column.find('a');
-        var item_index = current_links.index(this);
-        var list_to_open = $('.categories').eq(current_column.index() + 1);
+    $('.modal-body').on('click', '.categories a', function () {
+        var id = $(this).data('node-id');
 
-        $('.categories').each(function (index) {
-            if ($(this).index() > current_column.index() + 1) {
-                $(this).css('display', 'none');
-            }
-            if ($(this).index() >= current_column.index()) {
-                $(this).find('.selected').removeClass('selected');
-            }
+        // Follow final links
+        if (!$(this).data('has-children')) {
+            $('#search_catalog_ids').val(id);
+            $('#new_search').submit();
+            return;
+        }
 
-        });
+        // Unselect current selected
+        $(this).closest('ul').find('li').removeClass('selected');
+
+        // Add new selected
         $(this).parent().addClass('selected');
-        list_to_open.css('display', 'block').scrollTop(0);
-        list_to_open.children('ul').css('display', 'none').eq(item_index).css('display', 'block');
 
+        // Remove every box to the right of the current one
+        $(this).closest('.categories').nextAll().remove();
+
+        // Build new ul
+        var tree = all_tree[id];
+        var html = '<div class="categories column2"><ul>';
+        $.each(tree, function(key, value){
+            var name = value.cname == '' ? value.catalognodename : value.cname;
+            try {
+                var children = all_tree[value.catalognodeid].length;
+            } catch(err) {
+                var children = 0;
+            }
+            var children_str = children > 0 ? '> (' + children + ')' : '';
+            html += '<li><a href="javascript:;" data-has-children="' + (children > 0) + '" data-node-id="' + value.catalognodeid + '">' + name + children_str + '</a></li>'
+        });
+        html += '</ul></div>';
+
+        // Draw next box to the right
+        $(this).closest('.modal-body .categories-holder').append(html);
+        var width = ($(this).closest('.modal-body .categories-holder').children().length + 1) * 235 - 5;
+        $(this).closest('.modal-body .categories-holder').width(width);
+        $(this).closest('.modal-body').find('.categories').css('display', 'block');
+        $(this).closest('.modal-body').find('.categories ul').css('display', 'block');
+        $(this).closest('.modal-body').scrollLeft(width);
     });
 
     $('.show-tooltip').tooltip();
@@ -140,6 +162,11 @@ $(document).ready(function () {
     });
 
     $('#language_ids').change(language_search);
+
+    $('.clear-filters button').on('click', function(){
+        $('#new_search input').val('');
+        $('#new_search').submit();
+    });
 });
 
 // projekktor

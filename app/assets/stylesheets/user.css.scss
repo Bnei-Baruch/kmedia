@@ -5,6 +5,7 @@
 @import "bootstrap";
 @import "icon-km";
 @import "daterangepicker.css";
+@import "theme/projekktor-theme";
 
 // Bootstrap override begin
 .caret {
@@ -187,7 +188,7 @@ header {
 }
 
 .navbar .brand {
-  padding:  5px 0 0;
+  padding:  5px 20px 0;
 }
 
 #content {
@@ -198,6 +199,20 @@ header {
       float: none;
       margin: 0;
       text-align: center;
+      li {
+        //float: none;
+        //display: table-cell;
+        //vertical-align: middle;
+        a {
+          height: 40px;
+          width: 95px;
+          padding: 0 10px;
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center;
+          line-height: 15px;
+        }
+      }
       li.active {
         position: relative;
         &:before, &:after {
@@ -226,9 +241,6 @@ header {
       height: 40px;
       overflow: hidden;
     }
-    .nav > li > a {
-      padding: 10px 0;
-    }
   }
   .navbar-inner {
     padding: 0;
@@ -251,16 +263,16 @@ header {
     }
     .modal-body {
       position: relative;
-      height: 240px;
       padding: 0;
+      overflow: auto;
       .categories {
         height: 240px;
         overflow: auto;
         overflow-y: scroll;
         float: left;
         margin: 0;
-        width: 33%;
-        margin-left: 0.5%;
+        width: 230px;
+        margin-left: 5px;
         ul {
           margin: 0;
           padding: 10px 0;
@@ -288,7 +300,7 @@ header {
       .column1 {
         margin: 0 !important;
       }
-      .column2, .column3, .column2 ul, .column3 ul {
+      .column2, .column2 ul {
         display: none;
       }
     }
@@ -446,3 +458,17 @@ header {
   }
 }
 
+.no-results {
+  position: relative;
+  &:after {
+    content: asset-url('no_results.png', image);
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: -113px;
+  }
+}
+
+.clear-filters {
+  padding-top: 9px;
+}

@@ -1,8 +1,8 @@
 #content.span9
-  = render 'list_header', selected_catalogs: @selected_catalogs, all_catalogs: @all_catalogs
+  = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
   = render 'tags_cloud'
   - if @results.is_a?(String) || !@results || @results.results.empty?
-    %h4 No results
+    %h4.no-results No results
   - else
     %h4== Results #{(@results.results.current_page - 1) * @results.results.limit_value + 1} - #{[@results.results.current_page * @results.results.limit_value, @results.total].min} of #{@results.total}
 
