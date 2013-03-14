@@ -96,7 +96,7 @@ class Admin::UsersController < Admin::ApplicationController
   def become
     return unless current_user.role?(:super_admin)
     sign_in(:user, User.find(params[:id]))
-    redirect_to root_url # or user_root_url
+    redirect_to admin_root_url # or user_root_url
   end
 
   private
