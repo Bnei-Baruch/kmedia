@@ -1,0 +1,8 @@
+he:
+  views:
+    pagination:
+      first: '&laquo; ראשון'
+      last: 'אחרון &raquo;'
+      next: 'הבא &raquo;'
+      previous: '&laquo; הקודם'
+      truncate: '&hellip;'

@@ -1,12 +1,11 @@
 .row.show-grid
-  = render 'sidebar', search: @search, active_content_type: @active_content_type, active_media_type: @active_media_type, active_language: @active_language
+  = render 'sidebar', search: @search
   - description = lesson_description(@item)
   #content.span9
     .item
       .padding-both
         %h3
-          != type_of_item_text(@item)
-          \:
+          != type_of_item_text(@item, ':')
           = lesson_title(@item, description)
           (
           = creation_date(@item)
@@ -14,41 +13,41 @@
         .description= description
         .languages-bar
           %ul.nav.nav-tabs
-            %li.tabs-title Available languages:
-            %li.active
-              %a{:href => "#all-media", :'data-toggle' => 'tab'} All
+            %li.tabs-title= t('ui.updated_assets.available_languages')
+            %li{:class => @available_languages.include?(@locale) ? '' : 'active'}
+              %a{:href => "#all-media", :'data-toggle' => 'tab'}= t('ui.updated_assets.all')
             - @available_languages.each do |l|
-              %li
+              %li{:class => l == @locale ? 'active' : ''}
                 %a{:href => "##{l}-media", :'data-toggle' => 'tab'}= l.upcase
         .tab-content
-          #all-media.active.tab-pane.fade.in
+          #all-media.tab-pane.fade.in{:class => @available_languages.include?(@locale) ? '' : 'active'}
             %table.media-table.table.table-striped.table-hover.table-bordered
               %thead
                 %tr
-                  %th.left-aligned-column Date
-                  %th.left-aligned-column Container Name
-                  %th File Type
-                  %th Language
-                  %th Download
-                  %th Copy<br/>Link
-                  %th File Size
-                  %th Play Time
+                  %th.left-aligned-column= t('ui.updated_assets.date')
+                  %th.left-aligned-column= t('ui.updated_assets.container_name')
+                  %th= t('ui.updated_assets.type')
+                  %th= t('ui.updated_assets.language')
+                  %th= t('ui.updated_assets.download')
+                  %th!= t('ui.updated_assets.copy_link')
+                  %th= t('ui.updated_assets.size')
+                  %th= t('ui.updated_assets.time')
               %tbody
                 = list_items_all(@item)
 
           - @available_languages.each do |l|
-            .tab-pane.fade.in{:id => "#{l}-media"}
+            .tab-pane.fade.in{:id => "#{l}-media", :class => l == @locale ? 'active' : ''}
               %table.media-table.table.table-striped.table-hover.table-bordered
                 %thead
                   %tr
-                    %th.left-aligned-column Date
-                    %th.left-aligned-column Container Name
-                    %th File Type
-                    %th Language
-                    %th Download
-                    %th Copy<br/>Link
-                    %th File Size
-                    %th Play Time
+                    %th.left-aligned-column= t('ui.updated_assets.date')
+                    %th.left-aligned-column= t('ui.updated_assets.container_name')
+                    %th= t('ui.updated_assets.type')
+                    %th= t('ui.updated_assets.language')
+                    %th= t('ui.updated_assets.download')
+                    %th!= t('ui.updated_assets.copy_link')
+                    %th= t('ui.updated_assets.size')
+                    %th= t('ui.updated_assets.time')
                 %tbody
                   = list_items_lang(@item, l)
 

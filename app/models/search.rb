@@ -34,9 +34,23 @@ class Search
     query_string.gsub(/[_\-.]/, ' ') rescue nil
   end
 
+  def date_type_text
+    @date_type_text ||= date_type || I18n.t('ui.sidebar.anytime')
+  end
+
   def catalog_id=(string)
-    @catalog_id = string
-    @catalog_ids = string ? string.split(/\s*,\s*/) : nil
+    unless string.empty?
+      @catalog_id = string
+      @catalog_ids = [string]
+    end
+  end
+
+  def catalog_ids=(string)
+    @catalog_ids = string.empty? ? nil : string.split(/\s*,\s*/)
+  end
+
+  def content_type
+    @content_type ||= content_type_id.blank? ?  'all' : ContentType.find(content_type_id).pattern
   end
 
   def file_type_ids=(ids)
@@ -45,11 +59,19 @@ class Search
 
   def media_type_id=(name)
     @media_type_id = (name == 'all' || name.blank?) ? nil : name
-    @media_exts = (name == 'all' || name.blank?) ? [] : FileType.find_by_typename(name == 'image' ? 'graph' : name).extlist.split(',')
+    @media_exts = @media_type_id.nil? ? [] : FileType.where(:typename => (name == 'image' ? 'graph' : name)).first.try(:extlist).try(:send, :split, ',')
+  end
+
+  def media_type
+    media_type_id || 'all'
   end
 
   def language_ids=(name)
     @language_ids, @language_exts = (name == 'all' || name.blank?) ? [nil, []] : [name, [name]]
+  end
+
+  def language
+    language_ids || 'all'
   end
 
   def date_one_day
@@ -63,6 +85,10 @@ class Search
     rescue
       [nil, nil]
     end
+  end
+
+  def dates_range_text
+    dates_range || I18n.t('ui.sidebar.anytime')
   end
 
   def search_full_text(page_no)
@@ -117,16 +143,6 @@ class Search
     rescue
       "---- Solr exception: #{$!}"
     end
-  end
-
-  def setup_search
-    active_content_type = self.content_type_id.blank? ? 'all' : ContentType.find(self.content_type_id).pattern
-    active_media_type = self.media_type_id.blank? ? 'all' : self.media_type_id
-    active_date_type = self.date_type.blank? ? 'anytime' : self.date_type
-    active_language = self.language_ids.blank? ? 'all' : self.language_ids
-    dates_range = self.dates_range
-    date_type = self.date_type
-    [active_content_type, active_media_type, active_date_type, active_language, dates_range, date_type]
   end
 
   private

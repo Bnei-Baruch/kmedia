@@ -2,8 +2,104 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  devise:
-    registrations:
-      signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
-      signed_up_but_inactive: 'You have signed up successfully. However, we could not sign you in because your account is not yet activated.'
-      signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
+  navbar:
+    search: 'Search'
+  ui:
+    content:
+      results: Results %{from} - %{to} of %{of}
+      no_results: No results
+    catalog:
+      all_catalogs: 'All catalogs'
+    sidebar:
+      clear_all_filters: 'Clear all filters'
+      filter_by_date: 'Filter by Date'
+      filter_by_content_type: 'Filter by Content Type'
+      filter_by_media_type: 'Filter by Media Type'
+      filter_by_language: 'Filter by Language'
+      apply: 'Apply'
+      clear: 'Clear'
+      from: 'From'
+      to: 'To'
+      week: 'W'
+      custom_range: 'Custom Range'
+      first_day_of_week: 1
+      abbr_day_names: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+      month_names: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      anytime: 'Anytime'
+      today: 'Today'
+      yesterday: 'Yesterday'
+      last_7_days: 'Last 7 Days'
+      last_30_days: 'Last 30 Days'
+      this_month: 'This Month'
+      last_month: 'Last Month'
+      type:
+        all: 'All'
+        lesson: 'Lesson'
+        lecture: 'Lecture'
+        program: 'Program'
+        song: 'Song'
+        clip: 'Clip'
+        book: 'Book'
+        declamation: 'Declamation'
+        audio: 'Audio'
+        video: 'Video'
+        text: 'Text'
+        image: 'Image'
+    list_header:
+      cancel: 'Cancel'
+    last_lesson:
+      prev: '&lt; Prev'
+      next: 'Next &gt;'
+      available_languages: 'Available languages:'
+      play: 'Play:'
+      audio: 'audio'
+      video: 'video'
+      download: 'Download:'
+      lesson_part: 'Lesson Part'
+      morning_lesson: 'Morning Lesson @ %{date}'
+      lesson: 'Lesson'
+      preparation: 'Preparation'
+      first_part: 'First Part'
+      second_part: 'Second Part'
+      third_part: 'Third Part'
+      fourth_part: 'Fourth Part'
+      fifth_part: 'Fifth Part'
+    updated_assets:
+      other_updates: 'Other updates'
+      display: 'Display'
+      items: 'items'
+      available_languages: 'Available languages:'
+      all: 'All'
+      date: 'Date'
+      container_name: 'Container Name'
+      type: 'Type'
+      language: 'Language'
+      download: 'Download'
+      copy_link: 'Copy<br/>Link'
+      size: 'Size'
+      time: 'Time'
+    item:
+      download: 'Download:'
+      view_play: 'View/Play:'
+    projekktor:
+      message_0: 'An error occurred.'
+      message_1: 'You aborted the media playback. '
+      message_2: 'A network error caused the media download to fail part-way. '
+      message_3: 'The media playback was aborted due to a corruption problem. '
+      message_4: 'The media (%{title}) could not be loaded because the server or network failed.'
+      message_5: 'Sorry, your browser does not support the media format of the requested file.'
+      message_6: 'Your client is in lack of the Flash Plugin V%{flashver} or higher.'
+      message_7: 'No media scheduled.'
+      message_8: '! Invalid media model configured !'
+      message_9: 'File (%{file}) not found.'
+      message_10: 'Invalid or missing quality settings for %{title}.'
+      message_11: 'Invalid streamType and/or streamServer settings for %{title}.'
+      message_12: 'Invalid or inconsistent quality setup for %{title}.'
+      message_80: 'The requested file does not exist or delivered with an invalid content-type.'
+      message_97: 'No media scheduled.'
+      message_98: 'Invalid or malformed playlist data!'
+      message_99: 'Click display to proceed. '
+      message_100: 'PLACEHOLDER'
+      message_500: 'This Youtube video has been removed or set to private'
+      message_501: 'The Youtube user owning this video disabled embedding.'
+      message_502: 'Invalid Youtube Video-Id specified.'

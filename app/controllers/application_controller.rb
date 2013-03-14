@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+
   before_filter :mailer_set_url_options
+  before_filter :set_locale
+
   helper_method :sort_direction, :sort_column
 
   def mailer_set_url_options
@@ -20,14 +23,31 @@ class ApplicationController < ActionController::Base
   end
 
   def sort_order
-    sort_column + " " + sort_direction
+    sort_column + ' ' + sort_direction
   end
 
   def default_sort_column
-    "id"
+    'id'
   end
 
   def default_sort_direction
-    "desc"
+    'desc'
   end
+
+  # For any url_for (except devise)
+  def default_url_options(options={})
+    {:locale => (params[:locale] || I18n.locale)}
+  end
+
+  # Devise plugin only
+  def self.default_url_options(options={})
+    {:locale => I18n.locale}
+  end
+
+  private
+
+  def set_locale
+    I18n.locale = @locale = params[:locale]
+  end
+
 end

@@ -7,8 +7,8 @@ module SearchHelper
     "<i class='icon-km-big-#{pattern}'></i>".html_safe
   end
 
-  def type_of_item_text(item)
-    item.content_type.try(:pattern).humanize.html_safe
+  def type_of_item_text(item, cont)
+    t("ui.sidebar.type.#{item.content_type.try(:pattern)}") + cont
   end
 
   def creation_date(item)
@@ -104,7 +104,7 @@ module SearchHelper
         <td><a href='#{fa.download_url}' title='#{title}' class='download'><i class='icon-download'></i></a></td>
         <td><a href='#{fa.url}' title='#{title}' class='clipboard'><i class='icon-circle-arrow-right'></i></a></td>
         <td>#{"%.2f" % filesize}Mb</td>
-        <td>#{playtime <= 0 ? '11:11:11' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}</td>
+        <td>#{playtime <= 0 ? '00:00:00' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}</td>
       </tr>
       LIST
     end
@@ -114,12 +114,12 @@ module SearchHelper
   def content_type(type, active)
     "<li class='#{active == type ? 'active' : 'x'}'>" +
         "<a href='javascript:' onclick='return content_type(\"#{ContentType.find_by_pattern(type).try(:id)}\");'>" +
-        "<i class='icon-km-#{type}'></i> #{type.humanize}</a>"
+        "<i class='icon-km-#{type}'></i> #{t("ui.sidebar.type.#{type}")}</a>"
   end
 
   def media_type(type, active)
     "<li class='#{active == type ? 'active' : 'x'}'>" +
         "<a href='javascript:' onclick='return media_type(\"#{type}\");'>" +
-        "<i class='icon-km-#{type}'></i> #{type.humanize}</a>"
+        "<i class='icon-km-#{type}'></i> #{t("ui.sidebar.type.#{type}")}</a>"
   end
 end

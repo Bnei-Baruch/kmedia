@@ -9,11 +9,12 @@
           %a{:href => '#'} Link
         %li
           %a{:href => '#'} Link
-      = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form pull-right', :method => :get} do |f|
-        = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'span4', :text => 'Search'}, :wrapper => 'bootstrap_top_search'
+      = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get} do |f|
+        = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {:style => 'width: 130px;', :text => t('navbar.search')}, :wrapper => 'bootstrap_top_search'
         = f.input :content_type_id, as: :hidden, :wrapper => 'default'
         = f.input :media_type_id, as: :hidden, :wrapper => 'default'
         = f.input :date_type, as: :hidden, :wrapper => 'default'
         = f.input :dates_range, as: :hidden, :wrapper => 'default'
         = f.input :language_ids, as: :hidden, :wrapper => 'default'
         = f.input :catalog_ids, as: :hidden, :wrapper => 'default'
+      = select_tag 'languages', options_for_select(@menu_languages, selected: @current_menu_language, disabled: @hebrew_menu_language), class: 'languages'

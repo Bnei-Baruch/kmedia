@@ -18,7 +18,7 @@
         - available_languages = FileAsset.available_languages(item.file_assets)
         .languages-bar
           %ul.nav.nav-tabs
-            %li.tabs-title Available languages:
+            %li.tabs-title= t('ui.last_lesson.available_languages')
             - available_languages.each_with_index do |l, idx|
               %li{:class => (idx == 0 ? 'active' : '')}
                 %a{:href => "##{l}-#{item.id}", :'data-toggle' => 'tab'}= l.upcase
@@ -26,13 +26,13 @@
           - available_languages.each_with_index do |l, idx|
             .tab-pane.fade.in{:id => "#{l}-#{item.id}", :class => (idx == 0 ? 'active' : '')}
               .pull-left
-                %h5 Download:
+                %h5= t('ui.item.download')
                 = download_items(item, 'video', l)
                 = download_items(item, 'audio', l)
                 = download_items(item, 'text', l)
                 = download_items(item, 'graph', l)
               .pull-left.padding-left
-                %h5 View/Play:
+                %h5= t('ui.item.view_play')
                 = download_items(item, 'video', l, true)
                 = download_items(item, 'audio', l, true)
                 = download_items(item, 'text', l, true)

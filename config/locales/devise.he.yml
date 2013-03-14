@@ -1,0 +1,45 @@
+he:
+  devise:
+    failure:
+      user:
+        unauthenticated: 'עליך להתחבר או להרשם על-מנת להמשיך.'
+        unconfirmed: 'עליך לאשר את הרשמתך לפני שתוכל להמשיך.'
+        locked: 'חשבונך ננעל.'
+        invalid: 'כתובת אימייל או סיסמא שגויה.'
+        invalid_token: 'מזהה התחברות שגוי.'
+        timeout: 'פג תוקף החיבור לאתר, אנא התחבר מחדש.'
+        inactive: 'חשבונך טרם הופעל.'
+    sessions:
+      signed_in: 'התחברת בהצלחה'
+      signed_out: 'התנתקת בהצלחה.'
+    passwords:
+      send_instructions: 'בדקות הקרובות יגיע אליך אימייל עם הנחיות כיצד לאשר את הרשמתך.'
+      updated: 'סיסמתך שונתה בהצלחה. כעת הנך מחובר/ת.'
+      updated_not_active: 'סיסמתך שונתה בהצלחה. כעת הנך מחובר/ת.'
+      send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
+    confirmations:
+      send_instructions: 'בדקות הקרובות יגיע אליך אימייל עם הנחיות כיצד לאשר את הרשמתך.'
+      send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
+      confirmed: 'חשבונך אושר בהצלחה. כעת הנך מחובר/ת.'
+    registrations:
+      signed_up: 'נרשמת בהצלחה. אם נדרש, יישלח אליך אימייל לאישור הרשמתך.'
+      signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
+      signed_up_but_inactive: 'You have signed up successfully. However, we could not sign you in because your account is not yet activated.'
+      signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
+      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
+      updated: 'עדכנת בהצלחה את חשבונך.'
+      destroyed: 'חשבונך נמחק בהצלחה. מקווים לראותך בעתיד.'
+    unlocks:
+      send_instructions: 'בדקות הקרובות יישלח אליך אימייל עם הנחיות כיצד להסיר את הנעילה מחשבונך.'
+      unlocked: 'הנעילה הוסרה בהצלחה. כעת הנך מחובר/ת.'
+      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+    omniauth_callbacks:
+      success: 'Successfully authorized from %{kind} account.'
+      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'הוראות לאישור הרשמה'
+      reset_password_instructions:
+        subject: 'הוראות לאיפוס סיסמא'
+      unlock_instructions:
+        subject: 'הוראות להסרת נעילה'
