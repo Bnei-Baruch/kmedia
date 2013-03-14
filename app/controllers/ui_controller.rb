@@ -34,9 +34,6 @@ class UiController < ApplicationController
 
   def setup
     @language = Language.where(locale: @locale).first.code3
-    @menu_languages = Language.menu_languages('en', 'he', 'ru').map{|x| [x['language'], root_url(x['locale'])]}
-    @current_menu_language = root_url(@locale)
-    @hebrew_menu_language = root_url('he') #TODO: support Hebrew
     @boost_tree = Catalog.boost_json(@language)
     @selected_catalogs = Catalog.selected_catalogs(@language)
     @search = Search.new(params[:search])

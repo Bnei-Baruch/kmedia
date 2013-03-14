@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :mailer_set_url_options
-  before_filter :set_locale
+  before_filter :set_data
 
   helper_method :sort_direction, :sort_column
 
@@ -46,8 +46,11 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_locale
-    I18n.locale = @locale = params[:locale]
+  def set_data
+    I18n.locale = @locale = params[:locale] || 'en'
+    @menu_languages = Language.menu_languages('en', 'he', 'ru').map{|x| [x['language'], root_url(x['locale'])]}
+    @current_menu_language = root_url(@locale)
+    @hebrew_menu_language = root_url('he') #TODO: support Hebrew
   end
 
 end
