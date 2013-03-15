@@ -1,34 +1,29 @@
 %header.subhead#overview
-  %h2 Virtual Lessons
-  -#-if can?(:create, Lesson)
-  -#  %p
-  -#    = link_to "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right'
+  %h2 Comments
 
 %section
-  = paginate @virtual_lessons
+  = paginate @comments
 
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
         %th ID
-        %th Film Date
-        %th Containers
-        %th Files
+        %th Name
+        %th Email
+        %th Subject
+        %th Comment
         %th Created
-        %th Updated
-        %th Position
-        = display_actions_title_for_lessons
+        -if can?(:destroy, @comments)
+          %th Actions
     %tbody
-      -@virtual_lessons.each do |virtual_lesson|
+      -@comments.each do |comment|
         %tr
-          %td= virtual_lesson.id
-          %td= virtual_lesson.film_date.try(:to_date)
-          %td= virtual_lesson.lessons.count
-          %td= virtual_lesson.lessons.map(&:file_assets).flatten.length
-          %td= virtual_lesson.created_at.try(:to_date)
-          %td= virtual_lesson.updated_at.try(:to_date)
-          %td= virtual_lesson.position
-          %td= link_to 'Show', admin_virtual_lesson_path(virtual_lesson)
-          -if can?(:destroy, virtual_lesson)
+          %td= comment.id
+          %td= comment.name
+          %td= comment.email
+          %td= comment.subject
+          %td= comment.comment
+          %td= comment.created_at
+          -if can?(:destroy, comment)
             %td
-              = link_to 'Destroy', admin_virtual_lesson_path(virtual_lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
+              = link_to 'Destroy', admin_comment_path(comment), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
