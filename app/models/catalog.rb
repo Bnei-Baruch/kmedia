@@ -67,7 +67,7 @@ class Catalog < ActiveRecord::Base
   def self.descendant_catalogs(catalog)
     return catalog if catalog.children.empty?
     all_children = catalog.children.inject([catalog]) do |result, child|
-      result << get_all_children(child)
+      result << descendant_catalogs(child)
     end
   end
 

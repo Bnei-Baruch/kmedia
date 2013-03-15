@@ -14,60 +14,52 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # Request:
   # { "search": {
   #     "auth_token":"<authentication-token>"
-  #     "query_text": <string>, -- free text search
+  #     "query_text": <string>, -- free text search to search in lesson descriptions
   #     "secure": [<integer>, ...], -- default: 0
   #     "content_types": [<integer>, ...], -- ids of content types
   #     "file_languages": [<integer>, ...], -- ids of languages
   #     "media_types": [<integer>, ...], -- ids of media types
   #     "catalogs": [<integer>, ...], -- ids of catalogs
-  #     "from_date": <datetime>, -- optional
-  #     "to_date": <datetime>, -- optional
-  #     "series":[<string>, ...], -- optional
+  #     "from_date": <datetime>, -- optional  (search on the filedate)
+  #     "to_date": <datetime>, -- optional    (search on the filedate)
+  #     "created_from_date": <datetime>, -- optional   -(search on the created)
   #   }
   # }
   #
   # Response:
   # {
-  #   "files":
-  #     [
-  #       {
-  #         "id": <integer>,
-  #         "name": <string>,
-  #         "lang": <string>,
-  #         "filetype": <string>,
-  #         "record_date": <datetime>,
-  #         "size": <integer>,
-  #         "url": <string>,
-  #         "created": <datetime>,
-  #         "updated": <datetime>,
-  #         "secure": <integer>
-  #       }
-  #       ...
-  #     ]
+  #   "ids": "<id1,id2,...>"--comma separated list of file ids
+  #
   # }
 
-  def files
-    #all_catalogs=[]
-    #all_catalogs << Catalog.descendant_catalogs_by_catalog_id(params[:catalogs])
-    #all_catalogs_ids = all_catalogs.collect(&:catalognodeid)
-    #
-    #lessons = Lesson.joins(:catalogs).where("catalognode.catalognodeid"=> all_catalogs_ids)
-    #
-    #@file_assets = FileAsset.joins(:lessons).where("lessons.lessonid" => lessons.collect(&:lessonid))
-    #@file_assets = files_in_range(@file_assets,params[:from_date],params[:to_date])
-    #@file_assets
+  def file_ids
+    all_catalogs=[]
+    all_catalogs << Catalog.descendant_catalogs_by_catalog_id(params[:catalog_ids])
+    all_catalogs_ids = all_catalogs.flatten.collect(&:catalognodeid).join(",")
 
     @search = Search.new(nil)
+    lang = Language.find_by(params[:lang_ids]).code3 rescue nil
+    @search.catalog_id= all_catalogs_ids
+    @search.language_by_id = params[:lang_ids]
+    @search.media_type_id=params[:media_type_ids]
+    @search.content_type_ids=params[:content_type_ids]
+    @search.query_string=params[:query_string]
+    @search.date_from=params[:from_date]
+    @search.date_to= params[:to_date]
+    @search.created_from_date=params[:created_from_date]
+    # we want to get all the results in one page so we need to see max number of results
+    @search.per_page=per_page_file_ids(params[:created_from_date])
+    @results = @search.search_full_text_files
 
-    @results = @search.search_full_text_files(params[:query_string], params[:content_type_ids],params[:lang_ids],params[:catalog_ids],
-    params[:media_type_ids],params[:from_date],params[:to_date],params[:created_from_date],1)
-    @file_assets = @results.results
+
+    string = @results.join(',')
+    render json: {:ids => string}
   end
 
   def files_in_range(files, from_date, to_date)
     return files if (from_date.blank? && to_date.blank?)
-    return files.where("filedate<= ?",to_date) if from_date.blank?
-    return files.where("filedate>= ?",from_date) if to_date.blank?
+    return files.where("filedate<= ?", to_date) if from_date.blank?
+    return files.where("filedate>= ?", from_date) if to_date.blank?
     files.where(:filedate => from_date..to_date)
   end
 
@@ -258,6 +250,14 @@ class Admin::Api::ApiController < Admin::ApplicationController
   end
 
   private
+
+  def per_page_file_ids(created_from_date)
+    if created_from_date.present?
+      per_page=FileAsset.where("created > ?", params[:created_from_date]).count
+    else
+      per_page=FileAsset.count
+    end
+  end
 
   def check_permissions
     # Check whether specific user is permitted to change security level

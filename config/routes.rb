@@ -80,7 +80,7 @@ Kmedia::Application.routes.draw do
       resources :api, :only => [] do
         collection do
           post :register_file, :get_file_servers
-          post :content_types, :file_types, :catalogs, :languages, :files
+          post :content_types, :file_types, :catalogs, :languages, :file_ids
         end
         member do
         end

@@ -26,6 +26,15 @@ class FileAsset < ActiveRecord::Base
   searchable do
     text :filename
 
+    text :lessondesc, :as => :user_text do
+      lesson_descriptions = lessons.map(&:lesson_descriptions).flatten
+      lesson_descriptions.inject([]) { |full, ls|
+        full << ls.lessondesc
+        full << ls.descr
+        full
+      }.join(' ')
+    end
+
     integer :secure
 
     string :filelang
