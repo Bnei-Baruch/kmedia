@@ -4,6 +4,18 @@
 ru:
   navbar:
     search: 'Искать'
+    homepage: 'Домашняя страница'
+    old_version: 'Старая версия'
+    support: 'Поддержка'
+    comment:
+      cancel: 'Отмена'
+      submit: 'Послать отзыв'
+      comment: 'Отзыв'
+      thank_you: 'Спасибо.'
+      problem: 'Пожалуйста попытайтесь позже.'
+      name: 'Имя'
+      email: 'Мейл'
+      subject: 'Тема'
   ui:
     content:
       results: 'Результаты %{from} - %{to} из %{of}'

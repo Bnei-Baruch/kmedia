@@ -4,6 +4,18 @@
 en:
   navbar:
     search: 'Search'
+    homepage: 'Homepage'
+    old_version: 'Old version'
+    support: 'Archive Support'
+    comment:
+      cancel: 'Cancel'
+      submit: 'Send comment'
+      comment: 'Comment'
+      thank_you: 'Thank you.'
+      problem: 'Please try later.'
+      name: 'Name'
+      email: 'Email'
+      subject: 'Subject'
   ui:
     content:
       results: Results %{from} - %{to} of %{of}

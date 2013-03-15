@@ -14,6 +14,8 @@ Kmedia::Application.routes.draw do
       end
     end
 
+    resources :comments, only: :create
+
     root :to => "ui#homepage"
 
     mount Ckeditor::Engine => '/ckeditor'
@@ -28,6 +30,7 @@ Kmedia::Application.routes.draw do
       root :to => "searches#index"
 
       resources :virtual_lessons
+      resources :comments, only: [:index, :destroy]
 
       resources :lessons do
         member do
