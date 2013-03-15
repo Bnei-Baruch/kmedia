@@ -17,10 +17,14 @@ $(document).ready(function () {
     //Categories Popup
     $('#content .navbar-inner li').on('click', function () {
         $('#content .navbar-inner li').removeClass('active');
-        $('.category-modal').modal('hide');
+        try {
+            $('.category-modal').modal('hide');
+        } catch (err) {
+            ;
+        }
         $(this).addClass('active');
     });
-    $('.category-modal').on('hidden', function () {
+    $('#content .category-modal').on('hide', function () {
         $('#content .navbar-inner li').removeClass('active');
     });
     $('.modal-body').on('click', '.categories a', function () {
@@ -45,11 +49,11 @@ $(document).ready(function () {
         // Build new ul
         var tree = all_tree[id];
         var html = '<div class="categories column2"><ul>';
-        $.each(tree, function(key, value){
+        $.each(tree, function (key, value) {
             var name = value.cname == '' ? value.catalognodename : value.cname;
             try {
                 var children = all_tree[value.catalognodeid].length;
-            } catch(err) {
+            } catch (err) {
                 var children = 0;
             }
             var children_str = children > 0 ? '> (' + children + ')' : '';
@@ -84,6 +88,17 @@ $(document).ready(function () {
         $('.toggle .switch div').trigger('video-audio');
     });
 
+
+    $('#search_query_string').focus(function () {
+        $(this).attr('data-default', $(this).width());
+        $(this).animate({ width: 400 }, 'slow');
+    }).blur(function () {
+            var w = $(this).attr('data-default');
+            $(this).animate({ width: w }, 'slow');
+        });
+    $('#languages').change(function () {
+        window.location = $(this).val();
+    });
 });
 
 // search page support
@@ -108,7 +123,7 @@ function language_search() {
 
 function date_type(start, end) {
     if (start.getFullYear() == 1000) {
-        $('.daterange').html('Anytime');
+        $('.daterange').html(anytime);
         $('#search_date_type').val('anytime');
     } else if (start.valueOf() == end.valueOf()) {
         $('.daterange').html(start.toString('MMMM d, yyyy'));
@@ -138,21 +153,13 @@ $(document).ready(function () {
         opens: (typeof opens_dates_range == 'undefined') ? '' : opens_dates_range,
         format: 'yyyy-MM-dd',
         locale: (typeof locale_dates_range == 'undefined') ? '' : locale_dates_range,
-        ranges: {
-            'Anytime': ['1000', '3000'],
-            'Today': ['today', 'today'],
-            'Yesterday': ['yesterday', 'yesterday'],
-            'Last 7 Days': [Date.today().add({ days: -6 }), 'today'],
-            'Last 30 Days': [Date.today().add({ days: -29 }), 'today'],
-            'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
-            'Last Month': [Date.today().moveToFirstDayOfMonth().add({ months: -1 }), Date.today().moveToFirstDayOfMonth().add({ days: -1 })]
-        }
+        ranges: open_dates_ranges
     }, function (start, end) {
         date_type(start, end);
     });
 
     if ($('.daterange').html() == '') {
-        $('.daterange').html('Anytime');
+        $('.daterange').html(anytime);
     }
 
     bind_zero_clipboard();
@@ -163,9 +170,54 @@ $(document).ready(function () {
 
     $('#language_ids').change(language_search);
 
-    $('.clear-filters button').on('click', function(){
+    $('.clear-filters button').on('click', function () {
         $('#new_search input').val('');
         $('#new_search').submit();
+    });
+
+    $('#submit_comment').click(function () {
+        $('.alert').hide().html('&nbsp;');
+
+        if ($('#new_comment #comment_name').val() == '') {
+            $('.alert').html("Please fill in field 'Name'").show();
+            return false;
+        }
+        if ($('#new_comment #comment_subject').val() == '') {
+            $('.alert').html("Please fill in field 'Subject'").show();
+            return false;
+        }
+        var email = $('#new_comment #comment_email').val();
+        if (email == '') {
+            $('.alert').html("Please fill in field 'Email'").show();
+            return false;
+        }
+        if (!validateEmail(email)) {
+            $('.alert').html("Wrong email").show();
+            return false;
+        }
+        if ($('#new_comment #comment_comment').val() == '') {
+            $('.alert').html("Please fill in field 'Comment'").show();
+            return false;
+        }
+
+        var data = $('form#new_comment').serialize();
+        var url = $('form#new_comment').attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: 'JSON'
+        })
+            .done(function (json) {
+                alert(json.text);
+                $('#leave-comment').modal('hide');
+            })
+            .fail(function (jqXHR, textStatus) {
+                alert( "Request failed: " + textStatus );
+            });
+
+        return false;
     });
 });
 
@@ -182,7 +234,7 @@ function stop_projekktor() {
 
 function start_projekktor() {
     // Start projekktor on active tab-pane only
-    if ($('.active.tab-pane .projekktor').length == 0){
+    if ($('.active.tab-pane .projekktor').length == 0) {
         return;
     }
 
@@ -201,31 +253,7 @@ function start_projekktor() {
         cover: '/assets/cover-video.jpg',
         playerFlashMP4: '/assets/jarisplayer.swf',
         playerFlashMP3: '/assets/jarisplayer.swf',
-        messages: {
-            // general
-            0: 'An error occurred.',
-            1: 'You aborted the media playback. ',
-            2: 'A network error caused the media download to fail part-way. ',
-            3: 'The media playback was aborted due to a corruption problem. ',
-            4: 'The media (%{title}) could not be loaded because the server or network failed.',
-            5: 'Sorry, your browser does not support the media format of the requested file.',
-            6: 'Your client is in lack of the Flash Plugin V%{flashver} or higher.',
-            7: 'No media scheduled.',
-            8: '! Invalid media model configured !',
-            9: 'File (%{file}) not found.',
-            10: 'Invalid or missing quality settings for %{title}.',
-            11: 'Invalid streamType and/or streamServer settings for %{title}.',
-            12: 'Invalid or inconsistent quality setup for %{title}.',
-            80: 'The requested file does not exist or delivered with an invalid content-type.',
-            97: 'No media scheduled.',
-            98: 'Invalid or malformed playlist data!',
-            99: 'Click display to proceed. ',
-            100: 'PLACEHOLDER',
-            // Youtube errors
-            500: 'This Youtube video has been removed or set to private',
-            501: 'The Youtube user owning this video disabled embedding.',
-            502: 'Invalid Youtube Video-Id specified.'
-        }
+        messages: projekktor_messages
     });
     projekktor('.active.tab-pane .projekktor').addListener('item', nextFileStarted);
     setup_projekktor_playlist('video');
@@ -251,7 +279,7 @@ function nextFileStarted(itemIndex) {
 
 // change projekktor to another tab
 // just before show
-$('.languages-bar a[data-toggle="tab"]').on('show', function (e) {
+$('.lessons-list .languages-bar a[data-toggle="tab"]').on('show', function (e) {
     var active = e.target; // activated tab
     var prev = e.relatedTarget; // previous tab
 
@@ -260,7 +288,7 @@ $('.languages-bar a[data-toggle="tab"]').on('show', function (e) {
     }
 });
 // immediately after show
-$('.languages-bar a[data-toggle="tab"]').on('shown', function (e) {
+$('.lessons-list .languages-bar a[data-toggle="tab"]').on('shown', function (e) {
     var active = e.target; // activated tab
     var prev = e.relatedTarget; // previous tab
 
@@ -271,11 +299,11 @@ $('.languages-bar a[data-toggle="tab"]').on('shown', function (e) {
     start_projekktor();
 });
 
-$('.active.tab-pane .btn[data-item-index]').on('click', function() {
+$('.active.tab-pane .btn[data-item-index]').on('click', function () {
     projekktor_play($(this).data('item-index'));
 });
 
-$('.toggle .switch div').on('video-audio', function() {
+$('.toggle .switch div').on('video-audio', function () {
     var klass = $(this).attr('class');
     if (klass.indexOf('left') > 0) {
         setup_projekktor_playlist('video');
@@ -294,3 +322,43 @@ function projekktor_play(itemno) {
 $(document).ready(function () {
     start_projekktor();
 });
+
+function validateEmail(email) {
+    var at = email.lastIndexOf("@");
+
+    // Make sure the at (@) sybmol exists and
+    // it is not the first or last character
+    if (at < 1 || (at + 1) === email.length)
+        return false;
+
+    // Make sure there aren't multiple periods together
+    if (/(\.{2,})/.test(email))
+        return false;
+
+    // Break up the local and domain portions
+    var local = email.substring(0, at);
+    var domain = email.substring(at + 1);
+
+    // Check lengths
+    if (local.length < 1 || local.length > 64 || domain.length < 4 || domain.length > 255)
+        return false;
+
+    // Make sure local and domain don't start with or end with a period
+    if (/(^\.|\.$)/.test(local) || /(^\.|\.$)/.test(domain))
+        return false;
+
+    // Check for quoted-string addresses
+    // Since almost anything is allowed in a quoted-string address,
+    // we're just going to let them go through
+    if (!/^"(.+)"$/.test(local)) {
+        // It's a dot-string address...check for valid characters
+        if (!/^[-a-zA-Z0-9!#$%*\/?|^{}`~&'+=_\.]*$/.test(local))
+            return false;
+    }
+
+    // Make sure domain contains only valid characters and at least one period
+    if (!/^[-a-zA-Z0-9\.]*$/.test(domain) || domain.indexOf(".") === -1)
+        return false;
+
+    return true;
+}

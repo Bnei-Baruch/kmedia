@@ -8,19 +8,19 @@ module HomeHelper
     ids = lesson.catalogs.map(&:id)
     case
       when ids.include?(Lesson::PREPARATION)
-        'Preparation'
+        I18n.t('ui.last_lesson.preparation')
       when ids.include?(Lesson::FIRST_PART)
-        'First Part'
+        I18n.t('ui.last_lesson.first_part')
       when ids.include?(Lesson::SECOND_PART)
-        'Second Part'
+        I18n.t('ui.last_lesson.second_part')
       when ids.include?(Lesson::THIRD_PART)
-        'Third Part'
+        I18n.t('ui.last_lesson.third_part')
       when ids.include?(Lesson::FOURTH_PART)
-        'Fourth Part'
+        I18n.t('ui.last_lesson.fourth_part')
       when ids.include?(Lesson::FIFTH_PART)
-        'Fifth Part'
+        I18n.t('ui.last_lesson.fifth_part')
       else
-        'First Part'
+        I18n.t('ui.last_lesson.first_part')
     end
   end
 

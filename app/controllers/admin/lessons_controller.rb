@@ -34,7 +34,7 @@ class Admin::LessonsController < Admin::ApplicationController
     @lesson = Lesson.new
     authorize! :create, @lesson
 
-    @lesson.attributes=params[:lesson]
+    @lesson.attributes = params[:lesson]
 
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/container."
@@ -57,7 +57,7 @@ class Admin::LessonsController < Admin::ApplicationController
 
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
-    else 
+    else
       @lesson_descriptions = sort_descriptions
       @lesson_transcripts = sort_transcripts
       render :edit

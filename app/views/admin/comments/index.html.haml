@@ -1,0 +1,29 @@
+%header.subhead#overview
+  %h2 Comments
+
+%section
+  = paginate @comments
+
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Email
+        %th Subject
+        %th Comment
+        %th Created
+        -if can?(:destroy, @comments)
+          %th Actions
+    %tbody
+      -@comments.each do |comment|
+        %tr
+          %td= comment.id
+          %td= comment.name
+          %td= comment.email
+          %td= comment.subject
+          %td= comment.comment
+          %td= comment.created_at
+          -if can?(:destroy, comment)
+            %td
+              = link_to 'Destroy', admin_comment_path(comment), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'

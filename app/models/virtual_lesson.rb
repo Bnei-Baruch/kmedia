@@ -17,13 +17,13 @@ class VirtualLesson < ActiveRecord::Base
     [last_lesson, prev_lesson, next_lesson]
   end
 
-  def virtual_name
+  def virtual_name(code3)
     if lessons.count == 1
-      lessons.first.lesson_descriptions.select { |ld| ld.lang == 'ENG' }.first.lessondesc
+      lessons.first.lesson_descriptions.select { |ld| ld.lang == code3 }.first.lessondesc
     else
-      "Morning Lesson @ #{film_date}"
+      I18n.t('ui.last_lesson.morning_lesson', date: film_date)
     end
-  rescue "Lesson"
+  rescue I18n.t('ui.last_lesson.lesson')
   end
 
   def lessons_ordered_by_parts

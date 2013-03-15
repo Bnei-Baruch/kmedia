@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+
   before_filter :mailer_set_url_options
+  before_filter :set_data
+
   helper_method :sort_direction, :sort_column
 
   def mailer_set_url_options
@@ -20,14 +23,36 @@ class ApplicationController < ActionController::Base
   end
 
   def sort_order
-    sort_column + " " + sort_direction
+    sort_column + ' ' + sort_direction
   end
 
   def default_sort_column
-    "id"
+    'id'
   end
 
   def default_sort_direction
-    "desc"
+    'desc'
   end
+
+  # For any url_for (except devise)
+  def default_url_options(options={})
+    {:locale => (params[:locale] || I18n.locale)}
+  end
+
+  # Devise plugin only
+  def self.default_url_options(options={})
+    {:locale => I18n.locale}
+  end
+
+  private
+
+  def set_data
+    I18n.locale = @locale = params[:locale] || 'en'
+    @menu_languages = Language.menu_languages('en', 'he', 'ru').map{|x| [x['language'], root_url(x['locale'])]}
+    @current_menu_language = root_url(@locale)
+    @hebrew_menu_language = root_url('he') #TODO: support Hebrew
+
+    @comment_data = Comment.new
+  end
+
 end

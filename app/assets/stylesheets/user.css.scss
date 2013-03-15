@@ -185,6 +185,20 @@ header {
 
 .navbar-fixed-top {
   z-index: 1200;
+  .container {
+    position: relative;
+    .navbar-form {
+      position: absolute;
+      right: 0;
+      z-index: 2;
+    }
+    .languages {
+      position: absolute;
+      right: 222px;
+      top: 5px;
+      width: 100px;
+    }
+  }
 }
 
 .navbar .brand {
@@ -261,18 +275,23 @@ header {
       background-color: #fff;
       margin: 0;
     }
+    .modal-header {
+      padding:  0 5px;
+    }
     .modal-body {
       position: relative;
       padding: 0;
       overflow: auto;
+      font-size: 13px;
       .categories {
         height: 240px;
         overflow: auto;
         overflow-y: scroll;
         float: left;
         margin: 0;
-        width: 230px;
+        width: 219px;
         margin-left: 5px;
+        padding-right: 5px;
         ul {
           margin: 0;
           padding: 10px 0;
@@ -309,7 +328,7 @@ header {
 
 .toggle {
   width: 200px;
-  margin: 7px 0;
+  margin: 0 0 7px;
   i {
     vertical-align: baseline;
   }
@@ -381,6 +400,10 @@ header {
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: left;
+    i {
+      margin: 0 auto;
+      display: block;
+    }
   }
   .left-aligned-column {
     text-align: left;
@@ -471,4 +494,9 @@ header {
 
 .clear-filters {
   padding-top: 9px;
+}
+
+.beta {
+  position: absolute;
+  left: 500px;
 }

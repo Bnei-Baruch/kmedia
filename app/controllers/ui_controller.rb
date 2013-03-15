@@ -7,16 +7,13 @@ class UiController < ApplicationController
     last_virtual_lesson, @prev_lesson, @next_lesson = VirtualLesson.last_lesson(params[:id])
 
     @last_lessons = last_virtual_lesson.lessons_ordered_by_parts
-    @lesson_name = last_virtual_lesson.virtual_name
+    @lesson_name = last_virtual_lesson.virtual_name(@language)
 
     @available_last_lessons_languages = FileAsset.available_languages(@last_lessons.map(&:file_assets).flatten)
-    @active_tab = @available_last_lessons_languages.first
+    @active_tab = @available_last_lessons_languages.include?(@locale) ? @locale : 'all'
 
     @updated_assets = FileAsset.latest_updates(params[:amount_of_updated].to_i > 0 ? params[:amount_of_updated].to_i : 25)
     @available_updated_assets_languages = FileAsset.available_languages(@updated_assets)
-
-    @selected_catalogs = Catalog.selected_catalogs('RUS')
-    @boost_tree = Catalog.boost_json('RUS')
 
     render :homepage
   end
@@ -24,13 +21,7 @@ class UiController < ApplicationController
 
   # Search result
   def index
-    @search = Search.new(params[:search])
-    @active_content_type, @active_media_type, @active_date_type, @active_language, @dates_range, @date_type = @search.setup_search
-
     @results = @search.search_full_text params[:page]
-
-    @selected_catalogs = Catalog.selected_catalogs('RUS')
-    @boost_tree = Catalog.boost_json('RUS')
   end
 
   # Show specific item page
@@ -42,6 +33,9 @@ class UiController < ApplicationController
   private
 
   def setup
-    @language = Language.find_by_locale(:en).code3
+    @language = Language.where(locale: @locale).first.code3
+    @boost_tree = Catalog.boost_json(@language)
+    @selected_catalogs = Catalog.selected_catalogs(@language)
+    @search = Search.new(params[:search])
   end
 end

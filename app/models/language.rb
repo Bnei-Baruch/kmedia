@@ -20,4 +20,7 @@ class Language < ActiveRecord::Base
     "#{language} (#{code3.upcase})"
   end
 
+  def self.menu_languages(*languages)
+    Language.where(:locale => languages).multipluck(:locale, :language)
+  end
 end

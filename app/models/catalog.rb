@@ -16,9 +16,9 @@ class Catalog < ActiveRecord::Base
     boolean :secure
   end
 
-  scope :secure, lambda { |level| where("secure <= ?", level) }
-  scope :open_matching_string, lambda { |string| where("catalognodename like ? AND open = ?", "%#{string}%", true) }
-  scope :visible, where(:visible => true)
+  scope :secure, ->(level) { where("secure <= ?", level) }
+  scope :open_matching_string, ->(string) { where("catalognodename like ? AND open = ?", "%#{string}%", true) }
+  scope :visible, -> { where(:visible => true) }
 
   before_create :create_timestamps
   before_update :update_timestamps
@@ -57,8 +57,14 @@ class Catalog < ActiveRecord::Base
     end
   end
 
-  def self.selected_catalogs
-    self.where(selected_catalog: true).limit(5).includes(:parent)
+  def self.selected_catalogs(language_code3, secure = 0)
+    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).where(selected_catalog: true).limit(5)
+    catalogs = catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'catalognode.catalognodename as catalognodename', :'catnodedesc.catalognodename as cname')
+    catalogs + ['catalognodeid' => 0, 'catalognodename' => I18n.t('ui.catalog.all_catalogs')]
+  end
+
+  def self.selected_catalogs_ar(language_code3, secure = 0)
+    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).where(selected_catalog: true).limit(5)
   end
 
   def self.count_selected_catalogs
@@ -76,6 +82,20 @@ class Catalog < ActiveRecord::Base
       descendant_catalogs(Catalog.where(catalognodeid: catalog_id).first)
     rescue
       nil
+    end
+  end
+
+   def self.all_catalogs_with_descriptions(language_code3, secure = 0)
+    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3)
+    catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'catalognode.catalognodename as catalognodename', :'catalognode.parentnodeid as parentnodeid', :'catnodedesc.catalognodename as cname')
+  end
+
+  def self.boost_json(language_code3, secure = 0)
+    Catalog.all_catalogs_with_descriptions(language_code3, secure).inject([]) do |boost, node|
+      parent = node['parentnodeid'] || 0
+      boost[parent] = [] unless boost[parent]
+      boost[parent] << node
+      boost
     end
   end
 end

@@ -35,6 +35,7 @@ group :development, :test do
   gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'coffee-rails-source-maps'
 end
 
 group :test do

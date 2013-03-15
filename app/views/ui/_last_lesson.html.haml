@@ -1,20 +1,20 @@
-.item
+.item.lessons-list
   .padding-both
     %h4.clearfix
       .pull-left
         != lesson_name
       .pull-right
         - if prev_lesson
-          = link_to '< Prev', homepage_show_ui_path(prev_lesson.id)
+          = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id)
         - else
-          &lt; Prev
+          = t('ui.last_lesson.prev').html_safe
         - if next_lesson
-          = link_to 'Next >', homepage_show_ui_path(next_lesson.id)
+          = link_to t('ui.last_lesson.next').html_safe, homepage_show_ui_path(next_lesson.id)
         - else
-          Next &gt;
+          = t('ui.last_lesson.next').html_safe
     .languages-bar
       %ul.nav.nav-tabs
-        %li.tabs-title Available languages:
+        %li.tabs-title= t('ui.last_lesson.available_languages')
         - available_languages.each do |l|
           %li{:class => (l == active_tab ? 'active' : '')}
             %a{:href => "##{l}-player", :'data-toggle' => 'tab'}= l.upcase
@@ -24,15 +24,15 @@
         .row
           .span5
             .padding-left
-              %h4.pull-left Play:
+              %h4.pull-left= t('ui.last_lesson.play')
               .pull-right.toggle
-                %a.right-switch-link(href="javascript:;") audio
+                %a.right-switch-link(href="javascript:;")= t('ui.last_lesson.audio')
                 .switch
                   %i.icon-km-small-video>
                   %i.icon-km-small-audio>
                   .left.btn.btn-mini.btn-primary(href="javascript:;")>
                     %i.icon-km-small-white-video>
-                %a.left-switch-link(href="javascript:;") video
+                %a.left-switch-link(href="javascript:;")= t('ui.last_lesson.video')
               %div(class="video-#{language} projekktor")
               %script(type="text/javascript")
                 var playlist_#{language}_video = [
@@ -57,21 +57,13 @@
                   .btn-group
                     - last_lessons.each_with_index do |lesson, index|
                       %button.btn.btn-mini{:'data-item-index' => index}= lesson_part(lesson, language)
-                  -# Oleg - design
-                  -#.btn-group.pull-right
-                  -#  %button.btn.btn-mini
-                  -#    %i.icon-picture
-                  -#    Images
-                  -#  %button.btn.btn-mini
-                  -#    %i.icon-list
-                  -#    Text
           .span4
             .padding-right
-              %h4 Download:
+              %h4= t('ui.last_lesson.download')
               %table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
                 %thead
                   %tr
-                    %th.left-aligned-column Lesson Part
+                    %th.left-aligned-column= t('ui.last_lesson.lesson_part')
                     %th
                       %i.icon-km-small-video
                     %th
@@ -91,22 +83,3 @@
                       %td= show_asset(lesson, language, 'mp3')
                       %td= show_asset(lesson, language, 'doc')
                       %td= show_asset(lesson, language, 'zip')
-                  -# Decided not to implement (Gorodetsky)
-                  -#%tr
-                  -#  %td.left-aligned-column
-                  -#    %a{:href => '#cat1', :'data-toggle' => "modal"} Whole Lesson (N/A)
-                  -#  %td
-                  -#    %a{:href => '#'}
-                  -#      %i.icon-download
-                  -#  %td
-                  -#    %a{:href => '#'}
-                  -#      %i.icon-download
-                  -#  %td
-                  -#    %a{:href => '#'}
-                  -#      %i.icon-download
-                  -#  %td
-                  -#    %a{:href => '#'}
-                  -#      %i.icon-download
-                  -#  %td
-                  -#    %a{:href => '#'}
-                  -#      %i.icon-download

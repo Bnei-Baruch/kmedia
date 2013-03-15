@@ -1,50 +1,50 @@
-.item
+.item.updated-media
   .padding-both
     %h3
-      Other updates
+      = t('ui.updated_assets.other_updates')
       %small.pull-right
-        Display
+        = t('ui.updated_assets.display')
         = link_to '25', {controller: :ui, action: :homepage, amount_of_updated: 25}, class: is_active_pager(params[:amount_of_updated] || 25, 25)
         \/
         = link_to '50', {controller: :ui, action: :homepage, amount_of_updated: 50}, class: is_active_pager(params[:amount_of_updated], 50)
         \/
         = link_to '100', {controller: :ui, action: :homepage, amount_of_updated: 100}, class: is_active_pager(params[:amount_of_updated], 100)
-        items
+        = t('ui.updated_assets.items')
     .languages-bar
       %ul.nav.nav-tabs
-        %li.tabs-title Available languages:
-        %li.active
-          %a{:href => "#all-media", :'data-toggle' => 'tab'} All
+        %li.tabs-title= t('ui.updated_assets.available_languages')
+        %li{:class => updated_languages.include?(@locale) ? '' : 'active'}
+          %a{:href => "#all-updated-media", :'data-toggle' => 'tab'}= t('ui.updated_assets.all')
         - updated_languages.each do |l|
-          %li
-            %a{:href => "##{l}-media", :'data-toggle' => 'tab'}= l.upcase
+          %li{:class => l == @locale ? 'active' : ''}
+            %a{:href => "##{l}-updated-media", :'data-toggle' => 'tab'}= l.upcase
     .tab-content
-      #all-media.active.tab-pane.fade.in
+      #all-updated-media.tab-pane.fade.in{:class => updated_languages.include?(@locale) ? '' : 'active'}
         %table.media-table.table.table-striped.table-hover.table-bordered
           %thead
             %tr
-              %th Date
-              %th Container Name
-              %th Type
-              %th Language
-              %th Download
-              %th Copy<br/>Link
-              %th Size
-              %th Time
+              %th= t('ui.updated_assets.date')
+              %th= t('ui.updated_assets.container_name')
+              %th= t('ui.updated_assets.type')
+              %th= t('ui.updated_assets.language')
+              %th= t('ui.updated_assets.download')
+              %th!= t('ui.updated_assets.copy_link')
+              %th= t('ui.updated_assets.size')
+              %th= t('ui.updated_assets.time')
           %tbody
             = list_items_all(nil, updated_assets)
       - updated_languages.each do |l|
-        .tab-pane.fade.in{:id => "#{l}-media"}
+        .tab-pane.fade.in{:id => "#{l}-updated-media", :class => l == @locale ? 'active' : ''}
           %table.media-table.table.table-striped.table-hover.table-bordered
             %thead
               %tr
-                %th Date
-                %th Container Name
-                %th File Type
-                %th Language
-                %th Download
-                %th Copy<br/>Link
-                %th Size
-                %th Time
+                %th= t('ui.updated_assets.date')
+                %th= t('ui.updated_assets.container_name')
+                %th= t('ui.updated_assets.type')
+                %th= t('ui.updated_assets.language')
+                %th= t('ui.updated_assets.download')
+                %th!= t('ui.updated_assets.copy_link')
+                %th= t('ui.updated_assets.size')
+                %th= t('ui.updated_assets.time')
             %tbody
               = list_items_lang(nil, l, updated_assets)

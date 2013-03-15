@@ -5,7 +5,7 @@ class FileType < ActiveRecord::Base
 
   # ext -> type
   EXT_TYPE = FileType.all.inject({}) do |h, f|
-    f.extlist.split(',').map do |ft|
+    f.extlist.split(/\s*,\s*/).map do |ft|
       h[ft] = f.typename
     end
     h

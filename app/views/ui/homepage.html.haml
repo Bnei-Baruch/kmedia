@@ -1,5 +1,5 @@
 .row.show-grid
-  = render 'sidebar', search: @search, active_content_type: @active_content_type, active_media_type: @active_media_type, active_language: @active_language
+  = render 'sidebar', search: @search
   #content.span9
     = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
     = render 'tags_cloud'
