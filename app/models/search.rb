@@ -86,92 +86,70 @@ class Search
     @content_type_id = ids
     @content_type_ids = ids ? ids.split(/\s*,\s*/) : nil
 
+  end
 
-    def date_one_day
-      Time.parse(@dates_range)
+  def date_one_day
+    Time.parse(@dates_range)
+  end
+
+  def date_range
+    begin
+      m = /^([a-zA-Z0-9\s,]+).*?\s([a-zA-Z0-9\s,]+)$/.match(@dates_range)
+      [Time.parse(m[1]), Time.parse(m[2])]
+    rescue
+      [nil, nil]
     end
+  end
 
-    def date_range
-      begin
-        m = /^([a-zA-Z0-9\s,]+).*?\s([a-zA-Z0-9\s,]+)$/.match(@dates_range)
-        [Time.parse(m[1]), Time.parse(m[2])]
-      rescue
-        [nil, nil]
-      end
-    end
+  def dates_range_text
+    dates_range || I18n.t('ui.sidebar.anytime')
+  end
 
-    def dates_range_text
-      dates_range || I18n.t('ui.sidebar.anytime')
-    end
-
-    def search_full_text(page_no)
-      query_text = query_string_normalized
-      begin
-        Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions]) do |query|
-          query.fulltext query_text, :highlight => true unless query_text.blank?
-          query.paginate :page => page_no, :per_page => 30
-          query.with(:secure, 0)
-          query.with(:content_type_id, @content_type_id) if @content_type_id.present?
-          query.with(:file_language_ids).any_of @language_exts if @language_ids.present?
-          query.with(:media_type_ids).any_of @media_exts if @media_type_id.present?
-          query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
-
-          case @date_type
-            when 'one_day'
-              date = date_one_day
-              query.with(:lessondate).between Range.new(date.beginning_of_day, date.end_of_day)
-            when 'range'
-              beginning, ending = date_range
-              query.with(:lessondate).between Range.new(beginning.beginning_of_day, ending.end_of_day) unless beginning.nil? || ending.nil?
-          end
-
-          query.order_by :lessondate, :desc
-        end
-      rescue Net::HTTPFatalError => e
-        @error = set_search_network_error(e)
-        false
-      rescue
-        @error = "---- Solr exception -----#{$!}"
-        false
-      end
-    end
-
-    def search_full_text_admin(page_no)
-      query_text = query_string_normalized
-      if model.blank?
-        models = [FileAsset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern]
-      else
-        models = [model.constantize]
-      end
-      order = :score
-      begin
-        Sunspot.search(models) do |query|
-          query.fulltext query_text, :highlight => true unless query_text.blank?
-          query.paginate :page => page_no, :per_page => 40
-          query.order_by order
-        end
-      rescue Net::HTTPFatalError => e
-        @error = set_search_network_error(e)
-        false
-      rescue
-        "---- Solr exception: #{$!}"
-      end
-    end
-
-
-    # for the personal library files search
-    def search_full_text_files()
-      query_text = query_string_normalized
-      FileAsset.search_ids do |query|
-        query.fulltext query_text unless query_text.blank?
-        query.paginate :page => 1, :per_page => per_page
+  def search_full_text(page_no)
+    query_text = query_string_normalized
+    begin
+      Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions]) do |query|
+        query.fulltext query_text, :highlight => true unless query_text.blank?
+        query.paginate :page => page_no, :per_page => 30
         query.with(:secure, 0)
-        query.with(:content_type_ids).any_of @content_type_ids if @content_type_ids.present?
-        query.with(:filelang).any_of @language_exts if @language_exts.present?
-        query.with(:filetype).any_of @media_exts if @media_type_id.present?
+        query.with(:content_type_id, @content_type_id) if @content_type_id.present?
+        query.with(:file_language_ids).any_of @language_exts if @language_ids.present?
+        query.with(:media_type_ids).any_of @media_exts if @media_type_id.present?
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
-        query.with(:filedate).between Range.new(date_from, date_to)
-        query.with(:created).greater_than(created_from_date) if created_from_date.present?
+
+        case @date_type
+          when 'one_day'
+            date = date_one_day
+            query.with(:lessondate).between Range.new(date.beginning_of_day, date.end_of_day)
+          when 'range'
+            beginning, ending = date_range
+            query.with(:lessondate).between Range.new(beginning.beginning_of_day, ending.end_of_day) unless beginning.nil? || ending.nil?
+        end
+
+        query.order_by :lessondate, :desc
+      end
+    rescue Net::HTTPFatalError => e
+      @error = set_search_network_error(e)
+      false
+    rescue
+      @error = "---- Solr exception -----#{$!}"
+      false
+    end
+  end
+
+  def search_full_text_admin(page_no)
+    query_text = query_string_normalized
+    if model.blank?
+      models = [FileAsset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern]
+    else
+      models = [model.constantize]
+    end
+    order = :score
+    begin
+      Sunspot.search(models) do |query|
+        query.fulltext query_text, :highlight => true unless query_text.blank?
+        query.paginate :page => page_no, :per_page => 40
+        query.order_by order
       end
     rescue Net::HTTPFatalError => e
       @error = set_search_network_error(e)
@@ -179,18 +157,40 @@ class Search
     rescue
       "---- Solr exception: #{$!}"
     end
+  end
 
 
-    private
-    def set_search_error(e)
-      if e.data.kind_of?(Net::HTTPInternalServerError)
-        if /<h1>([^\n]+)\n/ =~ e.data.body
-          "---- Solr exception: #{$1}"
-        else
-          "---- Solr exception: #{$!}"
-        end
+  # for the personal library files search
+  def search_full_text_files()
+    query_text = query_string_normalized
+    FileAsset.search_ids do |query|
+      query.fulltext query_text unless query_text.blank?
+      query.paginate :page => 1, :per_page => per_page
+      query.with(:secure, 0)
+      query.with(:content_type_ids).any_of @content_type_ids if @content_type_ids.present?
+      query.with(:filelang).any_of @language_exts if @language_exts.present?
+      query.with(:filetype).any_of @media_exts if @media_type_id.present?
+      query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
+      query.with(:filedate).between Range.new(date_from, date_to)
+      query.with(:created).greater_than(created_from_date) if created_from_date.present?
+    end
+  rescue Net::HTTPFatalError => e
+    @error = set_search_network_error(e)
+    false
+  rescue
+    "---- Solr exception: #{$!}"
+  end
+
+
+  private
+  def set_search_error(e)
+    if e.data.kind_of?(Net::HTTPInternalServerError)
+      if /<h1>([^\n]+)\n/ =~ e.data.body
+        "---- Solr exception: #{$1}"
+      else
+        "---- Solr exception: #{$!}"
       end
     end
-
   end
+
 end
