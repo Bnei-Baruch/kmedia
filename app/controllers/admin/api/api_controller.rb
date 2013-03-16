@@ -33,35 +33,27 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def file_ids
-    all_catalogs=[]
-    all_catalogs << Catalog.descendant_catalogs_by_catalog_id(params[:catalog_ids])
+    all_catalogs = []
+    all_catalogs = Catalog.descendant_catalogs_by_catalog_id(params[:catalog_ids])
     all_catalogs_ids = all_catalogs.flatten.collect(&:catalognodeid).join(",")
 
-    @search = Search.new(nil)
-    lang = Language.find_by(params[:lang_ids]).code3 rescue nil
-    @search.catalog_id= all_catalogs_ids
-    @search.language_by_id = params[:lang_ids]
-    @search.media_type_id=params[:media_type_ids]
-    @search.content_type_ids=params[:content_type_ids]
-    @search.query_string=params[:query_string]
-    @search.date_from=params[:from_date]
-    @search.date_to= params[:to_date]
-    @search.created_from_date=params[:created_from_date]
+    @search = Search.new(catalog_ids: all_catalogs_ids,
+                         language_by_id: params[:lang_ids],
+                         media_type_id: params[:media_type_ids],
+                         content_type_ids: params[:content_type_ids],
+                         query_string: params[:query_string],
+                         date_from: params[:from_date],
+                         date_to: params[:to_date],
+                         created_from_date: params[:created_from_date]
+    )
+
     # we want to get all the results in one page so we need to see max number of results
-    @search.per_page=per_page_file_ids(params[:created_from_date])
+    @search.per_page = per_page_file_ids(params[:created_from_date])
     @results = @search.search_full_text_files
 
-
-    string = @results.join(',')
-    render json: {:ids => string}
+    render json: {ids: @results.join(',')}
   end
 
-  def files_in_range(files, from_date, to_date)
-    return files if (from_date.blank? && to_date.blank?)
-    return files.where("filedate<= ?", to_date) if from_date.blank?
-    return files.where("filedate>= ?", from_date) if to_date.blank?
-    files.where(:filedate => from_date..to_date)
-  end
 
 
   ###############################################################################################################
@@ -171,7 +163,8 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
   def catalogs
     # map locale to code3
-    @language = Language.find_by_locale(params[:locale] || 'en').try(:code3) || 'ENG'
+    #@language = Language.find_by_locale(params[:locale] || 'en').try(:code3) || 'ENG'
+    @language = Language.find_by_locale(params[:locale]).code3 rescue 'ENG'
     @catalogs = Catalog.children_catalogs(params[:root], @secure);
   end
 
@@ -252,10 +245,10 @@ class Admin::Api::ApiController < Admin::ApplicationController
   private
 
   def per_page_file_ids(created_from_date)
-    if created_from_date.present?
-      per_page=FileAsset.where("created > ?", params[:created_from_date]).count
-    else
-      per_page=FileAsset.count
+    def per_page_file_ids(created_from_date = nil)
+      f = FileAsset
+      f = f.where("created > ?", created_from_date) if created_from_date
+      f.count
     end
   end
 
