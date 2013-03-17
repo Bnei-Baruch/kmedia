@@ -46,11 +46,19 @@ class Search
   end
 
   def catalog_ids=(string)
-    @catalog_ids = string.empty? ? nil : JSON.parse(string)
+    @catalog_ids = if string.empty?
+                     nil
+                   else
+                     if string =~ /^\d+$/
+                       [string.to_i]
+                     else
+                       JSON.parse(string) rescue nil
+                     end
+                   end
   end
 
   def content_type
-    @content_type ||= content_type_id.blank? ?  'all' : ContentType.find(content_type_id).pattern
+    @content_type ||= content_type_id.blank? ? 'all' : ContentType.find(content_type_id).pattern
   end
 
   def file_type_ids=(ids)
