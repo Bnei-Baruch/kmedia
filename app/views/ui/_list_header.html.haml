@@ -3,7 +3,7 @@
     %ul.nav
       - selected_catalogs.each do |catalog|
         - id = catalog['catalognodeid']
-        - unless boost_tree[id].nil?
+        - unless boost_tree[id].nil? # No leaf elements in upper menu
           %li
             %a{:href => "#cat-#{id}", :'data-toggle' => "modal"}= display_catalog_name(catalog)
           %li.divider-vertical
