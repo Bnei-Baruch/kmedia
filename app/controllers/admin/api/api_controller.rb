@@ -33,7 +33,6 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def file_ids
-    all_catalogs = []
     all_catalogs = Catalog.descendant_catalogs_by_catalog_id(params[:catalog_ids])
     all_catalogs_ids = all_catalogs.flatten.collect(&:catalognodeid).join(",")
 
@@ -163,9 +162,8 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
   def catalogs
     # map locale to code3
-    #@language = Language.find_by_locale(params[:locale] || 'en').try(:code3) || 'ENG'
     @language = Language.find_by_locale(params[:locale]).code3 rescue 'ENG'
-    @catalogs = Catalog.children_catalogs(params[:root], @secure);
+    @catalogs = Catalog.children_catalogs(params[:root], @secure)
   end
 
   # List of content types
