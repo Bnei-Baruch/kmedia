@@ -70,6 +70,20 @@ class Catalog < ActiveRecord::Base
   def self.count_selected_catalogs
     self.where(selected_catalog: true).count
   end
+  def self.descendant_catalogs(catalog)
+    return catalog if catalog.children.empty?
+    all_children = catalog.children.inject([catalog]) do |result, child|
+      result << descendant_catalogs(child)
+    end
+  end
+
+  def self.descendant_catalogs_by_catalog_id(catalog_id)
+    begin
+      descendant_catalogs(Catalog.where(catalognodeid: catalog_id).first)
+    rescue
+      nil
+    end
+  end
 
   def self.all_catalogs_with_descriptions(language_code3, secure = 0)
     catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).order('catalognodeid DESC')

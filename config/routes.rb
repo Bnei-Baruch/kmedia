@@ -82,17 +82,17 @@ Kmedia::Application.routes.draw do
         resources :labels
       end
 
-      namespace :api do
-        resources :tokens, :only => [:create, :destroy]
-        resources :api, :only => [] do
-          collection do
-            post :register_file, :get_file_servers
-            post :content_types, :file_types, :catalogs, :languages
-          end
-          member do
-          end
+    namespace :api do
+      resources :tokens, :only => [:create, :destroy]
+      resources :api, :only => [] do
+        collection do
+          post :register_file, :get_file_servers
+          post :content_types, :file_types, :catalogs, :languages, :file_ids
+        end
+        member do
         end
       end
+    end
     end
   end
 end

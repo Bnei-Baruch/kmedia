@@ -14,37 +14,45 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # Request:
   # { "search": {
   #     "auth_token":"<authentication-token>"
-  #     "query_text": <string>, -- free text search
+  #     "query_text": <string>, -- free text search to search in lesson descriptions
   #     "secure": [<integer>, ...], -- default: 0
   #     "content_types": [<integer>, ...], -- ids of content types
   #     "file_languages": [<integer>, ...], -- ids of languages
   #     "media_types": [<integer>, ...], -- ids of media types
   #     "catalogs": [<integer>, ...], -- ids of catalogs
-  #     "date_from": <datetime>, -- optional
-  #     "date_to": <datetime>, -- optional
-  #     "series":[<string>, ...], -- optional
+  #     "from_date": <datetime>, -- optional  (search on the filedate)
+  #     "to_date": <datetime>, -- optional    (search on the filedate)
+  #     "created_from_date": <datetime>, -- optional   -(search on the created)
   #   }
   # }
   #
   # Response:
   # {
-  #   "files":
-  #     [
-  #       {
-  #         "id": <integer>,
-  #         "name": <string>,
-  #         "lang": <string>,
-  #         "filetype": <string>,
-  #         "record_date": <datetime>,
-  #         "size": <integer>,
-  #         "url": <string>,
-  #         "created": <datetime>,
-  #         "updated": <datetime>,
-  #         "secure": <integer>
-  #       }
-  #       ...
-  #     ]
+  #   "ids": "<id1,id2,...>"--comma separated list of file ids
+  #
   # }
+
+  def file_ids
+    all_catalogs = Catalog.descendant_catalogs_by_catalog_id(params[:catalog_ids])
+    all_catalogs_ids = all_catalogs.flatten.collect(&:catalognodeid).join(",")
+
+    @search = Search.new(catalog_ids: all_catalogs_ids,
+                         language_by_id: params[:lang_ids],
+                         media_type_id: params[:media_type_ids],
+                         content_type_ids: params[:content_type_ids],
+                         query_string: params[:query_string],
+                         date_from: params[:from_date],
+                         date_to: params[:to_date],
+                         created_from_date: params[:created_from_date]
+    )
+
+    # we want to get all the results in one page so we need to see max number of results
+    @search.per_page = per_page_file_ids(params[:created_from_date])
+    @results = @search.search_full_text_files
+
+    render json: {ids: @results.join(',')}
+  end
+
 
 
   ###############################################################################################################
@@ -154,8 +162,8 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
   def catalogs
     # map locale to code3
-    @language = Language.find_by_locale(params[:locale] || 'en').try(:code3) || 'ENG'
-    @catalogs = Catalog.children_catalogs(params[:root],@secure);
+    @language = Language.find_by_locale(params[:locale]).code3 rescue 'ENG'
+    @catalogs = Catalog.children_catalogs(params[:root], @secure)
   end
 
   # List of content types
@@ -233,6 +241,14 @@ class Admin::Api::ApiController < Admin::ApplicationController
   end
 
   private
+
+  def per_page_file_ids(created_from_date)
+    def per_page_file_ids(created_from_date = nil)
+      f = FileAsset
+      f = f.where("created > ?", created_from_date) if created_from_date
+      f.count
+    end
+  end
 
   def check_permissions
     # Check whether specific user is permitted to change security level
