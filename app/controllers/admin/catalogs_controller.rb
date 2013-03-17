@@ -118,11 +118,8 @@ class Admin::CatalogsController < Admin::ApplicationController
 
   # We use recursion method to fetch all the children for catalog node => should be changed after moving to postgres
   # Gets all children(descendants) for the given catalog node
-  def get_all_children(catalog)
-    return catalog if catalog.children.empty?
-    all_children = catalog.children.inject([catalog]) do |result, child|
-      result << get_all_children(child)
-    end
+   def get_all_children(catalog)
+    Catalog.descendant_catalogs(catalog)
   end
 
 
