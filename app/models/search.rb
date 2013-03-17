@@ -4,7 +4,7 @@ class Search
   extend ActiveModel::Naming
 
   attr_accessor :query_string, :content_type_id, :file_type_ids, :media_type_id, :date_type, :dates_range, :date_from, :date_to,
-                :catalog_id, :catalog_ids, :model, :language_ids
+                :catalog_id, :catalog_ids, :model, :language_ids, :created_from_date, :per_page
 
   attr_accessor :error
 
@@ -78,8 +78,22 @@ class Search
     @language_ids, @language_exts = (name == 'all' || name.blank?) ? [nil, []] : [name, [name]]
   end
 
+
+  # @param ids - language ids, if multiple, will be a comma separated string
+  # @language_exts will contain the code3
+  def language_by_id=(ids)
+    @language_ids = ids ? ids.split(/\s*,\s*/) : nil
+    @language_exts = Language.find(@language_ids).collect(&:code3)
+  end
+
   def language
     language_ids || 'all'
+  end
+
+  def content_type_ids=(ids)
+    @content_type_id = ids
+    @content_type_ids = ids ? ids.split(/\s*,\s*/) : nil
+
   end
 
   def date_one_day
@@ -152,6 +166,29 @@ class Search
       "---- Solr exception: #{$!}"
     end
   end
+
+
+  # for the personal library files search
+  def search_full_text_files()
+    query_text = query_string_normalized
+    FileAsset.search_ids do |query|
+      query.fulltext query_text unless query_text.blank?
+      query.paginate :page => 1, :per_page => per_page
+      query.with(:secure, 0)
+      query.with(:content_type_ids).any_of @content_type_ids if @content_type_ids.present?
+      query.with(:filelang).any_of @language_exts if @language_exts.present?
+      query.with(:filetype).any_of @media_exts if @media_type_id.present?
+      query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
+      query.with(:filedate).between Range.new(date_from, date_to)
+      query.with(:created).greater_than(created_from_date) if created_from_date.present?
+    end
+  rescue Net::HTTPFatalError => e
+    @error = set_search_network_error(e)
+    false
+  rescue
+    "---- Solr exception: #{$!}"
+  end
+
 
   private
   def set_search_error(e)

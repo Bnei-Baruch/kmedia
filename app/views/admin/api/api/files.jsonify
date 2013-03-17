@@ -1,0 +1,10 @@
+json.record 'files'
+json.item @file_assets do |file_asset|
+  json.id file_asset.fileid
+  json.name file_asset.filename
+  json.date file_asset.filedate
+  json.language file_asset.filelang
+  json.url FileAsset.download_url(file_asset.servername, file_asset.filename)
+  json.size file_asset.filesize
+  json.type file_asset.filetype
+end
