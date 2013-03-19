@@ -41,12 +41,20 @@ class Search
   def catalog_id=(string)
     unless string.empty?
       @catalog_id = string
-      @catalog_ids = [string]
+      @catalog_ids = [string.to_i]
     end
   end
 
   def catalog_ids=(string)
-    @catalog_ids = string.empty? ? nil : string.split(/\s*,\s*/)
+    @catalog_ids = if string.empty?
+                     nil
+                   else
+                     if string =~ /^\d+$/
+                       [string.to_i]
+                     else
+                       JSON.parse(string) rescue nil
+                     end
+                   end
   end
 
   def content_type

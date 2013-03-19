@@ -12,7 +12,7 @@ class UiController < ApplicationController
     @available_last_lessons_languages = FileAsset.available_languages(@last_lessons.map(&:file_assets).flatten)
     @active_tab = @available_last_lessons_languages.include?(@locale) ? @locale : 'all'
 
-    @updated_assets = FileAsset.latest_updates(params[:amount_of_updated].to_i > 0 ? params[:amount_of_updated].to_i : 25)
+    @updated_assets = FileAsset.latest_updates(params[:amount_of_updated].to_i > 0 ? params[:amount_of_updated].to_i : 25).includes(:file_asset_descriptions)
     @available_updated_assets_languages = FileAsset.available_languages(@updated_assets)
 
     render :homepage
@@ -22,6 +22,12 @@ class UiController < ApplicationController
   # Search result
   def index
     @results = @search.search_full_text params[:page]
+    @hits = @results.hits
+    @total = @results.total
+    @no_results = @results.is_a?(String) || !@results || @results.results.empty?
+
+    @results = @results.results
+    @descriptions = Lesson.get_all_descriptions(@results)
   end
 
   # Show specific item page
@@ -33,7 +39,7 @@ class UiController < ApplicationController
   private
 
   def setup
-    @language = Language.where(locale: @locale).first.code3
+    @language = Language.where(locale: @locale).pluck(:code3).first
     @boost_tree = Catalog.boost_json(@language)
     @selected_catalogs = Catalog.selected_catalogs(@language)
     @search = Search.new(params[:search])

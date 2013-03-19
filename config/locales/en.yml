@@ -18,8 +18,8 @@ en:
       subject: 'Subject'
   ui:
     content:
-      results: Results %{from} - %{to} of %{of}
-      no_results: No results
+      results: 'Results %{from} - %{to} of %{of}'
+      no_results: 'No results'
     catalog:
       all_catalogs: 'All catalogs'
     sidebar:

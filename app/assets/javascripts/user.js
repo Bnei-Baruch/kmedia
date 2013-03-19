@@ -32,6 +32,8 @@ $(document).ready(function () {
 
         // Follow final links
         if (!$(this).data('has-children')) {
+            // Catalog resets all other searches
+            $('#new_search input').val('');
             $('#search_catalog_ids').val(id);
             $('#new_search').submit();
             return;

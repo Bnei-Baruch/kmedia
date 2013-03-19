@@ -86,12 +86,12 @@ class Catalog < ActiveRecord::Base
   end
 
   def self.all_catalogs_with_descriptions(language_code3, secure = 0)
-    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3)
+    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).order('catalognodeid DESC')
     catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'catalognode.catalognodename as catalognodename', :'catalognode.parentnodeid as parentnodeid', :'catnodedesc.catalognodename as cname')
   end
 
   def self.boost_json(language_code3, secure = 0)
-    Catalog.all_catalogs_with_descriptions(language_code3, secure).inject([]) do |boost, node|
+    Catalog.visible.all_catalogs_with_descriptions(language_code3, secure).inject([]) do |boost, node|
       parent = node['parentnodeid'] || 0
       boost[parent] = [] unless boost[parent]
       boost[parent] << node

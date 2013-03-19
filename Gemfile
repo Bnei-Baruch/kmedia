@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 gem 'jquery-rails'
 
 gem 'mysql2', '>= 0.3'
@@ -83,3 +83,7 @@ gem 'moumar-wmainfo-rb', :git => 'https://github.com/moumar/wmainfo-rb.git', :re
 # info.SECS or "#{info.MM}:#{info.SS}.#{info.MS}"
 
 # antiword - to extract text from .doc file
+
+group :production do
+  gem 'unicorn'
+end
