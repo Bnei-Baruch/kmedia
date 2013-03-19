@@ -31,13 +31,13 @@ class Lesson < ActiveRecord::Base
     # ZZZ
   end
 
-  LESSON_CONTENT_TYPE_ID = ContentType.find_by_pattern('lesson').id
-  PREPARATION = Catalog.find_by_catalognodename('lesson_preparation').id
-  FIRST_PART = Catalog.find_by_catalognodename('lesson_first-part').id
-  SECOND_PART = Catalog.find_by_catalognodename('lesson_second-part').id
-  THIRD_PART = Catalog.find_by_catalognodename('lesson_third-part').id
-  FOURTH_PART = Catalog.find_by_catalognodename('lesson_fourth-part').id
-  FIFTH_PART = Catalog.find_by_catalognodename('lesson_fifth-part').id
+  LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
+  PREPARATION = ContentType::CONTENT_TYPE_ID['lesson_preparation']
+  FIRST_PART = ContentType::CONTENT_TYPE_ID['lesson_first-part']
+  SECOND_PART = ContentType::CONTENT_TYPE_ID['lesson_second-part']
+  THIRD_PART = ContentType::CONTENT_TYPE_ID['lesson_third-part']
+  FOURTH_PART = ContentType::CONTENT_TYPE_ID['lesson_fourth-part']
+  FIFTH_PART = ContentType::CONTENT_TYPE_ID['lesson_fifth-part']
 
   accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 
@@ -101,6 +101,13 @@ class Lesson < ActiveRecord::Base
   )
 
   scope :security, lambda { |sec| where(:secure => sec) }
+
+  def self.get_all_descriptions(lessons)
+    Lesson.where(lessonid: lessons).includes(:lesson_descriptions).all.inject({}) do |all, lesson|
+      all[lesson.id] = lesson.lesson_descriptions
+      all
+    end
+  end
 
   def to_label
     lessonname
@@ -371,7 +378,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.parse_lesson_name(lessonname, id)
-    lessonname ||=  Lesson.find(id).lessonname
+    lessonname ||= Lesson.find(id).lessonname
     sp = ::StringParser.new lessonname
     @date = sp.date
     @language = sp.language

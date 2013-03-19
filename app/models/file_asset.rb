@@ -64,7 +64,7 @@ class FileAsset < ActiveRecord::Base
   before_create :create_timestamps
   before_update :update_timestamps
 
-  scope :latest_updates, -> amount {order('updated DESC').limit(amount) }
+  scope :latest_updates, -> amount { order('updated DESC').limit(amount) }
   scope :secure, lambda { |level| where("secure <= ?", level) }
   scope :date_within_range, lambda { where("filedate<= ? AND created_at >= ?", Date.today + 100, Date.today - 100) }
 
@@ -103,10 +103,10 @@ class FileAsset < ActiveRecord::Base
     field = file_assets[0].respond_to?(:filelang) ? :filelang : :lang
     code3s = file_assets.map(&field).uniq.map { |l| Language::CODE3_LOCALE[l] }
     languages = []
-    MAIN_LOCALES.each {|locale|
-      languages << code3s.select{|code3| code3 == locale }
+    MAIN_LOCALES.each { |locale|
+      languages << code3s.select { |code3| code3 == locale }
     }
-    languages << code3s.sort.reject{|code3| MAIN_LOCALES.include?(code3) }
+    languages << code3s.sort.reject { |code3| MAIN_LOCALES.include?(code3) }
     languages.flatten.compact
   end
 

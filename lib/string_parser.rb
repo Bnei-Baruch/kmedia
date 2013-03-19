@@ -31,7 +31,7 @@ class StringParser
     ContentType.all.each do |ct|
       return ct unless @string.scan("_#{ct.pattern}_").blank? && @string.scan("_#{ct.pattern}\.").blank?
     end
-    ContentType.find_by_pattern('program')
+    ContentType::CONTENT_TYPE_ID['program']
   end
 
   def content_security_level

@@ -39,7 +39,8 @@ module SearchHelper
   end
 
   def lesson_description(item)
-    (item.lesson_descriptions.select { |d| d.lang == @language } || item.lesson_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:lessondesc)
+    descriptions = @descriptions[item.id]
+    (descriptions.select { |d| d.lang == @language } || descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:lessondesc)
   end
 
   def file_asset_title(item)
@@ -113,7 +114,7 @@ module SearchHelper
 
   def content_type(type, active)
     "<li class='#{active == type ? 'active' : 'x'}'>" +
-        "<a href='javascript:' onclick='return content_type(\"#{ContentType.find_by_pattern(type).try(:id)}\");'>" +
+        "<a href='javascript:' onclick='return content_type(\"#{ContentType::CONTENT_TYPE_ID[type]}\");'>" +
         "<i class='icon-km-#{type}'></i> #{t("ui.sidebar.type.#{type}")}</a>"
   end
 
