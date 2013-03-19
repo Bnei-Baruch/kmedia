@@ -1,5 +1,5 @@
 class AddIndicex < ActiveRecord::Migration
   def change
-    add_index :languages, :virtual_lesson_id
+    add_index :lessons, :virtual_lesson_id
   end
 end
