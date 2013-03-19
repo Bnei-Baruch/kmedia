@@ -91,7 +91,7 @@ class Catalog < ActiveRecord::Base
   end
 
   def self.boost_json(language_code3, secure = 0)
-    Catalog.all_catalogs_with_descriptions(language_code3, secure).inject([]) do |boost, node|
+    Catalog.visible.all_catalogs_with_descriptions(language_code3, secure).inject([]) do |boost, node|
       parent = node['parentnodeid'] || 0
       boost[parent] = [] unless boost[parent]
       boost[parent] << node
