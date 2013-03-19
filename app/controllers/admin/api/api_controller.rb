@@ -54,6 +54,33 @@ class Admin::Api::ApiController < Admin::ApplicationController
   end
 
 
+  #request
+  #   {
+  #     "auth_token":"<authentication-token>"
+  #     "ids": "<id1,id2,...>"--comma separated list of file ids
+  #   }
+  #
+  # Response:
+  # {
+  #   "item":
+  #     [
+  #       {
+  #         "id":"file id",
+  #         "name":"file name",
+  #         "date":"file date",
+  #         "language":"file language"
+  #         "url":"url"
+  #         "size": true/false
+  #         "type": filetype
+  #       },
+  #       ...
+  #     ]
+  #
+  # }
+  def files
+    @file_assets = FileAsset.find(params[:ids].split(',')) rescue []
+  end
+
 
   ###############################################################################################################
   # API User -- creation of containers
