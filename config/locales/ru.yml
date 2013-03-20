@@ -90,7 +90,7 @@ ru:
       copy_link: 'Копировать'
       size: 'Размер'
       time: 'Время'
-    item:
+    lesson:
       download: 'Скачать:'
       view_play: 'Смотреть:'
     projekktor:

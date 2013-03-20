@@ -7,6 +7,6 @@
     %h4= t('ui.content.results', from: (@results.current_page - 1) * @results.limit_value + 1, to: [(@results.current_page * @results.limit_value).to_i, @total].min, of: @total)
 
     = paginate @hits, :window => 2
-    = render :partial => 'item', collection: @results
+    = render @results
     = paginate @hits, :window => 2
 

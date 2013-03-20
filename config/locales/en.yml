@@ -90,7 +90,7 @@ en:
       copy_link: 'Copy<br/>Link'
       size: 'Size'
       time: 'Time'
-    item:
+    lesson:
       download: 'Download:'
       view_play: 'View/Play:'
     projekktor:
