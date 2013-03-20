@@ -252,7 +252,6 @@ header {
     .nav > li {
       width: 115px;
       height: 40px;
-      overflow: hidden;
     }
   }
   .navbar-inner {
@@ -295,8 +294,8 @@ header {
           margin: 0;
           padding: 10px 0;
           & li {
-            width: 90% !important;
-            padding: 0 5%;
+            width: 180px !important;
+            padding: 0 19px 0 10px;
             text-align: left !important;
             list-style: none;
           }
@@ -309,9 +308,16 @@ header {
             a {
               color: #fff;
             }
+            .children-amount {
+              color: #fff;
+            }
+            .expander {
+              border-left-color: #fff;
+            }
           }
           a {
             display: block;
+            position: relative;
           }
         }
       }
@@ -493,4 +499,20 @@ header {
 
 .clear-filters {
   padding-top: 9px;
+}
+
+.expander {
+  border-style: solid;
+  border-width: 4px 0 4px 4px;
+  border-color: transparent transparent transparent #000;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 6px;
+  right: -14px;
+}
+.children-amount {
+  font-size: 11px;
+  color: #666;
 }
