@@ -42,6 +42,13 @@ class Catalog < ActiveRecord::Base
     write_attribute :updated, Time.now
   end
 
+  CATALOG_ID = {}
+
+  %w(lesson_preparation lesson_first-part lesson_second-part lesson_third-part lesson_fourth-part lesson_fifth-part).each do |name|
+    ct = Catalog.where(catalognodename: name).first
+    CATALOG_ID[name] = ct.try(:id)
+  end
+
   # returns children catalogs for the given catalog id
   # will return roots catalogs if the provided id is nil or empty
   def self.children_catalogs(id = nil, secure = 0)
