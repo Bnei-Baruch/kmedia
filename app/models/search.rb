@@ -46,7 +46,7 @@ class Search
   end
 
   def catalog_ids=(string)
-    @catalog_ids = if string.empty?
+    @catalog_ids = if string.blank?
                      nil
                    else
                      if string =~ /^\d+$/
