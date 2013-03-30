@@ -33,7 +33,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def file_ids
-    @search = Search.new(catalog_ids: get_all_catalog_ids(params[:catalog_ids]),
+    @search = Search.new(comma_separated_catalog_ids: get_all_catalog_ids(params[:catalog_ids]),
                          language_by_id: params[:lang_ids],
                          media_type_id: params[:media_type_ids],
                          content_type_ids: params[:content_type_ids],

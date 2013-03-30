@@ -4,7 +4,7 @@ class Search
   extend ActiveModel::Naming
 
   attr_accessor :query_string, :content_type_id, :file_type_ids, :media_type_id, :date_type, :dates_range, :date_from, :date_to,
-                :catalog_id, :catalog_ids, :model, :language_ids, :created_from_date, :per_page
+                :catalog_id, :catalog_ids, :model, :language_ids, :created_from_date, :per_page, :comma_separated_catalog_ids
 
   attr_accessor :error
 
@@ -43,6 +43,10 @@ class Search
       @catalog_id = string
       @catalog_ids = [string.to_i]
     end
+  end
+
+  def comma_separated_catalog_ids=(string)
+    @catalog_ids = string.empty? ? nil : string.split(/\s*,\s*/)
   end
 
   def catalog_ids=(string)
