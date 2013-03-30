@@ -33,10 +33,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def file_ids
-    all_catalogs = Catalog.descendant_catalogs_by_catalog_id(params[:catalog_ids])
-    all_catalogs_ids = all_catalogs.flatten.collect(&:catalognodeid).join(",")
-
-    @search = Search.new(catalog_ids: all_catalogs_ids,
+    @search = Search.new(catalog_ids: get_all_catalog_ids(params[:catalog_ids]),
                          language_by_id: params[:lang_ids],
                          media_type_id: params[:media_type_ids],
                          content_type_ids: params[:content_type_ids],
@@ -78,7 +75,8 @@ class Admin::Api::ApiController < Admin::ApplicationController
   #
   # }
   def files
-    @file_assets = FileAsset.find(params[:ids].split(',')) rescue []
+    secure = params[:secure]? params[:secure].to_i : 0
+    @file_assets = FileAsset.secure(secure).find(params[:ids].split(',')) rescue []
   end
 
 
@@ -280,6 +278,14 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def check_permissions
     # Check whether specific user is permitted to change security level
     @secure = can?(:search_secure, :catalogs) ? params[:secure].to_i : 0
+  end
+
+  def get_all_catalog_ids(parents_catalog_ids)
+    all_catalogs = []
+    return all_catalogs if parents_catalog_ids.blank?
+    # the method can return one catalog or an array of catalogs
+    all_catalogs << Catalog.descendant_catalogs_by_catalog_id(parents_catalog_ids)
+    all_catalogs_ids = all_catalogs.flatten.collect(&:catalognodeid).join(",") rescue nil
   end
 
 end
