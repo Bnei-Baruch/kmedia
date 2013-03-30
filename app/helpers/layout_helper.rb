@@ -150,6 +150,6 @@ module LayoutHelper
   end
 
   def display_catalog_link(catalog, children)
-    "#{catalog['cname'] || catalog['catalognodename']} #{children.nil? ? '' : " > (#{children.length})"}"
+    "#{catalog['cname'] || catalog['catalognodename']} #{children.nil? ? '' : " <span class='children-amount'>(#{children.length})</span> <span class='expander'></span>"}"
   end
 end

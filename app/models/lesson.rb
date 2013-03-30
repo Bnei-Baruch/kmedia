@@ -32,12 +32,12 @@ class Lesson < ActiveRecord::Base
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
-  PREPARATION = ContentType::CONTENT_TYPE_ID['lesson_preparation']
-  FIRST_PART = ContentType::CONTENT_TYPE_ID['lesson_first-part']
-  SECOND_PART = ContentType::CONTENT_TYPE_ID['lesson_second-part']
-  THIRD_PART = ContentType::CONTENT_TYPE_ID['lesson_third-part']
-  FOURTH_PART = ContentType::CONTENT_TYPE_ID['lesson_fourth-part']
-  FIFTH_PART = ContentType::CONTENT_TYPE_ID['lesson_fifth-part']
+  PREPARATION = Catalog::CATALOG_ID['lesson_preparation']
+  FIRST_PART = Catalog::CATALOG_ID['lesson_first-part']
+  SECOND_PART = Catalog::CATALOG_ID['lesson_second-part']
+  THIRD_PART = Catalog::CATALOG_ID['lesson_third-part']
+  FOURTH_PART = Catalog::CATALOG_ID['lesson_fourth-part']
+  FIFTH_PART = Catalog::CATALOG_ID['lesson_fifth-part']
 
   accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 

@@ -58,7 +58,7 @@ $(document).ready(function () {
             } catch (err) {
                 var children = 0;
             }
-            var children_str = children > 0 ? '> (' + children + ')' : '';
+            var children_str = children > 0 ? ' <span class="children-amount">(' + children + ')</span> <span class="expander"></span>' : '';
             html += '<li><a href="javascript:;" data-has-children="' + (children > 0) + '" data-node-id="' + value.catalognodeid + '">' + name + children_str + '</a></li>'
         });
         html += '</ul></div>';
@@ -69,7 +69,8 @@ $(document).ready(function () {
         $(this).closest('.modal-body .categories-holder').width(width);
         $(this).closest('.modal-body').find('.categories').css('display', 'block');
         $(this).closest('.modal-body').find('.categories ul').css('display', 'block');
-        $(this).closest('.modal-body').scrollLeft(width);
+//        $(this).closest('.modal-body').scrollLeft(width);
+        $(this).closest('.modal-body').animate({scrollLeft: width}, 800);
     });
 
     $('.show-tooltip').tooltip();

@@ -42,6 +42,13 @@ class Catalog < ActiveRecord::Base
     write_attribute :updated, Time.now
   end
 
+  CATALOG_ID = {}
+
+  %w(lesson_preparation lesson_first-part lesson_second-part lesson_third-part lesson_fourth-part lesson_fifth-part).each do |name|
+    ct = Catalog.where(catalognodename: name).first
+    CATALOG_ID[name] = ct.try(:id)
+  end
+
   # returns children catalogs for the given catalog id
   # will return roots catalogs if the provided id is nil or empty
   def self.children_catalogs(id = nil, secure = 0)
@@ -86,7 +93,7 @@ class Catalog < ActiveRecord::Base
   end
 
   def self.all_catalogs_with_descriptions(language_code3, secure = 0)
-    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).order('catalognodeid DESC')
+    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).order('catalognodename ASC')
     catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'catalognode.catalognodename as catalognodename', :'catalognode.parentnodeid as parentnodeid', :'catnodedesc.catalognodename as cname')
   end
 

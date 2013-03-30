@@ -47,7 +47,7 @@ module SearchHelper
     (item.file_asset_descriptions.select { |d| d.lang == @language } || item.file_asset_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:filedesc) || item.filename
   end
 
-  def download_items(item, type, lang, play = false)
+  def download_lessons(item, type, lang, play = false)
     # Find requested language
     lang = Language::LOCALE_CODE3[lang]
     # We'll show file assets as Button group

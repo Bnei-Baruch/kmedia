@@ -1,0 +1,38 @@
+- description = lesson_description(lesson)
+.item.item-list
+  .row
+    .span1
+      .padding-both-8
+        = type_of_item(lesson)
+        %hr
+        %span.badge.badge-inverse= creation_date(lesson)
+        %hr
+        = item_includes(lesson)
+    .span8
+      .padding-both
+        %h4
+          %a{:href => ui_path(lesson)}
+            = lesson.id
+            &nbsp;
+            != lesson_title(lesson, description)
+        - available_languages = FileAsset.available_languages(lesson.file_assets)
+        .languages-bar
+          %ul.nav.nav-tabs
+            %li.tabs-title= t('ui.last_lesson.available_languages')
+            - available_languages.each_with_index do |l, idx|
+              %li{:class => (idx == 0 ? 'active' : '')}
+                %a{:href => "##{l}-#{lesson.id}", :'data-toggle' => 'tab'}= l.upcase
+        .tab-content
+          - available_languages.each_with_index do |l, idx|
+            .tab-pane.fade.in{:id => "#{l}-#{lesson.id}", :class => (idx == 0 ? 'active' : '')}
+              .pull-left
+                %h5= t('ui.lesson.download')
+                = download_lessons(lesson, 'video', l)
+                = download_lessons(lesson, 'audio', l)
+                = download_lessons(lesson, 'text', l)
+                = download_lessons(lesson, 'graph', l)
+              .pull-left.padding-left
+                %h5= t('ui.lesson.view_play')
+                = download_lessons(lesson, 'video', l, true)
+                = download_lessons(lesson, 'audio', l, true)
+                = download_lessons(lesson, 'text', l, true)
