@@ -33,18 +33,14 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def file_ids
-    all_catalogs = Catalog.descendant_catalogs_by_catalog_id(params[:catalog_ids])
-    all_catalogs_ids = all_catalogs.flatten.collect(&:catalognodeid).join(",")
-
-    @search = Search.new(catalog_ids: all_catalogs_ids,
+    @search = Search.new(catalog_ids: get_all_catalog_ids(params[:catalog_ids]),
                          language_by_id: params[:lang_ids],
                          media_type_id: params[:media_type_ids],
                          content_type_ids: params[:content_type_ids],
                          query_string: params[:query_string],
                          date_from: params[:from_date],
                          date_to: params[:to_date],
-                         created_from_date: params[:created_from_date]
-    )
+                         created_from_date: params[:created_from_date])
 
     # we want to get all the results in one page so we need to see max number of results
     @search.per_page = per_page_file_ids(params[:created_from_date])
@@ -53,6 +49,34 @@ class Admin::Api::ApiController < Admin::ApplicationController
     render json: {ids: @results.join(',')}
   end
 
+
+  #request
+  #   {
+  #     "auth_token":"<authentication-token>"
+  #     "ids": "<id1,id2,...>"--comma separated list of file ids
+  #   }
+  #
+  # Response:
+  # {
+  #   "item":
+  #     [
+  #       {
+  #         "id":"file id",
+  #         "name":"file name",
+  #         "date":"file date",
+  #         "language":"file language"
+  #         "url":"url"
+  #         "size": true/false
+  #         "type": filetype
+  #       },
+  #       ...
+  #     ]
+  #
+  # }
+  def files
+    secure = params[:secure]? params[:secure].to_i : 0
+    @file_assets = FileAsset.secure(secure).find(params[:ids].split(',')) rescue []
+  end
 
 
   ###############################################################################################################
@@ -253,6 +277,13 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def check_permissions
     # Check whether specific user is permitted to change security level
     @secure = can?(:search_secure, :catalogs) ? params[:secure].to_i : 0
+  end
+
+  def get_all_catalog_ids(parents_catalog_ids)
+    return [] if parents_catalog_ids.blank?
+    # the method can return one catalog or an array of catalogs
+    all_catalogs = Catalog.descendant_catalogs_by_catalog_id(parents_catalog_ids)
+    all_catalogs_ids = [all_catalogs].flatten.collect(&:catalognodeid).join(",") rescue []
   end
 
 end

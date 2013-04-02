@@ -52,7 +52,7 @@ class Search
                      if string =~ /^\d+$/
                        [string.to_i]
                      else
-                       JSON.parse(string) rescue nil
+                       JSON.parse(string) rescue string.split(/\s*,\s*/)
                      end
                    end
   end
@@ -179,7 +179,9 @@ class Search
       query.with(:filelang).any_of @language_exts if @language_exts.present?
       query.with(:filetype).any_of @media_exts if @media_type_id.present?
       query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
-      query.with(:filedate).between Range.new(date_from, date_to)
+      query.with(:filedate).between Range.new(date_from, date_to) if date_from.present? && date_to.present?
+      query.with(:filedate).greater_than(date_from)  if date_from.present? && date_to.blank?
+      query.with(:filedate).less_than(date_to)  if date_to.present? && date_from.blank?
       query.with(:created).greater_than(created_from_date) if created_from_date.present?
     end
   rescue Net::HTTPFatalError => e
