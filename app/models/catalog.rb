@@ -94,7 +94,7 @@ class Catalog < ActiveRecord::Base
 
   def self.all_catalogs_with_descriptions(language_code3, secure = 0)
     catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).order('catalognodename ASC')
-    catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'catalognode.catalognodename as catalognodename', :'catalognode.parentnodeid as parentnodeid', :'catnodedesc.catalognodename as cname')
+    catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'COALESCE(catnodedesc.catalognodename, catalognode.catalognodename) as catalognodename', :'catalognode.parentnodeid as parentnodeid')
   end
 
   def self.boost_json(language_code3, secure = 0)

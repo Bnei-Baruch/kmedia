@@ -146,10 +146,10 @@ module LayoutHelper
   end
 
   def display_catalog_name(catalog)
-    catalog['cname'] || catalog['catalognodename']
+    catalog['catalognodename']
   end
 
   def display_catalog_link(catalog, children)
-    "#{catalog['cname'] || catalog['catalognodename']} #{children.nil? ? '' : " <span class='children-amount'>(#{children.length})</span> <span class='expander'></span>"}"
+    "#{catalog['catalognodename']} #{children.nil? ? '' : " <span class='children-amount'>(#{children.length})</span> <span class='expander'></span>"}"
   end
 end
