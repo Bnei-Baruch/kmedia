@@ -24,6 +24,7 @@ gem 'sunspot_solr'
 gem 'progress_bar', :git => 'git://github.com/flori/progress_bar.git', :branch => 'betterplace' # for sunspot
 
 gem 'therubyracer' #, '0.9.10'
+gem 'dalli'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -36,6 +37,12 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'coffee-rails-source-maps'
+  gem 'glimpse', git: 'git://github.com/dewski/glimpse.git'
+  gem 'glimpse-dalli'
+  gem 'glimpse-git'
+  gem 'glimpse-mysql2'
+  gem 'glimpse-performance_bar'
+  gem 'brakeman', git: 'git://github.com/presidentbeef/brakeman.git'
 end
 
 group :test do
@@ -83,7 +90,3 @@ gem 'moumar-wmainfo-rb', :git => 'https://github.com/moumar/wmainfo-rb.git', :re
 # info.SECS or "#{info.MM}:#{info.SS}.#{info.MS}"
 
 # antiword - to extract text from .doc file
-
-group :production do
-  gem 'unicorn'
-end

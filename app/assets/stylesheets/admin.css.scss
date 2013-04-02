@@ -2,6 +2,8 @@
 *= require token-input
 *= require_self
 *= require_tree ./admin
+*= require glimpse
+*= require glimpse/views/performance_bar
 */
 
 @import "bootstrap";

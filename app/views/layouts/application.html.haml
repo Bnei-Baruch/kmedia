@@ -11,6 +11,34 @@
     %meta(name="author" content="")
 
     = stylesheet_link_tag 'user'
+    = csrf_meta_tag
+    = yield(:head)
+
+    = javascript_include_tag 'modernizr.custom'
+
+    -#<link rel="shortcut icon" href="../../docs/assets/ico/favicon.ico">
+    -#<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../docs/assets/ico/apple-touch-icon-144-precomposed.png">
+    -#<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../docs/assets/ico/apple-touch-icon-114-precomposed.png">
+    -#<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../docs/assets/ico/apple-touch-icon-72-precomposed.png">
+    -#<link rel="apple-touch-icon-precomposed" href="../../docs/assets/ico/apple-touch-icon-57-precomposed.png">
+
+    -#:javascript
+    -#  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    -#    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    -#    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    -#    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    -#
+    -#  ga('create', 'UA-11335066-14', 'kbb1.com');
+    -#  ga('send', 'pageview', {
+    -#    'page': request.path
+    -#  });
+
+  %body
+    = render 'glimpse/bar'
+    = render 'common/navbar'
+    .container
+      = render 'common/topbanner'
+      = yield
 
     :javascript
       var zclip_list = new Array;
@@ -41,21 +69,8 @@
           502: 'Invalid Youtube Video-Id specified.'
       };
 
-    = csrf_meta_tag
-    = yield(:head)
-
-    = javascript_include_tag 'modernizr.custom'
-
-    -#<link rel="shortcut icon" href="../../docs/assets/ico/favicon.ico">
-    -#<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../docs/assets/ico/apple-touch-icon-144-precomposed.png">
-    -#<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../docs/assets/ico/apple-touch-icon-114-precomposed.png">
-    -#<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../docs/assets/ico/apple-touch-icon-72-precomposed.png">
-    -#<link rel="apple-touch-icon-precomposed" href="../../docs/assets/ico/apple-touch-icon-57-precomposed.png">
-  %body
-    = render 'common/navbar'
-    .container
-      = render 'common/topbanner'
-      = yield
 
     = javascript_include_tag 'user'
     = render 'common/topbanner_head'
+    = render 'glimpse/results'
+    = render 'glimpse/results/performance_bar'

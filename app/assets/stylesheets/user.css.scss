@@ -1,6 +1,8 @@
 /*
 *= require_self
 *= require_tree ./user
+*= require glimpse
+*= require glimpse/views/performance_bar
 */
 @import "bootstrap";
 @import "icon-km";

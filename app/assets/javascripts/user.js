@@ -9,8 +9,10 @@
 //= require jquery.zclip.min
 //= require projekktor.min
 
-//= require_self
+//= require glimpse
+//= require glimpse/views/performance_bar
 
+//= require_self
 
 $(document).ready(function () {
 
@@ -52,7 +54,7 @@ $(document).ready(function () {
         var tree = all_tree[id];
         var html = '<div class="categories column2"><ul>';
         $.each(tree, function (key, value) {
-            var name = value.cname == '' ? value.catalognodename : value.cname;
+            var name = value.catalognodename;
             try {
                 var children = all_tree[value.catalognodeid].length;
             } catch (err) {
