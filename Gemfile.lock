@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/dewski/glimpse.git
-  revision: 2105280477a3bfff80c59b243b74265e0486b854
-  specs:
-    glimpse (0.0.5)
-      rails (>= 3)
-
-GIT
   remote: git://github.com/flori/progress_bar.git
   revision: 99540143881eaedbe54d6e93e412bde49a0a71b7
   branch: betterplace
@@ -14,6 +7,13 @@ GIT
       highline (~> 1.6.1)
       options (~> 2.3.0)
       tins (~> 0.5)
+
+GIT
+  remote: git://github.com/peek/peek.git
+  revision: 9161304dadcd5d77b9194a62a815ce8ec645b92a
+  specs:
+    peek (0.0.5)
+      rails (>= 3)
 
 GIT
   remote: git://github.com/plataformatec/simple_form.git
@@ -99,7 +99,7 @@ GEM
       i18n (= 0.6.1)
       multi_json (~> 1.0)
     arel (3.0.2)
-    atomic (1.0.1)
+    atomic (1.0.2)
     bcrypt-ruby (3.0.1)
     better_errors (0.7.2)
       coderay (>= 1.0.0)
@@ -152,17 +152,6 @@ GEM
     fastercsv (1.5.5)
     fattr (2.2.1)
     ffi (1.4.0)
-    glimpse-dalli (1.1.0)
-      atomic (>= 1.0.0)
-      dalli
-      glimpse
-    glimpse-git (1.0.1)
-    glimpse-mysql2 (1.1.0)
-      atomic (>= 1.0.0)
-      glimpse
-      mysql2
-    glimpse-performance_bar (1.1.2)
-      glimpse (>= 0.0.5)
     guard (1.6.2)
       listen (>= 0.6.0)
       lumberjack (>= 1.0.2)
@@ -211,6 +200,18 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
+    peek-dalli (1.1.1)
+      atomic (>= 1.0.0)
+      dalli
+      peek
+    peek-git (1.0.2)
+      peek
+    peek-mysql2 (1.1.0)
+      atomic (>= 1.0.0)
+      mysql2
+      peek
+    peek-performance_bar (1.1.2)
+      peek (>= 0.0.5)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     pry (0.9.12)
@@ -345,11 +346,6 @@ DEPENDENCIES
   devise
   exception_notification
   factory_girl_rails (>= 3.3.0)
-  glimpse!
-  glimpse-dalli
-  glimpse-git
-  glimpse-mysql2
-  glimpse-performance_bar
   guard-rspec
   haml
   jquery-rails
@@ -359,6 +355,11 @@ DEPENDENCIES
   mysql2 (>= 0.3)
   nokogiri
   paperclip
+  peek!
+  peek-dalli
+  peek-git
+  peek-mysql2
+  peek-performance_bar
   progress_bar!
   puma
   rails (= 3.2.13)

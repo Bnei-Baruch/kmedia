@@ -9,8 +9,8 @@
 //= require jquery.zclip.min
 //= require projekktor.min
 
-//= require glimpse
-//= require glimpse/views/performance_bar
+//= require peek
+//= require peek/views/performance_bar
 
 //= require_self
 

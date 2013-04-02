@@ -23,8 +23,8 @@
 //= require bootstrap-popover
 //= require bootstrap-typeahead
 
-//= require glimpse
-//= require glimpse/views/performance_bar
+//= require peek
+//= require peek/views/performance_bar
 
 // We have to submit ID=0 for new lesson
 
