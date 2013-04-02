@@ -92,3 +92,4 @@
                     )
             - else
               %td(colspan=3)= "Unknown: #{klass}"
+    = paginate @results.hits, :window => 8
