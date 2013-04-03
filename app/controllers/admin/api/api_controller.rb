@@ -44,9 +44,9 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     # we want to get all the results in one page so we need to see max number of results
     @search.per_page = per_page_file_ids(params[:created_from_date])
-    @results = @search.search_full_text_files
-
-    render json: {ids: @results.join(',')}
+    results = @search.search_full_text_files
+    results = results.join(',') if @results.kind_of?(Array)
+    render json: {ids: results}
   end
 
 
