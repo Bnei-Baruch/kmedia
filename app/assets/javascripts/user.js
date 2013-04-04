@@ -9,9 +9,6 @@
 //= require jquery.zclip.min
 //= require projekktor.min
 
-//= require peek
-//= require peek/views/performance_bar
-
 //= require_self
 
 $(document).ready(function () {

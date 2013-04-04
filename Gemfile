@@ -37,12 +37,6 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'coffee-rails-source-maps'
-  gem 'peek', git: 'git://github.com/peek/peek.git'
-  gem 'peek-dalli'
-  gem 'peek-git'
-  gem 'peek-mysql2'
-  gem 'peek-performance_bar'
-  gem 'brakeman', git: 'git://github.com/presidentbeef/brakeman.git'
 end
 
 group :test do

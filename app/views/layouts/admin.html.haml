@@ -14,7 +14,6 @@
     = yield(:stylesheets)
     = javascript_include_tag 'admin'
   %body(data-spy="scroll" data-target=".subnav" data-offset="50" data-rendering="true")
-    = render 'peek/bar'
     = render 'layouts/admin_navigation'
     .container.admin
       - flash.each do |name, msg|
@@ -22,5 +21,3 @@
         = content_tag :div, "<a class='close' data-dismiss='alert' href='#'>&times;</a>#{msg}".html_safe, :class => klass
       = yield
     = yield(:javascripts)
-    = render 'peek/results'
-    = render 'peek/results/performance_bar'

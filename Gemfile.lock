@@ -9,13 +9,6 @@ GIT
       tins (~> 0.5)
 
 GIT
-  remote: git://github.com/peek/peek.git
-  revision: 9161304dadcd5d77b9194a62a815ce8ec645b92a
-  specs:
-    peek (0.0.5)
-      rails (>= 3)
-
-GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: b4ea466370af3de07677822a48d6188b91c6734b
   branch: v2.1
@@ -23,22 +16,6 @@ GIT
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
-
-GIT
-  remote: git://github.com/presidentbeef/brakeman.git
-  revision: c064686ed483701490707f9598984eb51507c8c9
-  specs:
-    brakeman (1.9.4)
-      erubis (~> 2.6)
-      fastercsv (~> 1.5)
-      haml (>= 3.0, < 5.0)
-      highline (~> 1.6)
-      multi_json (~> 1.2)
-      ruby2ruby (~> 2.0)
-      ruby_parser (~> 3.1.1)
-      sass (~> 3.0)
-      slim (~> 1.3.6)
-      terminal-table (~> 1.4)
 
 GIT
   remote: https://github.com/amatsuda/kaminari.git
@@ -99,7 +76,6 @@ GEM
       i18n (= 0.6.1)
       multi_json (~> 1.0)
     arel (3.0.2)
-    atomic (1.0.2)
     bcrypt-ruby (3.0.1)
     better_errors (0.7.2)
       coderay (>= 1.0.0)
@@ -149,7 +125,6 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    fastercsv (1.5.5)
     fattr (2.2.1)
     ffi (1.4.0)
     guard (1.6.2)
@@ -200,18 +175,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
-    peek-dalli (1.1.1)
-      atomic (>= 1.0.0)
-      dalli
-      peek
-    peek-git (1.0.2)
-      peek
-    peek-mysql2 (1.1.0)
-      atomic (>= 1.0.0)
-      mysql2
-      peek
-    peek-performance_bar (1.1.2)
-      peek (>= 0.0.5)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     pry (0.9.12)
@@ -266,17 +229,11 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     ruby-mp3info (0.8)
-    ruby2ruby (2.0.3)
-      ruby_parser (~> 3.1)
-      sexp_processor (~> 4.0)
-    ruby_parser (3.1.2)
-      sexp_processor (~> 4.1)
     sass (3.2.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    sexp_processor (4.2.0)
     sextant (0.2.3)
       activesupport (>= 3.2)
       rails (>= 3.2)
@@ -287,9 +244,6 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    slim (1.3.6)
-      temple (~> 0.5.5)
-      tilt (~> 1.3.3)
     slop (3.4.4)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -303,7 +257,6 @@ GEM
       nokogiri
       sunspot (= 2.0.0)
     sunspot_solr (2.0.0)
-    temple (0.5.5)
     term-ansicolor (1.1.1)
     terminal-table (1.4.5)
     therubyracer (0.11.4)
@@ -336,7 +289,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass!
-  brakeman!
   bullet
   cancan
   ckeditor (= 3.7.1)
@@ -355,11 +307,6 @@ DEPENDENCIES
   mysql2 (>= 0.3)
   nokogiri
   paperclip
-  peek!
-  peek-dalli
-  peek-git
-  peek-mysql2
-  peek-performance_bar
   progress_bar!
   puma
   rails (= 3.2.13)
