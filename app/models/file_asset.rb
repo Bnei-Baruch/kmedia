@@ -2,12 +2,14 @@ class FileAsset < ActiveRecord::Base
   self.table_name = :files
   self.primary_key = :fileid
   has_and_belongs_to_many :lessons, :join_table => "lessonfiles", :foreign_key => "fileid",
-                          :association_foreign_key => "lessonid", :order => "date(updated) DESC, lessonname ASC"
+                          :association_foreign_key => "lessonid", :order => "date(lessons.updated) DESC, lessonname ASC"
   has_many :file_asset_descriptions, :foreign_key => :fileid do
     def by_language(code3)
       where(:lang => code3)
     end
   end
+  has_many :catalogs, through: :lessons
+  has_many :lesson_descriptions, through: :lessons
 
   belongs_to :server, :foreign_key => :servername, :primary_key => :servername
 
@@ -23,16 +25,12 @@ class FileAsset < ActiveRecord::Base
     self.filedate = my_date.to_s
   end
 
-  searchable do
+  searchable(include: [:lessons, :catalogs, :lesson_descriptions]) do
     text :filename
 
     text :lessondesc, :as => :user_text do
-      lesson_descriptions = lessons.map(&:lesson_descriptions).flatten
-      lesson_descriptions.inject([]) { |full, ls|
-        full << ls.lessondesc
-        full << ls.descr
-        full
-      }.join(' ')
+      #puts "#{fileid}: #{filename}"
+      lesson_descriptions.multipluck('COALESCE(lessondesc,"")', 'COALESCE(descr,"")').map(&:values).flatten.compact.join(' ') # , :transcript
     end
 
     integer :secure
@@ -42,23 +40,16 @@ class FileAsset < ActiveRecord::Base
     string :filetype
 
     string :content_type_ids, :multiple => true do
-      begin
-        lessons.map(&:content_type).map(&:id)
-      rescue
-        @error = "no content type"
-        false
-      end
+      lessons.map(&:content_type).map(&:id)
     end
 
     string :catalog_ids, :multiple => true do
-      lessons.map(&:catalogs).flatten.map(&:catalognodeid)
+      catalogs.multipluck(:'catalognode.catalognodeid')
     end
-
 
     time :filedate
     time :created
     time :updated
-
   end
 
   before_create :create_timestamps

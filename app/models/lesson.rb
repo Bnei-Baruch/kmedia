@@ -113,27 +113,21 @@ class Lesson < ActiveRecord::Base
     lessonname
   end
 
-  searchable do
+  searchable(include: [:lesson_descriptions, :file_assets, :catalogs]) do
     text :lessonname
     text :lessondesc, :as => :user_text do
-      lesson_descriptions.select([:lessondesc, :descr]).map(&:lessondesc).join(' ')
-    end
-    text :descr, :as => :user_text do
-      lesson_descriptions.select([:lessondesc, :descr]).map(&:descr).join(' ')
-    end
-    text :transcript, :as => :user_text do
-      lesson_transcripts.select([:transcript]).map(&:transcript).join(' ')
+      lesson_descriptions.multipluck(:lessondesc, :descr).map(&:values).flatten.compact.join(' ') # , :transcript
     end
 
     integer :secure
     integer :content_type_id
 
     string :file_language_ids, :multiple => true do
-      file_assets.select('distinct filelang').map(&:filelang)
+      file_assets.pluck('distinct filelang')
     end
 
     string :media_type_ids, :multiple => true do
-      file_assets.select('distinct filetype').map(&:filetype)
+      file_assets.pluck('distinct filetype')
     end
 
     integer :catalog_ids, :multiple => true
