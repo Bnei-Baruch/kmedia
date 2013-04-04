@@ -14,6 +14,7 @@ gem 'ckeditor', '3.7.1'
 gem 'paperclip'
 gem 'thin'
 gem 'puma'
+gem 'unicorn'
 
 gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
 
@@ -24,7 +25,7 @@ gem 'sunspot_solr'
 gem 'progress_bar', :git => 'git://github.com/flori/progress_bar.git', :branch => 'betterplace' # for sunspot
 
 gem 'therubyracer' #, '0.9.10'
-gem 'dalli'
+#gem 'dalli'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
