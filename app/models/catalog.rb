@@ -66,7 +66,7 @@ class Catalog < ActiveRecord::Base
 
   def self.selected_catalogs(language_code3, secure = 0)
     catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).where(selected_catalog: true).limit(5)
-    catalogs = catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'catalognode.catalognodename as catalognodename', :'catnodedesc.catalognodename as cname')
+    catalogs = catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'COALESCE(catnodedesc.catalognodename, catalognode.catalognodename) as catalognodename')
     catalogs + ['catalognodeid' => 0, 'catalognodename' => I18n.t('ui.catalog.all_catalogs')]
   end
 
