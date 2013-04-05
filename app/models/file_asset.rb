@@ -10,6 +10,7 @@ class FileAsset < ActiveRecord::Base
   end
   has_many :catalogs, through: :lessons
   has_many :lesson_descriptions, through: :lessons
+  has_many :content_types, through: :lessons
 
   belongs_to :server, :foreign_key => :servername, :primary_key => :servername
 
@@ -25,12 +26,11 @@ class FileAsset < ActiveRecord::Base
     self.filedate = my_date.to_s
   end
 
-  searchable(include: [:lessons, :catalogs, :lesson_descriptions]) do
+  searchable(include: [:catalogs, :lesson_descriptions, :content_types]) do
     text :filename
 
     text :lessondesc, :as => :user_text do
-      #puts "#{fileid}: #{filename}"
-      lesson_descriptions.multipluck('COALESCE(lessondesc,"")', 'COALESCE(descr,"")').map(&:values).flatten.compact.join(' ') # , :transcript
+      lesson_descriptions.pluck('GROUP_CONCAT( CONCAT(COALESCE(lessondesc,""), COALESCE(descr,"")) SEPARATOR " ")')[0] # , :transcript
     end
 
     integer :secure
@@ -40,11 +40,11 @@ class FileAsset < ActiveRecord::Base
     string :filetype
 
     string :content_type_ids, :multiple => true do
-      lessons.map(&:content_type).map(&:id)
+      content_types.pluck(:id)
     end
 
     string :catalog_ids, :multiple => true do
-      catalogs.multipluck(:'catalognode.catalognodeid')
+      catalogs.pluck(:'catalognode.catalognodeid')
     end
 
     time :filedate
