@@ -7,6 +7,8 @@
 @import "daterangepicker.css";
 @import "theme/projekktor-theme";
 
+@import "bootstrap-rtl";
+
 // Bootstrap override begin
 .caret {
   margin-top: 8px !important;
@@ -133,16 +135,18 @@ header {
     border-width: 1px 0;
     background: #d8d8d8;
     li {
-      float: right;
-      border-left: 1px solid #b3b3b3;
+      @extend .f-right;
+      border-width: 0 0 0 1px;
+      border-style: solid;
+      border-color: #b3b3b3;
       /*  border-width:1px 0 0 1px;*/
 
       &.tabs-title {
-        float: left;
+        @extend .f-left;
         line-height: 30px;
         border: 0 none;
         font-style: italic;
-        padding: 0 0 0 10px;
+        @extend .padding-left;
       }
     }
     & > li > a {
@@ -213,9 +217,6 @@ header {
       margin: 0;
       text-align: center;
       li {
-        //float: none;
-        //display: table-cell;
-        //vertical-align: middle;
         a {
           height: 40px;
           width: 95px;
@@ -285,7 +286,7 @@ header {
         height: 240px;
         overflow: hidden;
         overflow-y: scroll;
-        float: left;
+        @extend .f-left;
         margin: 0;
         width: 219px;
         margin-left: 5px;
@@ -338,12 +339,12 @@ header {
     vertical-align: baseline;
   }
   .left-switch-link, .right-switch-link {
-    float: right;
+    @extend .f-right;
     line-height: 26px;
   }
   .switch {
     cursor: pointer;
-    float: right;
+    @extend .f-right;
     width: 66px;
     height: 22px;
     position: relative;
@@ -515,4 +516,12 @@ header {
 .children-amount {
   font-size: 11px;
   color: #666;
+}
+
+.f-right {
+  float: right;
+}
+
+.f-left {
+  float: left;
 }

@@ -1,0 +1,76 @@
+.he {
+  direction: rtl;
+
+  // BOOTSTRAP
+  [class*=span] {
+    float: right;
+    margin-left: 0;
+    margin-right: 20px;
+  }
+
+  .pagination ul > li {
+    & > a, & > span {
+      float: right;
+      border: 1px solid #dddddd;
+      border-width: 0 0 0 1px;
+    }
+    &:first-child {
+      & > a, & > span {
+        @include border-radius(0 4px 4px 0);
+      }
+    }
+    &:last-child {
+      & > a, & > span {
+        @include border-radius(4px 0 0 4px);
+      }
+    }
+  }
+
+  .row {
+    margin-left: 0;
+    margin-right: -20px;
+  }
+
+  .pull-left {
+    float: right;
+  }
+
+  .pull-right {
+    float: left;
+  }
+
+  // OURS
+  .padding-left {
+    padding: 0 10px 0 0;
+  }
+
+  .padding-right {
+    padding: 0 0 0 10px;
+  }
+
+  .item-list {
+    .span1 {
+      margin-left: -20px;
+      margin-right: 20px;
+    }
+    .span8 {
+      @include border-radius(5px 0 0 5px);
+    }
+  }
+
+  .languages-bar {
+    .nav-tabs {
+      li {
+        border-width: 0 1px 0 0;
+      }
+    }
+  }
+
+  .f-right {
+    float: left;
+  }
+
+  .f-left {
+    float: right;
+  }
+}
