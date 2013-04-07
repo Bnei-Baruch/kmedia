@@ -8,9 +8,6 @@ class FileAsset < ActiveRecord::Base
       where(:lang => code3)
     end
   end
-  has_many :catalogs, through: :lessons
-  has_many :lesson_descriptions, through: :lessons
-  has_many :content_types, through: :lessons
 
   belongs_to :server, :foreign_key => :servername, :primary_key => :servername
 
@@ -26,26 +23,14 @@ class FileAsset < ActiveRecord::Base
     self.filedate = my_date.to_s
   end
 
-  searchable(include: [:catalogs, :lesson_descriptions, :content_types]) do
+  searchable do
     text :filename
-
-    text :lessondesc, :as => :user_text do
-      lesson_descriptions.pluck('GROUP_CONCAT( CONCAT(COALESCE(lessondesc,""), COALESCE(descr,"")) SEPARATOR " ")')[0] # , :transcript
-    end
 
     integer :secure
 
     string :filelang
 
     string :filetype
-
-    string :content_type_ids, :multiple => true do
-      content_types.pluck(:id)
-    end
-
-    string :catalog_ids, :multiple => true do
-      catalogs.pluck(:'catalognode.catalognodeid')
-    end
 
     time :filedate
     time :created
