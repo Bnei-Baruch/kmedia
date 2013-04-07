@@ -1,4 +1,5 @@
 %header.subhead#overview
   %h2 Change Order of Selected Catalog
 
-= render 'form'
+= simple_form_for @catalog, url: admin_selected_catalog_path, method: :put do |f|
+  = render 'form', f: f, fix_name: true
