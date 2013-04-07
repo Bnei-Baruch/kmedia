@@ -9,6 +9,7 @@
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
+        %th Position
         %th Name
         %th Label
         %th Secure
@@ -18,6 +19,7 @@
     %tbody
       - @catalogs.each do |catalog|
         %tr(class="#{cycle('odd', 'even')}")
+          %td.small= catalog.selected_catalog
           %td
             - if catalog.parent
               %span.small
@@ -35,6 +37,9 @@
           %td= display_secure(catalog.secure)
           %td= catalog.visible ? 'visible' : 'hidden'
           %td= catalog.open ? 'open' : 'closed'
+          -if can?(:update, catalog)
+            %td
+              = link_to 'Edit', edit_admin_selected_catalog_path(catalog)
           -if can?(:destroy, catalog)
             %td
               = link_to 'Remove', unset_selected_admin_selected_catalog_path(catalog), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'

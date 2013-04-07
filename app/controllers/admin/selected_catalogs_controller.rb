@@ -9,10 +9,25 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
     @catalog = Catalog.new
   end
 
+  def edit
+    @catalog = Catalog.find(params[:id])
+  end
+
+  def update
+    @catalog = Catalog.find(params[:id])
+    authorize! :update, @catalog
+
+    if @catalog.update_attribute(:selected_catalog, params[:catalog][:selected_catalog])
+      redirect_to admin_selected_catalogs_url, :notice => "Successfully updated catalog."
+    else
+      render :edit
+    end
+  end
+
   def set_selected
     name = params[:catalog][:catalognodename]
     catalog = Catalog.where(catalognodename: name).first
-    if catalog && catalog.update_attribute(:selected_catalog, true)
+    if catalog && catalog.update_attribute(:selected_catalog, params[:catalog][:selected_catalog])
       redirect_to admin_selected_catalogs_url, :notice => "Successfully selected catalog."
     else
       @catalog = Catalog.new({catalognodename: name})
@@ -23,7 +38,7 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
 
   def unset_selected
     @catalog = Catalog.find(params[:id])
-    if @catalog.update_attribute(:selected_catalog, :false)
+    if @catalog.update_attribute(:selected_catalog, 0)
       redirect_to :action => 'index', :notice => "Successfully unselected catalog."
     else
       render :index, notice: "Unable to unselect catalog #{@catalog.catalognodename}"

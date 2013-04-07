@@ -53,7 +53,7 @@ Kmedia::Application.routes.draw do
         end
       end
 
-      resources :selected_catalogs, only: [:index, :new] do
+      resources :selected_catalogs, only: [:index, :new, :edit, :update] do
         collection do
           post 'set_selected'
           get 'autocomplete'

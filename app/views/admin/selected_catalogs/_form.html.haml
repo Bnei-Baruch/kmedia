@@ -1,10 +1,13 @@
-= simple_form_for @catalog, url: set_selected_admin_selected_catalogs_path, method: :post do |f|
-  = display_actions f, admin_catalogs_url
+= display_actions f, admin_selected_catalogs_url
 
-  %hr.soften
-  = display_errors f
-  .row
-    .span12
-      = f.input :catalognodename, :label => 'Name', :input_html => {:class => 'span5', data: {autocomplete_source: autocomplete_admin_selected_catalogs_path}}
-  %hr.soften
-  = display_actions f, admin_catalogs_url
+%hr.soften
+= display_errors f
+.row
+  .span12
+    - if fix_name
+      = f.input :catalognodename, label: 'Name', input_html: {class: 'span5', disabled: true, data: {autocomplete_source: autocomplete_admin_selected_catalogs_path}}
+    - else
+      = f.input :catalognodename, label: 'Name', input_html: {class: 'span5', data: {autocomplete_source: autocomplete_admin_selected_catalogs_path}}
+    = f.input :selected_catalog, label: 'Position', input_html: {class: 'span2'}
+%hr.soften
+= display_actions f, admin_selected_catalogs_url
