@@ -23,6 +23,9 @@
 //= require bootstrap-popover
 //= require bootstrap-typeahead
 
+//= require jquery.ui.nestedSortable
+//= require sortable_tree/initializer
+
 // We have to submit ID=0 for new lesson
 
 // Batch operations

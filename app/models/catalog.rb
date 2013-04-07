@@ -1,7 +1,12 @@
 class Catalog < ActiveRecord::Base
+  include TheSortableTree::Scopes
+
   self.table_name = :catalognode
   self.primary_key = :catalognodeid
-  acts_as_tree :foreign_key => 'parentnodeid', :order => 'catorder'
+
+  alias_attribute :parent_id, :parentnodeid
+
+  acts_as_tree :foreign_key => 'parentnodeid', :order => 'catalognodename'
   has_and_belongs_to_many :lessons, :join_table => "catnodelessons", :foreign_key => "catalognodeid",
                           :association_foreign_key => "lessonid", :order => "lessonname ASC, date(updated) DESC"
 
@@ -10,6 +15,10 @@ class Catalog < ActiveRecord::Base
   accepts_nested_attributes_for :catalog_descriptions, :reject_if => proc { |attributes| attributes['catalognodename'].blank? }
 
   attr_accessor :has_children
+
+  def to_s
+    "#{id} #{catalognodename}"
+  end
 
   searchable do
     text :catalognodename
@@ -77,6 +86,7 @@ class Catalog < ActiveRecord::Base
   def self.count_selected_catalogs
     self.where('selected_catalog > 0').count
   end
+
   def self.descendant_catalogs(catalog)
     return catalog if catalog.children.empty?
     all_children = catalog.children.inject([catalog]) do |result, child|
@@ -105,4 +115,26 @@ class Catalog < ActiveRecord::Base
       boost
     end
   end
+
+  def self.boost_json_admin
+    catalogs = Catalog.order('catalognodename ASC').multipluck(:catalognodeid, :catalognodename, :parentnodeid)
+    catalogs = catalogs.inject([]) do |boost, node|
+      parent = node['parentnodeid'] || 0
+      boost[parent] = [] unless boost[parent]
+      boost[parent] << node
+      boost
+    end
+  end
+
+  # Additions to acts_as_tree
+
+  # We support moving between _PARENTS ONLY_
+  def move_to_child_of(category)
+    self.update_attribute(:parent_id, category.id) unless self.parent_id == category.id
+  end
+
+  alias_method :move_to_right_of, :move_to_child_of
+  alias_method :move_to_left_of, :move_to_child_of
+
+  # /Additions to acts_as_tree
 end

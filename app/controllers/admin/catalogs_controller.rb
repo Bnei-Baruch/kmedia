@@ -1,6 +1,9 @@
 class Admin::CatalogsController < Admin::ApplicationController
+  include TheSortableTreeController::Rebuild
+
   load_resource :only => [:show, :new, :destroy, :edit, :update, :create]
   authorize_resource
+
   rescue_from ActiveRecord::RecordNotFound do |exception|
     redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
   end
@@ -80,6 +83,10 @@ class Admin::CatalogsController < Admin::ApplicationController
     respond_to do |format|
       format.json { render :json => {ok: true} }
     end
+  end
+
+  def manage
+    @catalogs = Catalog.all
   end
 
   private

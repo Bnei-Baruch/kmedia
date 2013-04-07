@@ -6,6 +6,5 @@ json.item @catalogs do |catalog|
       catalog.catalognodename
   json.name name
   json.text name
-  json.order catalog.catorder
   json.secure catalog.secure
 end

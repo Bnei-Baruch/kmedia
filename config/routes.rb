@@ -64,7 +64,14 @@ Kmedia::Application.routes.draw do
       end
 
       resources :file_assets
-      resources :catalogs
+      resources :catalogs do
+        collection do
+          get :manage
+
+          # required for Sortable GUI server side actions
+          post :rebuild
+        end
+      end
       resources :departments
       resources :users do
         member do

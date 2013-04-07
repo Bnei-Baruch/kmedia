@@ -18,7 +18,7 @@ module Kmedia
     # Version of your file_assets, change this if you want to expire all your file_assets
     config.assets.version = '1.0'
 
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'projekktor')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'projekktor', 'the_sortable_tree')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into file_assets in config/initializers
