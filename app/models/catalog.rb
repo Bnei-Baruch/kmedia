@@ -121,7 +121,9 @@ class Catalog < ActiveRecord::Base
     catalogs = catalogs.inject([]) do |boost, node|
       parent = node['parentnodeid'] || 0
       boost[parent] = [] unless boost[parent]
-      boost[parent] << node
+      object = Catalog.new(catalognodename: node['catalognodename'], parentnodeid: node['parentnodeid'])
+      object.catalognodeid = node['catalognodeid']
+      boost[parent] << object
       boost
     end
   end

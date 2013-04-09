@@ -278,3 +278,27 @@ ul.ui-autocomplete {
 .ui-autocomplete-loading {
   background: white asset-url('ajax-loader.gif', image) right center no-repeat;
 }
+
+.sortable_tree {
+  .tree-zipper, .plus, .minus {
+    width: 16px;
+    height: 16px;
+    margin: 3px 15px 0 0;
+    float: left;
+  }
+  .plus {
+    background: transparent url(/assets/iconza/icons/add.png);
+    background-position: center center;
+
+    &:hover {
+      background: transparent url(/assets/iconza/icons/red_add.png);
+    }
+  }
+
+  .minus {
+    background: transparent url(/assets/iconza/icons/remove.png);
+    &:hover {
+      background: transparent url(/assets/iconza/icons/red_remove.png);
+    }
+  }
+}
