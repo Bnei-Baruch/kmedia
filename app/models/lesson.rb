@@ -115,8 +115,8 @@ class Lesson < ActiveRecord::Base
 
   searchable(include: [:lesson_descriptions, :file_assets, :catalogs]) do
     text :lessonname
-    text :lessondesc, :as => :user_text do
-      lesson_descriptions.pluck('GROUP_CONCAT( CONCAT(COALESCE(lessondesc,""), COALESCE(descr,"")) SEPARATOR " ")')[0] # , :transcript
+    text :description do
+      lesson_descriptions.pluck('CONCAT(COALESCE(lessondesc,""), COALESCE(descr,""))')
     end
 
     integer :secure

@@ -6,8 +6,9 @@ class LessonDescription < ActiveRecord::Base
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
   searchable do
-    text :lessondesc
-    text :descr
+    text :description do
+      pluck('CONCAT(COALESCE(lessondesc,""), " ", COALESCE(descr,""))')
+    end
   end
 
   scope :by_lang, lambda {|lang| where(:lang => lang)}

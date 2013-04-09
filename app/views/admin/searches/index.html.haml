@@ -20,7 +20,7 @@
         %tr
           %th ID
           %th Type
-          %th Name
+          %th Result
       %tbody
         - @results.each_hit_with_result do |hit, result|
           - klass = result.class
@@ -52,11 +52,13 @@
               %td= lesson_description.lessondescid
               %td
                 - if lesson_description.lesson
-                  = link_to 'Lesson_Description', admin_lesson_path(lesson_description.lesson.id)
+                  = link_to 'Lesson Description', admin_lesson_path(lesson_description.lesson.id)
                 - else
                   Lesson Description
               %td
                 = lesson_description.lessondesc
+                %hr
+                = lesson_description.descr
                 (
                 = lesson_description.lang
                 )
