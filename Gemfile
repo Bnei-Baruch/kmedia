@@ -24,9 +24,10 @@ gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'progress_bar', :git => 'git://github.com/flori/progress_bar.git', :branch => 'betterplace' # for sunspot
 
-gem 'the_sortable_tree', '~> 2.3.0', path: 'the_sortable_tree'
 gem 'therubyracer' #, '0.9.10'
 gem 'dalli'
+
+gem 'the_sortable_tree', git: 'git://github.com/the-teacher/the_sortable_tree.git'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -39,6 +40,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'coffee-rails-source-maps'
+  gem "coffee-script-redux-debugger", :git => "git://github.com/JetBrains/coffee-script-redux-debugger.git"
 end
 
 group :test do

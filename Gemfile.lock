@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/JetBrains/coffee-script-redux-debugger.git
+  revision: 45ab4936bc35d5150dd0995833f2ab730ac8bd37
+  specs:
+    coffee-script-redux-debugger (0.0.1)
+      coffee-script
+      execjs
+      sprockets
+
+GIT
   remote: git://github.com/flori/progress_bar.git
   revision: 99540143881eaedbe54d6e93e412bde49a0a71b7
   branch: betterplace
@@ -16,6 +25,13 @@ GIT
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
+
+GIT
+  remote: git://github.com/the-teacher/the_sortable_tree.git
+  revision: 6567533c27761706ae9d2e700f446d75a55a78e8
+  specs:
+    the_sortable_tree (2.3.0)
+      rails (>= 3.1)
 
 GIT
   remote: https://github.com/amatsuda/kaminari.git
@@ -44,12 +60,6 @@ GIT
   specs:
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
-
-PATH
-  remote: the_sortable_tree
-  specs:
-    the_sortable_tree (2.3.0)
-      rails (>= 3.1)
 
 GEM
   remote: http://rubygems.org/
@@ -306,6 +316,7 @@ DEPENDENCIES
   ckeditor (= 3.7.1)
   coffee-rails (~> 3.2.0)
   coffee-rails-source-maps
+  coffee-script-redux-debugger!
   dalli
   devise
   exception_notification
@@ -334,7 +345,7 @@ DEPENDENCIES
   sunspot_rails
   sunspot_solr
   term-ansicolor
-  the_sortable_tree (~> 2.3.0)!
+  the_sortable_tree!
   therubyracer
   thin
   uglifier (>= 1.0.3)
