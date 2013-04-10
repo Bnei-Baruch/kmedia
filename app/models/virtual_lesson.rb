@@ -19,7 +19,8 @@ class VirtualLesson < ActiveRecord::Base
 
   def virtual_name(code3)
     if lessons.count == 1
-      lessons.first.lesson_descriptions.select { |ld| ld.lang == code3 }.first.lessondesc
+      lesson = lessons.first.lesson_descriptions.select { |ld| ld.lang == code3 }.first || lessons.first.lesson_descriptions.select { |ld| ld.lang == 'ENG' }.first
+      lesson.try(:lessondesc) rescue 'Lesson'
     else
       I18n.t('ui.last_lesson.morning_lesson', date: film_date)
     end
