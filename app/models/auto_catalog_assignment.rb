@@ -38,7 +38,7 @@ class AutoCatalogAssignment < ActiveRecord::Base
     @record = AutoCatalogAssignment.first
     unless @record.nil?
       # reset the counter if it is a new day
-      unless @record.last_date.in_time_zone('Jerusalem').today?
+      if @record.last_date.in_time_zone('Jerusalem').to_date < @lesson_part_arrival.to_date
         @record.counter = -1
         my_logger.info("New Day began, reset counter")
       end
