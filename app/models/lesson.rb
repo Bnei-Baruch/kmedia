@@ -247,6 +247,7 @@ class Lesson < ActiveRecord::Base
     my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")
 
     container.save!(:validate => false) unless dry_run
+    my_logger.info("Container saved")
 
     (files || []).each do |file|
       name = file['file']
@@ -285,6 +286,8 @@ class Lesson < ActiveRecord::Base
             end
           end
 
+      my_logger.info("File name=#{name} server=#{server} size=#{size} datetime=#{datetime} extension=#{extension} playtime_secs=#{playtime_secs}")
+
       if file_asset.nil?
         # New file
         name =~ /^([^_]+)_/
@@ -294,13 +297,17 @@ class Lesson < ActiveRecord::Base
 
         file_asset = FileAsset.new(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
                                    playtime_secs: playtime_secs, lastuser: 'system', servername: server, secure: secure)
+        my_logger.info("New file lang=#{lang} secure=#{secure}")
       elsif !dry_run
+        my_logger.info("Existing file, just update")
         file_asset.update_attributes(filedate: datetime, filesize: size, playtime_secs: playtime_secs, lastuser: 'system', servername: server)
       end
 
       if !dry_run && !container.file_asset_ids.include?(file_asset.id)
+        my_logger.info("Adding to container...")
         container.file_assets << file_asset
         raise "Unable to save/update file #{name}" unless file_asset.save
+        my_logger.info("... added")
       end
 
       # Update file description for non-existing UI languages
@@ -324,13 +331,18 @@ class Lesson < ActiveRecord::Base
                         end
                     end
                   end
+      my_logger.info("File description file_desc=#{file_desc}")
+
       unless file_desc.blank?
         ui_langs = Language.all.map(&:code3) - container.file_assets.select('distinct filelang').map(&:filelang)
         ui_langs.each { |ui_lang|
+          my_logger.info("FileAssetDescription lang=#{ui_lang} file_desc=#{file_desc}")
           file_asset.file_asset_descriptions << FileAssetDescription.new(lang: ui_lang, filedesc: file_desc)
         }
       end
     end
+
+    my_logger.info("Finished %%%%%%%%%%%%%%%%%%%%%%%%%%")
 
     true
   end

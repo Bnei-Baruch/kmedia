@@ -45,6 +45,8 @@ Kmedia::Application.routes.draw do
         end
         collection do
           get 'parse_new_lesson_name'
+          get 'get_update'
+          post 'add_update'
         end
         resources :catalogs do
           member do

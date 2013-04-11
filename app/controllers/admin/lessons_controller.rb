@@ -168,6 +168,16 @@ class Admin::LessonsController < Admin::ApplicationController
     render :show
   end
 
+  def get_update
+    @update = OpenStruct.new(container_name: params[:container_name], files: params[:files], dry_run: params[:dry_run])
+  end
+
+  def add_update
+    Lesson.add_update(params[:container_name], [params[:files]], params[:dry_run])
+    @update = OpenStruct.new(container_name: params[:container_name], files: params[:files], dry_run: params[:dry_run])
+    render :get_update, :alert => "Executed"
+  end
+
   private
   def set_fields
     @languages = Language.order('code3').all

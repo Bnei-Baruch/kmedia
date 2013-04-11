@@ -1,0 +1,23 @@
+%header.subhead#overview
+  %h2 Add New Container
+%section
+  = form_tag add_update_admin_lessons_path, method: :post do
+    .row
+      .span11
+        = label_tag :container_name, 'Container Name'
+        = text_field_tag :container_name, @update.container_name, class: 'span11'
+      .span1
+        = label_tag :dry_run, 'Dry Run'
+        = check_box_tag :dry_run, @update.dry_run
+    .row
+      .span1
+        = label_tag :files, 'File:'
+    .row
+      .span1 &nbsp;
+      .span10
+        = label_tag :files_name, 'Name'
+        - file_name = @update.files.is_a?(Hash) ? @update.files['file'] : ''
+        = text_field_tag :'files[file]', file_name, class: 'span10'
+    .row
+      .span12
+        %button.btn.btn-primary.btn-large{:type => 'submit', :'data-disable-with' => 'Please wait...'} Update
