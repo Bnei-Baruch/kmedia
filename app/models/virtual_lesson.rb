@@ -18,13 +18,15 @@ class VirtualLesson < ActiveRecord::Base
   end
 
   def virtual_name(code3)
-    if lessons.count == 1
-      lesson = lessons.first.lesson_descriptions.select { |ld| ld.lang == code3 }.first || lessons.first.lesson_descriptions.select { |ld| ld.lang == 'ENG' }.first
-      lesson.try(:lessondesc) rescue 'Lesson'
-    else
-      I18n.t('ui.last_lesson.morning_lesson', date: film_date)
+    begin
+      if lessons.count == 1
+        lesson = (lessons.first.lesson_descriptions.select { |ld| ld.lang == code3 }.first || lessons.first.lesson_descriptions.select { |ld| ld.lang == 'ENG' }.first).lessondesc
+      else
+        I18n.t('ui.last_lesson.morning_lesson', date: film_date)
+      end
+    rescue
+      I18n.t('ui.last_lesson.lesson')
     end
-  rescue I18n.t('ui.last_lesson.lesson')
   end
 
   def lessons_ordered_by_parts

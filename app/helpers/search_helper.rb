@@ -8,7 +8,7 @@ module SearchHelper
   end
 
   def type_of_item_text(item, cont)
-    t("ui.sidebar.type.#{item.content_type.try(:pattern)}") + cont
+    t("ui.sidebar.type.#{item.content_type.try(:pattern) || 'lesson'}") + cont
   end
 
   def creation_date(item)
