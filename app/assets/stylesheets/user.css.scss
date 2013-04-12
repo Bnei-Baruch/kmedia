@@ -4,7 +4,7 @@
 */
 @import "bootstrap";
 @import "icon-km";
-@import "daterangepicker.css";
+@import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
 
 @import "bootstrap-rtl";
@@ -191,15 +191,12 @@ header {
   .container {
     position: relative;
     .navbar-form {
-      position: absolute;
-      right: 0;
-      z-index: 2;
+      float: right;
     }
     .languages {
-      position: absolute;
-      right: 222px;
-      top: 5px;
+      float: right;
       width: 100px;
+      margin: 5px 10px 0 5px;
     }
   }
 }
@@ -275,12 +272,14 @@ header {
       margin: 0;
     }
     .modal-header {
-      padding:  0 5px;
+      padding: 5px 10px 6px;
     }
     .modal-body {
       position: relative;
       padding: 0;
-      overflow: auto;
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: 700px;
       font-size: 13px;
       .categories {
         height: 240px;
@@ -288,7 +287,7 @@ header {
         overflow-y: scroll;
         @extend .f-left;
         margin: 0;
-        width: 219px;
+        width: 225px;
         margin-left: 5px;
         padding-right: 5px;
         ul {
@@ -311,9 +310,6 @@ header {
             }
             .children-amount {
               color: #fff;
-            }
-            .expander {
-              border-left-color: #fff;
             }
           }
           a {
@@ -384,6 +380,7 @@ header {
 
 .projekktor {
   clear: both;
+  direction: ltr;
 }
 
 .media-table {
@@ -513,6 +510,7 @@ header {
   top: 6px;
   right: -14px;
 }
+
 .children-amount {
   font-size: 11px;
   color: #666;
@@ -524,4 +522,8 @@ header {
 
 .f-left {
   float: left;
+}
+
+.navbar-form .input-append, .navbar-form .input-prepend {
+  margin: 5px 0;
 }

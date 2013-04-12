@@ -33,10 +33,12 @@
         'page': '#{request.path}'
       });
 
-  %body{:class => @locale}
+  - klass = "#{@locale} #{@locale == 'he' || @locale == 'ar' ? 'rtl' : ''}"
+  %body{:class => klass}
     = render 'common/navbar'
     .container
       = render 'common/topbanner'
+      = render 'common/topbanner_head'
       = yield
 
     :javascript
@@ -68,6 +70,28 @@
           502: 'Invalid Youtube Video-Id specified.'
       };
 
-
     = javascript_include_tag 'user'
-    = render 'common/topbanner_head'
+
+    :javascript
+      opens_dates_range = $('body').hasClass('rtl') ? 'right' : 'left';
+      locale_dates_range = {
+        applyLabel: '#{t('ui.sidebar.apply')}',
+        clearLabel:'#{t('ui.sidebar.clear')}',
+        fromLabel: '#{t('ui.sidebar.from')}',
+        toLabel: '#{t('ui.sidebar.to')}',
+        weekLabel: '#{t('ui.sidebar.week')}',
+        customRangeLabel: '#{t('ui.sidebar.custom_range')}',
+        daysOfWeek: #{t('ui.sidebar.abbr_day_names')},
+        monthNames: #{t('ui.sidebar.month_names')},
+        firstDay: #{t('ui.sidebar.first_day_of_week')}
+      };
+      open_dates_ranges = {
+          '#{t('ui.sidebar.anytime')}': ['1000', '3000'],
+          '#{t('ui.sidebar.today')}': ['#{0.days.ago.beginning_of_day}', '#{0.days.ago.end_of_day}'],
+          '#{t('ui.sidebar.today')}': ['#{1.day.ago.beginning_of_day}', '#{1.day.ago.end_of_day}'],
+          '#{t('ui.sidebar.last_7_days')}': ['#{7.days.ago.beginning_of_day}', '#{0.days.ago.end_of_day}'],
+          '#{t('ui.sidebar.last_30_days')}': ['#{30.days.ago.beginning_of_day}', '#{0.days.ago.end_of_day}'],
+          '#{t('ui.sidebar.this_month')}': ['#{0.days.ago.beginning_of_month}', '#{0.days.ago.end_of_month}'],
+          '#{t('ui.sidebar.last_month')}': ['#{1.month.ago.beginning_of_month}', '#{1.month.ago.end_of_month}']
+      };
+

@@ -11,29 +11,6 @@
           %i.icon-km-month
           %span.daterange!= search.dates_range_text
           %span.caret
-          :javascript
-            opens_dates_range = 'right';
-            locale_dates_range = {
-              applyLabel: '#{t('ui.sidebar.apply')}',
-              clearLabel:'#{t('ui.sidebar.clear')}',
-              fromLabel: '#{t('ui.sidebar.from')}',
-              toLabel: '#{t('ui.sidebar.to')}',
-              weekLabel: '#{t('ui.sidebar.week')}',
-              customRangeLabel: '#{t('ui.sidebar.custom_range')}',
-              daysOfWeek: #{t('ui.sidebar.abbr_day_names')},
-              monthNames: #{t('ui.sidebar.month_names')},
-              firstDay: #{t('ui.sidebar.first_day_of_week')}
-            };
-            open_dates_ranges = {
-                '#{t('ui.sidebar.anytime')}': ['1000', '3000'],
-                '#{t('ui.sidebar.today')}': ['#{0.days.ago.beginning_of_day}', '#{0.days.ago.end_of_day}'],
-                '#{t('ui.sidebar.today')}': ['#{1.day.ago.beginning_of_day}', '#{1.day.ago.end_of_day}'],
-                '#{t('ui.sidebar.last_7_days')}': ['#{7.days.ago.beginning_of_day}', '#{0.days.ago.end_of_day}'],
-                '#{t('ui.sidebar.last_30_days')}': ['#{30.days.ago.beginning_of_day}', '#{0.days.ago.end_of_day}'],
-                '#{t('ui.sidebar.this_month')}': ['#{0.days.ago.beginning_of_month}', '#{0.days.ago.end_of_month}'],
-                '#{t('ui.sidebar.last_month')}': ['#{1.month.ago.beginning_of_month}', '#{1.month.ago.end_of_month}']
-            };
-
       %li.divider
     %ul.nav.nav-list
       %li.nav-header= t('ui.sidebar.filter_by_content_type')

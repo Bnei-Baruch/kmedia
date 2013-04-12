@@ -20,6 +20,10 @@ module Kmedia
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'projekktor', 'the_sortable_tree')
 
+    config.assets.compress = true
+    config.assets.digest = true
+
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into file_assets in config/initializers
     # -- all .rb file_assets in that directory are automatically loaded.

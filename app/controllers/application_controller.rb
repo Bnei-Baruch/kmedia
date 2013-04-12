@@ -50,7 +50,6 @@ class ApplicationController < ActionController::Base
     I18n.locale = @locale = params[:locale] || 'en'
     @menu_languages = Language.menu_languages('en', 'he', 'ru').map{|x| [x['language'], root_url(x['locale'])]}
     @current_menu_language = root_url(@locale)
-    @hebrew_menu_language = root_url('he') #TODO: support Hebrew
 
     @comment_data = Comment.new
   end
