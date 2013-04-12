@@ -11,10 +11,6 @@
         .pull-right.auto-parse= link_to 'Automatic parsing', 'javascript:void(0);', :class => 'auto-parse unable'
       - else
         - url = parse_new_lesson_name_admin_lessons_url(:ts => Time.now.to_i)
-        :javascript
-          $(function () {
-            auto_parse();
-          });
         .pull-right= link_to 'Automatic parsing', url, :class => 'auto-parse'
       = f.input :lessonname, :label => 'Name', :disabled => disabled, :input_html => {:class => 'span5'}
       = f.input :content_type_id, :collection => @content_types, :label => 'Type', :disabled => disabled, :prompt => '-- Please select container type --', :input_html => {:class => 'span5'}
