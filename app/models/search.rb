@@ -96,6 +96,19 @@ class Search
 
   end
 
+  def date_from=(date)
+     @date_from = parse_time(date)
+  end
+
+  def date_to=(date)
+    @date_to = parse_time(date)
+  end
+
+  def created_from_date=(date)
+    @created_from_date = parse_time(date)
+  end
+
+
   def date_one_day
     Time.parse(@dates_range)
   end
@@ -118,12 +131,16 @@ class Search
     begin
       Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions]) do |query|
         query.fulltext query_text, :highlight => true unless query_text.blank?
-        query.paginate :page => page_no, :per_page => 30
+        query.paginate :page => page_no, :per_page => per_page.present? ? per_page : 30
         query.with(:secure, 0)
         query.with(:content_type_id, @content_type_id) if @content_type_id.present?
         query.with(:file_language_ids).any_of @language_exts if @language_ids.present?
         query.with(:media_type_ids).any_of @media_exts if @media_type_id.present?
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
+        query.with(:lessondate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
+        query.with(:lessondate).greater_than(@date_from) if @date_from.present? && @date_to.blank?
+        query.with(:lessondate).less_than(@date_to) if @date_to.present? && @date_from.blank?
+        query.with(:created).greater_than(@created_from_date) if @created_from_date.present?
 
         case @date_type
           when 'one_day'
@@ -179,10 +196,10 @@ class Search
       query.with(:filelang).any_of @language_exts if @language_exts.present?
       query.with(:filetype).any_of @media_exts if @media_type_id.present?
       query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
-      query.with(:filedate).between Range.new(date_from, date_to) if date_from.present? && date_to.present?
-      query.with(:filedate).greater_than(date_from)  if date_from.present? && date_to.blank?
-      query.with(:filedate).less_than(date_to)  if date_to.present? && date_from.blank?
-      query.with(:created).greater_than(created_from_date) if created_from_date.present?
+      query.with(:filedate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
+      query.with(:filedate).greater_than(@date_from)  if @date_from.present? && @date_to.blank?
+      query.with(:filedate).less_than(@date_to)  if @date_to.present? && @date_from.blank?
+      query.with(:created).greater_than(@created_from_date) if @created_from_date.present?
     end
   rescue Net::HTTPFatalError => e
     @error = set_search_network_error(e)
@@ -201,6 +218,10 @@ class Search
         "---- Solr exception: #{$!}"
       end
     end
+  end
+
+  def parse_time(time)
+    Time.parse(time) rescue nil
   end
 
 end

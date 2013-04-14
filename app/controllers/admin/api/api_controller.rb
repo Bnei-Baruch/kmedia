@@ -34,20 +34,29 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   def file_ids
     @search = Search.new(catalog_ids: get_all_catalog_ids(params[:catalog_ids]),
-                         language_by_id: params[:lang_ids],
-                         media_type_id: params[:media_type_ids],
                          content_type_ids: params[:content_type_ids],
+                         media_type_id: params[:media_type_ids],
                          query_string: params[:query_string],
                          date_from: params[:from_date],
                          date_to: params[:to_date],
                          created_from_date: params[:created_from_date])
 
-    # we want to get all the results in one page so we need to see max number of results
     @search.per_page = per_page_file_ids(params[:created_from_date])
-    results = @search.search_full_text_files
-    results = results.join(',') if @results.kind_of?(Array)
-    render json: {ids: results}
+    # containers
+    search_result = @search.search_full_text(1)
+    return render json: {error: @search.error, ids: []} unless search_result   #handle if error
+
+    lessons = search_result.results
+    if lessons.kind_of?(Array)
+      lesson_ids = lessons.collect(&:lessonid)
+      q = FileAsset
+      q = q.where("filelang in (?)", get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
+      files = q.joins(:lessons).where("lessons.lessonid in (?)", lesson_ids)
+      render json: {ids: files.collect(&:fileid).join(',')}
+    end
   end
+
+
 
 
   #request
@@ -74,7 +83,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   #
   # }
   def files
-    secure = params[:secure]? params[:secure].to_i : 0
+    secure = params[:secure] ? params[:secure].to_i : 0
     @file_assets = FileAsset.secure(secure).find(params[:ids].split(',')) rescue []
   end
 
@@ -284,6 +293,11 @@ class Admin::Api::ApiController < Admin::ApplicationController
     # the method can return one catalog or an array of catalogs
     all_catalogs = Catalog.descendant_catalogs_by_catalog_id(parents_catalog_ids)
     all_catalogs_ids = [all_catalogs].flatten.collect(&:catalognodeid).join(",") rescue []
+  end
+
+  def get_language_by_ids(ids)
+    language_ids = ids ? ids.split(/\s*,\s*/) : []
+    Language.find(language_ids).collect(&:code3)
   end
 
 end
