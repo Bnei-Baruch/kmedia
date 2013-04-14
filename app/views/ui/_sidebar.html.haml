@@ -35,7 +35,7 @@
       %li.nav-header= t('ui.sidebar.filter_by_language')
       %li
         = select_tag :language_ids,
-            options_for_select([[t('ui.sidebar.type.all'), 'all']] + Language.order(:language).all.map{|l| ["#{l.language} (#{l.locale})", l.code3]}, selected: search.language),
+            options_for_select([[t('ui.sidebar.language.all'), 'all']] + Language.order(:language).all.map{|l| ["#{l.language} (#{l.locale})", l.code3]}, selected: search.language),
             include_blank: false
 
 
