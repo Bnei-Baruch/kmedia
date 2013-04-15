@@ -167,6 +167,16 @@
     right: auto;
   }
 
+  #sidebar {
+    .active {
+      &:after {
+        border-color: transparent #fff transparent transparent;
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
   .navbar {
     .brand, .nav {
       float: right;
@@ -212,4 +222,10 @@
     }
   }
 
+  #dates_range {
+    .caret {
+      right: auto;
+      left: 15px;
+    }
+  }
 }
