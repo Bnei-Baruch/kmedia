@@ -15,6 +15,11 @@
             = lesson.id
             &nbsp;
             != lesson_title(lesson, description)
+            - playtime = lesson.playtime_secs.to_i
+            - unless playtime <= 0
+              (
+              = Time.at(playtime).utc.strftime('%H:%M:%S')
+              )
         - available_languages = FileAsset.available_languages(lesson.file_assets)
         .languages-bar
           %ul.nav.nav-tabs

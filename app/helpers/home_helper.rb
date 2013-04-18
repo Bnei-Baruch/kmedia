@@ -43,7 +43,7 @@ module HomeHelper
     if asset
       download_url = asset.download_url
       filesize = asset.filesize.to_f / 1024 / 1024
-      playtime = asset.playtime_secs.to_i
+      playtime = asset.playtime_secs.to_i || lesson.playtime_secs.to_i
       title = playtime > 0 ?
           "#{ext}&nbsp;|&nbsp;#{"%.2f" % filesize}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
       :
