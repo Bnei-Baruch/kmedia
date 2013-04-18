@@ -73,6 +73,8 @@ gem 'exception_notification'
 gem 'jsonify-rails'
 gem 'yajl-ruby', :require => 'yajl' # Required if we want json with utf8 strings
 
+gem 'newrelic_rpm'
+
 # mp3 info
 require 'open-uri'
 # m = Mp3Info.open(open('http://files.kabbalahmedia.info/audio/rus_t_rav_achana_2012-11-21_lesson.mp3'))

@@ -183,6 +183,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.7.2)
     mysql2 (0.3.11)
+    newrelic_rpm (3.6.0.83)
     nokogiri (1.5.9)
     options (2.3.0)
       fattr
@@ -328,6 +329,7 @@ DEPENDENCIES
   kaminari!
   moumar-wmainfo-rb!
   mysql2 (>= 0.3)
+  newrelic_rpm
   nokogiri
   paperclip
   progress_bar!
