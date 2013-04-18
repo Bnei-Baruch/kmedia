@@ -49,13 +49,13 @@
         // we're just going to let them go through
         if (!/^"(.+)"$/.test(local)) {
             // It's a dot-string address...check for valid characters
-            if (!/^[-a-zA-Z0-9!#$%*\/?|^\\{\\}`~&'+=_\\.]*$/.test(local)) {
+            if (!/^[\-a-zA-Z0-9!#$%*\/?|\^\\{\\}`~&'+=_\\.]*$/.test(local)) {
                 return false;
             }
         }
 
         // Make sure domain contains only valid characters and at least one period
-        if (!/^[-a-zA-Z0-9\.]*$/.test(domain) || domain.indexOf(".") === -1) {
+        if (!/^[\-a-zA-Z0-9\.]*$/.test(domain) || domain.indexOf(".") === -1) {
             return false;
         }
 
