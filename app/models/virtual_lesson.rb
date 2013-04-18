@@ -36,27 +36,27 @@ class VirtualLesson < ActiveRecord::Base
 
     result << list.select do |l|
       ids = l.catalogs.map(&:id)
-      ids.include?(Lesson::PREPARATION)
+      ids.include?(Lesson::PREPARATION) && l.file_assets.secure(0).count > 0
     end
     result << list.select do |l|
       ids = l.catalogs.map(&:id)
-      ids.include?(Lesson::FIRST_PART)
+      ids.include?(Lesson::FIRST_PART) && l.file_assets.secure(0).count > 0
     end
     result << list.select do |l|
       ids = l.catalogs.map(&:id)
-      ids.include?(Lesson::SECOND_PART)
+      ids.include?(Lesson::SECOND_PART) && l.file_assets.secure(0).count > 0
     end
     result << list.select do |l|
       ids = l.catalogs.map(&:id)
-      ids.include?(Lesson::THIRD_PART)
+      ids.include?(Lesson::THIRD_PART) && l.file_assets.secure(0).count > 0
     end
     result << list.select do |l|
       ids = l.catalogs.map(&:id)
-      ids.include?(Lesson::FOURTH_PART)
+      ids.include?(Lesson::FOURTH_PART) && l.file_assets.secure(0).count > 0
     end
     result << list.select do |l|
       ids = l.catalogs.map(&:id)
-      ids.include?(Lesson::FIFTH_PART)
+      ids.include?(Lesson::FIFTH_PART) && l.file_assets.secure(0).count > 0
     end
 
     result.flatten!
