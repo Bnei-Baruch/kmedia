@@ -22,7 +22,7 @@ he:
       results: 'תוצאות חיפוש: %{from} - %{to} מתוך %{of}'
       no_results: 'לא נמצאו תוצאות'
     catalog:
-      all_catalogs: 'כל הנושאים'
+      all_catalogs: 'כל הקטגוריות'
     sidebar:
       clear_all_filters: 'בטל את כל הסינונים'
       filter_by_date: 'סנן לפי תאריך'

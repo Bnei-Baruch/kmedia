@@ -71,7 +71,7 @@ ru:
       video: 'видео'
       download: 'Скачать:'
       lesson_part: 'Часть урока'
-      morning_lesson: 'Утренний урок от %{date}'
+      morning_lesson: 'Урок от %{date}'
       lesson: 'Урок'
       preparation: 'Подготовка'
       first_part: 'Первая часть'
