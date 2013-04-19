@@ -3,6 +3,7 @@
 *= require_tree ./user
 */
 @import "bootstrap";
+@import "bootstrap-responsive";
 @import "icon-km";
 @import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
@@ -18,7 +19,6 @@
 
 body {
   background: #ccc;
-  margin-top: 46px;
 }
 
 .expander {
@@ -37,7 +37,6 @@ body {
   background: #fff;
   @include border-radius(5px);
   padding: 0 0 15px;
-  width: 220px;
   #language_ids {
     width:  190px;
   }
@@ -122,26 +121,27 @@ header {
 .item-list {
   background: #777;
   padding: 0;
-  .span1 {
-    margin-right: -20px;
-    width: 80px;
+  .item-list-meta {
     text-align: center;
     hr {
       margin: 0 auto 5px;
       border-top: 1px solid #555;
       border-bottom: 1px solid #818181;
+      display: block;
     }
     .badge {
-      display: block;
       margin-bottom: 6px;
-      padding: 3px 0 2px;
       font-size: 10px;
     }
-    .padding-both-8 {
-      padding: 0 8px;
+    @media (min-width: 768px) and (max-width: 979px) {
+      .badge {
+        padding-left: 6px;
+        padding-right: 6px;
+        font-size: 9px;
+      }
     }
   }
-  .span8 {
+  .item-list-data {
     background: #fff;
     padding: 10px 0;
     @include border-radius(0 5px 5px 0);
@@ -205,7 +205,12 @@ header {
 
 .topbanner {
   width: 550px;
-  margin: 10px auto 0;
+  margin: 50px auto 0;
+}
+@media (max-width: $navbarCollapseWidth) {
+  .topbanner {
+    margin-top: -10px;
+  }
 }
 
 .navbar-fixed-top {

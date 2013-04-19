@@ -3,18 +3,18 @@
 
 %section.user_search
   = simple_form_for @search, :html => {:method => :get} do |f|
-    .row
+    .row-fluid
       .span10= f.input :query_string, :label => false, :placeholder => 'Enter parts of keywords to search for...', :input_html => {:class => 'span10'}
       .span2= f.submit :Search, :disable_with => 'Please wait...', :input_html => {:class => 'span2'}
-    .row.well
+    .row-fluid.well
       = f.input :language_ids, :collection => languages_to_list, :as => :check_boxes, :label => 'Language: ', :label_html => {:class => 'inline'}
-    .row.well
+    .row-fluid.well
       = f.input :content_type_ids, :collection => content_types_to_list, :as => :check_boxes, :label => 'Content type: '
-    .row.well
+    .row-fluid.well
       = f.input :file_type_ids, :collection => file_type_ids_to_list, :as => :check_boxes, :label => 'FileAsset type: ', :label_html => {:class => 'pull-left'}
-    .row.well
+    .row-fluid.well
       = f.input :catalog_id, :label => 'Catalog ID: ', :label_html => {:class => 'pull-left'}
-    .row.well
+    .row-fluid.well
       .span5= f.input :date_from, :label => 'From: ', :label_html => {:class => 'pull-left'} #, :as => :date, :order => [:day, :month, :year]
       .span5= f.input :date_to, :label => 'To: ', :label_html => {:class => 'pull-left'} #, :as => :date, :order => [:day, :month, :year]
 

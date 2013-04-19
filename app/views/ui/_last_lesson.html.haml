@@ -21,8 +21,8 @@
   .tab-content
     - available_languages.each do |language|
       .tab-pane.fade.in{:id => "#{language}-player", :class => (language == active_tab ? 'active' : '')}
-        .row
-          .span5
+        .row-fluid
+          .span6
             .padding-left
               %h4.pull-left= t('ui.last_lesson.play')
               .pull-right.toggle
@@ -57,7 +57,7 @@
                   .btn-group
                     - last_lessons.each_with_index do |lesson, index|
                       %button.btn.btn-mini{:'data-item-index' => index}= lesson_part(lesson, language)
-          .span4
+          .span6
             .padding-right
               %h4= t('ui.last_lesson.download')
               %table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
