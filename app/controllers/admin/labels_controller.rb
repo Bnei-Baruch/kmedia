@@ -69,7 +69,7 @@ class Admin::LabelsController < Admin::ApplicationController
     if params[:q]
       @labels = @labels.joins(:label_descriptions).where("text like ?", "%#{params[:q]}%").
           multipluck(:'labels.id as id', :'text as name').
-          map { |label| {id: label['catalognodeid'], name: label['name']} }
+          map { |label| {id: label['id'], name: label['name']} }
     else
       @labels = @labels.page(params[:page])
     end
