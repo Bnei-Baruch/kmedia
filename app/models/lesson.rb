@@ -307,7 +307,9 @@ class Lesson < ActiveRecord::Base
       if !dry_run && !container.file_asset_ids.include?(file_asset.id)
         my_logger.info("Adding to container...")
         container.file_assets << file_asset
-        container.playtime_secs = file_asset.playtime_secs unless file_asset.playtime_secs <= 0
+        if container.playtime_secs <= 0 && file_asset.playtime_secs > 0
+          container.update_attribute(:playtime_secs, file_asset.playtime_secs)
+        end
         raise "Unable to save/update file #{name}" unless file_asset.save
         my_logger.info("... added")
       end
