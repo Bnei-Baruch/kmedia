@@ -12,6 +12,7 @@
            filter: none;
         }
     = yield(:stylesheets)
+    = javascript_include_tag 'jquery-2.0.0.min'
     = javascript_include_tag 'admin'
   %body(data-spy="scroll" data-target=".subnav" data-offset="50" data-rendering="true")
     = render 'layouts/admin_navigation'

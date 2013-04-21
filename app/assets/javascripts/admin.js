@@ -1,4 +1,3 @@
-//= require jquery
 //= require jquery-ui
 //= require modernizr.custom
 //= require jquery.tokeninput
