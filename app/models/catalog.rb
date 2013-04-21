@@ -21,7 +21,7 @@ class Catalog < ActiveRecord::Base
   end
 
   searchable do
-    text :catalognodename
+    text :catalognodename, as: :kmedia
     boolean :secure
   end
 
