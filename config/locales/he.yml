@@ -22,7 +22,7 @@ he:
       results: 'תוצאות חיפוש: %{from} - %{to} מתוך %{of}'
       no_results: 'לא נמצאו תוצאות'
     catalog:
-      all_catalogs: 'כל הקטגוריות'
+      all_catalogs: 'כל הקטלוגים'
     sidebar:
       clear_all_filters: 'בטל את כל הסינונים'
       filter_by_date: 'סנן לפי תאריך'
@@ -71,7 +71,7 @@ he:
       video: 'וידאו'
       download: 'הורדת השיעור'
       lesson_part: 'חלק'
-      morning_lesson: 'שיעור בוקר מ- %{date}'
+      morning_lesson: 'שיעור מ- %{date}'
       lesson: 'שיעור'
       preparation: 'הכנה'
       first_part: 'חלק ראשון'
