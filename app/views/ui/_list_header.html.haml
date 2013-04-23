@@ -1,11 +1,15 @@
 .navbar
   .navbar-inner
     %ul.nav
-      - selected_catalogs.each do |catalog|
+      - total_catalogs = selected_catalogs.length - 1
+      - selected_catalogs.each_with_index do |catalog, idx|
         - id = catalog['catalognodeid']
-        - unless boost_tree[id].nil? # No leaf elements in upper menu
-          %li
+        %li
+          - if boost_tree[id].nil? # No leaf elements in upper menu
+            %a{:href => "javascript:;", :'data-has-children' => "leaf", :'data-node-id' => "#{id}"}= display_catalog_name(catalog)
+          - else
             %a{:href => "#cat-#{id}", :'data-toggle' => "modal"}= display_catalog_name(catalog)
+        - unless idx == total_catalogs
           %li.divider-vertical
 
 - selected_catalogs.each do |catalog|
