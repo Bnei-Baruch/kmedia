@@ -69,6 +69,8 @@ Kmedia::Application.routes.draw do
       resources :catalogs do
         collection do
           get :manage
+          get :move_prepare
+          get :move
 
           # required for Sortable GUI server side actions
           post :rebuild

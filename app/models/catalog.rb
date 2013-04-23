@@ -139,4 +139,15 @@ class Catalog < ActiveRecord::Base
   alias_method :move_to_left_of, :move_to_child_of
 
   # /Additions to acts_as_tree
+
+  def self.move(options)
+    target = options[:target]
+    source = options[:source]
+    containers = options[:containers]
+
+    containers.each do |container|
+      source.lessons.delete(container)
+      target.lessons << container
+    end
+  end
 end

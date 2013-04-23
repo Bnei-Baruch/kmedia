@@ -41,11 +41,14 @@ module RenderSortableTreeHelper
       def controls
         node = options[:node]
 
+        move_prepare_path = h.url_for(:controller => options[:klass].pluralize, :action => :move_prepare, :id => node)
         edit_path = h.url_for(:controller => options[:klass].pluralize, :action => :edit, :id => node)
         show_path = h.url_for(:controller => options[:klass].pluralize, :action => :show, :id => node)
 
         "
           <div class='controls'>
+            #{ h.link_to '', move_prepare_path, :class => :move }
+            #{ h.check_box_tag 'source', node.id, false, :class => :select }
             #{ h.link_to '', edit_path, :class => :edit }
             #{ h.link_to '', show_path, :class => :delete, :method => :delete, :data => { :confirm => 'Are you sure?' } }
           </div>
