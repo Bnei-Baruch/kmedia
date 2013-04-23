@@ -66,7 +66,7 @@
         $('#content .navbar-inner li').on('click', function () {
             // Follow final links
             if ($(this).children().data('has-children') === 'leaf') {
-                var id = $(this).data('node-id');
+                var id = $(this).children('a').data('node-id');
 
                 // Catalog resets all other searches
                 $('#new_search input').val('');
