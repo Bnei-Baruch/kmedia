@@ -1,8 +1,10 @@
 %header.subhead#overview
   %h2 Containers
-  -if can?(:create, Lesson)
-    %p
-      = link_to "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right'
+  %p
+    -if can?(:create, Lesson)
+      = link_to "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right span2'
+    -if can?(:create, VirtualLesson)
+      = link_to 'Combine selected containers to VL', combine_admin_lessons_path, class: 'btn btn-warning pull-right span2 lesson-combine-selected'
   %h4.clear Filter:&nbsp;
   .subnav
     %ul.nav.nav-pills
@@ -34,9 +36,10 @@
 %section
   = paginate @lessons
 
-  %table.table.table-striped.table-bordered.table-condensed
+  %table.table.table-striped.table-bordered.table-condensed.lessons
     %thead
       %tr
+        %th
         %th= sortable("lessonid", "ID", @filter)
         %th= sortable("lessonname", "Name", @filter)
         %th= sortable("created", "Created", @filter)
@@ -47,9 +50,10 @@
     %tbody
       -@lessons.each do |lesson|
         %tr
+          %td= check_box_tag "cb_#{lesson.id}", lesson.id, false, class: 'selected'
           %td{:class => lesson.marked_for_merge ? 'btn btn-warning' : ''}= lesson.lessonid
           %td= lesson.lessonname.truncate(57, :omission => '&hellip;').html_safe
-          %td= lesson.created.try(:to_date)
+          %td.created= lesson.created.try(:to_date)
           %td= lesson.updated.try(:to_date)
           %td= lesson.lang
           %td= display_secure(lesson.secure)

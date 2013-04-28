@@ -29,7 +29,11 @@ Kmedia::Application.routes.draw do
     namespace(:admin) do
       root :to => "searches#index"
 
-      resources :virtual_lessons
+      resources :virtual_lessons do
+        collection do
+          get 'combine'
+        end
+      end
       resources :comments, only: [:index, :destroy]
 
       resources :lessons do
@@ -47,6 +51,7 @@ Kmedia::Application.routes.draw do
           get 'parse_new_lesson_name'
           get 'get_update'
           post 'add_update'
+          get 'combine'
         end
         resources :catalogs do
           member do

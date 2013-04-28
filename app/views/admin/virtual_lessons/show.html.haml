@@ -11,6 +11,13 @@
       -if can?(:read, @virtual_lesson)
         %li
           = link_to "View All", admin_virtual_lessons_path
+%section
+  .row
+    .span5.well.well-small
+      %input(type='text' placeholder='VL ID' style='margin-bottom: 0;')
+      = link_to 'Move to Existing VL', '#', class: 'btn btn-warning'
+    .span2.well.well-small
+      = link_to 'Move to NEW VL', '#', class: 'btn btn-warning'
 
 %section.well
   = display_show_item('ID', @virtual_lesson.id)

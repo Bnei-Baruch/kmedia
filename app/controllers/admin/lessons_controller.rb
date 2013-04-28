@@ -121,7 +121,7 @@ class Admin::LessonsController < Admin::ApplicationController
     begin
       lesson = Lesson.find(params[:id])
     rescue
-      render :js => 'alert("No such lesson")';
+      render :js => 'alert("No such container")';
       return
     end
     lesson.update_attribute(:marked_for_merge, !lesson.marked_for_merge)
@@ -176,6 +176,21 @@ class Admin::LessonsController < Admin::ApplicationController
     Lesson.add_update(params[:container_name], [params[:files]], params[:dry_run])
     @update = OpenStruct.new(container_name: params[:container_name], files: params[:files], dry_run: params[:dry_run])
     render :get_update, :alert => "Executed"
+  end
+
+
+  def combine
+    permitted = can? :update, :lesson
+
+    # Move containers to the target VL and remove empty VLs
+    containers = params[:containers].split(',').map {|vl| Lesson.find vl }
+    film_date = containers[0].created.to_date
+    vl = VirtualLesson.create!(film_date: film_date, position: VirtualLesson.next_position_on(film_date))
+    containers.each do |container|
+      vl.lessons << container
+    end
+
+    redirect_to admin_lessons_path, notice: "Container(s) #{params[:containers]} successfully moved to VL(#{vl.id}, #{vl.film_date})"
   end
 
   private
@@ -250,5 +265,4 @@ class Admin::LessonsController < Admin::ApplicationController
     #secondary sort parameter
     sort_line+= ", " + "lessonname asc" unless params[:sort].equal?("lessonname")
   end
-
 end
