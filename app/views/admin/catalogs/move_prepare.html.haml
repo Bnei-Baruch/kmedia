@@ -1,0 +1,34 @@
+%header.subhead
+  %h2
+    Target Catalog:
+    = @target
+
+%section#move_prepare
+  - @catalogs.each do |catalog|
+    = link_to "MOVE containers from this catalog", move_admin_catalogs_path(id: @target, from: catalog), :class => 'btn btn-danger btn-large pull-right move pull-right'
+    %h5
+      Catalog:
+      = catalog
+    - lessons = catalog.lessons
+    %table.table.table-striped.table-bordered.table-condensed
+      %thead
+        %tr
+          %th
+            = check_box_tag 'batch-all', 'batch-all', false, class: 'batch-all'
+            all
+          %th Id
+          %th Name
+          %th Type
+          %th Secure
+          %th Language
+          %th Updated on
+      %tbody
+        - lessons.each do |lesson|
+          %tr
+            %td= check_box_tag '', lesson.lessonid, false, :class => :batch
+            %td= lesson.lessonid
+            %td= lesson.lessonname
+            %td= lesson.content_type.try(:name)
+            %td= display_secure(lesson.secure)
+            %td= lesson.language
+            %td= lesson.updated

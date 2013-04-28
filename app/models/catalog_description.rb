@@ -9,7 +9,7 @@ class CatalogDescription < ActiveRecord::Base
   before_update :update_timestamps
 
   searchable do
-    text :catalognodename
+    text :catalognodename, as: :kmedia
   end
 
   def create_timestamps

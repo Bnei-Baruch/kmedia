@@ -15,8 +15,8 @@ class LessondescPattern < ActiveRecord::Base
   attr_accessor  :catalog_tokens
 
   searchable do
-    text :pattern
-    text :description
+    text :pattern, as: :kmedia
+    text :description, as: :kmedia
   end
 
   def catalog_tokens=(ids)

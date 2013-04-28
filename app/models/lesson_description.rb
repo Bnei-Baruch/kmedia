@@ -6,8 +6,8 @@ class LessonDescription < ActiveRecord::Base
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
   searchable do
-    text :descr
-    text :lessondesc
+    text :descr, as: :kmedia
+    text :lessondesc, as: :kmedia
   end
 
   scope :by_lang, lambda {|lang| where(:lang => lang)}

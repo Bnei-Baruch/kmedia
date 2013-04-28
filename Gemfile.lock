@@ -93,6 +93,9 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    best_in_place (2.0.3)
+      jquery-rails
+      rails (~> 3.1)
     better_errors (0.7.2)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -115,7 +118,7 @@ GEM
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
-    coffee-rails-source-maps (1.3.1)
+    coffee-rails-source-maps (1.3.2)
       coffee-script-source (>= 1.6.1)
     coffee-script (2.2.0)
       coffee-script-source
@@ -183,6 +186,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.7.2)
     mysql2 (0.3.11)
+    newrelic_rpm (3.6.0.83)
     nokogiri (1.5.9)
     options (2.3.0)
       fattr
@@ -308,6 +312,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_tree!
+  best_in_place
   better_errors
   binding_of_caller
   bootstrap-sass!
@@ -328,6 +333,7 @@ DEPENDENCIES
   kaminari!
   moumar-wmainfo-rb!
   mysql2 (>= 0.3)
+  newrelic_rpm
   nokogiri
   paperclip
   progress_bar!

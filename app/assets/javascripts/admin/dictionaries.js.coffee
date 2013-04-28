@@ -16,11 +16,9 @@ register_handlers = () ->
 suid_handlers = (suid, url) ->
   on_success = (data) ->
     if data.length
-      $('#existing_suids').html(data.toString())
-        .attr('class', 'alert alert-error')
+      $('#existing_suids').html(data.toString()).attr('class', 'alert alert-error')
     else
-      $('#existing_suids').html(suid.val() + ' is free to use.')
-        .attr('class', 'alert alert-success')
+      $('#existing_suids').html(suid.val() + ' is free to use.').attr('class', 'alert alert-success')
 
   suid.keyup (e) =>
     if suid.val().length > 2

@@ -22,8 +22,8 @@ class UiController < ApplicationController
   # Search result
   def index
     @results = @search.search_full_text params[:page]
-    @hits = @results.hits
-    @total = @results.total
+    @hits = @results.try(:hits)
+    @total = @results.try(:total)
     @no_results = @results.is_a?(String) || !@results || @results.results.empty?
 
     @results = @results.results

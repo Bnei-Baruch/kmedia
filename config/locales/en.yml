@@ -16,6 +16,7 @@ en:
       name: 'Name'
       email: 'Email'
       subject: 'Subject'
+      body: 'Comment'
   ui:
     content:
       results: 'Results %{from} - %{to} of %{of}'
@@ -45,7 +46,7 @@ en:
       this_month: 'This Month'
       last_month: 'Last Month'
       type:
-        all: 'All'
+        all: 'Any'
         lesson: 'Lesson'
         lecture: 'Lecture'
         program: 'Program'
@@ -57,6 +58,8 @@ en:
         video: 'Video'
         text: 'Text'
         image: 'Image'
+      language:
+        all: 'All languages'
     list_header:
       cancel: 'Cancel'
     last_lesson:
@@ -68,7 +71,7 @@ en:
       video: 'video'
       download: 'Download:'
       lesson_part: 'Lesson Part'
-      morning_lesson: 'Morning Lesson @ %{date}'
+      morning_lesson: 'Lesson from %{date}'
       lesson: 'Lesson'
       preparation: 'Preparation'
       first_part: 'First Part'

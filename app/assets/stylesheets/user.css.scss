@@ -21,6 +21,18 @@ body {
   margin-top: 46px;
 }
 
+.expander {
+  border-style: solid;
+  border-width: 4px 0 4px 4px;
+  border-color: transparent transparent transparent #000;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 6px;
+  right: -14px;
+}
+
 #sidebar {
   background: #fff;
   @include border-radius(5px);
@@ -28,6 +40,16 @@ body {
   width: 220px;
   #language_ids {
     width:  190px;
+  }
+  .active {
+    position: relative;
+    &:after {
+      content:"";
+      @extend .expander;
+      border-color: transparent transparent transparent #fff;
+      top: 9px;
+      right: 0;
+    }
   }
 }
 
@@ -497,18 +519,6 @@ header {
 
 .clear-filters {
   padding-top: 9px;
-}
-
-.expander {
-  border-style: solid;
-  border-width: 4px 0 4px 4px;
-  border-color: transparent transparent transparent #000;
-  display: inline-block;
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: 6px;
-  right: -14px;
 }
 
 .children-amount {

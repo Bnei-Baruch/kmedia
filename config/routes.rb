@@ -29,7 +29,11 @@ Kmedia::Application.routes.draw do
     namespace(:admin) do
       root :to => "searches#index"
 
-      resources :virtual_lessons
+      resources :virtual_lessons do
+        collection do
+          get 'combine'
+        end
+      end
       resources :comments, only: [:index, :destroy]
 
       resources :lessons do
@@ -47,6 +51,7 @@ Kmedia::Application.routes.draw do
           get 'parse_new_lesson_name'
           get 'get_update'
           post 'add_update'
+          get 'combine'
         end
         resources :catalogs do
           member do
@@ -69,6 +74,8 @@ Kmedia::Application.routes.draw do
       resources :catalogs do
         collection do
           get :manage
+          get :move_prepare
+          get :move
 
           # required for Sortable GUI server side actions
           post :rebuild

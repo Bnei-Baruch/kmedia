@@ -89,6 +89,20 @@ class Admin::CatalogsController < Admin::ApplicationController
     @catalogs = Catalog.all
   end
 
+  def move_prepare
+    @target = Catalog.find(params[:id])
+    @catalogs = Catalog.where(catalognodeid: params[:sources].split(',').map(&:to_i)).includes(:lessons)
+  end
+
+  def move
+    target = Catalog.find(params[:id])
+    source = Catalog.find(params[:from])
+    containers = Lesson.where(lessonid: params[:containers].split(',').map(&:to_i))
+    Catalog.move(target: target, source: source, containers: containers)
+
+    redirect_to manage_admin_catalogs_path
+  end
+
   private
   def sort_descriptions
     catalog_descriptions_main = {}

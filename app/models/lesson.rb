@@ -114,9 +114,10 @@ class Lesson < ActiveRecord::Base
   end
 
   searchable(include: [:lesson_descriptions, :file_assets, :catalogs]) do
-    text :lessonname
-    text :description do
-      lesson_descriptions.pluck('CONCAT(COALESCE(lessondesc,""), COALESCE(descr,""))')
+    text :lessonname, as: :kmedia
+
+    text :description, as: :kmedia do
+      lesson_descriptions.pluck('CONCAT(COALESCE(lessondesc,""), COALESCE(descr,""))').join(' ')
     end
 
     integer :secure
@@ -306,6 +307,9 @@ class Lesson < ActiveRecord::Base
       if !dry_run && !container.file_asset_ids.include?(file_asset.id)
         my_logger.info("Adding to container...")
         container.file_assets << file_asset
+        if container.playtime_secs.to_i <= 0 && file_asset.playtime_secs > 0
+          container.update_attribute(:playtime_secs, file_asset.playtime_secs)
+        end
         raise "Unable to save/update file #{name}" unless file_asset.save
         my_logger.info("... added")
       end
@@ -360,9 +364,11 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.create_virtual_lesson(container)
+    my_logger.info("create_virtual_lesson for: #{container.lessonname} ...")
     return unless container.content_type_id == LESSON_CONTENT_TYPE_ID # Not a lesson
     return if container.virtual_lesson.present? # Already belongs to some virtual lesson
     return if container.secure != 0 # Ignore secure containers
+    my_logger.info("create_virtual_lesson: ... not exists; creating")
 
     vl = nil
     ids = container.catalogs.map(&:id)
@@ -373,12 +379,14 @@ class Lesson < ActiveRecord::Base
         ids.include?(FIFTH_PART)
       # first_part - create a new container or add to last_container
       # second_part...fifth_part - add to last_container
-      vl = VirtualLesson.last
-      vl = nil if vl.film_date != container.lessondate # first part without preparation or non-first part comes first... happens...
+      vl = VirtualLesson.where(film_date: container.lessondate).last
+      my_logger.info("create_virtual_lesson: #{vl ? "selected #{vl.film_date}" : "not selected"}")
     end
 
     position = VirtualLesson.where('film_date = ?', container.lessondate).count
+    my_logger.info("create_virtual_lesson: position - #{position}")
     vl = VirtualLesson.create({film_date: container.lessondate, position: position}, without_protection: true) if vl.nil?
+    my_logger.info("create_virtual_lesson: #{vl.film_date}")
     container.virtual_lesson = vl
     vl
   end

@@ -1,71 +1,66 @@
 class Admin::VirtualLessonsController < Admin::ApplicationController
   load_resource :only => [:show, :new, :destroy, :edit, :update]
   authorize_resource
+  respond_to :html, :json
 
-  # GET /virtual_lesson
-  # GET /virtual_lesson.xml
-  # GET /virtual_lesson.json                                       HTML and AJAX
-  #-----------------------------------------------------------------------
   def index
-    @virtual_lessons = VirtualLesson.includes(:lessons).includes(lessons: :file_assets).order('film_date DESC, position ASC').page(params[:page])
+    @virtual_lessons = VirtualLesson.includes(:lessons, lessons: :file_assets).order('film_date DESC, position ASC').page(params[:page])
   end
 
-  # GET /virtual_lesson/new
-  # GET /virtual_lesson/new.xml
-  # GET /virtual_lesson/new.json                                    HTML AND AJAX
-  #-------------------------------------------------------------------
   def new
   end
 
-  # GET /virtual_lesson/1
-  # GET /virtual_lesson/1.xml
-  # GET /virtual_lesson/1.json                                     HTML AND AJAX
-  #-------------------------------------------------------------------
   def show
   end
 
-  # GET /virtual_lesson/1/edit
-  # GET /virtual_lesson/1/edit.xml
-  # GET /virtual_lesson/1/edit.json                                HTML AND AJAX
-  #-------------------------------------------------------------------
   def edit
   end
 
-  # DELETE /virtual_lesson/1
-  # DELETE /virtual_lesson/1.xml
-  # DELETE /virtual_lesson/1.json                                  HTML AND AJAX
-  #-------------------------------------------------------------------
   def destroy
     @virtual_lesson.destroy
 
     redirect_to admin_virtual_lessons_url, :notice => "Successfully destroyed virtual lesson."
   end
 
-  # POST /virtual_lesson
-  # POST /virtual_lesson.xml
-  # POST /virtual_lesson.json                                      HTML AND AJAX
-  #-----------------------------------------------------------------
   def create
-    @virtual_lesson = VirtualLesson.new
-    permitted = can? :update, :virtual_lesson
-    if @user.update_attributes(params[:user], :without_protection => permitted)
-      redirect_to admin_users_url, :notice => "Successfully created user."
-    else
-      render :new
-    end
+    raise 'Not implemented yet'
   end
 
-  # PUT /virtual_lesson/1
-  # PUT /virtual_lesson/1.xml
-  # PUT /virtual_lesson/1.json                                            HTML AND AJAX
-  #----------------------------------------------------------------------------
   def update
-    permitted = can? :update, :users
-    if @user.update_attributes(params[:user], :without_protection => permitted)
-      redirect_to admin_user_path(@user), :notice => "Your account has been updated"
-    else
-      render :edit
+    permitted = can? :update, :virtual_lesson
+    @virtual_lesson = VirtualLesson.find params[:id]
+
+    respond_to do |format|
+      if @virtual_lesson.update_attributes(params[:virtual_lesson], :without_protection => permitted)
+        format.html { redirect_to admin_virtual_lessons_path(@virtual_lesson), :notice => "Virtual lesson was successfully updated" }
+        format.json { respond_with_bip(@virtual_lesson) }
+      else
+        format.html { render action: :edit }
+        format.json { respond_with_bip(@virtual_lesson) }
+      end
     end
   end
 
+  def combine
+    permitted = can? :update, :virtual_lesson
+
+    # Move containers to the target VL and remove empty VLs
+    vls = params[:vls].split(',').map {|vl| VirtualLesson.find vl }
+    target = vls.shift
+    vls.each do |vl|
+      vl.lessons.each do |lesson|
+        target.lessons << lesson
+      end
+      vl.destroy
+    end
+
+    # TODO: Renumber containers in the target VL
+
+    # Renumber VLs
+    VirtualLesson.vls_from_date(target.film_date).each_with_index do |vl, index|
+      vl.update_attribute :position, index
+    end
+
+    redirect_to admin_virtual_lessons_path, notice: "Container(s) #{vls.map(&:id).join(',')} successfully moved to #{target.id}"
+  end
 end

@@ -18,11 +18,8 @@ module Kmedia
     # Version of your file_assets, change this if you want to expire all your file_assets
     config.assets.version = '1.0'
 
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'projekktor', 'the_sortable_tree')
-
-    config.assets.compress = true
-    config.assets.digest = true
-
+    config.assets.paths << Rails.root.join('vendor', 'assets')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'projekktor')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into file_assets in config/initializers
@@ -48,7 +45,7 @@ module Kmedia
     config.i18n.default_locale = :en
 
     # JavaScript file_assets you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(jquery.min rails)
+    config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

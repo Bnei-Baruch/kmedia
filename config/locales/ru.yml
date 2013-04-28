@@ -16,6 +16,7 @@ ru:
       name: 'Имя'
       email: 'Мейл'
       subject: 'Тема'
+      body: 'Отзыв'
   ui:
     content:
       results: 'Результаты %{from} - %{to} из %{of}'
@@ -57,6 +58,8 @@ ru:
         video: 'Видео'
         text: 'Текст'
         image: 'Картинка'
+      language:
+        all: 'Все языки'
     list_header:
       cancel: 'Отмена'
     last_lesson:
@@ -68,7 +71,7 @@ ru:
       video: 'видео'
       download: 'Скачать:'
       lesson_part: 'Часть урока'
-      morning_lesson: 'Утренний урок от %{date}'
+      morning_lesson: 'Урок от %{date}'
       lesson: 'Урок'
       preparation: 'Подготовка'
       first_part: 'Первая часть'

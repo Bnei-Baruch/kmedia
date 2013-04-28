@@ -97,6 +97,11 @@
     @include border-top-left-radius(4px);
   }
 
+  .input-append .add-on, .input-append .btn, .input-append .btn-group {
+    margin-left: 0;
+    margin-right: -1px;
+  }
+
   // OURS
   .padding-left {
     padding: 0 10px 0 0;
@@ -162,6 +167,16 @@
     right: auto;
   }
 
+  #sidebar {
+    .active {
+      &:after {
+        border-color: transparent #fff transparent transparent;
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
   .navbar {
     .brand, .nav {
       float: right;
@@ -207,4 +222,10 @@
     }
   }
 
+  #dates_range {
+    .caret {
+      right: auto;
+      left: 15px;
+    }
+  }
 }
