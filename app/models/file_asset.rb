@@ -24,7 +24,7 @@ class FileAsset < ActiveRecord::Base
   end
 
   searchable do
-    text :filename
+    text :filename, as: :kmedia
 
     integer :secure
 

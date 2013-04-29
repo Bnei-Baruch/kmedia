@@ -301,4 +301,23 @@ ul.ui-autocomplete {
       background: transparent url(/assets/iconza/icons/red_remove.png);
     }
   }
+  .select {
+    width: 20px;
+    height: 20px;
+    display: block;
+    float: left;
+    padding: 5px;
+    cursor: pointer;
+    position: relative;
+    margin: 5px 0 5px 0;
+    overflow: hidden;
+    zoom: 1;
+    line-height: 150%
+  }
+  .move {
+    background: transparent url(/assets/iconza/icons/redo.png) no-repeat scroll center center;
+    &:hover {
+      background: transparent url(/assets/iconza/icons/red_redo.png) no-repeat scroll center center;
+    }
+  }
 }

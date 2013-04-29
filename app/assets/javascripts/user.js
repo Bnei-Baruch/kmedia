@@ -1,4 +1,3 @@
-//= require jquery
 //= require jquery_ujs
 //= require_tree ./common
 //= require_tree ./user
@@ -65,6 +64,17 @@
     $(document).ready(function () {
         //Categories Popup
         $('#content .navbar-inner li').on('click', function () {
+            // Follow final links
+            if ($(this).children().data('has-children') === 'leaf') {
+                var id = $(this).children('a').data('node-id');
+
+                // Catalog resets all other searches
+                $('#new_search input').val('');
+                $('#search_catalog_ids').val(id);
+                $('#new_search').submit();
+                return;
+            }
+
             $('#content .navbar-inner li').removeClass('active');
             try {
                 $('.category-modal').modal('hide');

@@ -1,6 +1,8 @@
-//= require jquery
+//= require jquery-2.0.0
 //= require jquery-ui
 //= require modernizr.custom
+//= require jquery.purr
+//= require best_in_place
 //= require jquery.tokeninput
 //= require jquery.alphanumeric
 //= require jquery_ujs

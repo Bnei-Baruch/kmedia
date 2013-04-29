@@ -71,7 +71,7 @@ en:
       video: 'video'
       download: 'Download:'
       lesson_part: 'Lesson Part'
-      morning_lesson: 'Morning Lesson @ %{date}'
+      morning_lesson: 'Lesson from %{date}'
       lesson: 'Lesson'
       preparation: 'Preparation'
       first_part: 'First Part'

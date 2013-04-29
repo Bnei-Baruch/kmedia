@@ -68,4 +68,11 @@ class VirtualLesson < ActiveRecord::Base
     result
   end
 
+  def self.vls_from_date(date)
+    VirtualLesson.where(film_date: date).order(:position)
+  end
+
+  def self.next_position_on(date)
+    VirtualLesson.where(film_date: date).count
+  end
 end
