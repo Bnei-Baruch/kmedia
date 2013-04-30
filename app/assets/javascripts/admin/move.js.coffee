@@ -72,7 +72,7 @@ $ ->
     $('.lessons .selected:checked').each(->
       if film_date != $(this).parents('tr').find('.created').text()
         e.preventDefault
-        alert('All Containers have to belong to the same "created" date')
+        alert('All Containers have to belong to the same "filmed" date')
         error = true
         return false
       return true
