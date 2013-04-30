@@ -51,6 +51,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
       lesson_ids = lessons.collect(&:lessonid)
       q = FileAsset
       q = q.where("filelang in (?)", get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
+      q = q.where("filetype in (?)", get_media_types(params[:media_type_ids])) if params[:media_type_ids].present?
       files = q.joins(:lessons).where("lessons.lessonid in (?)", lesson_ids)
       render json: {ids: files.collect(&:fileid).join(',')}
     end
@@ -298,6 +299,14 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def get_language_by_ids(ids)
     language_ids = ids ? ids.split(/\s*,\s*/) : []
     Language.find(language_ids).collect(&:code3)
+  end
+
+  def get_media_types(ids)
+    media_type_ids = ids ? ids.split(/\s*,\s*/) : []
+    media_exts = media_type_ids.inject([]) do |result, media_type|
+      result << FileType.where(:typename => (media_type == 'image' ? 'graph' : media_type)).first.try(:extlist).try(:send, :split, ',')
+    end
+    media_exts.flatten
   end
 
 end
