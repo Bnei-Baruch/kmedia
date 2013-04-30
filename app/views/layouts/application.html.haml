@@ -28,10 +28,10 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-11335066-14', 'kbb1.com');
-      ga('send', 'pageview', {
-        'page': '#{request.path}'
-      });
+      ga('create', 'UA-11335066-14');
+      ga('set', 'page', '#{request.path}');
+      //The type of hit. Must be one of 'pageview', 'appview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'.
+      ga('send', 'pageview');
 
   - klass = "#{@locale} #{@locale == 'he' || @locale == 'ar' ? 'rtl' : ''}"
   %body{:class => klass}
