@@ -24,5 +24,5 @@
 //= require bootstrap-popover
 //= require bootstrap-typeahead
 
-//= require jquery.ui.nestedSortable
+//= require jquery.mjs.nestedSortable
 //= require sortable_tree/initializer
