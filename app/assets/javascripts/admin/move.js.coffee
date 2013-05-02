@@ -1,5 +1,14 @@
-$ ->
-  $('.sortable_tree .move').on 'click', (e) ->
+$ -> new MoveHelper
+
+class MoveHelper
+  constructor: ->
+    $('.sortable_tree').on('click', '.move', @move_nodes)
+    $('#move_prepare').on('click', '.batch-all', @move_select_all)
+    $('#move_prepare').on('click', '.move', @move_containers)
+    $('.vl-combine-selected').on('click', @combine_virtual_lessons)
+    $('.lesson-combine-selected').on('click', @combine_selected_lessons)
+
+  move_nodes: (event) ->
     element = $(this)
     href = element.prop('href')
     selected = $('.select:checked').map(->
@@ -9,26 +18,21 @@ $ ->
     element.prop('href', href + '&sources=' + selected)
     true
 
-$ ->
-  # Check-all box
-  $('#move_prepare .batch-all').on 'click', (e) ->
+  move_select_all: (event) ->
     $(this).closest('table').find('.batch').prop('checked', $(this).prop('checked'))
 
   # Move containers from specific catalog
-  $('#move_prepare .move').on 'click', (e) ->
+  move_containers: (event) ->
     selected = $($(this).siblings('table').get(0)).find('.batch:checked').map(->
       @value
     ).get().join()
 
-
     $(this).prop('href', $(this).prop('href') + '&containers=' + selected)
     true
 
-
   ################################
   # virtual lessons
-$ ->
-  $('.vl-combine-selected').on 'click', (e) ->
+  combine_virtual_lessons: (event) ->
     vls = $('.virtual-lessons .selected:checked')
     if vls.length < 2
       e.preventDefault
@@ -58,8 +62,7 @@ $ ->
 
   ################################
   # lessons
-$ ->
-  $('.lesson-combine-selected').on 'click', (e) ->
+  combine_selected_lessons: (event) ->
     vls = $('.lessons .selected:checked')
     if vls.length < 2
       e.preventDefault
@@ -74,7 +77,7 @@ $ ->
         e.preventDefault
         alert('All Containers have to belong to the same "filmed" date')
         error = true
-        return false
+        return false # this will breake each()
       return true
     )
 
