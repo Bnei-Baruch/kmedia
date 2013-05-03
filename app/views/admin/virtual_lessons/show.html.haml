@@ -2,9 +2,6 @@
   %h2 Virtual Lesson
   .subnav
     %ul.nav.nav-pills
-      -if can?(:edit_descriptions, @virtual_lesson)
-        %li
-          = link_to "Edit", edit_admin_virtual_lesson_path(@virtual_lesson)
       -if can?(:destroy, @virtual_lesson)
         %li
           = link_to "Destroy", admin_virtual_lesson_path(@virtual_lesson), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
