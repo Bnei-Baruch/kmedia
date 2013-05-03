@@ -1,9 +1,10 @@
 class PhpController < ApplicationController
 
-  def wsxml
+  respond_to :xml
 
-    #$les=get_lessons($CID,$cat,($CID?0:1));
-    #if(count($les) > 500) $les = array_slice($les, 0, 500, true);
+  def wsxml
+    # Example
+    # wsxml.xml?CID=4016&DLANG=HEB&DF=2013-04-30&DT=2013-03-31
 
     @language = params[:DLANG] || 'ENG'
 
@@ -28,8 +29,6 @@ class PhpController < ApplicationController
 
     @server = "http://#{request.env['HTTP_HOST']}/#{Language::CODE3_LOCALE[@language]}/ui"
 
-    respond_to do |format|
-      format.xml
-    end
+    respond_with @lessons
   end
 end
