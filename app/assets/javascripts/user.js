@@ -126,13 +126,16 @@
             html += '</ul></div>';
 
             // Draw next box to the right
-            width = ($(this).closest('.modal-body .categories-holder').children().length + 1) * 235 - 5;
             $(this).closest('.modal-body .categories-holder').append(html);
-            $(this).closest('.modal-body .categories-holder').width(width);
-            $(this).closest('.modal-body').find('.categories').css('display', 'block');
+            $(this).closest('.modal-body').find('.categories').css('display', 'inline-block');
             $(this).closest('.modal-body').find('.categories ul').css('display', 'block');
+
+            width = 0;
+            $(this).closest('.modal-body .categories-holder').find('.categories').each(function () {
+                width += $(this).outerWidth(true);
+            });
             value = $('body').hasClass('rtl') ? 0 : width;
-            $(this).closest('.modal-body').animate({scrollLeft: value}, 800);
+            $(this).closest('.categories-holder').animate({scrollLeft: value}, 800);
         });
 
         $('.show-tooltip').tooltip();

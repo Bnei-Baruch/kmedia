@@ -304,24 +304,32 @@ header {
     .modal-body {
       position: relative;
       padding: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      width: 700px;
-      font-size: 13px;
+      //width: 700px;
+      .categories-holder {
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+        white-space: nowrap;
+        font-size: 0;
+      }
       .categories {
+        font-size: 13px;
         height: 240px;
         overflow: hidden;
         overflow-y: scroll;
-        @extend .f-left;
+        //@extend .f-left;
+        display: inline-block;
         margin: 0;
-        width: 225px;
-        margin-left: 5px;
+        //width: 225px;
+        @include box-sizing(border-box);
+        width: 33%;
+        margin-left: 0.5%;
         padding-right: 5px;
         ul {
           margin: 0;
           padding: 10px 0;
           & li {
-            width: 180px !important;
+            //width: 180px !important;
             padding: 0 19px 0 10px;
             text-align: left !important;
             list-style: none;
@@ -546,11 +554,10 @@ header {
   margin: 5px 0;
 }
 
-
 .container-fluid {
   //min-width: 980px - 2 * 20px;
   //width: auto !important;
-  //margin: 0 auto;
+  margin: 0 auto;
 }
 
 /* Large desktop */
@@ -560,12 +567,17 @@ header {
   }
 }
 
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-  .container-fluid {
-    //min-width: 768px - 2 * 20px;
+@media (max-width: 979px) {
+  #content .category-modal .modal-body .categories {
+    width: 49.5%;
+    margin-left: 1%;
   }
 }
+
+///* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+}
+
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
@@ -573,4 +585,8 @@ header {
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+  #content .category-modal .modal-body .categories {
+    width: 99%;
+    margin-left: 1%;
+  }
 }
