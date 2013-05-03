@@ -5,7 +5,13 @@ Kmedia::Application.routes.draw do
   scope '/(:locale)', :constraints => {:locale => /en|he|ru/} do
 
     resources :searches
-    resources :ui, :only => [:index, :show] do
+    resources :php, only: [:index] do
+      collection do
+        get 'wsxml'
+      end
+    end
+
+    resources :ui, only: [:index, :show] do
       collection do
         get 'homepage'
       end
@@ -16,7 +22,7 @@ Kmedia::Application.routes.draw do
 
     resources :comments, only: :create
 
-    root :to => "ui#homepage"
+    root to: 'ui#homepage'
 
     mount Ckeditor::Engine => '/ckeditor'
 
