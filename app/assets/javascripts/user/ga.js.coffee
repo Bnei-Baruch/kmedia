@@ -72,7 +72,6 @@ class GoogleAnalytics
       'eventAction': action
       'eventLabel': label
     })
-    console.log("send event, category '#{category}', action '#{action}', label '#{label}'")
 
   click_on_link: ->
     category = $(this).data('category') || 'link'
