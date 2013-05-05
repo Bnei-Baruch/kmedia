@@ -117,4 +117,6 @@ Kmedia::Application.routes.draw do
     end
     end
   end
+
+  match '/*path' => 'ui#homepage'
 end
