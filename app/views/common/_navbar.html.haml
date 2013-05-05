@@ -1,16 +1,14 @@
 .navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
     .container
-      = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand, data_category: 'navbar', data_label: 'logo'
+      = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand, :'data-category' => 'navbar', :'data-label' => 'logo'
       %ul.nav
-        -#%li.active
-        -#  = link_to t('navbar.homepage'), root_path
         %li
-          %a{:href => 'http://www.kabbalahmedia.info'}= t('navbar.old_version')
+          = link_to t('navbar.old_version'), 'http://www.kabbalahmedia.info', :'data-category' => 'navbar', :'data-label' => 'old version'
         %li
-          %a{:href => 'http://archivesupport.kbb1.com'}= t('navbar.support')
+          = link_to t('navbar.support'), 'http://archivesupport.kbb1.com', :'data-category' => 'navbar', :'data-label' => 'support'
         %li
-          %a{:href => '#leave-comment', :'data-toggle' => 'modal'}= t('navbar.comment.comment')
+          = link_to t('navbar.comment.comment'), '#leave-comment', :'data-toggle' => 'modal', :'data-category' => 'navbar', :'data-label' => 'support'
       = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get} do |f|
         = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {:style => 'width: 130px;', text: t('navbar.search')}, :wrapper => 'bootstrap_top_search'
         = f.input :content_type_id, as: :hidden, :wrapper => 'default'
