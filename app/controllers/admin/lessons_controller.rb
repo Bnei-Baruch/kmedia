@@ -178,17 +178,15 @@ class Admin::LessonsController < Admin::ApplicationController
     render :get_update, :alert => "Executed"
   end
 
-
+  # Combine containers to VL
   def combine
     permitted = can? :update, :lesson
 
-    # Move containers to the target VL and remove empty VLs
+    # Add containers to a new VL
     containers = params[:containers].split(',').map {|vl| Lesson.find vl }
-    film_date = containers[0].created.to_date
+    film_date = containers[0].lessondate
     vl = VirtualLesson.create!(film_date: film_date, position: VirtualLesson.next_position_on(film_date))
-    containers.each do |container|
-      vl.lessons << container
-    end
+    vl.lessons = containers
 
     redirect_to admin_lessons_path, notice: "Container(s) #{params[:containers]} successfully moved to VL(#{vl.id}, #{vl.film_date})"
   end
