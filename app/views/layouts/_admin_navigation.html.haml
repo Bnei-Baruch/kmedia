@@ -49,6 +49,9 @@
                 - if can?(:update, VirtualLesson)
                   %li
                     = link_to "Virtual lessons", admin_virtual_lessons_path
+                - if can?(:update, FileType)
+                  %li
+                    = link_to "File Types", admin_file_types_path
 
 
 

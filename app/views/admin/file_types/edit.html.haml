@@ -1,0 +1,8 @@
+%header.subhead#overview
+  %h2 Edit File Type
+  .subnav
+    %ul.nav.nav-pills
+      %li= link_to "Show", [:admin, @file_type]
+      %li= link_to "View All", admin_file_types_path
+
+= render 'form'

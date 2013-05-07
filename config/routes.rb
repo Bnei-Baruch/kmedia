@@ -40,6 +40,7 @@ Kmedia::Application.routes.draw do
           get 'combine'
         end
       end
+      resources :file_types
       resources :comments, only: [:index, :destroy]
 
       resources :lessons do

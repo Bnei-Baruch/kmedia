@@ -1,0 +1,31 @@
+%header.subhead#overview
+  %h2 File Type
+  -if can?(:create, FileType)
+    %p
+      = link_to "New File Type", new_admin_file_type_path, :class => 'btn btn-success btn-large pull-right'
+
+%section
+  = paginate @file_types
+
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Typename
+        %th Extensions (comma separated)
+        %th Picture
+        = display_actions_title(FileType)
+    %tbody
+      - @file_types.each do |file_type|
+        %tr(class="#{cycle('odd', 'even')}")
+          %td= file_type.typename
+          %td= file_type.extlist
+          %td= file_type.pic
+          -if can?(:read, file_type)
+            %td
+              = link_to 'Show', [:admin, file_type]
+          -if can?(:update, file_type)
+            %td
+              = link_to 'Edit', edit_admin_file_type_path(file_type)
+          -if can?(:destroy, file_type)
+            %td
+              = link_to 'Destroy', [:admin, file_type], :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
