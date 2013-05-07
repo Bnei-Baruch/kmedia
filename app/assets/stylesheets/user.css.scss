@@ -37,7 +37,7 @@ body {
   @include border-radius(5px);
   padding: 0 0 15px;
   #language_ids {
-    width: 190px;
+    width: 100%;
   }
   .active {
     position: relative;
@@ -581,6 +581,20 @@ header {
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
+  #content {
+    display: inline-block;
+  }
+  #sidebar {
+    margin-left: -30%;
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    padding-right: 10px;
+    @include box-sizing(border-box);
+  }
+  .main-layout {
+    white-space: nowrap;
+  }
 }
 
 /* Landscape phones and down */

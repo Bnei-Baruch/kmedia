@@ -73,7 +73,7 @@
       = javascript_include_tag 'jquery-1.9.1.min'
     !=surround '<!--[if gte IE 9]><!-->'.html_safe, '<!--<![endif]-->'.html_safe do
       = javascript_include_tag 'jquery-2.0.0.min'
-    = javascript_include_tag 'user'
+    = javascript_include_tag 'user', async: true
 
     :javascript
       opens_dates_range = $('body').hasClass('rtl') ? 'left' : 'right';
