@@ -36,7 +36,7 @@
   - klass = "#{@locale} #{@locale == 'he' || @locale == 'ar' ? 'rtl' : ''}"
   %body{:class => klass}
     = render 'common/navbar'
-    .container-fluid
+    .container-fluid.content-wrapper
       = render 'common/topbanner'
       = yield
 

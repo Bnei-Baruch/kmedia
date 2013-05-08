@@ -1,38 +1,39 @@
 .span3#sidebar
-  %ul.nav.nav-list
-    %li.clear-filters
-      %button.btn.btn-block= t('ui.sidebar.clear_all_filters')
-    %li.divider
-  %ul.nav.nav-list
-    %li.nav-header= t('ui.sidebar.filter_by_date')
-    %li
-      %a#dates_range(href='javascript:;')
-        %i.icon-km-month
-        %span.daterange!= search.dates_range_text
-        %span.caret
-    %li.divider
-  %ul.nav.nav-list
-    %li.nav-header= t('ui.sidebar.filter_by_content_type')
-    != content_type('all', search.content_type)
-    != content_type('lesson', search.content_type)
-    != content_type('lecture', search.content_type)
-    != content_type('program', search.content_type)
-    != content_type('song', search.content_type)
-    != content_type('clip', search.content_type)
-    != content_type('book', search.content_type)
-    != content_type('declamation', search.content_type)
-    %li.divider
-  %ul.nav.nav-list
-    %li.nav-header= t('ui.sidebar.filter_by_media_type')
-    != media_type('all', search.media_type)
-    != media_type('audio', search.media_type)
-    != media_type('video', search.media_type)
-    != media_type('text', search.media_type)
-    != media_type('image', search.media_type)
-    %li.divider
-  %ul.nav.nav-list
-    %li.nav-header= t('ui.sidebar.filter_by_language')
-    %li
-      = select_tag :language_ids,
-          options_for_select([[t('ui.sidebar.language.all'), 'all']] + Language.order(:language).all.map{|l| ["#{l.language} (#{l.locale})", l.code3]}, selected: search.language),
-          include_blank: false
+  .sidebar-wrapper
+    %ul.nav.nav-list
+      %li.clear-filters
+        %button.btn.btn-block= t('ui.sidebar.clear_all_filters')
+      %li.divider
+    %ul.nav.nav-list
+      %li.nav-header= t('ui.sidebar.filter_by_date')
+      %li
+        %a#dates_range(href='javascript:;')
+          %i.icon-km-month
+          %span.daterange!= search.dates_range_text
+          %span.caret
+      %li.divider
+    %ul.nav.nav-list
+      %li.nav-header= t('ui.sidebar.filter_by_content_type')
+      != content_type('all', search.content_type)
+      != content_type('lesson', search.content_type)
+      != content_type('lecture', search.content_type)
+      != content_type('program', search.content_type)
+      != content_type('song', search.content_type)
+      != content_type('clip', search.content_type)
+      != content_type('book', search.content_type)
+      != content_type('declamation', search.content_type)
+      %li.divider
+    %ul.nav.nav-list
+      %li.nav-header= t('ui.sidebar.filter_by_media_type')
+      != media_type('all', search.media_type)
+      != media_type('audio', search.media_type)
+      != media_type('video', search.media_type)
+      != media_type('text', search.media_type)
+      != media_type('image', search.media_type)
+      %li.divider
+    %ul.nav.nav-list
+      %li.nav-header= t('ui.sidebar.filter_by_language')
+      %li
+        = select_tag :language_ids,
+            options_for_select([[t('ui.sidebar.language.all'), 'all']] + Language.order(:language).all.map{|l| ["#{l.language} (#{l.locale})", l.code3]}, selected: search.language),
+            include_blank: false

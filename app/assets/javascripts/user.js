@@ -287,6 +287,10 @@
 
             return false;
         });
+
+        $('.left-menu').on('click', function(){
+            $('body').toggleClass('left-menu-open');
+        });
     });
 }());
 
