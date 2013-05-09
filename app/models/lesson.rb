@@ -257,7 +257,7 @@ class Lesson < ActiveRecord::Base
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
       extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
-      extension = extension[1..3] # Skip '.' in the beginning of extension, i.e. .mp3 => mp3
+      extension = extension[1..10] # Skip '.' in the beginning of extension, i.e. .mp3 => mp3
 
       file_asset = FileAsset.find_by_filename(name)
 
