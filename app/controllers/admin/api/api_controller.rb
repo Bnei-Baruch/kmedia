@@ -35,7 +35,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def file_ids
     @search = Search.new(catalog_ids: get_all_catalog_ids(params[:catalog_ids]),
                          content_type_ids: params[:content_type_ids],
-                         media_type_id: params[:media_type_ids],
+                         media_type_ids: params[:media_type_ids],
                          query_string: params[:query_string],
                          date_from: params[:from_date],
                          date_to: params[:to_date],
