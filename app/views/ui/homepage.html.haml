@@ -1,6 +1,7 @@
 .row-fluid.main-layout
   = render 'sidebar', search: @search
   #content.span9
+    = render 'common/topbanner'
     = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
     = render 'tags_cloud'
     = render 'last_lesson', lesson_name: @lesson_name, prev_lesson: @prev_lesson, next_lesson: @next_lesson,

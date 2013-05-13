@@ -8,6 +8,7 @@
 @import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
 @import "bootstrap-rtl";
+@import "jquery.navobile";
 
 // Bootstrap override begin
 .caret {
@@ -36,6 +37,7 @@ body {
   background: #fff;
   @include border-radius(5px);
   padding: 0 0 15px;
+  margin-top: 140px;
   #language_ids {
     width: 100%;
   }
@@ -204,13 +206,7 @@ header {
 
 .topbanner {
   width: 550px;
-  margin: 50px auto 0;
-}
-
-@media (max-width: $navbarCollapseWidth) {
-  .topbanner {
-    margin-top: -10px;
-  }
+  padding-top: 50px;
 }
 
 .navbar-fixed-top {
@@ -560,6 +556,10 @@ header {
   margin: 0 auto;
 }
 
+.left-menu {
+  float: left !important;
+}
+
 /* Large desktop */
 @media (min-width: 1200px) {
   .container-fluid {
@@ -587,41 +587,36 @@ header {
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
-  body {
-    padding: 0;
-    position: relative;
-    @include transition(left 0.3s linear);
-
-    &.left-menu-open {
-      left: 70%;
-      overflow: hidden;
-      .navbar-fixed-top {
-        left: 70%;
-      }
-    }
-  }
   .navbar-fixed-top {
-    @include transition(left 0.3s linear);
     margin-left: 0;
     margin-right: 0;
+  }
+  .navbar .brand {
+    margin: 0 auto;
+    img {
+      width: 50%;
+    }
   }
   #content {
     padding: 0 10px 1px;
     background: #cccccc;
-  }
-  #sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 70%;
-    z-index: -1;
-    height: 100%;
-    overflow-y: scroll;
+    //box-shadow: -3px 0 2px rgba(0, 0, 0, 0.1);
   }
   .content-wrapper {
     background: #cccccc;
   }
-  .item:last-child {
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  #sidebar {
+    visibility: hidden;
+    width: 80%;
+    @include border-radius(0);
+    margin-top: 40px;
+    &.navobile-navigation {
+      visibility: visible;
+    }
   }
 }
 

@@ -7,6 +7,7 @@
 //= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
 //= require projekktor.min
+//= require jquery.navobile.min
 
 //= require_self
 
@@ -288,8 +289,9 @@
             return false;
         });
 
-        $('.left-menu').on('click', function(){
-            $('body').toggleClass('left-menu-open');
+        $('#sidebar').navobile({
+            cta: '.left-menu',
+            content: '#content'
         });
     });
 }());
