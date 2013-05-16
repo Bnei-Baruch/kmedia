@@ -1,4 +1,4 @@
 %header.subhead#overview
   %h2 New Catalog
 
-= render 'form'
+= render partial: 'form', locals: {catalog: @catalog, catalog_descriptions: @catalog_descriptions}

@@ -86,21 +86,18 @@ class Lesson < ActiveRecord::Base
     )
   NEED_UPDATE
   )
-  scope :secure_changed, where(:secure_changed => true)
-  scope :no_files, where(<<-NO_FILES
-  (SELECT count(1) FROM lessonfiles WHERE lessonfiles.lessonid = lessons.lessonid) = 0
-  NO_FILES
-  )
+  scope :secure_changed, -> { where(:secure_changed => true) }
+  scope :no_files, -> { where('(SELECT count(1) FROM lessonfiles WHERE lessonfiles.lessonid = lessons.lessonid) = 0') }
 
-  scope :lost, where(<<-LOST
-  lessonid not in
-    (SELECT distinct lessonid from catnodelessons INNER JOIN `catalognode` ON `catalognode`.`catalognodeid` = `catnodelessons`.`catalognodeid` WHERE
-    (catalognodename NOT IN ('Lessons','lesson_first-part','lesson_second-part','lesson_third-part','lesson_fourth-part',
-    'lesson_fifth-part','RSS_update','Video','Audio')))
+  scope :lost, -> { where(<<-LOST
+      lessonid not in
+        (SELECT distinct lessonid from catnodelessons INNER JOIN `catalognode` ON `catalognode`.`catalognodeid` = `catnodelessons`.`catalognodeid` WHERE
+        (catalognodename NOT IN ('Lessons','lesson_first-part','lesson_second-part','lesson_third-part','lesson_fourth-part',
+        'lesson_fifth-part','RSS_update','Video','Audio')))
   LOST
-  )
+  ) }
 
-  scope :security, lambda { |sec| where(:secure => sec) }
+  scope :security, -> sec { where(secure: sec) }
 
   def self.get_all_descriptions(lessons)
     Lesson.where(lessonid: lessons).includes(:lesson_descriptions).all.inject({}) do |all, lesson|

@@ -121,7 +121,7 @@ class Admin::LessonsController < Admin::ApplicationController
     begin
       lesson = Lesson.find(params[:id])
     rescue
-      render :js => 'alert("No such container")';
+      render :js => 'alert("No such container")'
       return
     end
     lesson.update_attribute(:marked_for_merge, !lesson.marked_for_merge)
@@ -132,20 +132,13 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def merge_get_list
     @lesson = Lesson.find(params[:id])
-    unless @lesson
-      render :nothing => true
-      return
-    end
+    render :nothing => true and return unless @lesson
+
     @lessons = Lesson.where(:marked_for_merge => true)
-    if @lessons.count == 0
-      render :text => 'empty'
-      return
-    end
-    if @lessons.map(&:id).include? @lesson.id
-      # Recursion
-      render :text => 'recursion'
-      return
-    end
+
+    render :text => 'empty' and return if @lessons.count == 0
+
+    render :text => 'recursion' and return if @lessons.map(&:id).include? @lesson.id # Recursion
 
     render :layout => false
   end
@@ -175,7 +168,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def add_update
     Lesson.add_update(params[:container_name], [params[:files]], params[:dry_run])
     @update = OpenStruct.new(container_name: params[:container_name], files: params[:files], dry_run: params[:dry_run])
-    render :get_update, :alert => "Executed"
+    render :get_update, alert: 'Executed'
   end
 
   # Combine containers to VL
@@ -238,9 +231,9 @@ class Admin::LessonsController < Admin::ApplicationController
   def generate_transcript_table_of_content
     @lesson.lesson_transcripts.each do |t|
       doc = Nokogiri::HTML.parse(t.transcript)
-      toc=""
+      toc = ''
       doc.xpath('//h1').each do |h_tag|
-        toc = toc << "<br/>" if !toc.empty?
+        toc = toc << '<br/>' if !toc.empty?
         toc = toc + h_tag.content
       end
       t.toc = toc
@@ -248,19 +241,18 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def get_catalogs_from_matched_description_patterns
-    @descriptions.each do |d|
-      return d.catalogs unless d.catalogs.empty?
-    end
-    return nil
+    @descriptions.select do |d|
+      !d.catalogs.empty?
+    end.try(:catalogs)
   end
 
   def default_sort_column
-    "created"
+    'created'
   end
 
   def sort_order
-    sort_line = sort_column + " " + sort_direction
+    sort_line = sort_column + ' ' + sort_direction
     #secondary sort parameter
-    sort_line+= ", " + "lessonname asc" unless params[:sort].equal?("lessonname")
+    sort_line += ', ' + 'lessonname asc' unless params[:sort].equal?('lessonname')
   end
 end

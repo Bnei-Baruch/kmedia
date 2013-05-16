@@ -5,4 +5,4 @@
       %li= link_to "Show", [:admin, @catalog]
       %li= link_to "View All", admin_catalogs_path
 
-= render 'form'
+= render partial: 'form', locals: {catalog: @catalog, catalog_descriptions: @catalog_descriptions}

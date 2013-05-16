@@ -30,12 +30,10 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def new
-    @languages = Language.order('code3').all
-    lang_codes = @catalog.catalog_descriptions.map(&:lang)
-    @languages.each { |l|
-      @catalog.catalog_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
+    Language.order('code3').all.each { |l|
+      @catalog.catalog_descriptions.build(:lang => l.code3)
     }
-    @catalog_descriptions = sort_descriptions
+    @catalog_descriptions = sort_descriptions(@catalog)
   end
 
   def create
@@ -47,12 +45,11 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def edit
-    @languages = Language.order('code3').all
-    lang_codes = @catalog.catalog_descriptions.map(&:lang)
-    @languages.each { |l|
-      @catalog.catalog_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
+    # existing_languages - all_languages
+    (Language.order('code3').pluck(:code3) - @catalog.catalog_descriptions.pluck(:lang)).each { |code3|
+      @catalog.catalog_descriptions.build(:lang => code3)
     }
-    @catalog_descriptions = sort_descriptions
+    @catalog_descriptions = sort_descriptions(@catalog)
   end
 
   def update
@@ -104,10 +101,10 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   private
-  def sort_descriptions
+  def sort_descriptions(catalog)
     catalog_descriptions_main = {}
     catalog_descriptions_all = []
-    @catalog.catalog_descriptions.each { |x|
+    catalog.catalog_descriptions.includes(:language).each { |x|
       if MAIN_LANGS.include? x.lang
         catalog_descriptions_main[x.lang] = x
       else
