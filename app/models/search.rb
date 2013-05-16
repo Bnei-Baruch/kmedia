@@ -74,8 +74,7 @@ class Search
     @media_type_id = ids ? ids.split(/\s*,\s*/) : []
     @media_exts = @media_type_id.inject([]) do |result, media_type|
       result << FileType.where(:typename => (media_type == 'image' ? 'graph' : media_type)).first.try(:extlist).try(:send, :split, ',')
-    end
-    @media_exts = @media_exts.flatten
+    end.flatten
   end
 
   def media_type

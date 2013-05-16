@@ -2,7 +2,7 @@ Kmedia::Application.routes.draw do
 
   #resources :lessons, :only => [:index, :show] -- for RSS
 
-  scope '/(:locale)', :constraints => {:locale => /en|he|ru/} do
+  scope '/(:locale)', :constraints => {:locale => /en|he|ru|es|de/} do
 
     resources :searches
     resources :php, only: [:index] do

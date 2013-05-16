@@ -35,7 +35,7 @@ module SearchHelper
   end
 
   def lesson_title(item, description)
-    description || item.lessonname
+    description.blank? ? item.lessonname : description
   end
 
   def lesson_description(item)
