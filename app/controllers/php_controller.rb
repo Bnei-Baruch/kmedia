@@ -7,6 +7,7 @@ class PhpController < ApplicationController
     # wsxml.xml?CID=4016&DLANG=HEB&DF=2013-04-30&DT=2013-03-31
 
     @language = params[:DLANG] || 'ENG'
+    I18n.locale = @locale = Language::CODE3_LOCALE[@language]
 
     catalog_id = params[:CID] || 25
     date_from = params[:DF] || Date.today.to_s
