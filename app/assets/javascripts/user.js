@@ -293,6 +293,10 @@
             cta: '.left-menu',
             content: '#content'
         });
+        $('#categories-menu').navobile({
+            cta: '.right-menu',
+            content: '#content'
+        });
     });
 }());
 

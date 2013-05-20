@@ -593,8 +593,11 @@ header {
   }
   .navbar .brand {
     margin: 0 auto;
+    float: none;
+    padding: 6px 0 0;
+    width: 200px;
     img {
-      width: 50%;
+      width: 200px;
     }
   }
   #content {
@@ -614,6 +617,7 @@ header {
     width: 80%;
     @include border-radius(0);
     margin-top: 40px;
+    padding-bottom: 50px;
     &.navobile-navigation {
       visibility: visible;
     }
