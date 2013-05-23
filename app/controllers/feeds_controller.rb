@@ -82,6 +82,7 @@ class FeedsController < ApplicationController
   def get_lesson_title(id, language)
     lesson = Lesson.find(id) rescue {lessonname: '----------', lessondate: '1970-01-01', created: '1970-01-01'}
     descr = lesson.lesson_descriptions.by_language(language).first.try(:lessondesc)
+    descr = lesson.lesson_descriptions.by_language('ENG').first.try(:lessondesc) if descr.blank?
     lesson.lessonname = descr if descr
 
     if descr && (lesson.catalogs.map(&:id) & [3606, 3661, 3662]).empty?

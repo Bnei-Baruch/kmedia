@@ -2,8 +2,8 @@
 %html
   %head
 
-    %title
-      = content_for?(:title) ? yield(:title) : 'Kabbalah Media'
+    %title= content_for?(:title) ? yield(:title) : 'Kabbalah Media'
+    %link{href: "http://feeds.feedburner.com/kabbalah-archive/#{@language}", rel: 'alternate', title: 'RSS', type: 'application/rss+xml'}
     %meta{'charset' => 'utf-8'}/
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
     -#%meta(name="viewport" content="width=device-width, initial-scale=1.0")
