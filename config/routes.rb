@@ -5,9 +5,10 @@ Kmedia::Application.routes.draw do
   scope '/(:locale)', :constraints => {:locale => /en|he|ru|es|de/} do
 
     resources :searches
-    resources :php, only: [:index] do
+    resources :feeds, only: [:index] do
       collection do
         get 'wsxml'
+        get 'rss_video'
       end
     end
 
@@ -118,6 +119,4 @@ Kmedia::Application.routes.draw do
     end
     end
   end
-
-  match '/*path' => 'ui#homepage'
 end
