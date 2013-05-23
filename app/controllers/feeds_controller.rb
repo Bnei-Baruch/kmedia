@@ -67,6 +67,53 @@ class FeedsController < ApplicationController
     end
   end
 
+  def google_mapindex
+    host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+    langs = Language::CODE3_LOCALE.keys
+
+    File.open('public/google_mapindex.xml', 'w+') do |index|
+      index.write "<?xml version='1.0' encoding='UTF-8'?>\n"
+      index.write "<sitemapindex xmlns='http://www.google.com/schemas/sitemap/0.84' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.google.com/schemas/sitemap/0.84 http://www.google.com/schemas/sitemap/0.84/siteindex.xsd'>\n"
+
+      fileno = 1
+      count = 0
+      fz = nil
+
+      Lesson.joins(:catalogs).where('catalognode.secure = 0').pluck(:lessonid).uniq.each do |lesson|
+        langs.each do |lang|
+          if count == 0
+            filename = "public/google_sitemap_#{fileno}.xml.gz"
+            index.write "<sitemap><loc>#{host}/#{filename}</loc></sitemap>\n"
+            fz = Zlib::GzipWriter.open(filename, 9)
+            fz.write "<?xml version='1.0' encoding='UTF-8'?>\n"
+            fz.write "<urlset xmlns='http://www.google.com/schemas/sitemap/0.84' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.google.com/schemas/sitemap/0.84 http://www.google.com/schemas/sitemap/0.84/siteindex.xsd'>\n"
+          end
+          fz.write "<url><loc>#{host}/#{lang}/ui/#{lesson}</loc></url>"
+          count += 1
+
+          if count == 49_000
+            fz.write "</urlset>\n"
+            fz.close
+            count = 0
+            fileno += 1
+          end
+        end
+      end
+
+      if count != 49_000
+        fz.write "</urlset>\n"
+        fz.close
+      end
+
+      index.write "</sitemapindex>\n"
+    end
+
+    # ping Google
+    open "http://www.google.com/webmasters/tools/ping?sitemap=#{host}/google_mapindex.xml"
+
+    render text: false
+  end
+
   private
 
   # Select updated files and their lesson IDs

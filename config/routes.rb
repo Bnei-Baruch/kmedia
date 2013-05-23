@@ -9,6 +9,7 @@ Kmedia::Application.routes.draw do
       collection do
         get 'wsxml'
         get 'rss_video'
+        get 'google_mapindex'
       end
     end
 
