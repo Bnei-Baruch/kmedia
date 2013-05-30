@@ -8,13 +8,13 @@ module Utils
     def self.sort_descriptions(descriptions)
       descriptions_main = { }
       descriptions_all = []
-      descriptions.each { |x|
+      descriptions.each do |x|
         if MAIN_LANGS.include? x.lang
           descriptions_main[x.lang] = x
         else
           descriptions_all << x
         end
-      }
+      end
       MAIN_LANGS.map { |d| descriptions_main[d] } + descriptions_all.sort_by { |x| x.lang }
     end
 

@@ -1,8 +1,6 @@
 Kmedia::Application.routes.draw do
 
-  #resources :lessons, :only => [:index, :show] -- for RSS
-
-  scope '/(:locale)', :constraints => {:locale => /en|he|ru|es|de/} do
+  scope '/(:locale)', constraints: {locale: /en|he|ru|es|de/} do
 
     resources :searches
     resources :feeds, only: [:index] do
@@ -35,7 +33,7 @@ Kmedia::Application.routes.draw do
     resources :users
 
     namespace(:admin) do
-      root :to => "searches#index"
+      root to: 'searches#index'
 
       resources :virtual_lessons do
         collection do
@@ -101,15 +99,15 @@ Kmedia::Application.routes.draw do
       resources :dictionaries do
         collection do
           get :existing_suids
-          get "labels/existing_suids", to: "labels#existing_suids"
-          get "labels/assignable", to: "labels#assignable"
+          get 'labels/existing_suids', to: 'labels#existing_suids'
+          get 'labels/assignable', to: 'labels#assignable'
         end
         resources :labels
       end
 
     namespace :api do
-      resources :tokens, :only => [:create, :destroy]
-      resources :api, :only => [] do
+      resources :tokens, only: [:create, :destroy]
+      resources :api, only: [] do
         collection do
           post :register_file, :get_file_servers
           post :content_types, :file_types, :catalogs, :languages, :file_ids, :files

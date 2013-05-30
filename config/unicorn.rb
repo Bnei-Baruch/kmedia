@@ -16,16 +16,13 @@ preload_app true
 timeout 30
 
 # Listen on a Unix data socket
-listen 3000 #"#{Rails.root}/tmp/sockets/unicorn.sock", :backlog => 2048
+listen 3000 # "#{Rails.root}/tmp/sockets/unicorn.sock", :backlog => 2048
 
 ##
 # REE
 
 # http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
-if GC.respond_to?(:copy_on_write_friendly=)
-  GC.copy_on_write_friendly = true
-end
-
+GC.respond_to?(:copy_on_write_friendly=) && GC.copy_on_write_friendly = true
 
 before_fork do |server, worker|
   ##
@@ -42,13 +39,12 @@ before_fork do |server, worker|
   old_pid = Rails.root + '/tmp/pids/unicorn.pid.oldbin'
   if File.exists?(old_pid) && server.pid != old_pid
     begin
-      Process.kill("QUIT", File.read(old_pid).to_i)
+      Process.kill('QUIT', File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH
       # someone else did our job for us
     end
   end
 end
-
 
 after_fork do |server, worker|
 
@@ -58,10 +54,9 @@ after_fork do |server, worker|
   # sockets, e.g. db connection
 
   ActiveRecord::Base.establish_connection
-  #CHIMNEY.client.connect_to_server
+  # CHIMNEY.client.connect_to_server
   # Redis and Memcached would go here but their connections are established
   # on demand, so the master never opens a socket
-
 
   ##
   # Unicorn master is started as root, which is fine, but let's
@@ -69,7 +64,7 @@ after_fork do |server, worker|
 
   begin
     uid, gid = Process.euid, Process.egid
-    user, group = ['kabbalahmedia', 'kabbalahmedia']
+    user, group = %w(kabbalahmedia kabbalahmedia)
     target_uid = Etc.getpwnam(user).uid
     target_gid = Etc.getgrnam(group).gid
     worker.tmp.chown(target_uid, target_gid)

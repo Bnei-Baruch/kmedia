@@ -2,10 +2,10 @@ Kmedia::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
   config.middleware.use ExceptionNotifier,
-    :email_prefix => "[Kmedia] ",
-    :sender_address => %{"notifier" <notifier@kmedia.com>},
-    :exception_recipients => %w{gshilin@gmail.com},
-    :normalize_subject => true
+                        email_prefix: '[Kmedia] ',
+                        sender_address: %{'notifier' <notifier@kmedia.com>},
+                        exception_recipients: %w{gshilin@gmail.com},
+                        normalize_subject: true
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -15,7 +15,7 @@ Kmedia::Application.configure do
   config.action_controller.perform_caching = true
 
   # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  config.action_dispatch.x_sendfile_header = 'X-Sendfile'
 
   # For nginx:
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
@@ -24,8 +24,8 @@ Kmedia::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-  #config.log_level = :debug
-  config.logger = Logger.new("log/#{Rails.env}.log", 8, 4 * 1024 ** 2)
+  # config.log_level = :debug
+  config.logger = Logger.new("log/#{Rails.env}.log", 8, 4 * 1024**2)
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new

@@ -1,5 +1,5 @@
 class Admin::FileAssetsController < Admin::ApplicationController
-  before_filter :set_fields, :only => [:new, :create, :edit, :update]
+  before_filter :set_fields, only: [:new, :create, :edit, :update]
   load_and_authorize_resource
 
   def index
@@ -17,7 +17,7 @@ class Admin::FileAssetsController < Admin::ApplicationController
   def create
     @asset = FileAsset.new(params[:file])
     if @asset.save
-      redirect_to [:admin, @asset], :notice => "Successfully created file."
+      redirect_to [:admin, @asset], notice: 'Successfully created file.'
     else
       render :new
     end
@@ -30,7 +30,7 @@ class Admin::FileAssetsController < Admin::ApplicationController
   def update
     @asset = FileAsset.find(params[:id])
     if @asset.update_attributes(params[:file_asset])
-      redirect_to [:admin, @asset], :notice => "Successfully updated file."
+      redirect_to [:admin, @asset], notice: 'Successfully updated file.'
     else
       render :edit
     end
@@ -39,13 +39,14 @@ class Admin::FileAssetsController < Admin::ApplicationController
   def destroy
     @asset = FileAsset.find(params[:id])
     @asset.destroy
-    redirect_to admin_file_assets_url, :notice => "Successfully destroyed file."
+    redirect_to admin_file_assets_url, notice: 'Successfully destroyed file.'
   end
 
   private
+
   def set_fields
     @languages = Language.order('code3').all
     @servers = Server.order('servername ASC').all
-    @security = SECURITY.collect { |s| [s[:name], s[:level]] }
+    @security = SECURITY.map { |s| [s[:name], s[:level]] }
   end
 end
