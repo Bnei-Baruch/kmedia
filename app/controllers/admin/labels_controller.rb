@@ -1,4 +1,4 @@
-require "utils/i18n"
+require 'utils/i18n'
 
 class Admin::LabelsController < Admin::ApplicationController
   load_and_authorize_resource
@@ -60,14 +60,14 @@ class Admin::LabelsController < Admin::ApplicationController
   end
 
   def existing_suids
-     render json: Label.suid_starts_with(params[:suid]).map{|lbl| lbl.suid }.to_json
+     render json: Label.suid_starts_with(params[:suid]).map(&:suid).to_json
   end
 
   def assignable
-    @labels = Label.select("labels.id, text").order("text asc").accessible_by(current_ability)
+    @labels = Label.select('labels.id, text').order('text asc').accessible_by(current_ability)
 
     if params[:q]
-      @labels = @labels.joins(:label_descriptions).where("text like ?", "%#{params[:q]}%").
+      @labels = @labels.joins(:label_descriptions).where('text like ?', "%#{params[:q]}%").
           multipluck(:'labels.id as id', :'text as name').
           map { |label| {id: label['id'], name: label['name']} }
     else
@@ -76,7 +76,7 @@ class Admin::LabelsController < Admin::ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @labels }
+      format.json { render json: @labels }
     end
   end
 

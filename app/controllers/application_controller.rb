@@ -47,8 +47,9 @@ class ApplicationController < ActionController::Base
   private
 
   def set_data
-    I18n.locale = @locale = params[:locale] || 'en'
-    @menu_languages = Language.menu_languages('en', 'he', 'ru').map{|x| [x['language'], root_url(x['locale'])]}
+    I18n.locale = @locale = params[:locale] || cookies[:kmedia_locale] || 'en'
+    cookies[:kmedia_locale] = @locale
+    @menu_languages = Language.menu_languages('en', 'he', 'ru', 'es', 'de').map{|x| [x['language'], root_url(x['locale'])]}
     @current_menu_language = root_url(@locale)
 
     @comment_data = Comment.new

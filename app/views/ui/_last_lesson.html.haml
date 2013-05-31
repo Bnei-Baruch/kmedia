@@ -5,11 +5,11 @@
         != lesson_name
       .pull-right
         - if prev_lesson
-          = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id)
+          = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id), class: 'prev-lesson'
         - else
           = t('ui.last_lesson.prev').html_safe
         - if next_lesson
-          = link_to t('ui.last_lesson.next').html_safe, homepage_show_ui_path(next_lesson.id)
+          = link_to t('ui.last_lesson.next').html_safe, homepage_show_ui_path(next_lesson.id), class: 'next-lesson'
         - else
           = t('ui.last_lesson.next').html_safe
     .languages-bar

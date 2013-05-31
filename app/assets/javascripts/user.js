@@ -62,7 +62,7 @@
         return true;
     }
 
-    $(document).ready(function () {
+    $(function () {
         //Categories Popup
         $('#content .navbar-inner li').on('click', function () {
             // Follow final links
@@ -217,7 +217,7 @@
         });
     }
 
-    $(document).ready(function () {
+    $(function () {
         $('#dates_range').daterangepicker({
             opens: (opens_dates_range === 'undefined') ? '' : opens_dates_range,
             format: 'yyyy-MM-dd',
@@ -240,6 +240,13 @@
         $('.clear-filters button').on('click', function () {
             $('#new_search input').val('');
             $('#new_search').submit();
+        });
+
+        $('form#new_search button').on('click', function () {
+            // Click on "Search" button should start new "clean" search
+            var search_query_string = $('#search_query_string').val();
+            $('#new_search input').val('');
+            $('#search_query_string').val(search_query_string);
         });
 
         $('#submit_comment').click(function () {
@@ -308,12 +315,22 @@
 
     // mark a button as active
     function nextFileStarted(itemIndex) {
+        ga('send', 'event', {
+            'eventCategory': 'player',
+            'eventAction': 'nextFileStarted',
+            'eventLabel': itemIndex
+        });
         $('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn.btn-mini').removeClass('active');
         $($('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn.btn-mini')[itemIndex]).addClass('active');
     }
 
     // type: 'audio' or 'video'
     function setup_projekktor_playlist(type) {
+        ga('send', 'event', {
+            'eventCategory': 'player',
+            'eventAction': 'setup_playlist',
+            'eventLabel': type
+        });
         var players = $.grep($('.active.tab-pane .projekktor').attr('class').split(' '), function (n) {
             return n.match('video-');
         });
@@ -325,12 +342,22 @@
 
     function projekktor_play(itemno) {
         if (projekktor_instance) {
+            ga('send', 'event', {
+                'eventCategory': 'player',
+                'eventAction': 'play',
+                'eventLabel': itemno
+            });
             projekktor_instance.setActiveItem(itemno);
             projekktor_instance.setPlay();
         }
     }
 
     function stop_projekktor() {
+        ga('send', 'event', {
+            'eventCategory': 'player',
+            'eventAction': 'stop'
+        });
+
         projekktor_instance.removeListener('item', nextFileStarted);
 
         projekktor_instance.selfDestruct();
@@ -342,6 +369,11 @@
         if ($('.active.tab-pane .projekktor').length === 0) {
             return;
         }
+
+        ga('send', 'event', {
+            'eventCategory': 'player',
+            'eventAction': 'start'
+        });
 
         projekktor_instance = projekktor('.active.tab-pane .projekktor', {
             plugins: ['display', 'controlbar'],
@@ -405,7 +437,7 @@
         }
     });
 
-    $(document).ready(function () {
+    $(function () {
         start_projekktor();
     });
 

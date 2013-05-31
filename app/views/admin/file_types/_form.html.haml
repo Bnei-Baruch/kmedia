@@ -1,0 +1,14 @@
+= simple_form_for [:admin, @file_type] do |f|
+  = display_actions f, @file_type.id ? admin_file_type_url(@file_type) : admin_file_types_url
+  %hr.soften
+  = display_errors f
+
+  .row
+    .span4
+      = f.input :typename
+      = f.input :extlist, :label => 'List of Extensions (comma separated)'
+    .span8
+      = f.input :pic, label:'Picture (format: images/xxx.yyy; do not forget to upload it)'
+
+  %hr.soften
+  = display_actions f, @file_type.id ? admin_file_type_url(@file_type) : admin_file_types_url

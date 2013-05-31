@@ -1,0 +1,16 @@
+%header.subhead#overview
+  %h2 File Type
+  .subnav
+    %ul.nav.nav-pills
+      %li
+        = link_to_if can?(:update, @file_type), "Edit", edit_admin_file_type_path(@file_type) do
+          %a.unable Edit
+      %li
+        = link_to_if can?(:destroy, @file_type), "Destroy", [:admin, @file_type], :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+          %a.unable Destroy
+      %li= link_to "View All", admin_file_types_path
+
+%section.well
+  = display_show_item('Name', @file_type.typename)
+  = display_show_item('Extensions', @file_type.extlist)
+  = display_show_item('Picture', @file_type.pic)

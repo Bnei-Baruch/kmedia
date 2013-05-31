@@ -3,9 +3,15 @@
 
 =javascript_include_tag 'http://partner.googleadservices.com/gampad/google_service.js'
 :javascript
-  GS_googleAddAdSenseService("ca-pub-9068547212525872");
+  if (typeof GS_googleAddAdSenseService !== 'undefined') {
+    GS_googleAddAdSenseService("ca-pub-9068547212525872");
+  }
 :javascript
-  GS_googleEnableAllServices();
+  if (typeof GS_googleEnableAllServices !== 'undefined') {
+    GS_googleEnableAllServices();
+  }
 :javascript
-  GA_googleUseFriendlyIframeRendering();
-  GA_googleFillSlotWithSize('ca-pub-9068547212525872', 'Kabbalah_media', 550, 85);
+  if (typeof GA_googleUseFriendlyIframeRendering !== 'undefined' && typeof GA_googleFillSlotWithSize !== 'undefined') {
+    GA_googleUseFriendlyIframeRendering();
+    GA_googleFillSlotWithSize('ca-pub-9068547212525872', 'Kabbalah_media', 550, 85);
+  }

@@ -74,7 +74,7 @@ class Catalog < ActiveRecord::Base
   end
 
   def self.selected_catalogs(language_code3, secure = 0)
-    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).where('selected_catalog > 0').order('selected_catalog DESC').limit(5)
+    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ? OR catnodedesc.lang = "ENG"', language_code3).where('selected_catalog > 0').order('selected_catalog DESC').limit(5)
     catalogs = catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'COALESCE(catnodedesc.catalognodename, catalognode.catalognodename) as catalognodename')
     catalogs + ['catalognodeid' => 0, 'catalognodename' => I18n.t('ui.catalog.all_catalogs')]
   end
@@ -103,7 +103,7 @@ class Catalog < ActiveRecord::Base
   end
 
   def self.all_catalogs_with_descriptions(language_code3, secure = 0)
-    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).order('catalognodename ASC')
+    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ? OR catnodedesc.lang = "ENG"', language_code3).order('catalognodename ASC')
     catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'COALESCE(catnodedesc.catalognodename, catalognode.catalognodename) as catalognodename', :'catalognode.parentnodeid as parentnodeid')
   end
 
@@ -147,7 +147,7 @@ class Catalog < ActiveRecord::Base
 
     containers.each do |container|
       source.lessons.delete(container)
-      target.lessons << container
+      target.lessons << container unless target.lessons.pluck(:lessonid).include? container.id
     end
   end
 end

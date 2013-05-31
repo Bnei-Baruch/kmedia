@@ -1,0 +1,317 @@
+es:
+  navbar:
+    search:  'Buscar'
+    homepage:  'Página principal'
+    old_version:  'Versión vieja'
+    support:  'Soporte técnico'
+    comment:
+      cancel: 'Cancelar'
+      submit: 'Enviar comentario'
+      comment: 'Comentar'
+      thank_you: 'Gracias.'
+      problem: 'Por favor, vuelva a ententarlo mas tarde.'
+      name: ' Nombre'
+      email: 'Email'
+      subject: 'Sujeto'
+      body: 'Comentario'
+  ui:
+    content:
+      results: 'Resultados %{from} - %{to} de %{of}'
+      no_results: 'Sin resultados'
+    catalog:
+      all_catalogs: 'Todos los catalogos'
+    sidebar:
+      clear_all_filters: 'Borrar todos los filtros'
+      filter_by_date: 'Filtrar por Fecha'
+      filter_by_content_type: 'Filtrar por Tipo de Contenido'
+      filter_by_media_type: 'Filtrar por Tipo de Material'
+      filter_by_language: 'Filtrar por Idioma'
+      apply: 'Aplicar'
+      clear: 'Borrar'
+      from: 'De'
+      to: 'A'
+      week: 'S'
+      custom_range: 'Custom Range'
+      first_day_of_week: 2
+      abbr_day_names: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do']
+      month_names: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+      anytime: 'Qualquier tiempo'
+      today: 'Hoy'
+      yesterday: 'Ayer'
+      last_7_days: 'Ultimas 7 dias'
+      last_30_days: 'Ultimas 30 dias'
+      this_month: 'Esta mes'
+      last_month: 'Ultima mes'
+      type:
+        all: 'Qualquier'
+        lesson: 'Clase'
+        lecture: 'Lectura'
+        program: 'Programa'
+        song: 'Canción'
+        clip: 'Clip'
+        book: 'Libro'
+        declamation: 'Declamación'
+        audio: 'Audio'
+        video: 'Video'
+        text: 'Texto'
+        image: 'Imagen'
+      language:
+        all: 'Todos los Idiomas'
+    list_header:
+      cancel: 'Cancelar'
+    last_lesson:
+      prev: '&lt; Anterior'
+      next: 'Siguente &gt;'
+      available_languages: 'Idiomas desponibles:'
+      play: 'Play:'
+      audio: 'audio'
+      video: 'video'
+      download: 'Descargar:'
+      lesson_part: 'Parte de Clase'
+      morning_lesson: 'Clase de %{date}'
+      lesson: 'Clase'
+      preparation: 'Preparación'
+      first_part: 'Primera Parte'
+      second_part: 'Segunda Parte'
+      third_part: 'Tercera Parte'
+      fourth_part: 'Cuarta Parte'
+      fifth_part: 'Quinta Parte'
+    updated_assets:
+      other_updates: 'Otras actualizaciones'
+      display: 'Mostrar'
+      items: 'artículos'
+      available_languages: 'Idiomas desponibles:'
+      all: 'Todo'
+      date: 'Fecha'
+      container_name: 'Nombre de Envase'
+      type: 'Tipo'
+      language: 'Idioma'
+      download: 'Descargar'
+      copy_link: 'Copiar<br/>Enlace'
+      size: 'Tamanio'
+      time: 'Tiempo'
+    lesson:
+      download: 'Descargar:'
+      view_play: 'Ver/Play:'
+    projekktor:
+      message_0: 'Se produjo un error.'
+      message_1: 'Usted abortó la reproducción de material. '
+      message_2: 'Un error en la red causo que descarga del material fracase parcial manera. '
+      message_3: 'La reproducción del material se ha cancelado debido a un problema de la corrupción. '
+      message_4: 'El material (% {title}) no se pudo cargar porque el servidor o la red ha fallado.'
+      message_5: 'Lo siento, su navegador no soporta el formato de material del archivo solicitado.'
+      message_6: 'El cliente está en la falta del Plugin Flash V% {flashver} o superior.'
+      message_7: 'No hay materiales programados.'
+      message_8: '¡ Modelo de material configurado no es válido!'
+      message_9: 'Archivo (% {file}) no se encuentra.'
+      message_10: 'Configuración de calidad es inválida o faltante para% {title}.'
+      message_11: 'Inválidos ajustes de streamType y / o streamServer para% {title}.'
+      message_12: 'Configuración de calidad es inválida o inconsistente para% {title}.'
+      message_80: 'El archivo solicitado no existe o se entrega con un tipo de contenido inválido.'
+      message_97: 'No hay materiales programados.'
+      message_98: '¡Inválidos o incorrectos datos de lista de reproducción!'
+      message_99: 'Haga clic en Mostrar para proceder. '
+      message_100: 'PLACEHOLDER'
+      message_500: 'Este video de Youtube se ha eliminado o se establece en privado'
+      message_501: 'El usuario de Youtube que posee este vídeo ha discapacitado incorporarlo.'
+      message_502: 'Inválido Youtube Video-ID especificado.'
+
+# stardard Rails
+  date:
+    abbr_day_names:
+    - dom
+    - lun
+    - mar
+    - mié
+    - jue
+    - vie
+    - sáb
+    abbr_month_names:
+    -
+    - ene
+    - feb
+    - mar
+    - abr
+    - may
+    - jun
+    - jul
+    - ago
+    - sep
+    - oct
+    - nov
+    - dic
+    day_names:
+    - domingo
+    - lunes
+    - martes
+    - miércoles
+    - jueves
+    - viernes
+    - sábado
+    formats:
+      default: ! '%d/%m/%Y'
+      long: ! '%d de %B de %Y'
+      short: ! '%d de %b'
+    month_names:
+    -
+    - enero
+    - febrero
+    - marzo
+    - abril
+    - mayo
+    - junio
+    - julio
+    - agosto
+    - septiembre
+    - octubre
+    - noviembre
+    - diciembre
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: alrededor de 1 hora
+        other: alrededor de %{count} horas
+      about_x_months:
+        one: alrededor de 1 mes
+        other: alrededor de %{count} meses
+      about_x_years:
+        one: alrededor de 1 año
+        other: alrededor de %{count} años
+      almost_x_years:
+        one: casi 1 año
+        other: casi %{count} años
+      half_a_minute: medio minuto
+      less_than_x_minutes:
+        one: menos de 1 minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: más de 1 año
+        other: más de %{count} años
+      x_days:
+        one: 1 día
+        other: ! '%{count} días'
+      x_minutes:
+        one: 1 minuto
+        other: ! '%{count} minutos'
+      x_months:
+        one: 1 mes
+        other: ! '%{count} meses'
+      x_seconds:
+        one: 1 segundo
+        other: ! '%{count} segundos'
+    prompts:
+      day: Día
+      hour: Hora
+      minute: Minutos
+      month: Mes
+      second: Segundos
+      year: Año
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: debe ser aceptado
+      blank: no puede estar en blanco
+      confirmation: no coincide con la confirmación
+      empty: no puede estar vacío
+      equal_to: debe ser igual a %{count}
+      even: debe ser par
+      exclusion: está reservado
+      greater_than: debe ser mayor que %{count}
+      greater_than_or_equal_to: debe ser mayor que o igual a %{count}
+      inclusion: no está incluido en la lista
+      invalid: no es válido
+      less_than: debe ser menor que %{count}
+      less_than_or_equal_to: debe ser menor que o igual a %{count}
+      not_a_number: no es un número
+      not_an_integer: debe ser un entero
+      odd: debe ser impar
+      record_invalid: ! 'La validación falló: %{errors}'
+      taken: ya está en uso
+      too_long: es demasiado largo (%{count} caracteres máximo)
+      too_short: es demasiado corto (%{count} caracteres mínimo)
+      wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
+    template:
+      body: ! 'Se encontraron problemas con los siguientes campos:'
+      header:
+        one: 'No se pudo guardar este/a %{model} porque se encontró 1 error'
+        other: 'No se pudo guardar este/a %{model} porque se encontraron %{count} errores'
+  helpers:
+    select:
+      prompt: Por favor seleccione
+    submit:
+      create: Crear %{model}
+      submit: Guardar %{model}
+      update: Actualizar %{model}
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: ! '%n %u'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: €
+    format:
+      delimiter: .
+      precision: 3
+      separator: ! ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: mil millones
+          million: millón
+          quadrillion: mil billones
+          thousand: mil
+          trillion: billón
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ', y '
+      two_words_connector: ! ' y '
+      words_connector: ! ', '
+  time:
+    am: am
+    formats:
+      default: ! '%A, %d de %B de %Y %H:%M:%S %z'
+      long: ! '%d de %B de %Y %H:%M'
+      short: ! '%d de %b %H:%M'
+    pm: pm
+  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors

@@ -35,7 +35,7 @@ module SearchHelper
   end
 
   def lesson_title(item, description)
-    description || item.lessonname
+    description.blank? ? item.lessonname : description
   end
 
   def lesson_description(item)
@@ -61,10 +61,10 @@ module SearchHelper
       file_assets += if files.length == 1
                        # Only one file - show as button
                        fa = files[0]
-                       "<button class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{filetype}</a></button>"
+                       "<div class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{filetype}</a></div>"
                      else
                        # Many files - show as dropdown
-                       "<button class='btn btn-mini dropdown-toggle' data-toggle='dropdown'><a href='javascript:;'>#{filetype} <span class='caret'></span></a></button><ul class='dropdown-menu'>" +
+                       "<div class='btn btn-mini dropdown-toggle' data-toggle='dropdown'><a href='javascript:;'>#{filetype} <span class='caret'></span></a></div><ul class='dropdown-menu'>" +
                            files.inject('') do |memo, fa|
                              "#{memo}<li><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{file_asset_title(fa)}</a></li>"
                            end +
@@ -92,7 +92,12 @@ module SearchHelper
     (file_assets || item.file_assets).sort.each do |fa|
       title = fa.file_asset_descriptions.first.try(:filedesc) || fa.filename
       filesize = fa.filesize.to_f / 1024 / 1024
-      playtime = fa.playtime_secs.to_i
+      playtime = fa.playtime_secs.to_i || item.playtime_secs.to_i
+      ext = File.extname(fa.url)[1..10]
+      tip = playtime > 0 ?
+          "#{ext}&nbsp;|&nbsp;#{"%.2f" % filesize}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
+      :
+          "#{ext}&nbsp;|&nbsp;#{"%.2f" % filesize}Mb"
 
       list += <<-LIST
       <tr>
@@ -102,7 +107,7 @@ module SearchHelper
         </td>
         <td>#{fa.filetype}</td>
         <td>#{fa.filelang}</td>
-        <td><a href='#{fa.download_url}' title='#{title}' class='download'><i class='icon-download'></i></a></td>
+        <td><a class="show-tooltip" href="#{fa.download_url}" rel="tooltip" data-animation="true" data-placement="top" title="#{tip}"><i class="icon-download"></i></a></td>
         <td><a href='#{fa.url}' title='#{title}' class='clipboard'><i class='icon-circle-arrow-right'></i></a></td>
         <td>#{"%.2f" % filesize}Mb</td>
         <td>#{playtime <= 0 ? '00:00:00' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}</td>

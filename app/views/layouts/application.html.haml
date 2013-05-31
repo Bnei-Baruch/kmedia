@@ -2,8 +2,8 @@
 %html
   %head
 
-    %title
-      = content_for?(:title) ? yield(:title) : 'Kabbalah Media'
+    %title= content_for?(:title) ? yield(:title) : 'Kabbalah Media'
+    %link{href: "http://feeds.feedburner.com/kabbalah-archive/#{@language}", rel: 'alternate', title: 'RSS', type: 'application/rss+xml'}
     %meta{'charset' => 'utf-8'}/
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
     %meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no")
@@ -28,10 +28,10 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-11335066-14', 'kbb1.com');
-      ga('send', 'pageview', {
-        'page': '#{request.path}'
-      });
+      ga('create', 'UA-11335066-14');
+      ga('set', 'page', '#{request.path}');
+      //The type of hit. Must be one of 'pageview', 'appview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'.
+      ga('send', 'pageview');
 
   - klass = "#{@locale} #{@locale == 'he' || @locale == 'ar' ? 'rtl' : ''}"
   %body{:class => klass}

@@ -3,7 +3,7 @@ class Search
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :query_string, :content_type_id, :file_type_ids, :media_type_id, :date_type, :dates_range, :date_from, :date_to,
+  attr_accessor :query_string, :content_type_id, :file_type_ids, :media_type_id, :media_type_ids, :date_type, :dates_range, :date_from, :date_to,
                 :catalog_id, :catalog_ids, :model, :language_ids, :created_from_date, :per_page
 
   attr_accessor :error
@@ -70,6 +70,13 @@ class Search
     @media_exts = @media_type_id.nil? ? [] : FileType.where(:typename => (name == 'image' ? 'graph' : name)).first.try(:extlist).try(:send, :split, ',')
   end
 
+  def media_type_ids=(ids)
+    @media_type_id = ids ? ids.split(/\s*,\s*/) : []
+    @media_exts = @media_type_id.inject([]) do |result, media_type|
+      result << FileType.where(:typename => (media_type == 'image' ? 'graph' : media_type)).first.try(:extlist).try(:send, :split, ',')
+    end.flatten
+  end
+
   def media_type
     media_type_id || 'all'
   end
@@ -97,7 +104,7 @@ class Search
   end
 
   def date_from=(date)
-     @date_from = parse_time(date)
+    @date_from = parse_time(date)
   end
 
   def date_to=(date)
@@ -197,8 +204,8 @@ class Search
       query.with(:filetype).any_of @media_exts if @media_type_id.present?
       query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
       query.with(:filedate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
-      query.with(:filedate).greater_than(@date_from)  if @date_from.present? && @date_to.blank?
-      query.with(:filedate).less_than(@date_to)  if @date_to.present? && @date_from.blank?
+      query.with(:filedate).greater_than(@date_from) if @date_from.present? && @date_to.blank?
+      query.with(:filedate).less_than(@date_to) if @date_to.present? && @date_from.blank?
       query.with(:created).greater_than(@created_from_date) if @created_from_date.present?
     end
   rescue Net::HTTPFatalError => e

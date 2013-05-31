@@ -17,8 +17,6 @@ class ReindexAsset
     total_documents = models.map { |m| m.count }.sum
     reindex_options[:progress_bar] = ProgressBar.new(total_documents)
 
-    models.each { |model|
-      model.solr_reindex reindex_options
-    }
+    models.each { |model| model.solr_reindex reindex_options }
   end
 end

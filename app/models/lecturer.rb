@@ -1,6 +1,7 @@
 class Lecturer < ActiveRecord::Base
   self.table_name = :lecturer
   self.primary_key = :lecturerid
+  has_many :lecturer_descriptions, :foreign_key => :lecturerid
   has_many :lessons, :foreign_key => :lecturerid
 
   scope :rav, where('lecturername LIKE \'%Rav%\'').limit(1)

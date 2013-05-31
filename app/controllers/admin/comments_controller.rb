@@ -1,5 +1,5 @@
 class Admin::CommentsController < Admin::ApplicationController
-  load_resource :only => [:destroy]
+  load_resource only: [:destroy]
   authorize_resource class: Comment
 
   def index
@@ -9,7 +9,7 @@ class Admin::CommentsController < Admin::ApplicationController
   def destroy
     @comment.destroy
 
-    redirect_to admin_comments_url, :notice => "Successfully destroyed comment."
+    redirect_to admin_comments_url, notice: 'Successfully destroyed comment.'
   end
 
 end
