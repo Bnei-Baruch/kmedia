@@ -13,7 +13,12 @@ class FeedsController < ApplicationController
     date_from = params[:DF] || Date.today.to_s
     date_to = params[:DT] || (Date.today - 30).to_s
 
-    catalogs = Catalog.where(catalognodeid: catalog_id).first.all_children_with_root.map(&:id).join(',')
+    begin
+      catalogs = Catalog.where(catalognodeid: catalog_id).first.all_children_with_root.map(&:id).join(',')
+    rescue
+      render text: nil
+      return
+    end
 
     sql = <<-SQL
       select distinct lesson.*
