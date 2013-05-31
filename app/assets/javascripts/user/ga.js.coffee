@@ -1,5 +1,3 @@
-$ -> new GA_Events
-
 class GA_Events
   constructor: ->
 
@@ -110,3 +108,4 @@ class GoogleAnalytics
   language_change: ->
     this.register_event('UI language change', 'click', $('#languages option:selected').text())
 
+$ -> new GA_Events
