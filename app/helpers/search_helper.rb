@@ -90,7 +90,8 @@ module SearchHelper
     list = ''
     # Order by ext
     (file_assets || item.file_assets).sort.each do |fa|
-      title = fa.file_asset_descriptions.first.try(:filedesc) || fa.filename
+      title = fa.filename
+      descr = fa.file_asset_descriptions.first.try(:filedesc) || fa.filename
       filesize = fa.filesize.to_f / 1024 / 1024
       playtime = fa.playtime_secs.to_i || item.playtime_secs.to_i
       ext = File.extname(fa.url)[1..10]
@@ -103,12 +104,12 @@ module SearchHelper
       <tr>
         <td class='left-aligned-column'>#{fa.filedate.strftime '%Y-%02m-%02d'}</td>
         <td class='left-aligned-column download-url'>
-          <a href='#{fa.download_url}' title='#{title}'>#{title}</a>
+          <a href='#{fa.download_url}' title='#{descr}'>#{title}</a>
         </td>
         <td>#{fa.filetype}</td>
         <td>#{fa.filelang}</td>
         <td><a class="show-tooltip" href="#{fa.download_url}" rel="tooltip" data-animation="true" data-placement="top" title="#{tip}"><i class="icon-download"></i></a></td>
-        <td><a href='#{fa.url}' title='#{title}' class='clipboard'><i class='icon-circle-arrow-right'></i></a></td>
+        <td><a href='#{fa.url}' title='#{descr}' class='clipboard'><i class='icon-circle-arrow-right'></i></a></td>
         <td>#{"%.2f" % filesize}Mb</td>
         <td>#{playtime <= 0 ? '00:00:00' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}</td>
       </tr>
