@@ -238,6 +238,13 @@
             $('#new_search').submit();
         });
 
+        $('form#new_search button').on('click', function () {
+            // Click on "Search" button should start new "clean" search
+            var search_query_string = $('#search_query_string').val();
+            $('#new_search input').val('');
+            $('#search_query_string').val(search_query_string);
+        });
+
         $('#submit_comment').click(function () {
             var email, data, url;
 
