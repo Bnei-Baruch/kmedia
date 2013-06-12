@@ -1,4 +1,4 @@
-# We have to submit ID=0 for new lesson
+#  We have to submit ID=0 for new lesson
 auto_parse = ->
   $("a.auto-parse").on "click", (e) ->
     element = $(this)
@@ -24,7 +24,8 @@ submit_action = (action, element) ->
   form = $element.closest("form")
   url = form.attr("action") + "/catalogs/" + container_id + "/batch"
   $element.siblings("img").show()
-  $.getJSON(url
+  $.getJSON(
+    url
     batch_type: action
   ).error((data) ->
     alert "Error: Unable to " + action + "@" + url + ": (" + data.statusText + ")"
