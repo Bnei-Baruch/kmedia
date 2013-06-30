@@ -23,12 +23,13 @@ class Lesson < ActiveRecord::Base
   has_and_belongs_to_many :labels, uniq: true
 
   before_destroy do |lesson|
-    lesson.file_assets.each { |a|
+    lesson.file_assets.each do |a|
       # Do not destroy files that belongs to more than one container
       a.delete if a.lesson_ids.length == 1
-    }
+    end
+
     # remove empty virtual lessons
-    # ZZZ
+    lesson.virtual_lesson.send(:destroy)
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
