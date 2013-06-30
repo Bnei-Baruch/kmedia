@@ -25,7 +25,7 @@
           %ul.nav.nav-tabs
             %li.tabs-title= t('ui.last_lesson.available_languages')
             - available_languages.each_with_index do |l, idx|
-              %li{:class => (idx == 0 ? 'active' : '')}
+              %li{:class => (l == @locale ? 'active' : '')}
                 %a{:href => "##{l}-#{lesson.id}", :'data-toggle' => 'tab'}= l.upcase
         .tab-content
           - available_languages.each_with_index do |l, idx|
