@@ -8,8 +8,12 @@
 @import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
 @import "bootstrap-rtl";
-@import "jquery.navobile";
+// User Mixings
 
+@mixin before_after{
+  content:"";
+  position: absolute;
+}
 // Bootstrap override begin
 .caret {
   margin-top: 8px !important;
@@ -207,6 +211,7 @@ header {
 .topbanner {
   width: 550px;
   padding-top: 50px;
+  overflow:hidden;
 }
 
 .navbar-fixed-top {
@@ -357,6 +362,16 @@ header {
       }
     }
   }
+  &.show-left{
+   @include translate(80%, 0);
+  }
+  &.show-right{
+    @include translate(-80%, 0);
+  }
+}
+
+#categories-menu {
+  position: relative;
 }
 
 .toggle {
@@ -555,9 +570,34 @@ header {
   //width: auto !important;
   margin: 0 auto;
 }
-
-.left-menu {
+.left-menu-btn, .right-menu-btn{
+  width:10px;
+  height:20px;
+  margin:5px;
+  position: relative;
+  &:before, &:after{
+    @include before_after;
+    left: 7px;
+    width: 18px;
+  }
+  &:before{
+    height: 8px;
+    border: 2px solid #fff;
+    border-width: 2px 0;
+    top: 8px;
+  }
+  &:after{
+    background-color: #fff;
+    height:2px;
+    top:13px;
+  }
+}
+.left-menu-btn {
   float: left !important;
+
+}
+.right-menu-btn {
+  float: right !important;
 }
 
 /* Large desktop */
@@ -567,6 +607,7 @@ header {
   }
 }
 
+/* Not-So-Large desktop */
 @media (max-width: 979px) {
   #content .category-modal .modal-body .categories {
     width: 49.5%;
@@ -583,7 +624,6 @@ header {
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
 }
-
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
@@ -603,6 +643,7 @@ header {
   #content {
     padding: 0 10px 1px;
     background: #cccccc;
+    @include box-shadow(0 0 3px 3px rgba(0,0,0,0.8));
     //box-shadow: -3px 0 2px rgba(0, 0, 0, 0.1);
   }
   .content-wrapper {
@@ -612,14 +653,33 @@ header {
     padding-left: 0;
     padding-right: 0;
   }
-  #sidebar {
-    visibility: hidden;
+  .left-mobile-menu, .right-mobile-menu {
+    position: fixed;
+    top: 41px;
+    bottom: 0;
     width: 80%;
-    @include border-radius(0);
-    margin-top: 40px;
-    padding-bottom: 50px;
-    &.navobile-navigation {
-      visibility: visible;
+    overflow-y: auto;
+    z-index: 0;
+    padding:10px;
+    background-color: #666;
+    @include box-sizing(border-box);
+  }
+  .left-mobile-menu {
+    left: 0;
+  }
+  .right-mobile-menu {
+    right: 0;
+  }
+  .topbanner{
+    width:100%;
+  }
+  .main-layout{
+    overflow: hidden ;
+  }
+  .top-menu-div .languages, .top-menu-div form, #categories-menu, #sidebar, .top-menu-div .top-links {
+    display: none;
+    .left-mobile-menu & {
+      display: block\;
     }
   }
 }

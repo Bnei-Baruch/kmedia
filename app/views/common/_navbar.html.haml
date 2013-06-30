@@ -2,17 +2,11 @@
   .navbar-inner
     .container-fluid
       -#%button.btn.btn-navbar{:'data-toggle' => 'collapse', :'data-target' => '.nav-collapse'}
-      %button.btn.btn-navbar.right-menu
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.btn.btn-navbar.left-menu
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
+      -#%a.btn.right-menu-btn.visible-phone.btn-inverse
+      %a.btn.left-menu-btn.visible-phone.btn-inverse
       = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand
-      .nav-collapse.collapse
-        %ul.nav
+      .top-menu-div
+        %ul.nav.top-links
           -#%li.active
           -#  = link_to t('navbar.homepage'), root_path
           %li

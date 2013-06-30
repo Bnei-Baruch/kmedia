@@ -7,7 +7,7 @@
 //= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
 //= require projekktor.min
-//= require jquery.navobile.min
+//= require enquire.min
 
 //= require_self
 
@@ -296,14 +296,46 @@
             return false;
         });
 
-        $('#sidebar').navobile({
-            cta: '.left-menu',
-            content: '#content'
+        enquire.register("screen and (max-width: 767px)", {
+            match : function () {
+                $('body').prepend('<div class="left-mobile-menu"></div>');
+                $('.left-mobile-menu').append($('.top-menu-div .languages'))
+                    .append($('.top-menu-div form, #categories-menu'))
+                    .append($('#sidebar'))
+                    .append($('.top-menu-div .top-links'));
+            },
+            unmatch : function () {
+                $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
+                $('.main-layout').prepend($('#sidebar'));
+                $('#content .topbanner').after($('#categories-menu'));
+                $('.left-mobile-menu').remove();
+                $('#content').removeClass("show-left");
+            }
         });
-        $('#categories-menu').navobile({
-            cta: '.right-menu',
-            content: '#content'
+//        enquire.register("screen and (max-width: 767px)", {
+//            match : function () {
+//                $('body').prepend('<div class="left-mobile-menu"></div><div class="right-mobile-menu"></div>');
+//                $('.left-mobile-menu').append($('.top-menu-div .nav, .top-menu-div .languages'));
+//                $('.right-mobile-menu').append($('.top-menu-div form, #categories-menu')).append($('#sidebar'));
+//            },
+//            unmatch : function () {
+//                $('.top-menu-div').append($('.left-mobile-menu .nav, .right-mobile-menu form')).append($('.left-mobile-menu .languages'));
+//                $('.main-layout').prepend($('#sidebar'));
+//                $('#content .topbanner').after($('#categories-menu'));
+//                $('.left-mobile-menu, .right-mobile-menu').remove();
+//            }
+//        });
+
+        $(document).on('click','.left-menu-btn', function(){
+//           $('.right-mobile-menu').hide();
+           $('.left-mobile-menu').show();
+           $('#content').toggleClass("show-left");
         });
+//        $(document).on('click','.right-menu-btn', function(){
+//           $('.right-mobile-menu').show();
+//           $('.left-mobile-menu').hide();
+//           $('#content').removeClass("show-left").toggleClass("show-right");
+//        });
     });
 }());
 

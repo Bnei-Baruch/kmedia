@@ -1,32 +1,33 @@
-#categories-menu.navbar
-  .navbar-inner
-    %ul.nav
-      - total_catalogs = selected_catalogs.length - 1
-      - selected_catalogs.each_with_index do |catalog, idx|
-        - id = catalog['catalognodeid']
-        %li
-          - if boost_tree[id].nil? # No leaf elements in upper menu
-            %a{:href => "javascript:;", :'data-has-children' => "leaf", :'data-node-id' => "#{id}"}= display_catalog_name(catalog)
-          - else
-            %a{:href => "#cat-#{id}", :'data-toggle' => "modal"}= display_catalog_name(catalog)
-        - unless idx == total_catalogs
-          %li.divider-vertical
+#categories-menu
+  .navbar
+    .navbar-inner
+      %ul.nav
+        - total_catalogs = selected_catalogs.length - 1
+        - selected_catalogs.each_with_index do |catalog, idx|
+          - id = catalog['catalognodeid']
+          %li
+            - if boost_tree[id].nil? # No leaf elements in upper menu
+              %a{:href => "javascript:;", :'data-has-children' => "leaf", :'data-node-id' => "#{id}"}= display_catalog_name(catalog)
+            - else
+              %a{:href => "#cat-#{id}", :'data-toggle' => "modal"}= display_catalog_name(catalog)
+          - unless idx == total_catalogs
+            %li.divider-vertical
 
-- selected_catalogs.each do |catalog|
-  - id = catalog['catalognodeid']
-  .category-modal.modal.hide(id="cat-#{id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false' data-id='#{id}')
-    .modal-header
-      %button(type="button" class="close" data-dismiss="modal" aria-hidden="true") ×
-      &nbsp;
-    .modal-body
-      .categories-holder
-        .categories.column1
-          %ul
-            - !boost_tree[id].nil? && boost_tree[id].each do |cat|
-              %li
-                %a{:href => 'javascript:;', :'data-has-children' => "#{!boost_tree[cat['catalognodeid']].nil?}", :'data-node-id' => "#{cat['catalognodeid']}"}!= display_catalog_link(cat, boost_tree[cat['catalognodeid']])
-    .modal-footer
-      %button.btn(data-dismiss="modal" aria-hidden="true")= t('ui.list_header.cancel')
+  - selected_catalogs.each do |catalog|
+    - id = catalog['catalognodeid']
+    .category-modal.modal.hide(id="cat-#{id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false' data-id='#{id}')
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal" aria-hidden="true") ×
+        &nbsp;
+      .modal-body
+        .categories-holder
+          .categories.column1
+            %ul
+              - !boost_tree[id].nil? && boost_tree[id].each do |cat|
+                %li
+                  %a{:href => 'javascript:;', :'data-has-children' => "#{!boost_tree[cat['catalognodeid']].nil?}", :'data-node-id' => "#{cat['catalognodeid']}"}!= display_catalog_link(cat, boost_tree[cat['catalognodeid']])
+      .modal-footer
+        %button.btn(data-dismiss="modal" aria-hidden="true")= t('ui.list_header.cancel')
 
 :javascript
   var all_tree = #{boost_tree.to_json};
