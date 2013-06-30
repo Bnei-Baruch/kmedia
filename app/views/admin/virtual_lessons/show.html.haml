@@ -33,6 +33,7 @@
         %th Created Date
         %th Updated Date
         %th Language
+        %th Catalogs
     %tbody
       - @virtual_lesson.lessons.each do |lesson|
         %tr
@@ -42,8 +43,9 @@
           %td= lesson.created.try(:to_date)
           %td= lesson.updated.try(:to_date)
           %td= lesson.lang
+          %td= lesson.catalogs.map{|c| "#{c.catalognodeid} - #{c.catalognodename}"}
         %tr
-          %td(colspan="6")
+          %td(colspan="7")
             %strong Files:
             %table.table.table-striped.table-bordered.table-condensed
               %thead
