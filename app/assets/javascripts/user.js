@@ -297,14 +297,15 @@
         });
 
         enquire.register("screen and (max-width: 767px)", {
-            match : function () {
+            match: function () {
                 $('body').prepend('<div class="left-mobile-menu"></div>');
                 $('.left-mobile-menu').append($('.top-menu-div .languages'))
+                    .append('<h1>' + $('.top-menu-div form').data('title') + '</h1>')l
                     .append($('.top-menu-div form, #categories-menu'))
                     .append($('#sidebar'))
                     .append($('.top-menu-div .top-links'));
             },
-            unmatch : function () {
+            unmatch: function () {
                 $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
                 $('.main-layout').prepend($('#sidebar'));
                 $('#content .topbanner').after($('#categories-menu'));
@@ -326,10 +327,10 @@
 //            }
 //        });
 
-        $(document).on('click','.left-menu-btn', function(){
+        $(document).on('click', '.left-menu-btn', function () {
 //           $('.right-mobile-menu').hide();
-           $('.left-mobile-menu').show();
-           $('#content').toggleClass("show-left");
+            $('.left-mobile-menu').show();
+            $('#content').toggleClass("show-left");
         });
 //        $(document).on('click','.right-menu-btn', function(){
 //           $('.right-mobile-menu').show();

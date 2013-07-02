@@ -679,7 +679,20 @@ header {
   .top-menu-div .languages, .top-menu-div form, #categories-menu, #sidebar, .top-menu-div .top-links {
     display: none;
     .left-mobile-menu & {
-      display: block\;
+      display: block;
+    }
+  }
+  .left-mobile-menu{
+    .search_query_string{
+      @include box-sizing(border-box);
+      width:100%;
+      position: relative;
+      padding-right:70px;
+    }
+    #search_query_string{
+      width:100%!important;
+      @include box-sizing(border-box);
+      height:30px;
     }
   }
 }
