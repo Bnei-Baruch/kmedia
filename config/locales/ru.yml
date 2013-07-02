@@ -64,6 +64,7 @@ ru:
       next: 'След &gt;'
       available_languages: 'Доступные языки:'
       play: 'Смотреть:'
+      listen: 'Слушать:'
       audio: 'аудио'
       video: 'видео'
       download: 'Скачать:'

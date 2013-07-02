@@ -64,6 +64,7 @@ he:
       next: 'הבא &gt;'
       available_languages: 'שפות זמינות:'
       play: 'נגן:'
+      listen: 'שמע:'
       audio: 'אודיו'
       video: 'וידאו'
       download: 'הורדת השיעור'

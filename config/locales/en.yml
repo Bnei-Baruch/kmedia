@@ -67,6 +67,7 @@ en:
       next: 'Next &gt;'
       available_languages: 'Available languages:'
       play: 'Play:'
+      listen: 'Listen:'
       audio: 'audio'
       video: 'video'
       download: 'Download:'

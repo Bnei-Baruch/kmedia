@@ -24,7 +24,7 @@
         .row
           .span5
             .padding-left
-              %h4.pull-left= t('ui.last_lesson.play')
+              %h4.pull-left{:'data-video' => "#{t('ui.last_lesson.play')}", :'data-audio' => "#{t('ui.last_lesson.listen')}", :class => 'toggle-h4'}= t('ui.last_lesson.play')
               .pull-right.toggle
                 %a.right-switch-link(href="javascript:;")= t('ui.last_lesson.audio')
                 .switch

@@ -64,6 +64,7 @@ de:
       next: 'nächsten &gt;'
       available_languages: 'verfügbaren Sprachen:'
       play: 'abspielen:'
+      listen: 'zuhören:'
       audio: 'audio'
       video: 'video'
       download: 'downloaden:'

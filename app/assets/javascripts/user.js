@@ -141,16 +141,26 @@
             $('.toggle .switch div').toggleClass('left right');
             $('.toggle .switch div i').toggleClass('icon-km-small-white-video icon-km-small-white-audio');
             $('.toggle .switch div').trigger('video-audio');
+            var th4 = $(this).parent().siblings('h4');
+            if ($('.toggle .switch div i').hasClass('icon-km-small-white-video')) {
+                th4.html(th4.data('video'));
+            } else {
+                th4.html(th4.data('audio'));
+            }
         });
         $('.toggle .left-switch-link').click(function () {
             $('.toggle .switch div').removeClass('right').addClass('left');
             $('.toggle .switch div i').removeClass('icon-km-small-white-audio').addClass('icon-km-small-white-video');
             $('.toggle .switch div').trigger('video-audio');
+            var th4 = $(this).parent().siblings('h4');
+            th4.html(th4.data('video'));
         });
         $('.toggle .right-switch-link').click(function () {
             $('.toggle .switch div').removeClass('left').addClass('right');
             $('.toggle .switch div i').removeClass('icon-km-small-white-video').addClass('icon-km-small-white-audio');
             $('.toggle .switch div').trigger('video-audio');
+            var th4 = $(this).parent().siblings('h4');
+            th4.html(th4.data('audio'));
         });
 
         $('#languages').change(function () {
