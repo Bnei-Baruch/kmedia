@@ -29,7 +29,7 @@ class Lesson < ActiveRecord::Base
     end
 
     # remove empty virtual lessons
-    lesson.virtual_lesson.send(:destroy)
+    lesson.virtual_lesson && lesson.virtual_lesson.destroy
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
