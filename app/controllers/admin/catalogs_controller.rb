@@ -37,6 +37,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def create
+    @catalog.user = current_user
     if @catalog.save
       redirect_to [:admin, @catalog], :notice => "Successfully created catalog."
     else
@@ -54,6 +55,7 @@ class Admin::CatalogsController < Admin::ApplicationController
 
   def update
     @catalog.attributes = params[:catalog]
+    @catalog.user = current_user
     update_children_visibility if visibility_changed?
     if @catalog.save
       redirect_to admin_catalog_path(@catalog), :notice => "Successfully updated catalog."

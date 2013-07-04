@@ -6,6 +6,8 @@ class LessondescPattern < ActiveRecord::Base
   validates :pattern, :presence => true, :uniqueness => {:scope => :lang}
   validates :lang, :description, :presence => true
 
+  belongs_to :user
+
   scope :pattern_matches, lambda{ |string|
     where("LENGTH(pattern) = (
              SELECT LENGTH(pattern) AS len FROM `lessondesc_patterns` WHERE '#{string}' regexp pattern  ORDER BY len DESC LIMIT 1

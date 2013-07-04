@@ -32,6 +32,7 @@
   = display_show_item 'Last user', @asset.lastuser
   = display_show_item 'Clicks', @asset.fileclicks
   = display_show_item('Secure', display_secure(@asset.secure), true)
+  = display_show_item('User', @asset.user.try(:email))
 
 %section
   %strong Descriptions:

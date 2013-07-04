@@ -27,6 +27,7 @@
   = display_show_item('Lecturer', @lesson.lecturer)
   = display_show_item('Secure', display_secure(@lesson.secure), true)
   = display_show_item('Labels', @lesson.labels.map{|lbl| lbl.display_name}.join(', '))
+  = display_show_item('User', @lesson.user.try(:email))
 %section
   %strong Descriptions:
   %table.table.table-striped.table-bordered.table-condensed

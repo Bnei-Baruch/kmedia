@@ -1,6 +1,8 @@
 class VirtualLesson < ActiveRecord::Base
   has_many :lessons
 
+  belongs_to :user
+
   def self.last_lesson(lesson_id)
     if lesson_id.nil?
       # Return the latest lesson

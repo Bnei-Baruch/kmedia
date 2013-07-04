@@ -35,6 +35,7 @@ class Admin::LessonsController < Admin::ApplicationController
     authorize! :create, @lesson
 
     @lesson.attributes = params[:lesson]
+    @lesson.last_author = current_user
 
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/container."
@@ -54,6 +55,7 @@ class Admin::LessonsController < Admin::ApplicationController
     authorize! :update, @lesson
 
     @lesson.update_attributes @current_user, params[:lesson]
+    @lesson.user = current_user
 
     if @lesson.save
       redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."

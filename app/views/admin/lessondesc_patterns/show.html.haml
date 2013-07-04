@@ -14,6 +14,7 @@
   = display_show_item('Pattern', @lessondesc_pattern.pattern.gsub(/\s/, '&#9251;'))
   = display_show_item('Description', @lessondesc_pattern.description)
   = display_show_item('Lang', @lessondesc_pattern.lang)
+  = display_show_item('User', @lessondesc_pattern.user.try(:email))
 %section
   %strong Catalogs:
   %table.table.table-striped.table-bordered.table-condensed

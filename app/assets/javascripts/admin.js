@@ -1,5 +1,5 @@
 //= require jquery-2.0.0
-//= require jquery-ui
+//xx= require jquery-ui
 //= require modernizr.custom
 //= require jquery.purr
 //= require best_in_place

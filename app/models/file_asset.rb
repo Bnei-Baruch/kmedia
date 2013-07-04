@@ -11,6 +11,8 @@ class FileAsset < ActiveRecord::Base
 
   belongs_to :server, :foreign_key => :servername, :primary_key => :servername
 
+  belongs_to :user
+
   attr_accessor :v_filedate
   # Virtual column to emulate varchar filedate in db
   columns_hash["v_filedate"] = ActiveRecord::ConnectionAdapters::Column.new("v_filedate", nil, "date")

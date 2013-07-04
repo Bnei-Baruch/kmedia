@@ -14,6 +14,8 @@ class Catalog < ActiveRecord::Base
   has_many :catalog_descriptions, :foreign_key => :catalognodeid, :dependent => :destroy
   accepts_nested_attributes_for :catalog_descriptions, :reject_if => proc { |attributes| attributes['catalognodename'].blank? }
 
+  belongs_to :user
+
   attr_accessor :has_children
 
   def to_s

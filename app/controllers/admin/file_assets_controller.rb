@@ -16,6 +16,7 @@ class Admin::FileAssetsController < Admin::ApplicationController
 
   def create
     @asset = FileAsset.new(params[:file])
+    @asset.user = current_user
     if @asset.save
       redirect_to [:admin, @asset], notice: 'Successfully created file.'
     else
@@ -29,7 +30,7 @@ class Admin::FileAssetsController < Admin::ApplicationController
 
   def update
     @asset = FileAsset.find(params[:id])
-    if @asset.update_attributes(params[:file_asset])
+    if @asset.update_attributes(params[:file_asset]) && @asset.update_attribute(:user_id, current_user.id)
       redirect_to [:admin, @asset], notice: 'Successfully updated file.'
     else
       render :edit

@@ -31,7 +31,8 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
     @virtual_lesson = VirtualLesson.find params[:id]
 
     respond_to do |format|
-      if @virtual_lesson.update_attributes(params[:virtual_lesson], :without_protection => permitted)
+      if @virtual_lesson.update_attributes(params[:virtual_lesson], :without_protection => permitted) &&
+          @virtual_lesson.update_attribute(:user_id, current_user.id)
         format.html { redirect_to admin_virtual_lessons_path(@virtual_lesson), :notice => "Virtual lesson was successfully updated" }
         format.json { respond_with_bip(@virtual_lesson) }
       else

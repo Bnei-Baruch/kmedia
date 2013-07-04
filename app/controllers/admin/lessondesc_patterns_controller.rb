@@ -13,6 +13,7 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
   end
 
   def create
+    @lessondesc_pattern.user = current_user
     if @lessondesc_pattern.save
       redirect_to [:admin, @lessondesc_pattern], :notice => "Successfully created Container Description pattern."
     else
@@ -24,8 +25,9 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
   end
 
   def update
-    if @lessondesc_pattern.update_attributes(params[:lessondesc_pattern])
-      redirect_to [:admin, @lessondesc_pattern], :notice  => "Successfully updated Container Description pattern."
+    if @lessondesc_pattern.update_attributes(params[:lessondesc_pattern]) &&
+        @lessondesc_pattern.update_attribute(:user_id, current_user.id)
+      redirect_to [:admin, @lessondesc_pattern], :notice => "Successfully updated Container Description pattern."
     else
       render :edit
     end

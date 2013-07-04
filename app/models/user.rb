@@ -11,6 +11,12 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles, :uniq => true
   belongs_to :department
 
+  has_many :lessons
+  has_many :lessondesc_patterns
+  has_many :catalogs
+  has_many :file_assets
+  has_many :virtual_lessons
+
   def role?(role)
     return !!self.roles.find_by_name(role.to_s.camelize)
   end

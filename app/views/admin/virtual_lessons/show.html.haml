@@ -21,6 +21,7 @@
   = display_show_item('Film Date', @virtual_lesson.film_date)
   = display_show_item('Created', @virtual_lesson.created_at.to_s(:long_ordinal))
   = display_show_item('Updated', @virtual_lesson.updated_at.to_s(:long_ordinal))
+  = display_show_item('User', @virtual_lesson.user.try(:email))
 
 %section
   %strong Lessons:

@@ -21,6 +21,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
   has_and_belongs_to_many :labels, uniq: true
+  belongs_to :user
 
   before_destroy do |lesson|
     lesson.file_assets.each do |a|
