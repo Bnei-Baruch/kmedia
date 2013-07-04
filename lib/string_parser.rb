@@ -29,14 +29,14 @@ class StringParser
 
   def content_type
     ContentType.all.each do |ct|
-      return ct unless @string.scan("_#{ct.pattern}_").blank? && @string.scan("_#{ct.pattern}\.").blank?
+      return ct unless @string.scan(/_#{ct.pattern}_/).blank? && @string.scan(/_#{ct.pattern}\./).blank? && @string.scan(/^#{ct.pattern}_/).blank?
     end
     ContentType::CONTENT_PROGRAM
   end
 
   def content_security_level
     ContentType.all.each do |ct|
-      return ct.secure unless @string.scan("_#{ct.pattern}_").blank? && @string.scan("_#{ct.pattern}\.").blank?
+      return ct.secure unless @string.scan(/_#{ct.pattern}_/).blank? && @string.scan(/_#{ct.pattern}\./).blank? && @string.scan(/^#{ct.pattern}_/).blank?
     end
     SECURITY.select { |s| s[:name] == 'SuperDuper' }[0][:level]
   end
