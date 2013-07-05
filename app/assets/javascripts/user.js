@@ -64,10 +64,10 @@
 
     $(function () {
         //Categories Popup
-        $('#content .navbar-inner li').on('click', function () {
+        $('#categories-menu .category-li > a').on('click', function () {
             // Follow final links
-            if ($(this).children().data('has-children') === 'leaf') {
-                var id = $(this).children('a').data('node-id');
+            if ($(this).data('has-children') === 'leaf') {
+                var id = $(this).data('node-id');
 
                 // Catalog resets all other searches
                 $('#new_search input').val('');
@@ -76,15 +76,15 @@
                 return;
             }
 
-            $('#content .navbar-inner li').removeClass('active');
+            $('#categories-menu .category-li').removeClass('active');
             try {
                 $('.category-modal').modal('hide');
             } catch (err) {
             }
-            $(this).addClass('active');
+            $(this).parent().addClass('active');
         });
-        $('#content .category-modal').on('hide', function () {
-            $('#content .navbar-inner li').removeClass('active');
+        $('#categories-menu .category-modal').on('hide', function () {
+            $('#categories-menu .category-li').removeClass('active');
         });
         $('.modal-body').on('click', '.categories a', function () {
             var id = $(this).data('node-id'),
@@ -299,10 +299,16 @@
         enquire.register("screen and (max-width: 767px)", {
             match: function () {
                 $('body').prepend('<div class="left-mobile-menu"></div>');
-                $('.left-mobile-menu').append($('.top-menu-div .languages'))
-                    .append('<h1>' + $('.top-menu-div form').data('title') + '</h1>')l
-                    .append($('.top-menu-div form, #categories-menu'))
+                $('.left-mobile-menu')
+                    .append('<h1>' + $('.top-menu-div .languages').data('title') + '</h1>')
+                    .append($('.top-menu-div .languages'))
+                    .append('<h1>' + $('.top-menu-div form').data('title') + '</h1>')
+                    .append($('.top-menu-div form'))
+                    .append('<h1>' + $('#categories-menu').data('title') + '</h1>')
+                    .append($('#categories-menu'))
+                    .append('<h1>' + $('#sidebar').data('title') + '</h1>')
                     .append($('#sidebar'))
+                    .append('<h1>' + $('.top-menu-div .top-links').data('title') + '</h1>')
                     .append($('.top-menu-div .top-links'));
             },
             unmatch: function () {

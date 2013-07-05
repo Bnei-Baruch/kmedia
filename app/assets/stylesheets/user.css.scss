@@ -235,14 +235,20 @@ header {
 
 #content {
   position: relative;
+}
+
+#categories-menu {
+  position: relative;
   .navbar {
     font-size: 13px;
     .nav {
       float: none;
       margin: 0;
       text-align: center;
-      li {
-        a {
+      .category-li {
+        width: 115px;
+        height: 40px;
+        > a {
           height: 40px;
           width: 95px;
           padding: 0 10px;
@@ -252,32 +258,31 @@ header {
           line-height: 15px;
         }
       }
-      li.active {
-        position: relative;
-        &:before, &:after {
-          position: absolute;
-          content: '';
-          border-style: solid;
-          bottom: -9px;
-          left: 50%;
-          z-index: 1100;
-        }
-        &:before {
-          border-width: 0 8px 8px 8px;
-          border-color: #cccccc;
-          border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
-          margin-left: -8px;
-        }
-        &:after {
-          border-width: 0 6px 6px 6px;
-          border-color: transparent transparent white transparent;
-          margin-left: -6px;
+      .category-li.active {
+        //position: relative;
+        > a {
+          position: relative;
+          &:before, &:after {
+            position: absolute;
+            content: '';
+            border-style: solid;
+            bottom: -9px;
+            left: 50%;
+            z-index: 1100;
+          }
+          &:before {
+            border-width: 0 8px 8px 8px;
+            border-color: #cccccc;
+            border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
+            margin-left: -8px;
+          }
+          &:after {
+            border-width: 0 6px 6px 6px;
+            border-color: transparent transparent white transparent;
+            margin-left: -6px;
+          }
         }
       }
-    }
-    .nav > li {
-      width: 115px;
-      height: 40px;
     }
   }
   .navbar-inner {
@@ -312,6 +317,7 @@ header {
         width: 100%;
         white-space: nowrap;
         font-size: 0;
+        text-align: left;
       }
       .categories {
         font-size: 13px;
@@ -362,16 +368,6 @@ header {
       }
     }
   }
-  &.show-left{
-   @include translate(80%, 0);
-  }
-  &.show-right{
-    @include translate(-80%, 0);
-  }
-}
-
-#categories-menu {
-  position: relative;
 }
 
 .toggle {
@@ -657,7 +653,7 @@ header {
     position: fixed;
     top: 41px;
     bottom: 0;
-    width: 80%;
+    width: 90%;
     overflow-y: auto;
     z-index: 0;
     padding:10px;
@@ -699,8 +695,169 @@ header {
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-  #content .category-modal .modal-body .categories {
+  #categories-menu {
+    //position: relative;
+    .navbar {
+      //font-size: 13px;
+      .nav {
+        //float: none;
+        //margin: 0;
+        text-align: left;
+        .category-li {
+          width: auto;
+          height: auto;
+          float: none;
+          border-bottom: 1px solid #dddddd;
+          &:last-child {
+            border: none;
+          }
+          > a {
+            height: auto;
+            width: auto;
+            padding: 5px 10px;
+            display: block;
+            //vertical-align: middle;
+            text-align: left;
+            //line-height: 15px;
+          }
+        }
+        .category-li.active {
+          > a {
+            position: relative;
+            @include box-shadow(inset 0 2px 1px rgba(0, 0, 0, 0.125));
+            &:before, &:after {
+              position: absolute;
+              content: '';
+              border-style: solid;
+              bottom: -8px;
+              left: 50%;
+              z-index: 1100;
+            }
+            &:before {
+              border-width: 8px 8px 0 8px;
+              border-color: #e6e6e6 transparent transparent transparent;
+              margin-left: -8px;
+            }
+            &:after {
+              display: none;
+              //border-width: 0 6px 6px 6px;
+              //border-color: transparent transparent white transparent;
+              //margin-left: -6px;
+            }
+          }
+        }
+      }
+    }
+    .navbar-inner {
+      //padding: 0;
+      //border: 0 none;
+      overflow: hidden;
+    }
+    .divider-vertical {
+      display: none;
+      //margin: 0;
+      //width: 0 !important;
+    }
+    .category-modal {
+      //margin: 0;
+      //top: 48px;
+      //left: -1px;
+      position: static;
+      //border: 0 none;
+      border-color: #dddddd;
+      border-width: 0 0 1px;
+      @include border-radius(0);
+      @include box-shadow(none);
+      width: 100%;
+      .breadcrumb {
+        padding: 0;
+        background-color: #fff;
+        margin: 0;
+      }
+      .modal-header {
+        padding: 0;
+        border: 0 none;
+        height: 10px;
+        button {
+          display: none;
+        }
+      }
+      .modal-body {
+        position: relative;
+        padding: 0;
+        //width: 700px;
+        .categories-holder {
+          overflow-x: auto;
+          overflow-y: hidden;
+          width: 100%;
+          white-space: nowrap;
+          font-size: 0;
+          text-align: left;
+        }
+        .categories {
+        //  font-size: 13px;
+        //  height: 240px;
+        //  overflow: hidden;
+        //  overflow-y: scroll;
+        //  //@extend .f-left;
+        //  display: inline-block;
+        //  margin: 0;
+        //  //width: 225px;
+        //  @include box-sizing(border-box);
+        //  width: 33%;
+        //  margin-left: 0.5%;
+        //  padding-right: 5px;
+        //  ul {
+        //    margin: 0;
+        //    padding: 10px 0;
+        //    & li {
+        //      //width: 180px !important;
+        //      padding: 0 19px 0 10px;
+        //      text-align: left !important;
+        //      list-style: none;
+        //    }
+        //    li:nth-child(odd) {
+        //      background: #f0f0f0;
+        //    }
+        //
+        //    .selected {
+        //      background: #0088CC !important;
+        //      a {
+        //        color: #fff;
+        //      }
+        //      .children-amount {
+        //        color: #fff;
+        //      }
+        //    }
+        //    a {
+        //      display: block;
+        //      position: relative;
+        //    }
+        //  }
+        //}
+        //.column1 {
+        //  margin: 0 !important;
+        //}
+        //.column2, .column2 ul {
+        //  display: none;
+        //}
+      }
+      }
+    }
+  }
+
+  #categories-menu .category-modal .modal-body .categories {
     width: 99%;
     margin-left: 1%;
+  }
+
+  #content {
+    @include transition(all 0.5s);
+    &.show-left{
+      @include translate(90%, 0);
+    }
+    &.show-right{
+      @include translate(-90%, 0);
+    }
   }
 }
