@@ -2,5 +2,7 @@ $ -> new SelectedCatalogs
 
 class SelectedCatalogs
   constructor: ->
-    $('#catalog_catalognodename').autocomplete
-      source: $('#catalog_catalognodename').data('autocomplete-source')
+    $source = $('#catalog_catalognodename')
+    unless $source.length == 0
+      $source.autocomplete
+        source: $source.data('autocomplete-source')

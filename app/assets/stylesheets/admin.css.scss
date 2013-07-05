@@ -280,6 +280,15 @@ ul.ui-autocomplete {
 }
 
 .sortable_tree {
+  .nested_set {
+    display: none;
+  }
+  .invisible-node {
+    border: 1px dotted darkred;
+  }
+  .status-closed {
+    background: #f7f7f7 url(/assets/iconza/icons/red_lock_16.png) no-repeat scroll 85% center !important;
+  }
   .tree-zipper, .plus, .minus {
     width: 16px;
     height: 16px;

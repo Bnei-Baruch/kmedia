@@ -18,8 +18,8 @@ module RenderSortableTreeHelper
 
         "
           <li id='#{ node.id }_#{ options[:klass] }'>
-            <div class='item'>
-              <i class='#{options[:boost][node.id].blank? ? 'tree-zipper' : 'tree-zipper minus'}'></i>
+            <div class='item #{node.visible ? '' : 'in'}visible-node #{node.open ? 'status-open' : 'status-closed'}'>
+              <i class='#{options[:boost][node.id].blank? ? 'tree-zipper' : 'tree-zipper plus'}'></i>
               <i class='handle'></i>
               #{ show_link }
               #{ controls }
