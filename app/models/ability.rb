@@ -14,11 +14,13 @@ class Ability
       cannot :manage, User
       can :read, User
       can :merge, Lesson
+      can :send_to_censor, Lesson
       cannot :destroy, [Lesson, Catalog, FileAsset]
     elsif user.role? :operator
       #- Operator - Can edit lessons. Can Create new container
       can [:read, :create, :update, :edit_descriptions, :edit_all_lesson_fields], Lesson
       can :read, Catalog
+      can :send_to_censor, Lesson
       #- handling the lessons with changed security or with no files
       cannot :special_admin_features, [Lesson, Catalog]
     elsif user.role? :content_manager
@@ -29,6 +31,8 @@ class Ability
       cannot :special_admin_features, [Lesson, Catalog]
     elsif user.role? :PSearchUser
       can :search_secure, :all
+    elsif user.role? :censor
+      can :censorship, :Lesson
     else # Guest
     end
 

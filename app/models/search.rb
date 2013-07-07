@@ -140,6 +140,8 @@ class Search
         query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => per_page.present? ? per_page : 30
         query.with(:secure, 0)
+        query.with(:for_censorship, false)
+        query.with(:closed_by_censor, false)
         query.with(:content_type_id, @content_type_id) if @content_type_id.present?
         query.with(:file_language_ids).any_of @language_exts if @language_ids.present?
         query.with(:media_type_ids).any_of @media_exts if @media_type_id.present?
@@ -182,6 +184,8 @@ class Search
         query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => 40
         query.order_by order
+        query.with(:for_censorship, false)
+        query.with(:closed_by_censor, false)
       end
     rescue Net::HTTPFatalError => e
       @error = set_search_network_error(e)
@@ -199,6 +203,8 @@ class Search
       query.fulltext query_text unless query_text.blank?
       query.paginate :page => 1, :per_page => per_page
       query.with(:secure, 0)
+      query.with(:for_censorship, false)
+      query.with(:closed_by_censor, false)
       query.with(:content_type_ids).any_of @content_type_ids if @content_type_ids.present?
       query.with(:filelang).any_of @language_exts if @language_exts.present?
       query.with(:filetype).any_of @media_exts if @media_type_id.present?

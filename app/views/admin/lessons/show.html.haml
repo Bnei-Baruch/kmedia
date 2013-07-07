@@ -28,6 +28,9 @@
   = display_show_item('Secure', display_secure(@lesson.secure), true)
   = display_show_item('Labels', @lesson.labels.map{|lbl| lbl.display_name}.join(', '))
   = display_show_item('User', @lesson.user.try(:email))
+  - if @lesson.opened_by_censor?
+    - censor = User.find(@lesson.censor_id) rescue nil
+    = display_show_item('Opened by Censor', censor.try(:email))
 %section
   %strong Descriptions:
   %table.table.table-striped.table-bordered.table-condensed

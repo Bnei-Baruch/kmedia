@@ -43,6 +43,13 @@ Kmedia::Application.routes.draw do
       resources :file_types
       resources :comments, only: [:index, :destroy]
 
+      resources :censorship, only: [:index] do
+        member do
+          post 'clear'
+          post 'disable'
+        end
+      end
+
       resources :lessons do
         member do
           get 'parse_lesson_name'
@@ -53,6 +60,7 @@ Kmedia::Application.routes.draw do
           put 'update_transcript'
           get 'merge_get_list'
           post 'merge'
+          post 'send_to_censor'
         end
         collection do
           get 'parse_new_lesson_name'

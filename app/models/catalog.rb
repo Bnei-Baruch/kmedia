@@ -18,6 +18,8 @@ class Catalog < ActiveRecord::Base
 
   attr_accessor :has_children
 
+  CLOSED_BY_CENSORSHIP = Catalog.where(catalognodename: 'closed_by_censorship').first
+
   def to_s
     "#{id} #{catalognodename}"
   end

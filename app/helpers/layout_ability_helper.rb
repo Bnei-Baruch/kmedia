@@ -5,6 +5,7 @@ module LayoutAbilityHelper
     columns += 1 if can?(:read, Lesson) # column for show action
     columns += 2 if can?(:edit_descriptions, Lesson) # column for edit/edit long description/transcripts lesson actions
     columns += 1 if can?(:destroy, Lesson) # column for destroy lesson action
+    columns += 1 if can?(:send_to_censor, Lesson) # column to mark for censorship lesson action
     columns
   end
 
@@ -13,6 +14,7 @@ module LayoutAbilityHelper
     columns += 1 if can?(:read, klass) # column for show action
     columns += 1 if can?(:update, klass) # column for edit action
     columns += 1 if can?(:destroy, klass) # column for destroy action
+    columns += 1 if can?(:send_to_censor, Lesson) # column for destroy lesson action
     columns
   end
 

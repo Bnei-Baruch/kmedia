@@ -1,10 +1,11 @@
 class Admin::LessonsController < Admin::ApplicationController
-  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr, :edit_transcript, :update_transcript]
+  before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr, :edit_transcript, :update_transcript, :send_to_censor]
 
   def index
     authorize! :index, Lesson
     @filter = params[:filter]
-    @lessons = Lesson.get_appropriate_lessons(@filter, params[:security]).order(sort_order).page(params[:page])
+    @security = params[:security]
+    @lessons = Lesson.get_appropriate_lessons(@filter, @security).order(sort_order).page(params[:page])
   end
 
   def show
@@ -54,7 +55,7 @@ class Admin::LessonsController < Admin::ApplicationController
     @lesson = Lesson.find(params[:id])
     authorize! :update, @lesson
 
-    @lesson.update_attributes @current_user, params[:lesson]
+    @lesson.set_updated_attributes @current_user, params[:lesson]
     @lesson.user = current_user
 
     if @lesson.save
@@ -184,6 +185,16 @@ class Admin::LessonsController < Admin::ApplicationController
     vl.lessons = containers
 
     redirect_to admin_lessons_path, notice: "Container(s) #{params[:containers]} successfully moved to VL(#{vl.id}, #{vl.film_date})"
+  end
+
+  def send_to_censor
+    lesson = Lesson.find(params[:id])
+    lesson.update_attribute :for_censorship, true
+
+    @filter = params[:filter]
+    @security = params[:security]
+    @lessons = Lesson.get_appropriate_lessons(@filter, @security).order(sort_order).page(params[:page])
+    render :index, notice: 'Sent for Censorship'
   end
 
   private

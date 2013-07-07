@@ -1,4 +1,4 @@
-SECURITY = [
+  SECURITY = [
   {name: 'Unsecure', level: 0, klass: ''},
   {name: 'Beginner', level: 1, klass: ''},
   {name: 'Intermediate', level: 2, klass: 'info'},

@@ -13,7 +13,7 @@ class Lesson < ActiveRecord::Base
   end
   belongs_to :lecturer, :foreign_key => :lecturerid
   belongs_to :content_type
-  belongs_to :virtual_lesson
+  belongs_to :virtual_lesson, dependent: :destroy
   has_and_belongs_to_many :file_assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
                           :association_foreign_key => "fileid", :order => "date(updated) DESC, filename ASC"
   has_and_belongs_to_many :catalogs, :join_table => "catnodelessons", :foreign_key => "lessonid",
@@ -88,7 +88,9 @@ class Lesson < ActiveRecord::Base
     )
   NEED_UPDATE
   )
-  scope :secure_changed, -> { where(:secure_changed => true) }
+  scope :for_censorship, -> { where(for_censorship: true) }
+  scope :not_for_censorship, -> { where(for_censorship: false) }
+  scope :secure_changed, -> { where(secure_changed: true) }
   scope :no_files, -> { where('(SELECT count(1) FROM lessonfiles WHERE lessonfiles.lessonid = lessons.lessonid) = 0') }
 
   scope :lost, -> { where(<<-LOST
@@ -135,6 +137,9 @@ class Lesson < ActiveRecord::Base
     time :lessondate
     time :created
     time :updated
+
+    boolean :for_censorship
+    boolean :closed_by_censor
   end
 
   def create_timestamps
@@ -189,7 +194,7 @@ class Lesson < ActiveRecord::Base
         Lesson.security(security)
       else
         Lesson.need_update
-    end
+    end.where(for_censorship: false)
   end
 
   # Register file(s) into a container.
@@ -403,7 +408,7 @@ class Lesson < ActiveRecord::Base
     [@date, @language, @lecturerid, @descriptions, @catalogs, @content_type_id, @security]
   end
 
-  def update_attributes(user, attributes)
+  def set_updated_attributes(user, attributes)
     self.attributes = attributes
     self.secure_changed = self.operator_changed_secure_field?(user)
     self.auto_parsed = false

@@ -32,7 +32,6 @@
             -SECURITY.each do |s|
               %li
                 = link_to s[:name].humanize, admin_lessons_path(:filter => 'by_security', :security => s[:level])
-
 %section
   = paginate @lessons
 
@@ -70,3 +69,6 @@
           -if can?(:destroy, lesson)
             %td
               = link_to 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
+          -if can?(:send_to_censor, lesson)
+            %td
+              = link_to 'Censor', send_to_censor_admin_lesson_path(lesson, filter: @filter, securty: @security), method: 'post'

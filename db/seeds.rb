@@ -43,7 +43,13 @@ puts '--> Roles'
   {:name => 'APIUser', :description => 'API user to create/update data in DB'},
   {:name => 'PSearchUser', :description => 'Search via API with ability to select secure > 0'},
   {:name => 'SearchUser', :description => 'Search via API without ability to select secure > 0'},
+  {:name => 'Censor', :description => 'Take care for "to be censored" containers'},
 ].each{|r| Role.find_or_create_by_name(r)}
+
+puts '--> Catalogs'
+[
+    {catalognodename: 'closed_by_censorship', secure: SECURITY.select { |s| s[:name] == 'SuperDuper' }.first[:level], visible: 0, open: 0, label: 'censorship'}
+].each{|c| Catalog.find_or_create_by_catalognodename(c)}
 
 puts '--> Users'
 [
@@ -60,7 +66,7 @@ puts '--> Users'
   user.roles << Role.find_by_name(e[:role])
 }
 
-puts '--> Container Types'
+puts '--> Content Types'
 [
     {:name => 'Program', :pattern => 'program'},
     {:name => 'Short clip', :pattern => 'clip'},

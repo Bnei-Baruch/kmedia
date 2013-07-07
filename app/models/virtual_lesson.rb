@@ -1,5 +1,7 @@
 class VirtualLesson < ActiveRecord::Base
-  has_many :lessons
+  has_many :lessons, conditions: { for_censorship: false }
+
+  default_scope joins(:lessons).where(lessons: {for_censorship: false}).uniq
 
   belongs_to :user
 
@@ -34,6 +36,7 @@ class VirtualLesson < ActiveRecord::Base
   def lessons_ordered_by_parts
     result = []
     list = self.lessons.count > 1 ? self.lessons.includes(:catalogs, :file_assets) : self.lessons.includes(:catalogs, :file_assets, :lesson_descriptions)
+    # remove lessons under censorship
     return nil unless list
 
     result << list.select do |l|
@@ -61,8 +64,7 @@ class VirtualLesson < ActiveRecord::Base
       ids.include?(Lesson::FIFTH_PART) && l.file_assets.secure(0).count > 0
     end
 
-    result.flatten!
-    result.compact!
+    result.flatten!.compact!
 
     # There are no parts in this lesson, just one lesson (parashat shavua, etc.)
     result = list.all if result.blank?
