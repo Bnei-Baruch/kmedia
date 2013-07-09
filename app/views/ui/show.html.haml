@@ -1,16 +1,18 @@
 .row.show-grid
   = render 'sidebar', search: @search
-  - description = lesson_description(@item)
+  - long_description, short_description = lesson_description(@item)
+  - description = long_description.blank? ? short_description : long_description
   #content.span9
     .item
       .padding-both
         %h3
           != type_of_item_text(@item, ':')
-          = lesson_title(@item, description)
+          = lesson_title(@item, short_description)
           (
           = creation_date(@item)
           )
-        .description= description
+        - unless description.blank?
+          %pre.description= description.gsub(/  /, ' ')
         .languages-bar
           %ul.nav.nav-tabs
             %li.tabs-title= t('ui.updated_assets.available_languages')

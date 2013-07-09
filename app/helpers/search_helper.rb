@@ -40,7 +40,15 @@ module SearchHelper
 
   def lesson_description(item)
     descriptions = @descriptions[item.id]
-    (descriptions.select { |d| d.lang == @language } || descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:lessondesc)
+    description_lang = descriptions.select { |d| d.lang == @language }[0]
+    description_eng = descriptions.select { |d| d.lang == 'ENG' }[0]
+
+    long_descr = description_lang.try(:descr)
+    long_descr_eng = description_eng.try(:descr)
+    short_descr = description_lang.try(:lessondesc)
+    short_descr_eng = description_eng.try(:lessondesc)
+
+    [long_descr || long_descr_eng, short_descr || short_descr_eng]
   end
 
   def file_asset_title(item)
