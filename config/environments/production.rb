@@ -59,6 +59,9 @@ Kmedia::Application.configure do
   # Compress JavaScript and CSS
   config.assets.compress = true
 
+  # Reuse previous results from cache
+  config.assets.cache_store = :dalli_store
+
   # Don't fallback to assets pipeline
   config.assets.compile = true
   config.assets.precompile += %w( admin.js user.js )
