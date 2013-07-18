@@ -1,8 +1,8 @@
+- total_catalogs = sc.length - 1
 .navbar
   .navbar-inner
     %ul.nav
-      - total_catalogs = selected_catalogs.length - 1
-      - selected_catalogs.each_with_index do |catalog, idx|
+      - sc.each_with_index do |catalog, idx|
         - id = catalog['catalognodeid']
         %li
           - if boost_tree[id].nil? # No leaf elements in upper menu
@@ -12,7 +12,7 @@
         - unless idx == total_catalogs
           %li.divider-vertical
 
-- selected_catalogs.each do |catalog|
+- sc.each do |catalog|
   - id = catalog['catalognodeid']
   .category-modal.modal.hide(id="cat-#{id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false' data-id='#{id}')
     .modal-header
@@ -24,7 +24,8 @@
           %ul
             - !boost_tree[id].nil? && boost_tree[id].each do |cat|
               %li
-                %a{:href => 'javascript:;', :'data-has-children' => "#{!boost_tree[cat['catalognodeid']].nil?}", :'data-node-id' => "#{cat['catalognodeid']}"}!= display_catalog_link(cat, boost_tree[cat['catalognodeid']])
+                %a{:href => 'javascript:;', :'data-has-children' => "#{!boost_tree[cat['catalognodeid']].nil?}", :'data-node-id' => "#{cat['catalognodeid']}"}
+                  != display_catalog_link(cat, boost_tree[cat['catalognodeid']])
     .modal-footer
       %button.btn(data-dismiss="modal" aria-hidden="true")= t('ui.list_header.cancel')
 
