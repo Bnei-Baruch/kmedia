@@ -1,3 +1,4 @@
+- filmed = film_date(@item)
 .row.show-grid
   = render 'sidebar', search: @search
   - long_description, short_description = lesson_description(@item)
@@ -9,7 +10,7 @@
           != type_of_item_text(@item, ':')
           = lesson_title(@item, [nil, short_description])
           (
-          = creation_date(@item)
+          = filmed
           )
         - unless description.blank?
           %pre.description= description.gsub(/  /, ' ')
@@ -35,7 +36,7 @@
                   %th= t('ui.updated_assets.size')
                   %th= t('ui.updated_assets.time')
               %tbody
-                = list_items_all(@item)
+                = list_items_all(@item, filmed)
 
           - @available_languages.each do |l|
             .tab-pane.fade.in{:id => "#{l}-media", :class => l == @locale ? 'active' : ''}
@@ -51,5 +52,5 @@
                     %th= t('ui.updated_assets.size')
                     %th= t('ui.updated_assets.time')
                 %tbody
-                  = list_items_lang(@item, l)
+                  = list_items_lang(@item, l, filmed)
 

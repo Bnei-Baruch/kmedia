@@ -15,6 +15,10 @@ module SearchHelper
     item.created.strftime '%Y-%02m-%02d'
   end
 
+  def film_date(item)
+    item.lessondate.strftime '%Y-%02m-%02d'
+  end
+
   def item_includes(item)
     FileType.map_file_exts_to_types(item.file_assets.map(&:filetype).uniq).inject('') do |memo, type|
       memo + case type
@@ -85,17 +89,17 @@ module SearchHelper
     file_assets.html_safe
   end
 
-  def list_items_lang(item, lang, file_assets = nil)
+  def list_items_lang(item, lang, filmed, file_assets = nil)
     # Find requested language
     lang = Language::LOCALE_CODE3[lang]
     # Select only files of requested language
     file_assets = (file_assets || item.file_assets).select do |x|
       (x.filelang.blank? ? 'ENG' : x.filelang) == lang
     end
-    list_items_all(nil, file_assets)
+    list_items_all(nil, filmed, file_assets)
   end
 
-  def list_items_all(item, file_assets = nil)
+  def list_items_all(item, filmed, file_assets = nil)
     list = ''
     # Order by ext
     (file_assets || item.file_assets).sort.each do |fa|
@@ -111,7 +115,7 @@ module SearchHelper
 
       list += <<-LIST
       <tr>
-        <td class='left-aligned-column'>#{fa.filedate.strftime '%Y-%02m-%02d'}</td>
+        <td class='left-aligned-column'>#{filmed || fa.filedate.strftime('%Y-%02m-%02d')}</td>
         <td class='left-aligned-column download-url'>
           <a href='#{fa.download_url}' title='#{descr}'>#{title}</a>
         </td>
