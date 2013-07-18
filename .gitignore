@@ -24,3 +24,4 @@ development.log
 coverage/
 public/source_maps/
 public/google*
+.env
