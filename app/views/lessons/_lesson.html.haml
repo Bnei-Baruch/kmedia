@@ -29,7 +29,7 @@
                 %a{:href => "##{l}-#{lesson.id}", :'data-toggle' => 'tab'}= l.upcase
         .tab-content
           - available_languages.each_with_index do |l, idx|
-            .tab-pane.fade.in{:id => "#{l}-#{lesson.id}", :class => (idx == 0 ? 'active' : '')}
+            .tab-pane.fade.in{:id => "#{l}-#{lesson.id}", :class => (l == @locale ? 'active' : '')}
               .pull-left
                 %h5= t('ui.lesson.download')
                 = download_lessons(lesson, 'video', l)

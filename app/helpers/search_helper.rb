@@ -34,8 +34,9 @@ module SearchHelper
     end.html_safe
   end
 
+  # Description is pair [long_descr, short_descr]
   def lesson_title(item, description)
-    description.blank? ? item.lessonname : description
+    description.try(:first) || description.try(:second) || item.lessonname
   end
 
   def lesson_description(item)

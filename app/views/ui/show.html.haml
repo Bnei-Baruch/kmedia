@@ -7,7 +7,7 @@
       .padding-both
         %h3
           != type_of_item_text(@item, ':')
-          = lesson_title(@item, short_description)
+          = lesson_title(@item, [nil, short_description])
           (
           = creation_date(@item)
           )
