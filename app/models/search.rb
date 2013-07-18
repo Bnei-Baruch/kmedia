@@ -179,13 +179,14 @@ class Search
       models = [model.constantize]
     end
     order = :score
+    censorship = models.include? Lesson
     begin
       Sunspot.search(models) do |query|
         query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => 40
         query.order_by order
-        query.with(:for_censorship, false)
-        query.with(:closed_by_censor, false)
+        query.with(:for_censorship, false) if censorship
+        query.with(:closed_by_censor, false) if censorship
       end
     rescue Net::HTTPFatalError => e
       @error = set_search_network_error(e)
