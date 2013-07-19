@@ -40,7 +40,7 @@ module SearchHelper
 
   # Description is pair [long_descr, short_descr]
   def lesson_title(item, description)
-    description.try(:first) || description.try(:second) || item.lessonname
+    description.try(:second) || description.try(:first) || item.lessonname
   end
 
   def lesson_description(item)
