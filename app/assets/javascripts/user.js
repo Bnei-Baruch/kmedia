@@ -300,15 +300,15 @@
             match: function () {
                 $('body').prepend('<div class="left-mobile-menu"></div>');
                 $('.left-mobile-menu')
-                    .append('<h1>' + $('.top-menu-div .languages').data('title') + '</h1>')
+                    .append('<h4>' + $('.top-menu-div .languages').data('title') + '</h4>')
                     .append($('.top-menu-div .languages'))
-                    .append('<h1>' + $('.top-menu-div form').data('title') + '</h1>')
+                    .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
                     .append($('.top-menu-div form'))
-                    .append('<h1>' + $('#categories-menu').data('title') + '</h1>')
+                    .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
                     .append($('#categories-menu'))
-                    .append('<h1>' + $('#sidebar').data('title') + '</h1>')
+                    .append('<h4>' + $('#sidebar').data('title') + '</h4>')
                     .append($('#sidebar'))
-                    .append('<h1>' + $('.top-menu-div .top-links').data('title') + '</h1>')
+                    .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
                     .append($('.top-menu-div .top-links'));
             },
             unmatch: function () {

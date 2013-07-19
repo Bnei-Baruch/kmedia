@@ -84,3 +84,23 @@
   top:9px;
   right:9px;
 }
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  //.icon-km-big-,
+  //.icon-km-big-lesson       { background-position:-24px 0; }
+  //.icon-km-big-lecture      { background-position:-48px 0; }
+  //.icon-km-big-program      { background-position:-72px 0; }
+  //.icon-km-big-song         { background-position:-96px 0; }
+  //.icon-km-big-clip         { background-position:-120px 0; }
+  //.icon-km-big-book         { background-position:-144px 0; }
+  //.icon-km-big-declamation  { background-position:-168px 0; }
+  [class^="icon-km-big"],
+  [class*=" icon-km-big"] {
+    margin: -12px 0;
+    background-color: #777;
+    border-radius: 50%;
+    border: 3px solid #777;
+    box-shadow: #fff 0 0 0 3px;
+    margin-right: 10px;
+  }
+}
