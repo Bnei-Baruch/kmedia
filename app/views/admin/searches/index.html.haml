@@ -21,6 +21,7 @@
           %th ID
           %th Type
           %th Result
+          %th Actions
       %tbody
         - @results.each_hit_with_result do |hit, result|
           - klass = result.class
@@ -31,11 +32,16 @@
               %td= asset.fileid
               %td= link_to 'File', admin_file_asset_path(asset)
               %td= "#{asset.filename} (#{asset.filesize} bytes)"
+              %td &nbsp;
             - when klass == Lesson
               - lesson = result
               %td= lesson.lessonid
               %td= link_to 'Container', admin_lesson_path(lesson)
               %td= lesson.lessonname
+              - if can?(:send_to_censor, Lesson)
+                %td= link_to 'Censor', send_to_censor_admin_lesson_path(lesson, filter: @filter, securty: @security), method: 'post'
+              - else
+                %td &nbsp;
             - when klass == LessondescPattern
               - pattern = result
               %td= pattern.id
@@ -47,6 +53,7 @@
                 )(
                 = pattern.description
                 )
+              %td &nbsp;
             - when klass == LessonDescription
               - lesson_description = result
               %td= lesson_description.lessondescid
@@ -62,6 +69,7 @@
                 (
                 = lesson_description.lang
                 )
+              %td &nbsp;
             - when klass == CatalogDescription
               - catalog_description = result
               %td= catalog_description.catnodedescid
@@ -75,6 +83,7 @@
                 (
                 = catalog_description.lang
                 )
+              %td &nbsp;
             - when klass == Catalog
               - catalog = result
               %td= result.catalognodeid
@@ -92,6 +101,7 @@
                     (
                     = catalog.catalognodeid
                     )
+              %td &nbsp;
             - else
-              %td(colspan=3)= "Unknown: #{klass}"
+              %td(colspan=4)= "Unknown: #{klass}"
     = paginate @results.hits, :window => 8

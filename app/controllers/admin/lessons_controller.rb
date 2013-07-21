@@ -194,7 +194,7 @@ class Admin::LessonsController < Admin::ApplicationController
     @filter = params[:filter]
     @security = params[:security]
     @lessons = Lesson.get_appropriate_lessons(@filter, @security).order(sort_order).page(params[:page])
-    render :index, notice: 'Sent for Censorship'
+    redirect_to request.referer, notice: 'Sent for Censorship'
   end
 
   private
