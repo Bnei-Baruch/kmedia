@@ -502,6 +502,19 @@ header {
       margin-bottom: 5px;
       @include border-radius(2px);
     }
+    .daterangepicker_start_input, .daterangepicker_end_input {
+      width: 50%;
+      padding-left: 0 !important;
+    }
+    input {
+      background: none;
+      border: none;
+      @include box-shadow(none);
+      font-size: 13px;
+      font-weight: bold;
+      padding: 0;
+      width: 100%;
+    }
   }
   .calendar {
     margin: 5px 10px 5px 0;
