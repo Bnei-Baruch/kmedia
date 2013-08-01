@@ -19,7 +19,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
   def destroy
     @virtual_lesson.destroy
 
-    redirect_to admin_virtual_lessons_url, :notice => "Successfully destroyed virtual lesson."
+    redirect_to admin_virtual_lessons_url, notice: 'Successfully destroyed virtual lesson.'
   end
 
   def create
@@ -32,7 +32,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
 
     respond_to do |format|
       if @virtual_lesson.update_attributes(params[:virtual_lesson], :without_protection => permitted)
-        format.html { redirect_to admin_virtual_lessons_path(@virtual_lesson), :notice => "Virtual lesson was successfully updated" }
+        format.html { redirect_to admin_virtual_lessons_path(@virtual_lesson), notice: 'Virtual lesson was successfully updated' }
         format.json { respond_with_bip(@virtual_lesson) }
       else
         format.html { render action: :edit }

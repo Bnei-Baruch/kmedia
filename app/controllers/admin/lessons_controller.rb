@@ -175,13 +175,25 @@ class Admin::LessonsController < Admin::ApplicationController
   def combine
     permitted = can? :update, :lesson
 
-    # Add containers to a new VL
-    containers = params[:containers].split(',').map {|vl| Lesson.find vl }
-    film_date = containers[0].lessondate
-    vl = VirtualLesson.create!(film_date: film_date, position: VirtualLesson.next_position_on(film_date))
-    vl.lessons = containers
+    begin
+      containers = if params[:container]
+        # Create new VL
+        [Lesson.find(params[:container])]
+      elsif params[:containers]
+        # Add containers to a new VL
+        params[:containers].split(',').map { |vl| Lesson.find vl }
+      else
+        redirect_to admin_lessons_path, alert: "You have to supply container(s)"
+      end
 
-    redirect_to admin_lessons_path, notice: "Container(s) #{params[:containers]} successfully moved to VL(#{vl.id}, #{vl.film_date})"
+      film_date = containers[0].lessondate
+      vl = VirtualLesson.create!(film_date: film_date, position: VirtualLesson.next_position_on(film_date))
+      vl.lessons = containers
+
+      redirect_to admin_lessons_path, notice: "Container(s) #{params[:containers]} successfully moved to VL(#{vl.id}, #{vl.film_date})"
+    rescue Exception => e
+      redirect_to admin_lessons_path, alert: "Error: #{e.message}"
+    end
   end
 
   private

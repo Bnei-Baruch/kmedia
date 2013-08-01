@@ -65,9 +65,11 @@ class MoveHelper
   combine_selected_lessons: (event) ->
     vls = $('.lessons .selected:checked')
     if vls.length < 2
-      e.preventDefault
-      alert('Please select at least two Containers')
-      return false
+      selected = $('.lessons .selected:checked').map(->
+        @value
+      ).get().join()
+      $(this).prop('href', $(this).prop('href') + '?container=' + selected)
+      return true
 
     film_date = $(vls.get(0)).parents('tr').find('.created').text()
 
