@@ -9,7 +9,7 @@ class UiController < ApplicationController
     @last_lessons = last_virtual_lesson.lessons_ordered_by_parts
     @lesson_name = last_virtual_lesson.virtual_name(@language)
 
-    @available_last_lessons_languages = FileAsset.available_languages(@last_lessons.map(&:file_assets).flatten)
+    @available_last_lessons_languages = FileAsset.insecure.available_languages(@last_lessons.map(&:file_assets).flatten)
     @active_tab = @available_last_lessons_languages.include?(@locale) ? @locale : 'all'
 
     @updated_assets = FileAsset.latest_updates(params[:amount_of_updated].to_i > 0 ? params[:amount_of_updated].to_i : 25).includes(:file_asset_descriptions)
