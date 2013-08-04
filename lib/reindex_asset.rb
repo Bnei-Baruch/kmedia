@@ -7,6 +7,10 @@ class ReindexAsset
     reindex([Lesson])
   end
 
+  def self.reindex_all
+    reindex([FileAsset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern])
+  end
+
   def self.reindex(sunspot_models)
     Dir.glob(Rails.root.join('app/models/**/*.rb')).each { |path| require path }
 

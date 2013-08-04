@@ -37,6 +37,13 @@ class FileAsset < ActiveRecord::Base
     time :filedate
     time :created
     time :updated
+
+    boolean :for_censorship do
+      false
+    end
+    boolean :closed_by_censor do
+      false
+    end
   end
 
   before_create :create_timestamps

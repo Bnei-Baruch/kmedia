@@ -27,6 +27,13 @@ class Catalog < ActiveRecord::Base
   searchable do
     text :catalognodename, as: :kmedia
     boolean :secure
+
+    boolean :for_censorship do
+      false
+    end
+    boolean :closed_by_censor do
+      false
+    end
   end
 
   scope :secure, ->(level) { where("secure <= ?", level) }

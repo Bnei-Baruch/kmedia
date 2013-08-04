@@ -8,6 +8,13 @@ class LessonDescription < ActiveRecord::Base
   searchable do
     text :descr, as: :kmedia
     text :lessondesc, as: :kmedia
+
+    boolean :for_censorship do
+      false
+    end
+    boolean :closed_by_censor do
+      false
+    end
   end
 
   scope :by_lang, lambda {|lang| where(:lang => lang)}

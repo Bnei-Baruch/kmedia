@@ -19,6 +19,13 @@ class LessondescPattern < ActiveRecord::Base
   searchable do
     text :pattern, as: :kmedia
     text :description, as: :kmedia
+
+    boolean :for_censorship do
+      false
+    end
+    boolean :closed_by_censor do
+      false
+    end
   end
 
   def catalog_tokens=(ids)

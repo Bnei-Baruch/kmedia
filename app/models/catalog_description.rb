@@ -10,6 +10,13 @@ class CatalogDescription < ActiveRecord::Base
 
   searchable do
     text :catalognodename, as: :kmedia
+
+    boolean :for_censorship do
+      false
+    end
+    boolean :closed_by_censor do
+      false
+    end
   end
 
   def create_timestamps
