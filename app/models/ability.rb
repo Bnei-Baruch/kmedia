@@ -16,6 +16,7 @@ class Ability
       can :merge, Lesson
       can :send_to_censor, Lesson
       cannot :destroy, [Lesson, Catalog, FileAsset]
+      can [:assignable, :manage], Label
     elsif user.role? :operator
       #- Operator - Can edit lessons. Can Create new container
       can [:read, :create, :update, :edit_descriptions, :edit_all_lesson_fields], Lesson
@@ -23,6 +24,7 @@ class Ability
       can :send_to_censor, Lesson
       #- handling the lessons with changed security or with no files
       cannot :special_admin_features, [Lesson, Catalog]
+      can [:assignable, :manage], Label
     elsif user.role? :content_manager
       #- Content manager - Can edit long/short descriptions and transcripts
       can [:read, :update, :edit_descriptions], Lesson
