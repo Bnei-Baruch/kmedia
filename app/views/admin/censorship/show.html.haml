@@ -1,0 +1,112 @@
+%header.subhead#overview
+  %h2 Censored Container
+
+%section.well
+  = display_show_item('ID', @lesson.lessonid)
+  = display_show_item('Name', @lesson.lessonname)
+  = display_show_item('Type', @lesson.content_type.try(:name))
+  = display_show_item('Created', @lesson.created.to_s(:long_ordinal))
+  = display_show_item('Updated', @lesson.updated.to_s(:long_ordinal))
+  = display_show_item('Container date', @lesson.lessondate)
+  = display_show_item('Language', @lesson.language)
+  = display_show_item('Lecturer', @lesson.lecturer)
+  = display_show_item('Secure', display_secure(@lesson.secure), true)
+  = display_show_item('Labels', @lesson.labels.map{|lbl| lbl.display_name}.join(', '))
+  = display_show_item('User', @lesson.user.try(:email))
+  - if @lesson.opened_by_censor?
+    - censor = User.find(@lesson.censor_id) rescue nil
+    = display_show_item('Opened by Censor', censor.try(:email))
+%section
+  %strong Descriptions:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Language
+        %th Container Description/Long Description
+        %th Created on
+        %th Updated on
+        %th ID
+    %tbody
+      - @lesson.lesson_descriptions.each do |admin_lesson_desc|
+        - next if (admin_lesson_desc.lessondesc || admin_lesson_desc.descr).blank?
+        %tr
+          %td= admin_lesson_desc.lang
+          %td
+            = admin_lesson_desc.lessondesc
+            - unless admin_lesson_desc.descr.blank?
+              %hr.soften.no-margin
+              = admin_lesson_desc.descr
+          %td= admin_lesson_desc.created.try(:to_date)
+          %td= admin_lesson_desc.updated.try(:to_date)
+          %td= admin_lesson_desc.lessondescid
+%section
+  %strong Transcripts:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Language
+        %th TOC
+        %th Transcript
+        %th Created on
+        %th Updated on
+        %th ID
+    %tbody
+      - @lesson.lesson_transcripts.each do |t|
+        - next if (t.transcript).blank?
+        %tr
+          %td= t.lang
+          %td= t.toc.html_safe
+          %td
+            %a.btn{"data-toggle" => "modal", :href => "#myModal#{t.id}"}
+              see transcript
+            .modal.hide{:id => "myModal#{t.id}"}
+              .modal-header
+                %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                %h3=t.toc.html_safe
+              .modal-body
+                %p=t.transcript.html_safe
+              .modal-footer
+                %a.btn.btn-primary{"data-dismiss" => "modal", :href => "#"} Close
+          %td= t.created_at.try(:to_date)
+          %td= t.updated_at.try(:to_date)
+          %td= t.id
+
+
+%section
+  %strong Catalogs:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th ID
+        %th Name
+    %tbody
+      - @lesson.catalogs.each do |catalog|
+        %tr
+          %td= catalog.catalognodeid
+          %td= catalog.catalognodename
+%section
+  %strong Files:
+  %table.table.table-striped.table-bordered.table-condensed
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Security
+        %th File Size
+        %th File Duration
+        %th Recorded at
+        %th Created on
+        %th Updated on
+        %th Language
+    %tbody
+      - @lesson.file_assets.each do |asset|
+        %tr
+          %td= asset.fileid
+          %td= link_to asset.filename, asset.url, :target => '_blank'
+          %td= display_secure asset.secure
+          %td= number_to_human_size asset.filesize
+          %td= convert_seconds_to_human_readable asset.playtime_secs
+          %td= asset.filedate.try(:to_date)
+          %td= asset.created.try(:to_date)
+          %td= asset.updated.try(:to_date)
+          %td= asset.filelang

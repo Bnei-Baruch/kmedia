@@ -14,7 +14,7 @@
         %th= sortable("updated", "Updated", @filter)
         %th= sortable("lang", "Language", @filter)
         %th= sortable("secure", "Secure", @filter)
-        %th{:colspan => 2} Actions
+        %th{:colspan => 3} Actions
     %tbody
       -@lessons.each do |lesson|
         %tr
@@ -26,5 +26,6 @@
           %td= lesson.updated.try(:to_date)
           %td= lesson.lang
           %td= display_secure(lesson.secure)
+          %td= link_to 'Show', admin_censorship_path(lesson)
           %td= link_to 'Clear', clear_admin_censorship_path(lesson), method: 'post'
           %td= link_to 'Disable Forever', disable_admin_censorship_path(lesson), method: 'post', :confirm => 'Are you sure?', :class => 'btn-small btn-danger nowrap'

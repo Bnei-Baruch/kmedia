@@ -43,7 +43,7 @@ Kmedia::Application.routes.draw do
       resources :file_types
       resources :comments, only: [:index, :destroy]
 
-      resources :censorship, only: [:index] do
+      resources :censorship, only: [:index, :show] do
         member do
           post 'clear'
           post 'disable'

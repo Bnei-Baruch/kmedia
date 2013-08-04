@@ -4,6 +4,10 @@ class Admin::CensorshipController < Admin::ApplicationController
     @lessons = Lesson.for_censorship.page(params[:page])
   end
 
+  def show
+    @lesson = Lesson.for_censorship.find(params[:id])
+  end
+
   def clear
     lesson = Lesson.find(params[:id])
     lesson.update_attributes({
