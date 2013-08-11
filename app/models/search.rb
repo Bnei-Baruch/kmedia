@@ -133,7 +133,7 @@ class Search
     dates_range || I18n.t('ui.sidebar.anytime')
   end
 
-  def search_full_text(page_no)
+  def search_full_text(page_no = nil)
     query_text = query_string_normalized
     begin
       Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions]) do |query|

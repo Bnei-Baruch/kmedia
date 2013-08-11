@@ -82,6 +82,7 @@ en:
       fifth_part: 'Fifth Part'
     updated_assets:
       other_updates: 'Other updates'
+      new_materials: 'New Materials from %{date}'
       display: 'Display'
       items: 'items'
       available_languages: 'Available languages:'

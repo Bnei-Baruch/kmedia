@@ -79,6 +79,7 @@ ru:
       fifth_part: 'Пятая часть'
     updated_assets:
       other_updates: 'Прочие обновления'
+      new_materials: 'Новые материалы от %{date}'
       display: 'Показать'
       items: 'строчек'
       available_languages: 'Доступные языки:'

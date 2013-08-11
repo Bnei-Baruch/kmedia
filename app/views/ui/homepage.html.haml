@@ -4,4 +4,7 @@
     = render 'list_header', sc: @selected_catalogs, boost_tree: @boost_tree
     = render 'tags_cloud'
     = render 'last_lesson', lesson_name: @lesson_name, prev_lesson: @prev_lesson, next_lesson: @next_lesson, available_languages: @available_last_lessons_languages, active_tab: @active_tab, last_lessons: @last_lessons
-    = render 'updated_assets', updated_assets: @updated_assets, updated_languages: @available_updated_assets_languages
+    - unless @new_materials.blank?
+      = render 'new_materials', new_materials: @new_materials
+    - unless @updated_assets.blank?
+      = render 'updated_assets', updated_assets: @updated_assets, updated_languages: @available_updated_assets_languages

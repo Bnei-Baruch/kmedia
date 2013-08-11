@@ -15,6 +15,11 @@ class UiController < ApplicationController
     @updated_assets = FileAsset.latest_updates(params[:amount_of_updated].to_i > 0 ? params[:amount_of_updated].to_i : 25).includes(:file_asset_descriptions)
     @available_updated_assets_languages = FileAsset.available_languages(@updated_assets)
 
+    search = Search.new({date_type: 'one_day', dates_range: (Time.now - 7.days).to_s, per_page: 100})
+    results = search.search_full_text
+    @new_materials = results.results rescue []
+    @descriptions = Lesson.get_all_descriptions(@new_materials)
+
     render :homepage
   end
   alias_method :homepage_show, :homepage

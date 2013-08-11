@@ -103,6 +103,11 @@ class Lesson < ActiveRecord::Base
 
   scope :security, -> sec { where(secure: sec) }
 
+  def self.available_languages(lessons)
+    return nil if lessons.nil?
+    FileAsset.available_languages lessons.map(&:file_assets).flatten.sort.uniq.compact
+  end
+
   def self.get_all_descriptions(lessons)
     Lesson.where(lessonid: lessons).includes(:lesson_descriptions).all.inject({}) do |all, lesson|
       all[lesson.id] = lesson.lesson_descriptions

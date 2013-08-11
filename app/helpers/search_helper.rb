@@ -1,10 +1,10 @@
 module SearchHelper
 
-  def type_of_item(item)
+  def type_of_item(item, size = '-big')
     pattern = item.content_type.try(:pattern)
     pattern = 'program' if pattern == 'magazine'
     pattern = 'image' if pattern == 'graph'
-    "<i class='icon-km-big-#{pattern}'></i>".html_safe
+    "<i class='icon-km#{size}-#{pattern}'></i>".html_safe
   end
 
   def type_of_item_text(item, cont)
