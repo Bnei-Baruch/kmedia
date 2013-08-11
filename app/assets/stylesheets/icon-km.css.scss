@@ -84,8 +84,8 @@
   top:9px;
   right:9px;
 }
-/* Landscape phones and down */
-@media (max-width: 480px) {
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
   //.icon-km-big-,
   //.icon-km-big-lesson       { background-position:-24px 0; }
   //.icon-km-big-lecture      { background-position:-48px 0; }

@@ -9,6 +9,8 @@
 @import "theme/projekktor-theme";
 @import "bootstrap-rtl";
 
+$mobile-fixed-navbar-height: 40px;
+
 // User Mixings
 
 @mixin before_after {
@@ -134,6 +136,9 @@ header {
   background: #777;
   padding: 0;
   .item-list-meta {
+    .padding-both{
+      width:100%;
+    }
     text-align: center;
     hr {
       margin: 0 auto 5px;
@@ -144,13 +149,6 @@ header {
     .badge {
       margin-bottom: 6px;
       font-size: 10px;
-    }
-    @media (min-width: 768px) and (max-width: 979px) {
-      .badge {
-        padding-left: 6px;
-        padding-right: 6px;
-        font-size: 9px;
-      }
     }
   }
   .item-list-data {
@@ -222,6 +220,10 @@ header {
 }
 
 .navbar-fixed-top {
+  position: fixed !important;
+  .navbar-inner {
+    padding: 0 !important;
+  }
   z-index: 1200;
   .container-fluid {
     position: relative;
@@ -252,22 +254,27 @@ header {
       float: none;
       margin: 0;
       text-align: center;
+      display:table-row;
       .category-li {
-        width: 115px;
-        height: 40px;
-        > a {
-          height: 40px;
-          width: 95px;
-          padding: 0 10px;
-          display: table-cell;
-          vertical-align: middle;
-          text-align: center;
-          line-height: 15px;
+        display:table-cell;
+        vertical-align: middle;
+
+        float:none;
+//        width: 115px;
+//        height: 40px;
+         > a {
+          //height: 40px;
+          //width: 95px;
+          padding: 2px 5px;
+          //display: table-cell;
+
+          //text-align: center;
+          //line-height: 15px;
         }
       }
       .category-li.active {
         //position: relative;
-        > a {
+         > a {
           position: relative;
           &:before, &:after {
             position: absolute;
@@ -295,14 +302,18 @@ header {
   .navbar-inner {
     padding: 0;
     border: 0 none;
+    display:table;
+    width:100%  ;
   }
   .divider-vertical {
     margin: 0;
-    width: 0 !important;
+    float:none;
+    display:table-cell;
   }
   .category-modal {
     margin: 0;
-    top: 48px;
+    top: 100%;
+    margin-top: 8px;
     left: -1px;
     position: absolute;
     width: 100%;
@@ -625,26 +636,23 @@ header {
   }
 }
 
-/* Not-So-Large desktop */
-@media (max-width: 979px) {
-  #content .category-modal .modal-body .categories {
-    width: 49.5%;
-    margin-left: 1%;
-  }
-  .navbar-fixed-top {
-    position: fixed;
-    .navbar-inner {
-      padding: 0;
-    }
-  }
-}
-
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-}
+//@media (min-width: 768px) and (max-width: 979px) {
+//}
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .item-list-meta {
+    .badge {
+      padding-left: 6px;
+      padding-right: 6px;
+      font-size: 9px;
+    }
+  }
   .navbar-fixed-top {
     margin-left: 0;
     margin-right: 0;
@@ -659,21 +667,25 @@ header {
     }
   }
   #content {
-    padding: 0 10px 1px;
+    padding: 1px 10px;
+    margin-top: $mobile-fixed-navbar-height;
     background: #cccccc;
-    @include box-shadow(0 0 3px 3px rgba(0, 0, 0, 0.8));
-    //box-shadow: -3px 0 2px rgba(0, 0, 0, 0.1);
+    //@include box-shadow(0 0 3px 3px rgba(0, 0, 0, 0.8));
+    @include transition(all 0.5s);
+    &.show-left {
+      @include translate(90%, 0);
+    }
+    &.show-right {
+      @include translate(-90%, 0);
+    }
+
   }
   .content-wrapper {
     background: #cccccc;
   }
-  body {
-    padding-left: 0;
-    padding-right: 0;
-  }
   .left-mobile-menu, .right-mobile-menu {
     position: fixed;
-    top: 41px;
+    top: $mobile-fixed-navbar-height + 1px;
     bottom: 0;
     width: 90%;
     overflow-y: auto;
@@ -712,11 +724,15 @@ header {
       @include box-sizing(border-box);
       height: 30px;
     }
+    & > * {
+      margin: 0 0 10px 0;
+    }
+    h4 {
+      color: #eee;
+      font-size: 14px;
+      line-height: 1;
+    }
   }
-}
-
-/* Landscape phones and down */
-@media (max-width: 480px) {
   .tab-pane {
     @include clearfix;
   }
@@ -733,7 +749,7 @@ header {
         margin: 0;
         padding: 0;
       }
-      >* {
+       > * {
         vertical-align: middle;
       }
     }
@@ -742,6 +758,9 @@ header {
     }
   }
   .item-list .item-list-data {
+    h5 {
+      margin: 0 0 5px;
+    }
     border-radius: 0 0 5px 5px;
     .padding-both {
       margin-top: 10px;
@@ -756,16 +775,6 @@ header {
     background: white;
     @include border-radius(5px);
     padding: 10px 15px;
-  }
-  .left-mobile-menu {
-    & > * {
-      margin: 0 0 10px 0;
-    }
-    h4 {
-      color: #eee;
-      font-size: 14px;
-      line-height: 1;
-    }
   }
   #sidebar {
     position: relative;
@@ -827,7 +836,7 @@ header {
           &:last-child {
             border: none;
           }
-          > a {
+           > a {
             height: auto;
             width: auto;
             padding: 5px 10px;
@@ -838,7 +847,7 @@ header {
           }
         }
         .category-li.active {
-          > a {
+           > a {
             position: relative;
             @include box-shadow(inset 0 2px 1px rgba(0, 0, 0, 0.125));
             &:before, &:after {
@@ -910,54 +919,6 @@ header {
           font-size: 0;
           text-align: left;
         }
-        .categories {
-          //  font-size: 13px;
-          //  height: 240px;
-          //  overflow: hidden;
-          //  overflow-y: scroll;
-          //  //@extend .f-left;
-          //  display: inline-block;
-          //  margin: 0;
-          //  //width: 225px;
-          //  @include box-sizing(border-box);
-          //  width: 33%;
-          //  margin-left: 0.5%;
-          //  padding-right: 5px;
-          //  ul {
-          //    margin: 0;
-          //    padding: 10px 0;
-          //    & li {
-          //      //width: 180px !important;
-          //      padding: 0 19px 0 10px;
-          //      text-align: left !important;
-          //      list-style: none;
-          //    }
-          //    li:nth-child(odd) {
-          //      background: #f0f0f0;
-          //    }
-          //
-          //    .selected {
-          //      background: #0088CC !important;
-          //      a {
-          //        color: #fff;
-          //      }
-          //      .children-amount {
-          //        color: #fff;
-          //      }
-          //    }
-          //    a {
-          //      display: block;
-          //      position: relative;
-          //    }
-          //  }
-          //}
-          //.column1 {
-          //  margin: 0 !important;
-          //}
-          //.column2, .column2 ul {
-          //  display: none;
-          //}
-        }
       }
     }
   }
@@ -966,14 +927,8 @@ header {
     width: 99%;
     margin-left: 1%;
   }
+}
 
-  #content {
-    @include transition(all 0.5s);
-    &.show-left {
-      @include translate(90%, 0);
-    }
-    &.show-right {
-      @include translate(-90%, 0);
-    }
-  }
+/* Landscape phones and down */
+@media (max-width: 480px) {
 }
