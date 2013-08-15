@@ -11,7 +11,7 @@
       %tbody
         - new_materials.each do |nm|
           %tr
-            %td.left-aligned-column= type_of_item(nm, '')
+            %td.left-aligned-column.hv-aligned= type_of_item(nm, '')
             %td.left-aligned-column
               %a{:href => ui_path(nm)}
                 = nm.id

@@ -6,7 +6,6 @@
 @import "icon-km";
 @import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
-
 @import "bootstrap-rtl";
 
 // Bootstrap override begin
@@ -39,12 +38,12 @@ body {
   padding: 0 0 15px;
   width: 220px;
   #language_ids {
-    width:  190px;
+    width: 190px;
   }
   .active {
     position: relative;
     &:after {
-      content:"";
+      content: "";
       @extend .expander;
       border-color: transparent transparent transparent #fff;
       top: 9px;
@@ -224,7 +223,7 @@ header {
 }
 
 .navbar .brand {
-  padding:  5px 0 0 20px;
+  padding: 5px 0 0 20px;
 }
 
 #content {
@@ -397,7 +396,7 @@ header {
 }
 
 .description {
-  margin:  10px 0;
+  margin: 10px 0;
 }
 
 .projekktor {
@@ -536,4 +535,13 @@ header {
 
 .navbar-form .input-append, .navbar-form .input-prepend {
   margin: 5px 0;
+}
+
+.hv-aligned > * {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
