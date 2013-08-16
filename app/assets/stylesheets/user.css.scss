@@ -136,8 +136,8 @@ header {
   background: #777;
   padding: 0;
   .item-list-meta {
-    .padding-both{
-      width:100%;
+    .padding-both {
+      width: 100%;
     }
     text-align: center;
     hr {
@@ -254,28 +254,35 @@ header {
       float: none;
       margin: 0;
       text-align: center;
-      display:table-row;
+      display: table-row;
       .category-li {
-        display:table-cell;
+        display: table-cell;
         vertical-align: middle;
+        float: none;
+        &:last-child {
+          >a{
 
-        float:none;
-//        width: 115px;
-//        height: 40px;
-         > a {
-          //height: 40px;
-          //width: 95px;
-          padding: 2px 5px;
-          //display: table-cell;
 
-          //text-align: center;
-          //line-height: 15px;
+          @include border-radius(0 4px 4px 0);
+          }
+        }
+
+        &:first-child {
+          >a{
+
+
+          @include border-radius(4px 0 0 4px);
+          }
+        }         > a {
+          padding: 10px 3px;
+          display: block;
         }
       }
       .category-li.active {
         //position: relative;
          > a {
           position: relative;
+
           &:before, &:after {
             position: absolute;
             content: '';
@@ -302,13 +309,13 @@ header {
   .navbar-inner {
     padding: 0;
     border: 0 none;
-    display:table;
-    width:100%  ;
+    display: table;
+    width: 100%;
   }
   .divider-vertical {
     margin: 0;
-    float:none;
-    display:table-cell;
+    float: none;
+    display: table-cell;
   }
   .category-modal {
     margin: 0;
@@ -827,8 +834,10 @@ header {
       .nav {
         //float: none;
         //margin: 0;
+        display: block;
         text-align: left;
         .category-li {
+          display: block;
           width: auto;
           height: auto;
           float: none;
@@ -876,6 +885,7 @@ header {
     .navbar-inner {
       //padding: 0;
       //border: 0 none;
+      display: block;
       overflow: hidden;
     }
     .divider-vertical {
