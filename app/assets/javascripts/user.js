@@ -416,14 +416,12 @@
 
         projekktor_instance = projekktor('.active.tab-pane .projekktor', {
             plugins: ['display', 'controlbar'],
-            platforms: ['flash', 'browser', 'ios', 'native'],
+            platforms: ['flash', 'browser', 'ios', 'android', 'native', 'vlc'],
             autoplay: false,
             controls: true,
             volume: 0.5,
-            height: 280,
-            width: 370,
-            minHeight: 280,
-            minWidth: 370,
+//            debug: true,
+            ratio: 4/3,
             forceFullViewport: true,
             poster: '/assets/cover-video.jpg',
             cover: '/assets/cover-video.jpg',

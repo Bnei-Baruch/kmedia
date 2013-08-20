@@ -260,26 +260,22 @@ header {
         vertical-align: middle;
         float: none;
         &:last-child {
-          >a{
-
-
-          @include border-radius(0 4px 4px 0);
+           > a {
+            @include border-radius(0 4px 4px 0);
           }
         }
 
         &:first-child {
-          >a{
-
-
-          @include border-radius(4px 0 0 4px);
+           > a {
+            @include border-radius(4px 0 0 4px);
           }
-        }         > a {
+        }
+         > a {
           padding: 10px 3px;
           display: block;
         }
       }
       .category-li.active {
-        //position: relative;
          > a {
           position: relative;
 
@@ -649,6 +645,32 @@ header {
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
+  .full-screen {
+    #content {
+      padding: 1px 0;
+      .item {
+        @include border-radius(0);
+        @include box-shadow(none);
+        margin-bottom: 0;
+      }
+    }
+  }
+  .padding-left, .padding-right {
+    padding: 0 10px;
+  }
+  .lessons-list{
+    h4 .pull-left, h4 .pull-right {
+      float: none;
+    }
+  }
+  .projekktor {
+    margin: 10px auto 20px;
+  }
+  .btn-toolbar {
+    .btn-group {
+      white-space: normal;
+    }
+  }
   body {
     padding-left: 0;
     padding-right: 0;
