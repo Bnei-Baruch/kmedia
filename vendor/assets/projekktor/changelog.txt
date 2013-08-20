@@ -1,6 +1,275 @@
 PROJEKKTOR - simply mighty <video>
 http://www.projekktor.com
 
+V1.2.37
+=======
+
+  additions:
+  * [core] improved debugging for custom listeners and plugins (try-catch-log on "debug: true")
+  
+  fixes:
+  * [core] race condition issue introduced with V1.2.35 while on HTML5 playback
+  * [core] wildcarded "streamType"s now work properly
+  * [core] native audio (live) stream is now properly inherited form AUDIO not from VIDEO model
+
+  
+
+V1.2.36
+=======
+
+  additions:
+  * [core] "leaveFullscreen" config option. On "true" player tries to leave fullscreen once "complete"ed.
+  * [plugin:controlbar] new template tags "min_abs" and "secs_abs" making it possible to get visually rid of the next higher divisor (e.g. "185 minutes" instead of "2 hours and 25 minutes")
+
+  fixes:
+  * [core] several AUDIO related issues fixed - especially HLS and .m3u related ones
+  * [core] minor Android issues fixed
+  * [core] an item session doesn´t fire any events or updates after "error" anymore
+  
+  
+
+V1.2.35
+=======
+
+  additions:
+  * [plugin:controlbar] added scrubber tooltip showing time-index depending on cursor position - pls update your theme
+
+  fixes:
+  * [core] volume toggling issues on audio playback via flash
+  * [core] fixed compatibility issues with jQuery < 1.6.1
+  * [core] on quality-toggle while watching pseudo-streams time offset parameter is now properly appended
+  
+  changes:
+  * [core] enabled VLC Web Plugin support by default
+  * [core] maed silly ".setPlayhead()" also available as ".setSeek()"
+  
+  
+
+V1.2.34
+=======
+
+  additions:
+  * [theme] added subtitle-button set
+  * [core] new config option "cookieDomain"
+  * [core] new config option "cookiePath"
+  
+  fixes:
+  * [core] fixed false positive native-support detections
+  * [core] fixed image model seeking issue
+
+  changes:
+  * [theme] changed directory-/name- scheme from /theme/style.css to /theme/<themename>/projekktor.style.css
+  
+
+V1.2.33
+=======
+  
+  additions:
+  * [core] added VLC Web Plugin Support - experimental - to unlock set config.platforms = ['browser', 'android', 'ios', 'vlc', 'native', 'flash']
+  
+  fixes:
+  * [plugin:controlbar] improved volume- and mute/unmute handling
+  * [core] prevent hopping time-index on seek in pseudo-streams
+  * [core] fixed pseudo-stream-on-fash-fallback issues
+  * [core] improved cookie handling
+  * [core] fixed item id config
+  * [core] .getItem() was totally messed up
+
+  changes:
+  * [core] argument values for .setPlayhead() are now internaly rounded to 2 decimal places
+  * [core] improved platform detection incl. full version check 
+  
+  
+V1.2.32
+=======
+
+  fixes:
+  * [core] IE8 issue due to a left console.log statement
+
+
+V1.2.31
+=======
+
+  additions:
+  * [core] new event "seek"
+  
+
+  fixes:
+  * [core] even more interesting fullscreen issues fixed
+  * [core] fixed cross-domain iframe issues - detection is now more accurate and will check for "allowFullscreen" attribute(s)
+
+  changes:
+  * [core] "seeking" and "seeked" are no longer player "state"s. Both are now properties of the new "seek"-event.
+  
+  
+V1.2.30
+=======
+
+ fixes:
+ * [core] fullscreen issues in case dimensions are set via config options
+
+
+V1.2.29
+=======
+
+ fixes:
+ * [core] .getConfig() now returns proper plugin cfg data
+
+
+V1.2.28
+=======
+
+ additions:
+ * [core] config option "ratio" - "16/9" by default
+ * [core] .setSize() now automatically sets "height" by "ratio"
+
+ fixes:
+ * [core] .getMediaDimensions() now returns proper data
+ * [core] general liquid layout fixes
+ 
+ changes:
+ * [core] config option "_minWidth" depreciated
+ * [core] config option "_minHeight" depreciated
+ * [core] .setResize() depreciated
+ 
+
+V1.2.27
+=======
+
+ fixes:
+ * [core] "pause" event not longer triggered on start of media while on flash fallback
+ * [core] "seeked" and "seeking" event are now properly triggered. 
+ * [flash component] stripped useless code, several performance relevant fixes.
+
+
+
+V1.2.26
+=======
+
+ fixes:
+ * [core] minor performance tweaks
+ * [core] disabling platforms works properly again
+ * [flash component] fixed general scaling issues
+ 
+ additions:
+ * [core] added plugin-"click-to-play" support
+
+
+
+V1.2.25
+=======
+
+  fixes:
+  * [core] fixed poster scaling issues
+  * [plugin:controlbar] fixed scrubber-flickering on seeking
+  * [plugin:controlbar] fixed scrubber-tooltip positioning issues
+  
+  additions:
+  * [plugin:controlbar] added a scrubber-knob option
+
+  
+
+V1.2.24
+=======
+
+  fixes:
+  * [core] fixed poster quality toggling on "unbalanced" playlists where one or more format(s) provide more quality alternatives than the selected one.
+
+
+
+V1.2.23
+=======
+
+  additions:
+  * [core] it´s now possible to set up different poster images for each quality-setting (in analogy to media source quality arrays)
+
+  fixes:
+  * [plugin:controlbar] proper view reset on .setStop()
+  
+  
+
+V1.2.22
+=======
+
+  additions:
+  * [plugin:display] mouse cursor now automatically turns "pointer" on IDLE state
+  
+  fixes:
+  * [core] fixed "autoplay" behavior on .reset() and .setFile()
+  * [plugin:controlbar] volume controls are now properly set "inactive" on mobile devices
+  * [plugin:display] mouse cursor now properly turns "none" after timeout in case click invoced play but mouse hasn´t moved afterwards
+
+
+
+V1.2.21
+=======
+
+  additions:
+  * [core] new API method ".setGotoCuePoint
+  * [core] the player container now gets an additional class matching the player´s state
+  * [plugin:controlbar] added scrubber-position tooltip
+  * [plugin:controlbar] its now possible to have vertical volume sliders wihout further hacking
+  
+  changes:
+  * [plugin:controlbar] volume of zero is no longer stored in cookie to avoid silent players accross sessions
+
+  fixes:
+  * [core] fixed event unbinding for plugin objects on .reset()
+  
+
+
+V1.2.20
+=======
+
+  additions:
+  * [core] new API method ".getFrame()"
+  * [core] new API method ".setFrame()"
+  * [core] new config parameter "thereCanBeOnlyOne", default "true"
+  * [core] on pages with multiple player instances, players with "thereCanBeOnlyOne" set to "true" will auto-stop all other players once they change to none IDLE state
+  * [core] .addListener() & .removeListener() now support namespaces
+  
+  changes:
+  * [core] improved seek accuracy for native video
+  * [core] .removePlugin() is now .removePlugins() as it always accepted an array of plugins only
+  
+  fixes:
+  * [core] fixed poster rescaling
+  * [core] performance tweeks
+  
+
+
+V1.2.19
+=======
+
+  fixes:
+  * [core] streamType "httpAudio" is now properly recognized by the native playback model
+  * [core] fixed a very annoying fullscreen issue
+
+  
+  
+V1.2.18
+=======
+
+  fixes:
+  * [core] credentials are now always enabled on AJAX calls
+  * [core] if player toggles DONE after being in fullscreen mode player containers with unset dimensions do not disappear any longer
+  * [core] injecting new items to non IDLE players doesn´t force IDLE any longer
+  * [core] fixed plugin version check routine
+  * [plugin:display] clicking on testcards now works properly on items with "disallowSkip" set true
+  * [plugin:contextmenu] proper iframe breaking on URL clicks where applicable.
+  
+  changes:
+  * [core] CSS transitions are now disabled on mobile devices (performance issues)
+
+
+V1.2.17
+=======
+
+  fixes:
+  * [core] .setVolume() properly discards invalid values
+  * [plugin:controlbar] click target for quality-button fixed
+
+
 V1.2.16
 =======
 
