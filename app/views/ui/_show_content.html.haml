@@ -1,5 +1,6 @@
 #content.span9
-  = render 'list_header', sc: @selected_catalogs, boost_tree: @boost_tree
+  = render 'common/topbanner'
+  = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
   = render 'tags_cloud'
   - if @no_results
     %h4.no-results= t('ui.content.no_results')

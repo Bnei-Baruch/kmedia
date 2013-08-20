@@ -21,8 +21,8 @@
   .tab-content
     - available_languages.each do |language|
       .tab-pane.fade.in{:id => "#{language}-player", :class => (language == active_tab ? 'active' : '')}
-        .row
-          .span5
+        .row-fluid
+          .span6
             .padding-left
               %h4.pull-left{:'data-video' => "#{t('ui.last_lesson.play')}", :'data-audio' => "#{t('ui.last_lesson.listen')}", :class => 'toggle-h4'}= t('ui.last_lesson.play')
               .pull-right.toggle
@@ -33,7 +33,8 @@
                   .left.btn.btn-mini.btn-primary(href="javascript:;")>
                     %i.icon-km-small-white-video>
                 %a.left-switch-link(href="javascript:;")= t('ui.last_lesson.video')
-              %div(class="video-#{language} projekktor")
+              .projekktor-container
+                %div(class="video-#{language} projekktor" style="width:100%;")
               %script(type="text/javascript")
                 var playlist_#{language}_video = [
                 - total_lessons = last_lessons.count - 1
@@ -57,7 +58,7 @@
                   .btn-group
                     - last_lessons.each_with_index do |lesson, index|
                       %button.btn.btn-mini{:'data-item-index' => index}= lesson_part(lesson, language)
-          .span4
+          .span6
             .padding-right
               %h4= t('ui.last_lesson.download')
               %table.media-table.table.table-condensed.table-hover.table-bordered.table-striped

@@ -1,23 +1,29 @@
 .navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
-    .container
-      = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand, :'data-category' => 'navbar', :'data-label' => 'logo'
-      %ul.nav
-        %li
-          = link_to t('navbar.old_version'), 'http://www.kabbalahmedia.info', :'data-category' => 'navbar', :'data-label' => 'old version'
-        %li
-          = link_to t('navbar.support'), 'http://archivesupport.kbb1.com', :'data-category' => 'navbar', :'data-label' => 'support'
-        %li
-          = link_to t('navbar.comment.comment'), '#leave-comment', :'data-toggle' => 'modal', :'data-category' => 'navbar', :'data-label' => 'support'
-      = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get} do |f|
-        = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {:style => 'width: 130px;', text: t('navbar.search')}, :wrapper => 'bootstrap_top_search'
-        = f.input :content_type_id, as: :hidden, :wrapper => 'default'
-        = f.input :media_type_id, as: :hidden, :wrapper => 'default'
-        = f.input :date_type, as: :hidden, :wrapper => 'default'
-        = f.input :dates_range, as: :hidden, :wrapper => 'default'
-        = f.input :language_ids, as: :hidden, :wrapper => 'default'
-        = f.input :catalog_ids, as: :hidden, :wrapper => 'default'
-      = select_tag 'languages', options_for_select(@menu_languages, selected: @current_menu_language), class: 'languages'
+    .container-fluid
+      -#%button.btn.btn-navbar{:'data-toggle' => 'collapse', :'data-target' => '.nav-collapse'}
+      -#%a.btn.right-menu-btn.visible-phone.btn-inverse
+      %a.btn.left-menu-btn.visible-phone.btn-inverse
+      = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand
+      .top-menu-div
+        %ul.nav.top-links{:'data-title' => 'Top Links'}
+          -#%li.active
+          -#  = link_to t('navbar.homepage'), root_path
+          %li
+            %a{:href => 'http://www.kabbalahmedia.info'}= t('navbar.old_version')
+          %li
+            %a{:href => 'http://archivesupport.kbb1.com'}= t('navbar.support')
+          %li
+            %a{:href => '#leave-comment', :'data-toggle' => 'modal'}= t('navbar.comment.comment')
+        = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get, :'data-title' => t('navbar.search')} do |f|
+          = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {text: t('navbar.search')}, :wrapper => 'bootstrap_top_search'
+          = f.input :content_type_id, as: :hidden, :wrapper => 'default'
+          = f.input :media_type_id, as: :hidden, :wrapper => 'default'
+          = f.input :date_type, as: :hidden, :wrapper => 'default'
+          = f.input :dates_range, as: :hidden, :wrapper => 'default'
+          = f.input :language_ids, as: :hidden, :wrapper => 'default'
+          = f.input :catalog_ids, as: :hidden, :wrapper => 'default'
+        = select_tag 'languages', options_for_select(@menu_languages, selected: @current_menu_language), class: 'languages', :'data-title' => 'Languages'
 
 #leave-comment.modal.hide(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false')
   .modal-header

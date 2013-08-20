@@ -1,14 +1,14 @@
 - description = lesson_description(lesson)
 .item.item-list
-  .row
-    .span1
-      .padding-both-8
+  .row-fluid
+    .span2.item-list-meta
+      .padding-both
         = type_of_item(lesson)
         %hr
         %span.badge.badge-inverse= film_date(lesson)
         %hr
         = item_includes(lesson)
-    .span8
+    .span10.item-list-data
       .padding-both
         %h4
           %a{:href => ui_path(lesson)}

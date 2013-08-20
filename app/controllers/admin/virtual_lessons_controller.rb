@@ -19,7 +19,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
   def destroy
     @virtual_lesson.destroy
 
-    redirect_to admin_virtual_lessons_url, :notice => "Successfully destroyed virtual lesson."
+    redirect_to admin_virtual_lessons_url, notice: 'Successfully destroyed virtual lesson.'
   end
 
   def create

@@ -7,6 +7,7 @@
 //= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
 //= require projekktor.min
+//= require enquire.min
 
 //= require_self
 
@@ -63,10 +64,10 @@
 
     $(function () {
         //Categories Popup
-        $('#content .navbar-inner li').on('click', function () {
+        $('#categories-menu .category-li > a').on('click', function () {
             // Follow final links
-            if ($(this).children().data('has-children') === 'leaf') {
-                var id = $(this).children('a').data('node-id');
+            if ($(this).data('has-children') === 'leaf') {
+                var id = $(this).data('node-id');
 
                 // Catalog resets all other searches
                 $('#new_search input').val('');
@@ -75,15 +76,15 @@
                 return;
             }
 
-            $('#content .navbar-inner li').removeClass('active');
+            $('#categories-menu .category-li').removeClass('active');
             try {
                 $('.category-modal').modal('hide');
             } catch (err) {
             }
-            $(this).addClass('active');
+            $(this).parent().addClass('active');
         });
-        $('#content .category-modal').on('hide', function () {
-            $('#content .navbar-inner li').removeClass('active');
+        $('#categories-menu .category-modal').on('hide', function () {
+            $('#categories-menu .category-li').removeClass('active');
         });
         $('.modal-body').on('click', '.categories a', function () {
             var id = $(this).data('node-id'),
@@ -126,13 +127,16 @@
             html += '</ul></div>';
 
             // Draw next box to the right
-            width = ($(this).closest('.modal-body .categories-holder').children().length + 1) * 235 - 5;
             $(this).closest('.modal-body .categories-holder').append(html);
-            $(this).closest('.modal-body .categories-holder').width(width);
-            $(this).closest('.modal-body').find('.categories').css('display', 'block');
+            $(this).closest('.modal-body').find('.categories').css('display', 'inline-block');
             $(this).closest('.modal-body').find('.categories ul').css('display', 'block');
+
+            width = 0;
+            $(this).closest('.modal-body .categories-holder').find('.categories').each(function () {
+                width += $(this).outerWidth(true);
+            });
             value = $('body').hasClass('rtl') ? 0 : width;
-            $(this).closest('.modal-body').animate({scrollLeft: value}, 800);
+            $(this).closest('.categories-holder').animate({scrollLeft: value}, 800);
         });
 
         $('.show-tooltip').tooltip();
@@ -301,6 +305,54 @@
 
             return false;
         });
+
+        enquire.register("screen and (max-width: 767px)", {
+            match: function () {
+                $('body').prepend('<div class="left-mobile-menu"></div>');
+                $('.left-mobile-menu')
+                    .append('<h4>' + $('.top-menu-div .languages').data('title') + '</h4>')
+                    .append($('.top-menu-div .languages'))
+                    .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
+                    .append($('.top-menu-div form'))
+                    .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
+                    .append($('#categories-menu'))
+                    .append('<h4>' + $('#sidebar').data('title') + '</h4>')
+                    .append($('#sidebar'))
+                    .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
+                    .append($('.top-menu-div .top-links'));
+            },
+            unmatch: function () {
+                $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
+                $('.main-layout').prepend($('#sidebar'));
+                $('#content .topbanner').after($('#categories-menu'));
+                $('.left-mobile-menu').remove();
+                $('#content').removeClass("show-left");
+            }
+        });
+//        enquire.register("screen and (max-width: 767px)", {
+//            match : function () {
+//                $('body').prepend('<div class="left-mobile-menu"></div><div class="right-mobile-menu"></div>');
+//                $('.left-mobile-menu').append($('.top-menu-div .nav, .top-menu-div .languages'));
+//                $('.right-mobile-menu').append($('.top-menu-div form, #categories-menu')).append($('#sidebar'));
+//            },
+//            unmatch : function () {
+//                $('.top-menu-div').append($('.left-mobile-menu .nav, .right-mobile-menu form')).append($('.left-mobile-menu .languages'));
+//                $('.main-layout').prepend($('#sidebar'));
+//                $('#content .topbanner').after($('#categories-menu'));
+//                $('.left-mobile-menu, .right-mobile-menu').remove();
+//            }
+//        });
+
+        $(document).on('click', '.left-menu-btn', function () {
+//           $('.right-mobile-menu').hide();
+            $('.left-mobile-menu').show();
+            $('#content').toggleClass("show-left");
+        });
+//        $(document).on('click','.right-menu-btn', function(){
+//           $('.right-mobile-menu').show();
+//           $('.left-mobile-menu').hide();
+//           $('#content').removeClass("show-left").toggleClass("show-right");
+//        });
     });
 }());
 
@@ -374,14 +426,12 @@
 
         projekktor_instance = projekktor('.active.tab-pane .projekktor', {
             plugins: ['display', 'controlbar'],
-            platforms: ['flash', 'browser', 'ios', 'native'],
+            platforms: ['flash', 'browser', 'ios', 'android', 'native', 'vlc'],
             autoplay: false,
             controls: true,
             volume: 0.5,
-            height: 280,
-            width: 370,
-            minHeight: 280,
-            minWidth: 370,
+//            debug: true,
+            ratio: 4/3,
             forceFullViewport: true,
             poster: '/assets/cover-video.jpg',
             cover: '/assets/cover-video.jpg',
