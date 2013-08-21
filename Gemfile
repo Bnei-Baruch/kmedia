@@ -15,6 +15,7 @@ gem 'paperclip'
 gem 'thin'
 gem 'puma'
 gem 'unicorn'
+gem 'slim'
 
 gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
 

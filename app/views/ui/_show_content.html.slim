@@ -3,9 +3,9 @@
   = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
   = render 'tags_cloud'
   - if @no_results
-    %h4.no-results= t('ui.content.no_results')
+    h4.no-results = t('ui.content.no_results')
   - else
-    %h4= t('ui.content.results', from: (@results.current_page - 1) * @results.limit_value + 1, to: [(@results.current_page * @results.limit_value).to_i, @total].min, of: @total)
+    h4 = t('ui.content.results', from: (@results.current_page - 1) * @results.limit_value + 1, to: [(@results.current_page * @results.limit_value).to_i, @total].min, of: @total)
 
     = paginate @hits, :window => 2
     = render @results

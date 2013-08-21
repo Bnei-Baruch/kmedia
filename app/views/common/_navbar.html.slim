@@ -1,20 +1,16 @@
 .navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
     .container-fluid
-      -#%button.btn.btn-navbar{:'data-toggle' => 'collapse', :'data-target' => '.nav-collapse'}
-      -#%a.btn.right-menu-btn.visible-phone.btn-inverse
-      %a.btn.left-menu-btn.visible-phone.btn-inverse
+      a.btn.left-menu-btn.visible-phone.btn-inverse
       = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand
       .top-menu-div
-        %ul.nav.top-links{:'data-title' => 'Top Links'}
-          -#%li.active
-          -#  = link_to t('navbar.homepage'), root_path
-          %li
-            %a{:href => 'http://www.kabbalahmedia.info'}= t('navbar.old_version')
-          %li
-            %a{:href => 'http://archivesupport.kbb1.com'}= t('navbar.support')
-          %li
-            %a{:href => '#leave-comment', :'data-toggle' => 'modal'}= t('navbar.comment.comment')
+        ul.nav.top-links data-title='Top Links'
+          li
+            a href='http://www.kabbalahmedia.info' = t('navbar.old_version')
+          li
+            a href='http://archivesupport.kbb1.com' = t('navbar.support')
+          li
+            a href='#leave-comment' data-toggle='modal' = t('navbar.comment.comment')
         = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get, :'data-title' => t('navbar.search')} do |f|
           = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {text: t('navbar.search')}, :wrapper => 'bootstrap_top_search'
           = f.input :content_type_id, as: :hidden, :wrapper => 'default'
@@ -25,9 +21,9 @@
           = f.input :catalog_ids, as: :hidden, :wrapper => 'default'
         = select_tag 'languages', options_for_select(@menu_languages, selected: @current_menu_language), class: 'languages', :'data-title' => 'Languages'
 
-#leave-comment.modal.hide(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false')
+#leave-comment.modal.hide tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false'
   .modal-header
-    %button(type="button" class="close" data-dismiss="modal" aria-hidden="true") ×
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
     = t('navbar.comment.comment')
   .modal-body
     .alert.hide
@@ -37,5 +33,5 @@
       .span6= f.input :subject, label: t('navbar.comment.subject'), input_html: {class: 'span6'}
       .span6= f.input :comment, label: t('navbar.comment.body'), input_html: {class: 'span6', rows: 9}
   .modal-footer
-    %button.btn(data-dismiss="modal" aria-hidden="true")= t('navbar.comment.cancel')
-    %button#submit_comment.btn.btn-primary(data-dismiss="modal" aria-hidden="true")= t('navbar.comment.submit')
+    button.btn data-dismiss="modal" aria-hidden="true" = t('navbar.comment.cancel')
+    button#submit_comment.btn.btn-primary data-dismiss="modal" aria-hidden="true" = t('navbar.comment.submit')

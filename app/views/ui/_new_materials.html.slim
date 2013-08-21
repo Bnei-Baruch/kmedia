@@ -1,0 +1,22 @@
+.item.updated-media
+  .padding-both
+    h3 = t('ui.updated_assets.new_materials', date: DateTime.now.strftime('%Y-%m-%d'))
+    table.media-table.table.table-striped.table-hover.table-bordered
+      thead
+        tr
+          th.left-aligned-column= t('ui.updated_assets.type')
+          th.left-aligned-column= t('ui.updated_assets.container_name')
+          th.left-aligned-column= t('ui.updated_assets.time')
+      tbody
+        - for nm in new_materials.each
+          tr
+            td = type_of_item(nm, '')
+            td.left-aligned-column
+              a href=ui_path(nm)
+                = nm.id
+                | &nbsp;
+                == lesson_title(nm, lesson_description(nm))
+            td.left-aligned-column
+              - playtime = nm.playtime_secs.to_i
+              - if playtime > 0
+                = Time.at(playtime).utc.strftime('%H:%M:%S')
