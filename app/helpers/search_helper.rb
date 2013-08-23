@@ -133,7 +133,7 @@ module SearchHelper
 
   def content_type(type, active)
     "<li class='#{active == type ? 'active' : 'x'}'>" +
-        "<a class='content-type' href='javascript:' data-content-type='#{ContentType::CONTENT_TYPE_ID[type]}';'>" +
+        "<a class='content-type' href='javascript:;' data-content-type='#{ContentType::CONTENT_TYPE_ID[type]}'>" +
         "<i class='icon-km-#{type}'></i> #{t("ui.sidebar.type.#{type}")}</a>"
   end
 

@@ -15,14 +15,14 @@
 //= require bootstrap-transition
 //= require bootstrap-alert
 //= require bootstrap-button
-//= require bootstrap-carousel
+// = require bootstrap-carousel
 //= require bootstrap-collapse
 //= require bootstrap-dropdown
 //= require bootstrap-modal
 //= require bootstrap-tab
 //= require bootstrap-tooltip
-//= require bootstrap-popover
-//= require bootstrap-typeahead
+// = require bootstrap-popover
+// = require bootstrap-typeahead
 
 //= require jquery.mjs.nestedSortable
 //= require sortable_tree/initializer

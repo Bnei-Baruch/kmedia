@@ -2,14 +2,61 @@
 //= require_tree ./common
 //= require_tree ./user
 
-//=require bootstrap
+// We removed the bootstrap-scrollspy because it caused a bug of setting dropdown tab active after scroll
+//= require bootstrap-transition
+//= require bootstrap-alert
+//= require bootstrap-button
+//= require bootstrap-collapse
+//= require bootstrap-dropdown
+//= require bootstrap-modal
+//= require bootstrap-tab
+//= require bootstrap-tooltip
 
 //= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
 //= require projekktor.min
-//= require enquire.min
 
 //= require_self
+
+Modernizr.load([
+    //first test need for polyfill
+    {
+        test: window.matchMedia,
+        nope: "/assets/media.match.min.js"
+    },
+
+    //and then load enquire
+    {
+        load: "/assets/enquire.min.js",
+        complete: function () {
+            enquire.register("screen and (max-width: 767px)", {
+                match: function () {
+                    alert('match');
+                    $('body').prepend('<div class="left-mobile-menu"></div>');
+                    $('.left-mobile-menu')
+                        .append('<h4>' + $('.top-menu-div .languages').data('title') + '</h4>')
+                        .append($('.top-menu-div .languages'))
+                        .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
+                        .append($('.top-menu-div form'))
+                        .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
+                        .append($('#categories-menu'))
+                        .append('<h4>' + $('#sidebar').data('title') + '</h4>')
+                        .append($('#sidebar'))
+                        .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
+                        .append($('.top-menu-div .top-links'));
+                },
+                unmatch: function () {
+                    alert('unmatch');
+                    $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
+                    $('.main-layout').prepend($('#sidebar'));
+                    $('#content .topbanner').after($('#categories-menu'));
+                    $('.left-mobile-menu').remove();
+                    $('#content').removeClass("show-left");
+                }
+            });
+        }
+    }
+]);
 
 (function () {
     "use strict";
@@ -305,43 +352,6 @@
 
             return false;
         });
-
-        enquire.register("screen and (max-width: 767px)", {
-            match: function () {
-                $('body').prepend('<div class="left-mobile-menu"></div>');
-                $('.left-mobile-menu')
-                    .append('<h4>' + $('.top-menu-div .languages').data('title') + '</h4>')
-                    .append($('.top-menu-div .languages'))
-                    .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
-                    .append($('.top-menu-div form'))
-                    .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
-                    .append($('#categories-menu'))
-                    .append('<h4>' + $('#sidebar').data('title') + '</h4>')
-                    .append($('#sidebar'))
-                    .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
-                    .append($('.top-menu-div .top-links'));
-            },
-            unmatch: function () {
-                $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
-                $('.main-layout').prepend($('#sidebar'));
-                $('#content .topbanner').after($('#categories-menu'));
-                $('.left-mobile-menu').remove();
-                $('#content').removeClass("show-left");
-            }
-        });
-//        enquire.register("screen and (max-width: 767px)", {
-//            match : function () {
-//                $('body').prepend('<div class="left-mobile-menu"></div><div class="right-mobile-menu"></div>');
-//                $('.left-mobile-menu').append($('.top-menu-div .nav, .top-menu-div .languages'));
-//                $('.right-mobile-menu').append($('.top-menu-div form, #categories-menu')).append($('#sidebar'));
-//            },
-//            unmatch : function () {
-//                $('.top-menu-div').append($('.left-mobile-menu .nav, .right-mobile-menu form')).append($('.left-mobile-menu .languages'));
-//                $('.main-layout').prepend($('#sidebar'));
-//                $('#content .topbanner').after($('#categories-menu'));
-//                $('.left-mobile-menu, .right-mobile-menu').remove();
-//            }
-//        });
 
         $(document).on('click', '.left-menu-btn', function () {
 //           $('.right-mobile-menu').hide();
