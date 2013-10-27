@@ -7,7 +7,11 @@
     margin-left: 0;
     margin-right: 20px;
   }
-
+  .row-fluid [class*=span] {
+    float: right;
+    margin-left:0;
+    margin-right:percentage($gridGutterWidth/$gridRowWidth);
+  }
   .pagination ul > li {
     & > a, & > span {
       float: right;
@@ -227,5 +231,8 @@
       right: auto;
       left: 15px;
     }
+  }
+  .row-fluid [class*="span"]:first-child {
+    margin-right: 0;
   }
 }

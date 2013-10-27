@@ -15,8 +15,11 @@
 //= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
 //= require projekktor.min
+//= require iscroll
 
 //= require_self
+
+var myScroll = null;
 
 Modernizr.load([
     //first test need for polyfill
@@ -31,9 +34,8 @@ Modernizr.load([
         complete: function () {
             enquire.register("screen and (max-width: 767px)", {
                 match: function () {
-                    alert('match');
-                    $('body').prepend('<div class="left-mobile-menu"></div>');
-                    $('.left-mobile-menu')
+                    $('body').prepend('<div id="left-mobile-menu" class="left-mobile-menu"><div id="left-menu-wrapper"></div></div>');
+                    $('#left-menu-wrapper')
                         .append('<h4>' + $('.top-menu-div .languages').data('title') + '</h4>')
                         .append($('.top-menu-div .languages'))
                         .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
@@ -43,10 +45,15 @@ Modernizr.load([
                         .append('<h4>' + $('#sidebar').data('title') + '</h4>')
                         .append($('#sidebar'))
                         .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
-                        .append($('.top-menu-div .top-links'));
+                        .append($('.top-menu-div .top-links'))
+                        .append('<br/><br/>');
+
+                    myScroll = new iScroll('left-mobile-menu', { scrollbarClass: 'myScrollbar' });
                 },
                 unmatch: function () {
-                    alert('unmatch');
+                    myScroll.destroy();
+                    myScroll = null;
+
                     $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
                     $('.main-layout').prepend($('#sidebar'));
                     $('#content .topbanner').after($('#categories-menu'));
@@ -355,8 +362,8 @@ Modernizr.load([
 
         $(document).on('click', '.left-menu-btn', function () {
 //           $('.right-mobile-menu').hide();
-            $('.left-mobile-menu').show();
-            $('#content').toggleClass("show-left");
+//            $('.left-mobile-menu').show();
+            $('#content, .left-mobile-menu').toggleClass("show-left");
         });
 //        $(document).on('click','.right-menu-btn', function(){
 //           $('.right-mobile-menu').show();

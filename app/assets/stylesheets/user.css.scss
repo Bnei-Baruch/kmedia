@@ -29,6 +29,31 @@ body {
   background: #ccc;
 }
 
+.content-wrapper {
+  background: #cccccc;
+}
+
+// Sticky Footer by Ryan Fait http://ryanfait.com/
+//* {
+//  margin: 0;
+//}
+//html, body {
+//  height: 100%;
+//}
+//.content-wrapper {
+//  min-height: 100%;
+//  height: auto !important;
+//  height: 100%;
+//  margin-bottom: -50px; // the bottom margin is the negative value of the footer's height
+//}
+//.site-footer, .push {
+//  height: 50px; // .push must be the same height as .footer
+//}
+//.site-footer {
+//  background-color: red;
+//}
+// /Sticky Footer
+
 .expander {
   border-style: solid;
   border-width: 4px 0 4px 4px;
@@ -45,7 +70,7 @@ body {
   background: #fff;
   @include border-radius(5px);
   padding: 0 0 15px;
-  margin-top: 140px;
+  margin: 140px 0 0!important;
   #language_ids {
     width: 100%;
   }
@@ -450,7 +475,7 @@ header {
   font-size: 11px !important;
   vertical-align: top;
   tbody td, thead th {
-    padding: 0 5px;
+    padding: 0;
     text-align: center;
     position: relative;
   }
@@ -478,7 +503,24 @@ header {
     display: block;
   }
 }
-
+.inner-table{
+  width:100%;
+  overflow: hidden;
+  td{
+    background:none!important;
+    border:0 none!important;
+    padding:0 5px!important;
+    white-space: normal !important;
+  }
+  .table-buttons{
+    vertical-align: middle;
+    width:10%;
+    white-space: nowrap !important;
+    a{
+      display: inline-block;
+    }
+  }
+}
 .tab-content {
   overflow: visible;
 }
@@ -700,28 +742,38 @@ header {
     margin-top: $mobile-fixed-navbar-height;
     background: #cccccc;
     //@include box-shadow(0 0 3px 3px rgba(0, 0, 0, 0.8));
-    @include transition(all 0.5s);
+    @include transition(all 0.3s 0 linear);
     &.show-left {
       @include translate(90%, 0);
+      //@include transition(all 0.5s 0 linear);
+
     }
     &.show-right {
       @include translate(-90%, 0);
     }
 
   }
-  .content-wrapper {
-    background: #cccccc;
-  }
   .left-mobile-menu, .right-mobile-menu {
     position: fixed;
     top: $mobile-fixed-navbar-height + 1px;
     bottom: 0;
     width: 90%;
-    overflow-y: auto;
+    overflow-y: scroll;
     z-index: 0;
     padding: 10px;
     background-color: #666;
     @include box-sizing(border-box);
+    @include translate(-100%, 0);
+    //@include transition(opacity 0.3s 0 linear);
+    @include transition(all 0.3s 0 linear);
+    &.show-left{
+      @include translate(0, 0);
+      //@include transition(opacity 0.3s 0.4s linear);
+      //@include transition(all 0.3s 0.4s linear);
+    }
+    #sidebar {
+      margin-top: 0 !important;
+    }
   }
   .left-mobile-menu {
     left: 0;

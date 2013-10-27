@@ -89,7 +89,7 @@ es:
       type: 'Tipo'
       language: 'Idioma'
       download: 'Descargar'
-      copy_link: 'Copiar<br/>Enlace'
+      copy_link: 'Copiar Enlace'
       size: 'Tamanio'
       time: 'Tiempo'
     lesson:

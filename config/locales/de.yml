@@ -89,7 +89,7 @@ de:
       type: 'Art'
       language: 'Sprache'
       download: 'downloaden'
-      copy_link: 'Link<br/>kopieren'
+      copy_link: 'Link kopieren'
       size: 'Größe'
       time: 'Zeit'
     lesson:

@@ -115,16 +115,20 @@ module SearchHelper
 
       list += <<-LIST
       <tr>
-        <td class='left-aligned-column'>#{filmed || fa.filedate.strftime('%Y-%02m-%02d')}</td>
-        <td class='left-aligned-column download-url'>
-          <a href='#{fa.download_url}' title='#{descr}'>#{title}</a>
+        <td>
+          <table class='inner-table'>
+            <tr>
+              <td class='left-aligned-column'><a href="#{fa.download_url}" title="#{descr}">#{title}</a></td>
+              <td rowspan='2' class="table-buttons hidden-phone"><a class="show-tooltip btn" href="#{fa.download_url}" rel="tooltip" data-animation="true" data-placement="top" title="#{tip}">#{t('ui.updated_assets.download')}</a></td>
+              <td rowspan='2' class="table-buttons hidden-phone"><a href="#{fa.url}" title="#{descr}" class='clipboard btn'>#{t('ui.updated_assets.copy_link')}</a></td>
+            </tr>
+            <tr>
+              <td class='left-aligned-column'>
+                #{filmed || fa.filedate.strftime('%Y-%02m-%02d')} | #{fa.filetype} | #{fa.filelang} | #{"%.2f" % filesize}Mb | #{playtime <= 0 ? '00:00:00' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}
+              </td>
+            </tr>
+          </table>
         </td>
-        <td>#{fa.filetype}</td>
-        <td>#{fa.filelang}</td>
-        <td><a class="show-tooltip" href="#{fa.download_url}" rel="tooltip" data-animation="true" data-placement="top" title="#{tip}"><i class="icon-download"></i></a></td>
-        <td><a href='#{fa.url}' title='#{descr}' class='clipboard'><i class='icon-circle-arrow-right'></i></a></td>
-        <td>#{"%.2f" % filesize}Mb</td>
-        <td>#{playtime <= 0 ? '00:00:00' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}</td>
       </tr>
       LIST
     end

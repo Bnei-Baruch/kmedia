@@ -48,8 +48,11 @@ Kmedia::Application.configure do
 
   config.after_initialize do
     Bullet.enable = true
-    Bullet.alert = true
+    #Bullet.alert = true
     Bullet.rails_logger = true
     Bullet.console = true
   end
+
+  # Indent html for pretty debugging and do not sort attributes
+  Slim::Engine.set_default_options :pretty => true, :sort_attrs => false
 end

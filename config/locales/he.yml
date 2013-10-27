@@ -89,7 +89,7 @@ he:
       type: 'סוג'
       language: 'שפה'
       download: 'הורדה'
-      copy_link: 'העתק<br/>קישור'
+      copy_link: 'העתק  קישור'
       size: 'גודל'
       time: 'אורך'
     lesson:

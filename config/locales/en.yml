@@ -92,7 +92,7 @@ en:
       type: 'Type'
       language: 'Language'
       download: 'Download'
-      copy_link: 'Copy<br/>Link'
+      copy_link: 'Copy Link'
       size: 'Size'
       time: 'Time'
     lesson:

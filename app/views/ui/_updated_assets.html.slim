@@ -21,30 +21,10 @@
     .tab-content
       #all-updated-media.tab-pane.fade.in class=(updated_languages.include?(@locale) ? '' : 'active')
         table.media-table.table.table-striped.table-hover.table-bordered
-          thead
-            tr
-              th.left-aligned-column= t('ui.updated_assets.date')
-              th.left-aligned-column= t('ui.updated_assets.container_name')
-              th.left-aligned-column= t('ui.updated_assets.type')
-              th.left-aligned-column= t('ui.updated_assets.language')
-              th.left-aligned-column= t('ui.updated_assets.download')
-              th.left-aligned-column!= t('ui.updated_assets.copy_link')
-              th.left-aligned-column= t('ui.updated_assets.size')
-              th.left-aligned-column= t('ui.updated_assets.time')
           tbody
             = list_items_all(nil, nil, updated_assets)
       - updated_languages.each do |l|
         .tab-pane.fade.in id="#{l}-updated-media" class=(l == @locale ? 'active' : '')
           table.media-table.table.table-striped.table-hover.table-bordered
-            thead
-              tr
-                th.left-aligned-column = t('ui.updated_assets.date')
-                th.left-aligned-column = t('ui.updated_assets.container_name')
-                th.left-aligned-column = t('ui.updated_assets.type')
-                th.left-aligned-column = t('ui.updated_assets.language')
-                th.left-aligned-column = t('ui.updated_assets.download')
-                th.left-aligned-column== t('ui.updated_assets.copy_link')
-                th.left-aligned-column = t('ui.updated_assets.size')
-                th.left-aligned-column = t('ui.updated_assets.time')
             tbody
               = list_items_lang(nil, l, nil, updated_assets)
