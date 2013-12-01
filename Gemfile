@@ -25,7 +25,7 @@ gem 'sunspot_rails', '2.0.0'
 gem 'sunspot_solr', '2.0.0'
 gem 'progress_bar', :git => 'git://github.com/flori/progress_bar.git', :branch => 'betterplace' # for sunspot
 gem 'best_in_place'
-gem 'therubyracer' #, '0.9.10'
+gem 'therubyracer', '0.11.4'
 gem 'dalli'
 
 gem 'the_sortable_tree', git: 'git://github.com/the-teacher/the_sortable_tree.git'
