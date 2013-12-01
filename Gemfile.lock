@@ -19,10 +19,10 @@ GIT
 
 GIT
   remote: git://github.com/plataformatec/simple_form.git
-  revision: ea30161bdb4984c2c30e1d3a6188c8b2c4cfec3b
+  revision: 45243af173266d91de1540f043c31d8e206edc92
   branch: v2.1
   specs:
-    simple_form (2.1.0)
+    simple_form (2.1.1)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
 
@@ -65,12 +65,12 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    actionmailer (3.2.13)
-      actionpack (= 3.2.13)
-      mail (~> 2.5.3)
-    actionpack (3.2.13)
-      activemodel (= 3.2.13)
-      activesupport (= 3.2.13)
+    actionmailer (3.2.15)
+      actionpack (= 3.2.15)
+      mail (~> 2.5.4)
+    actionpack (3.2.15)
+      activemodel (= 3.2.15)
+      activesupport (= 3.2.15)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -78,19 +78,19 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activemodel (3.2.13)
-      activesupport (= 3.2.13)
+    activemodel (3.2.15)
+      activesupport (= 3.2.15)
       builder (~> 3.0.0)
-    activerecord (3.2.13)
-      activemodel (= 3.2.13)
-      activesupport (= 3.2.13)
+    activerecord (3.2.15)
+      activemodel (= 3.2.15)
+      activesupport (= 3.2.15)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.13)
-      activemodel (= 3.2.13)
-      activesupport (= 3.2.13)
-    activesupport (3.2.13)
-      i18n (= 0.6.1)
+    activeresource (3.2.15)
+      activemodel (= 3.2.15)
+      activesupport (= 3.2.15)
+    activesupport (3.2.15)
+      i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     arel (3.0.3)
     bcrypt-ruby (3.1.2)
@@ -126,9 +126,19 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
     daemons (1.1.9)
     dalli (2.6.4)
     debug_inspector (0.0.2)
+    debugger (1.6.2)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.4)
+    debugger-xml (0.3.2)
+      builder (>= 2.0.0)
+      debugger (>= 1.6.2)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -142,7 +152,7 @@ GEM
       tilt
     highline (1.6.20)
     hike (1.2.3)
-    i18n (0.6.1)
+    i18n (0.6.5)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -155,10 +165,10 @@ GEM
       jsonify (< 0.4.0)
     kgio (2.8.1)
     libv8 (3.11.8.17)
-    listen (0.7.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
     multi_json (1.8.2)
@@ -185,17 +195,17 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.13)
-      actionmailer (= 3.2.13)
-      actionpack (= 3.2.13)
-      activerecord (= 3.2.13)
-      activeresource (= 3.2.13)
-      activesupport (= 3.2.13)
+    rails (3.2.15)
+      actionmailer (= 3.2.15)
+      actionpack (= 3.2.15)
+      activerecord (= 3.2.15)
+      activeresource (= 3.2.15)
+      activesupport (= 3.2.15)
       bundler (~> 1.0)
-      railties (= 3.2.13)
-    railties (3.2.13)
-      actionpack (= 3.2.13)
-      activesupport (= 3.2.13)
+      railties (= 3.2.15)
+    railties (3.2.15)
+      actionpack (= 3.2.15)
+      activesupport (= 3.2.15)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -208,8 +218,7 @@ GEM
     rsolr (1.0.9)
       builder (>= 2.1.2)
     ruby-mp3info (0.8.2)
-    sass (3.3.0.alpha.201)
-      listen (~> 0.7)
+    sass (3.2.12)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -259,6 +268,8 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     yajl-ruby (1.1.0)
+    zeus (0.13.3)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -276,6 +287,8 @@ DEPENDENCIES
   coffee-rails-source-maps
   coffee-script-redux-debugger!
   dalli
+  debugger
+  debugger-xml
   devise (= 2.2.3)
   exception_notification!
   haml
@@ -289,7 +302,7 @@ DEPENDENCIES
   paperclip
   progress_bar!
   puma
-  rails (= 3.2.13)
+  rails (= 3.2.15)
   ruby-mp3info
   sass
   sass-rails (>= 3.2)
@@ -305,3 +318,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicorn
   yajl-ruby
+  zeus

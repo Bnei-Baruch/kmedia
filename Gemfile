@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.15'
 gem 'jquery-rails'
 
 gem 'mysql2', '>= 0.3'
@@ -36,6 +36,8 @@ gem 'the_sortable_tree', git: 'git://github.com/the-teacher/the_sortable_tree.gi
 group :development, :test do
   #gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
   #gem 'ruby-debug-ide', '>= 0.4.17.beta14'
+  gem 'debugger'
+  gem 'debugger-xml'
   gem 'sextant' # rake routes in the browser
   gem 'bullet'
   gem 'better_errors'
@@ -43,6 +45,7 @@ group :development, :test do
   gem 'coffee-rails-source-maps'
   gem "coffee-script-redux-debugger", :git => "git://github.com/JetBrains/coffee-script-redux-debugger.git"
   gem 'puma'
+  gem 'zeus'
 end
 
 group :test do

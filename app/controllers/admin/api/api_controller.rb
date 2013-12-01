@@ -1,6 +1,6 @@
 class Admin::Api::ApiController < Admin::ApplicationController
+  skip_before_filter :authenticate_user!, only: [:patterns, :languages]
   before_filter :check_permissions
-
   # In order to get any service you have to authenticate via
   # POST /admin/api/tokens.json with email and password in body
 
@@ -272,6 +272,30 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   def languages
     @languages = Language.all
+  end
+
+  # List of patterns
+  #
+  # Request:
+  # {
+  # }
+  #
+  # Response:
+  # {
+  #   "languages":
+  #     [
+  #       {
+  #         "id": 1,
+  #         "locale": "en",
+  #         "code3": "ENG",
+  #         "language": "English"
+  #       },
+  #       ...
+  #     ]
+  # }
+
+  def patterns
+    render json: LessondescPattern.multipluck(:lang, :pattern, :description).to_json
   end
 
   private
