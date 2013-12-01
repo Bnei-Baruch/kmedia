@@ -19,10 +19,10 @@ gem 'slim'
 
 gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
 
-gem 'cancan'
-gem 'devise'
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+gem 'cancan', '1.6.9'
+gem 'devise', '2.2.3'
+gem 'sunspot_rails', '2.0.0'
+gem 'sunspot_solr', '2.0.0'
 gem 'progress_bar', :git => 'git://github.com/flori/progress_bar.git', :branch => 'betterplace' # for sunspot
 gem 'best_in_place'
 gem 'therubyracer' #, '0.9.10'
@@ -46,12 +46,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '>= 2.10.1'
-  gem 'shoulda-matchers'
-  gem 'factory_girl_rails', '>= 3.3.0'
-  gem 'guard-rspec'
-  gem 'rb-inotify', '~> 0.8.8'
-  gem 'simplecov', :require => false
+  #gem 'rspec-rails', '>= 2.10.1'
+  #gem 'shoulda-matchers'
+  #gem 'factory_girl_rails', '>= 3.3.0'
+  #gem 'guard-rspec'
+  #gem 'rb-inotify', '~> 0.8.8'
+  #gem 'simplecov', :require => false
 #  gem 'email_spec', '>= 1.2.1'
 #  gem 'cucumber-rails', '>= 1.3.0', :require => false
 #  gem 'capybara', '>= 1.1.2'
@@ -59,12 +59,12 @@ group :test do
 #  gem 'launchy', '>= 2.1.0'
 end
 
-gem 'bootstrap-sass', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git' #'~> 2.2.1.0'
+gem 'bootstrap-sass', '~> 2.3.2.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.2.0'
+  gem 'sass-rails', '>= 3.2'
   gem 'coffee-rails', '~> 3.2.0', :require => 'coffee_script'
   gem 'uglifier', '>= 1.0.3'
 end

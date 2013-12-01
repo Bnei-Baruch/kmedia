@@ -16,7 +16,7 @@ module SearchHelper
   end
 
   def film_date(item)
-    item.lessondate.strftime '%Y-%02m-%02d'
+    item.lessondate.try(:strftime, '%Y-%02m-%02d')
   end
 
   def item_includes(item)

@@ -1,4 +1,4 @@
-  $ -> new SelectedCatalogs
+$ -> new SelectedCatalogs
 
 class SelectedCatalogs
   constructor: ->

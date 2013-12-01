@@ -31,7 +31,7 @@ class UiController < ApplicationController
     @total = @results.try(:total)
     @no_results = @results.is_a?(String) || !@results || @results.results.empty?
 
-    @results = @results.results
+    @results = @results.try(:results)
     @descriptions = Lesson.get_all_descriptions(@results)
   end
 

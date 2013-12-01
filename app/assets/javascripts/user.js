@@ -350,7 +350,6 @@ Modernizr.load([
                 dataType: 'JSON'
             })
                 .done(function (json) {
-                    alert(json.text);
                     $('#leave-comment').modal('hide');
                 })
                 .fail(function (jqXHR, textStatus) {
