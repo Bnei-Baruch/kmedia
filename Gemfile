@@ -70,7 +70,7 @@ group :assets do
 end
 
 gem 'term-ansicolor'
-gem 'exception_notification'
+gem 'exception_notification', '3.0.1'
 gem 'jsonify-rails'
 gem 'yajl-ruby', :require => 'yajl' # Required if we want json with utf8 strings
 
