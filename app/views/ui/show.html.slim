@@ -8,31 +8,26 @@
       = render 'common/topbanner'
       .item
         .padding-both
-          %h3
-            != type_of_item_text(@item, ':')
-            = lesson_title(@item,  [nil, short_description])
-            (
-            = filmed
-            )
+          h3 == "#{type_of_item_text(@item, ':')} #{lesson_title(@item,  [nil, short_description])} (#{filmed})"
           - unless description.blank?
-            %p.description= description.gsub(/  /, ' ')
+            p.description = description.gsub(/  /, ' ')
             .languages-bar
-              %ul.nav.nav-tabs
-                %li.tabs-title= t('ui.updated_assets.available_languages')
-                %li{:class => @available_languages.include?(@locale) ? '' : 'active'}
-                  %a{:href => "#all-media", :'data-toggle' => 'tab'}= t('ui.updated_assets.all')
+              ul.nav.nav-tabs
+                li.tabs-title = t('ui.updated_assets.available_languages')
+                li class="#{@available_languages.include?(@locale) ? '' : 'active'}"
+                  a href="#all-media" data-toggle='tab' = t('ui.updated_assets.all')
                 - @available_languages.each do |l|
-                  %li{:class => l == @locale ? 'active' : ''}
-                    %a{:href => "##{l}-media", :'data-toggle' => 'tab'}= l.upcase
+                  li class="#{l == @locale ? 'active' : ''}"
+                    a href="##{l}-media" data-toggle='tab' = l.upcase
           .tab-content
-            #all-media.tab-pane.fade.in{:class => @available_languages.include?(@locale) ? '' : 'active'}
-              %table.media-table.table.table-striped.table-hover.table-bordered
-                %tbody
+            #all-media.tab-pane.fade.in class="#{@available_languages.include?(@locale) ? '' : 'active'}"
+              table.media-table.table.table-striped.table-hover.table-bordered
+                tbody
                   = list_items_all(@item, filmed)
 
             - @available_languages.each do |l|
-              .tab-pane.fade.in{:id => "#{l}-media", :class => l == @locale ? 'active' : ''}
-                %table.media-table.table.table-striped.table-hover.table-bordered
-                  %tbody
+              .tab-pane.fade.in id="#{l}-media" class="#{l == @locale ? 'active' : ''}"
+                table.media-table.table.table-striped.table-hover.table-bordered
+                  tbody
                     = list_items_lang(@item, l, filmed)
 
