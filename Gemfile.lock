@@ -27,6 +27,14 @@ GIT
       activemodel (~> 3.0)
 
 GIT
+  remote: git://github.com/smartinez87/exception_notification.git
+  revision: 7c0f16375a6e56045bc21fb33d3e4ca09a69c6c4
+  specs:
+    exception_notification (4.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
+
+GIT
   remote: git://github.com/the-teacher/the_sortable_tree.git
   revision: 9f40ceaeea5f2cd6aa4e4c112dc887c6690eb65f
   specs:
@@ -128,8 +136,6 @@ GEM
       warden (~> 1.2.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    exception_notification (3.0.1)
-      actionmailer (>= 3.0.4)
     execjs (2.0.2)
     fattr (2.2.1)
     haml (4.0.4)
@@ -271,7 +277,7 @@ DEPENDENCIES
   coffee-script-redux-debugger!
   dalli
   devise (= 2.2.3)
-  exception_notification (= 3.0.1)
+  exception_notification!
   haml
   jquery-rails
   jsonify-rails
