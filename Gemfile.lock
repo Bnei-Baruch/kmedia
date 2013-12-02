@@ -1,13 +1,4 @@
 GIT
-  remote: git://github.com/JetBrains/coffee-script-redux-debugger.git
-  revision: 45ab4936bc35d5150dd0995833f2ab730ac8bd37
-  specs:
-    coffee-script-redux-debugger (0.0.1)
-      coffee-script
-      execjs
-      sprockets
-
-GIT
   remote: git://github.com/flori/progress_bar.git
   revision: 99540143881eaedbe54d6e93e412bde49a0a71b7
   branch: betterplace
@@ -120,8 +111,6 @@ GEM
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
-    coffee-rails-source-maps (1.4.0)
-      coffee-script-source (>= 1.6.1)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -284,8 +273,6 @@ DEPENDENCIES
   cancan (= 1.6.9)
   ckeditor (= 3.7.1)
   coffee-rails (~> 3.2.0)
-  coffee-rails-source-maps
-  coffee-script-redux-debugger!
   dalli
   debugger
   debugger-xml

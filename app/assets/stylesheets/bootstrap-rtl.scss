@@ -9,8 +9,8 @@
   }
   .row-fluid [class*=span] {
     float: right;
-    margin-left:0;
-    margin-right:percentage($gridGutterWidth/$gridRowWidth);
+    margin-left: 0;
+    margin-right: percentage($gridGutterWidth/$gridRowWidth);
   }
   .pagination ul > li {
     & > a, & > span {
@@ -28,11 +28,6 @@
         @include border-radius(4px 0 0 4px);
       }
     }
-  }
-
-  .row {
-    margin-left: 0;
-    margin-right: -20px;
   }
 
   .pull-left {
@@ -116,11 +111,11 @@
   }
 
   .item-list {
-    .span1 {
+    .span2 {
       margin-left: -20px;
       margin-right: 20px;
     }
-    .span8 {
+    .span10 {
       @include border-radius(5px 0 0 5px);
     }
   }
@@ -190,7 +185,7 @@
     }
   }
 
-  .navbar-fixed-top .container {
+  .navbar-fixed-top .container-fluid {
     .languages {
       float: left;
       margin: 5px 0 5px 10px;
@@ -235,4 +230,40 @@
   .row-fluid [class*="span"]:first-child {
     margin-right: 0;
   }
+
+  #categories-menu {
+    .category-modal {
+      .modal-body {
+        .categories-holder {
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .item-list {
+      .item-list-data {
+        border-radius: 0 0 5px 5px;
+      }
+      .item-list-meta {
+        text-align: right;
+      }
+    }
+    .row-fluid [class*="span"] {
+      margin-right: 0;
+    }
+    .padding-left, .languages-bar .nav-tabs li.tabs-title, .padding-right {
+      padding: 0 10px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .row-fluid [class*=span] {
+      float: right;
+      margin-left: 0;
+      margin-right: percentage($gridGutterWidth1200/$gridRowWidth1200);
+    }
+  }
+
 }

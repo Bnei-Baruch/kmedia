@@ -102,5 +102,10 @@
     border: 3px solid #777;
     box-shadow: #fff 0 0 0 3px;
     margin-right: 10px;
+    position: relative;
+    .rtl & {
+      margin-left: 10px;
+      margin-right: 0;
+    }
   }
 }

@@ -42,8 +42,8 @@ group :development, :test do
   gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'coffee-rails-source-maps'
-  gem "coffee-script-redux-debugger", :git => "git://github.com/JetBrains/coffee-script-redux-debugger.git"
+  #gem 'coffee-rails-source-maps'
+  #gem "coffee-script-redux-debugger", :git => "git://github.com/JetBrains/coffee-script-redux-debugger.git"
   gem 'puma'
   gem 'zeus'
 end

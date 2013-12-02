@@ -64,7 +64,7 @@ module SearchHelper
     # Find requested language
     lang = Language::LOCALE_CODE3[lang]
     # We'll show file assets as Button group
-    file_assets = '<div class="btn-group pull-left">'
+    file_assets = ''
     # Select only files of requested type (video/audio/text) and language
     item.file_assets.select do |x|
       FileType::EXT_TYPE[x.filetype.downcase] == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
@@ -85,7 +85,7 @@ module SearchHelper
                      end
     end
 
-    file_assets += '</div>'
+    file_assets = "<div class='btn-group pull-left'>#{file_assets}</div>" unless file_assets.blank?
     file_assets.html_safe
   end
 
