@@ -48,6 +48,9 @@ Modernizr.load([
                         .append($('.top-menu-div .top-links'))
                         .append('<br/><br/>');
 
+                    $('input, select').on('touchstart mousedown', function(e){
+                        e.stopPropagation();
+                    });
                     myScroll = new iScroll('left-mobile-menu', { scrollbarClass: 'myScrollbar' });
                 },
                 unmatch: function () {

@@ -256,6 +256,12 @@
     .padding-left, .languages-bar .nav-tabs li.tabs-title, .padding-right {
       padding: 0 10px;
     }
+    .navbar .brand {
+      margin: 0 auto;
+      float: none;
+      padding: 6px 0 0;
+      width: 200px;
+    }
   }
 
   @media (min-width: 1200px) {
