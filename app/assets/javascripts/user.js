@@ -19,54 +19,58 @@
 
 //= require_self
 
-var myScroll = null;
+(function () {
+    "use strict";
 
-Modernizr.load([
-    //first test need for polyfill
-    {
-        test: window.matchMedia,
-        nope: "/assets/media.match.min.js"
-    },
+    var myScroll = null;
 
-    //and then load enquire
-    {
-        load: "/assets/enquire.min.js",
-        complete: function () {
-            enquire.register("screen and (max-width: 767px)", {
-                match: function () {
-                    $('body').prepend('<div id="left-mobile-menu" class="left-mobile-menu"><div id="left-menu-wrapper"></div></div>');
-                    $('#left-menu-wrapper')
-                        .append('<h4>' + $('.top-menu-div .languages').data('title') + '</h4>')
-                        .append($('.top-menu-div .languages'))
-                        .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
-                        .append($('.top-menu-div form'))
-                        .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
-                        .append($('#categories-menu'))
-                        .append('<h4>' + $('#sidebar').data('title') + '</h4>')
-                        .append($('#sidebar'))
-                        .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
-                        .append($('.top-menu-div .top-links'))
-                        .append('<br/><br/>');
+    Modernizr.load([
+        //first test need for polyfill
+        {
+            test: window.matchMedia,
+            nope: "/assets/media.match.min.js"
+        },
 
-                    $('input, select').on('touchstart mousedown', function(e){
-                        e.stopPropagation();
-                    });
-                    myScroll = new iScroll('left-mobile-menu', { scrollbarClass: 'myScrollbar' });
-                },
-                unmatch: function () {
-                    myScroll.destroy();
-                    myScroll = null;
+        //and then load enquire
+        {
+            load: "/assets/enquire.min.js",
+            complete: function () {
+                enquire.register("screen and (max-width: 767px)", {
+                    match: function () {
+                        $('body').prepend('<div id="left-mobile-menu" class="left-mobile-menu"><div id="left-menu-wrapper"></div></div>');
+                        $('#left-menu-wrapper')
+                            .append('<h4>' + $('.top-menu-div .languages').data('title') + '</h4>')
+                            .append($('.top-menu-div .languages'))
+                            .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
+                            .append($('.top-menu-div form'))
+                            .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
+                            .append($('#categories-menu'))
+                            .append('<h4>' + $('#sidebar').data('title') + '</h4>')
+                            .append($('#sidebar'))
+                            .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
+                            .append($('.top-menu-div .top-links'))
+                            .append('<br/><br/>');
 
-                    $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
-                    $('.main-layout').prepend($('#sidebar'));
-                    $('#content .topbanner').after($('#categories-menu'));
-                    $('.left-mobile-menu').remove();
-                    $('#content').removeClass("show-left");
-                }
-            });
+                        $('input, select').on('touchstart mousedown', function (e) {
+                            e.stopPropagation();
+                        });
+                        myScroll = new iScroll('left-mobile-menu', { scrollbarClass: 'myScrollbar' });
+                    },
+                    unmatch: function () {
+                        myScroll.destroy();
+                        myScroll = null;
+
+                        $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
+                        $('.main-layout').prepend($('#sidebar'));
+                        $('#content .topbanner').after($('#categories-menu'));
+                        $('.left-mobile-menu').remove();
+                        $('#content').removeClass("show-left");
+                    }
+                });
+            }
         }
-    }
-]);
+    ]);
+}());
 
 (function () {
     "use strict";
@@ -104,7 +108,7 @@ Modernizr.load([
         // Check for quoted-string addresses
         // Since almost anything is allowed in a quoted-string address,
         // we're just going to let them go through
-        if (!/^"(.+)"$/.test(local)) {
+        if (!/^"/.test(local) && !/"$/.test(local)) {
             // It's a dot-string address...check for valid characters
             if (!/^[\-a-zA-Z0-9!#$%*\/?|\^\\{\\}`~&'+=_\\.]*$/.test(local)) {
                 return false;
@@ -388,8 +392,9 @@ Modernizr.load([
             'eventAction': 'nextFileStarted',
             'eventLabel': itemIndex
         });
-        $('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn.btn-mini').removeClass('active');
-        $($('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn.btn-mini')[itemIndex]).addClass('active');
+        var buttons = $('.active.tab-pane .projekktor-container').siblings('.btn-toolbar').find('.btn.btn-mini');
+        buttons.removeClass('active');
+        $(buttons[itemIndex]).addClass('active');
     }
 
     // type: 'audio' or 'video'
@@ -450,7 +455,7 @@ Modernizr.load([
             controls: true,
             volume: 0.5,
 //            debug: true,
-            ratio: 4/3,
+            ratio: 4 / 3,
             forceFullViewport: true,
             poster: '/assets/cover-video.jpg',
             cover: '/assets/cover-video.jpg',
