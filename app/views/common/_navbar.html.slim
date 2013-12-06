@@ -12,7 +12,7 @@
           li
             a href='#leave-comment' data-toggle='modal' = t('navbar.comment.comment')
         = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get, :'data-title' => t('navbar.search')} do |f|
-          = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {text: t('navbar.search')}, :wrapper => 'bootstrap_top_search'
+          = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {text: '<i class="icon-search"></i>'}, :wrapper => 'bootstrap_top_search'
           = f.input :content_type_id, as: :hidden, :wrapper => 'default'
           = f.input :media_type_id, as: :hidden, :wrapper => 'default'
           = f.input :date_type, as: :hidden, :wrapper => 'default'

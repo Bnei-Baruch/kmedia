@@ -33,26 +33,9 @@ body {
   background: #cccccc;
 }
 
-// Sticky Footer by Ryan Fait http://ryanfait.com/
-//* {
-//  margin: 0;
-//}
-//html, body {
-//  height: 100%;
-//}
-//.content-wrapper {
-//  min-height: 100%;
-//  height: auto !important;
-//  height: 100%;
-//  margin-bottom: -50px; // the bottom margin is the negative value of the footer's height
-//}
-//.site-footer, .push {
-//  height: 50px; // .push must be the same height as .footer
-//}
-//.site-footer {
-//  background-color: red;
-//}
-// /Sticky Footer
+.center {
+  text-align: center !important;
+}
 
 .expander {
   border-style: solid;
@@ -70,7 +53,7 @@ body {
   background: #fff;
   @include border-radius(5px);
   padding: 0 0 15px;
-  margin: 140px 0 0!important;
+  margin: 140px 0 0 !important;
   #language_ids {
     width: 100%;
   }
@@ -285,23 +268,23 @@ header {
         vertical-align: middle;
         float: none;
         &:last-child {
-           > a {
+          > a {
             @include border-radius(0 4px 4px 0);
           }
         }
 
         &:first-child {
-           > a {
+          > a {
             @include border-radius(4px 0 0 4px);
           }
         }
-         > a {
+        > a {
           padding: 10px 3px;
           display: block;
         }
       }
       .category-li.active {
-         > a {
+        > a {
           position: relative;
 
           &:before, &:after {
@@ -381,10 +364,10 @@ header {
         ul {
           margin: 0;
           padding: 10px 0;
-          & li {
+          li {
             //width: 180px !important;
             padding: 0 19px 0 10px;
-            text-align: left !important;
+            text-align: left;
             list-style: none;
           }
           li:nth-child(odd) {
@@ -503,24 +486,26 @@ header {
     display: block;
   }
 }
-.inner-table{
-  width:100%;
+
+.inner-table {
+  width: 100%;
   overflow: hidden;
-  td{
-    background:none!important;
-    border:0 none!important;
-    padding:0 5px!important;
+  td {
+    background: none !important;
+    border: 0 none !important;
+    padding: 0 5px !important;
     white-space: normal !important;
   }
-  .table-buttons{
+  .table-buttons {
     vertical-align: middle;
-    width:10%;
+    width: 10%;
     white-space: nowrap !important;
-    a{
+    a {
       display: inline-block;
     }
   }
 }
+
 .tab-content {
   overflow: visible;
 }
@@ -700,7 +685,7 @@ header {
   .padding-left, .padding-right {
     padding: 0 10px;
   }
-  .lessons-list{
+  .lessons-list {
     h4 .pull-left, h4 .pull-right {
       float: none;
     }
@@ -790,7 +775,7 @@ header {
       @include box-sizing(border-box);
       width: 100%;
       position: relative;
-      padding-right: 70px;
+      padding-right: 40px;
     }
     #search_query_string {
       width: 100% !important;
@@ -822,7 +807,7 @@ header {
         margin: 0;
         padding: 0;
       }
-       > * {
+      > * {
         vertical-align: middle;
       }
     }
@@ -894,7 +879,9 @@ header {
     }
   }
   #categories-menu {
-    //position: relative;
+    a {
+      text-align: left !important;
+    }
     .navbar {
       //font-size: 13px;
       .nav {
@@ -911,18 +898,15 @@ header {
           &:last-child {
             border: none;
           }
-           > a {
+          > a {
             height: auto;
             width: auto;
             padding: 5px 10px;
             display: block;
-            //vertical-align: middle;
-            text-align: left;
-            //line-height: 15px;
           }
         }
         .category-li.active {
-           > a {
+          > a {
             position: relative;
             @include box-shadow(inset 0 2px 1px rgba(0, 0, 0, 0.125));
             &:before, &:after {
@@ -1012,6 +996,7 @@ header {
 html, body, .main-layout, .full-screen, .content-wrapper {
   height: 100%;
 }
+
 #content {
   background-color: #cccccc;
   min-height: 100%;
@@ -1019,6 +1004,7 @@ html, body, .main-layout, .full-screen, .content-wrapper {
   height: 100%;
   margin-bottom: -1px; /* the bottom margin is the negative value of the footer's height */
 }
+
 .site-footer, .push {
   height: 1px; /* .push must be the same height as .footer */
 }

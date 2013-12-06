@@ -250,6 +250,9 @@
         text-align: right;
       }
     }
+    [class*="span"] {
+      float: none;
+    }
     .row-fluid [class*="span"] {
       margin-right: 0;
     }
@@ -261,6 +264,20 @@
       float: none;
       padding: 6px 0 0;
       width: 200px;
+    }
+    #categories-menu {
+      a {
+        text-align: right !important;
+      }
+      .category-modal li {
+        padding: 0 10px 0 19px !important;
+      }
+    }
+    .left-mobile-menu {
+      .search_query_string {
+        padding-left: 40px;
+        padding-right: 0;
+      }
     }
   }
 

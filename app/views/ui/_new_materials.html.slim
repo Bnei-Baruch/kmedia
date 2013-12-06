@@ -4,13 +4,11 @@
     table.media-table.table.table-striped.table-hover.table-bordered
       thead
         tr
-          th.left-aligned-column= t('ui.updated_assets.type')
           th.left-aligned-column= t('ui.updated_assets.container_name')
           th.left-aligned-column= t('ui.updated_assets.time')
       tbody
         - for nm in new_materials.each
           tr
-            td = type_of_item(nm, '')
             td.left-aligned-column
               a href=ui_path(nm)
                 = nm.id
