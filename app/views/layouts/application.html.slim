@@ -6,7 +6,7 @@ html
     link href="http://feeds.feedburner.com/kabbalah-archive/#{@language}" rel='alternate' title='RSS' type='application/rss+xml'
     meta charset='utf-8'
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
-    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
     meta name="description" content=""
     meta name="author" content=""
 
@@ -37,10 +37,8 @@ html
     = render 'common/navbar'
     .container-fluid.content-wrapper
       = yield
-      /.push
-    /.site-footer
-    /  | This website is maintained by the group of kabbalists "Bnei Baruch"
-    /  | Copyright © 2003-2012. Bnei Baruch, All rights reserved
+      /| This website is maintained by the group of kabbalists "Bnei Baruch"
+      /| Copyright © 2003-2012. Bnei Baruch, All rights reserved
 
     javascript:
       var zclip_list = new Array;

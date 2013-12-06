@@ -763,14 +763,6 @@ header {
     padding: 10px;
     background-color: #666;
     @include box-sizing(border-box);
-    @include translate(-100%, 0);
-    //@include transition(opacity 0.3s 0 linear);
-    @include transition(all 0.3s 0 linear);
-    &.show-left{
-      @include translate(0, 0);
-      //@include transition(opacity 0.3s 0.4s linear);
-      //@include transition(all 0.3s 0.4s linear);
-    }
     #sidebar {
       margin-top: 0 !important;
     }
@@ -1015,4 +1007,18 @@ header {
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+}
+
+html, body, .main-layout, .full-screen, .content-wrapper {
+  height: 100%;
+}
+#content {
+  background-color: #cccccc;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -1px; /* the bottom margin is the negative value of the footer's height */
+}
+.site-footer, .push {
+  height: 1px; /* .push must be the same height as .footer */
 }

@@ -369,7 +369,7 @@
         $(document).on('click', '.left-menu-btn', function () {
 //           $('.right-mobile-menu').hide();
 //            $('.left-mobile-menu').show();
-            $('#content, .left-mobile-menu').toggleClass("show-left");
+            $('#content').toggleClass("show-left");
         });
 //        $(document).on('click','.right-menu-btn', function(){
 //           $('.right-mobile-menu').show();
