@@ -54,11 +54,11 @@
                         $('input, select').on('touchstart mousedown', function (e) {
                             e.stopPropagation();
                         });
-                        myScroll = new iScroll('left-mobile-menu', { scrollbarClass: 'myScrollbar' });
+//                        myScroll = new iScroll('left-mobile-menu');
                     },
                     unmatch: function () {
-                        myScroll.destroy();
-                        myScroll = null;
+//                        myScroll.destroy();
+//                        myScroll = null;
 
                         $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
                         $('.main-layout').prepend($('#sidebar'));
