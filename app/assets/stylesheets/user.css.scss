@@ -970,7 +970,18 @@ header {
       .modal-body {
         position: relative;
         padding: 0;
-        //width: 700px;
+        .categories {
+          ul li {
+            position: relative;
+            a {
+              position: static;
+              display: inline;
+              .expander {
+                right: 5px;
+              }
+            }
+          }
+        }
         .categories-holder {
           overflow-x: auto;
           overflow-y: hidden;
@@ -995,16 +1006,4 @@ header {
 
 html, .main-layout, .full-screen, .content-wrapper {
   height: 100%;
-}
-
-#content {
-  background-color: #cccccc;
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin-bottom: -1px; /* the bottom margin is the negative value of the footer's height */
-}
-
-.site-footer, .push {
-  height: 1px; /* .push must be the same height as .footer */
 }

@@ -288,7 +288,14 @@
         });
     }
 
+    function window_resize() {
+        $('#content').css('min-height', $(window).height() - $('.navbar').outerHeight() + 1);
+    }
+
     $(function () {
+        window_resize();
+        $(window).resize(window_resize);
+
         $('#dates_range').daterangepicker({
             opens: (opens_dates_range === 'undefined') ? '' : opens_dates_range,
             format: 'yyyy-MM-dd',
