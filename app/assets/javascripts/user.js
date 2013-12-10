@@ -43,8 +43,8 @@
                             .append($('.top-menu-div .languages'))
                             .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
                             .append($('.top-menu-div form'))
-                            .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
-                            .append($('#categories-menu'))
+//                            .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
+//                            .append($('#categories-menu'))
                             .append('<h4>' + $('#sidebar').data('title') + '</h4>')
                             .append($('#sidebar'))
                             .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
@@ -54,15 +54,15 @@
                         $('input, select').on('touchstart mousedown', function (e) {
                             e.stopPropagation();
                         });
-//                        myScroll = new iScroll('left-mobile-menu');
+                        myScroll = new iScroll('left-mobile-menu');
                     },
                     unmatch: function () {
-//                        myScroll.destroy();
-//                        myScroll = null;
+                        myScroll.destroy();
+                        myScroll = null;
 
                         $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
                         $('.main-layout').prepend($('#sidebar'));
-                        $('#content .topbanner').after($('#categories-menu'));
+//                        $('#content .topbanner').after($('#categories-menu'));
                         $('.left-mobile-menu').remove();
                         $('#content').removeClass("show-left");
                     }
