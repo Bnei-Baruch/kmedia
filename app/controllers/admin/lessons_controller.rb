@@ -49,6 +49,8 @@ class Admin::LessonsController < Admin::ApplicationController
 
   def edit
     authorize_and_build_language_maps
+
+    @lessons = Lesson.where(:marked_for_merge => true)
   end
 
   def update

@@ -8,6 +8,17 @@
 = render 'form'
 
 #myModal.modal.fade.in{:style => 'display: none;'}
+  - if @lesson
+    - if @lessons.count == 0
+      .modal-header
+        %a.close{:'data-dismiss' => 'modal'} &times;
+        %h3 empty
+    - elsif @lessons.map(&:id).include? @lesson.id
+      .modal-header
+        %a.close{:'data-dismiss' => 'modal'} &times;
+        %h3 recursion
+    - else
+      = render 'merge_get_list'
 
 #nothing.modal.alert.alert-block.alert-error.fade.in{:style => 'display: none;'}
   .modal-header
@@ -41,18 +52,19 @@
   }
 
   function merge_to_me_get_list(button) {
-    var $button = $(button);
-    var merge_path = $button.data('merge-path');
+    //var $button = $(button);
+    //var merge_path = $button.data('merge-path');
     // Get list of catalogs to merge into...
-    $.get(merge_path, function(data){
-      if (data == 'empty') {
-        $('#nothing').modal();
-        return;
-      }
-      if (data == 'recursion') {
-        $('#recursion').modal();
-        return;
-      }
-      $('#myModal').html(data).modal();
-    });
+    //$.get(merge_path, function(data){
+    //  if (data == 'empty') {
+    //    $('#nothing').modal();
+    //    return;
+    //  }
+    //  if (data == 'recursion') {
+    //    $('#recursion').modal();
+    //    return;
+    //  }
+    //  $('#myModal').html(data).modal();
+      $('#myModal').modal();
+    //});
   }

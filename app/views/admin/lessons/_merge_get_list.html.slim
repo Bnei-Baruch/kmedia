@@ -1,0 +1,15 @@
+.modal-header
+  a.close data-dismiss='modal' &times;
+  h3 Mark containers to merge into the current one...
+.modal-body
+  = form_for ['merge_admin', @lesson], method: :post, html: { class: 'well form-vertical' } do |f|
+    .control-group.check_boxes.optional.lesson_container_ids
+      - @lessons.all.each do |lesson|
+        .controls.error
+          label.checkbox
+            = check_box_tag 'lesson[container_ids][]', lesson.id, class: 'check_boxes optional'
+            = lesson.lessonname
+            = hidden_field_tag 'lesson[container_ids][]'
+    .modal-footer
+      button.btn.btn-danger type='submit' href='#' Merge
+      a.btn href='#' data-dismiss='modal' Close
