@@ -594,7 +594,7 @@ header {
   &:after {
     content: asset-url('no_results.png', image);
     position: absolute;
-    top: 50px;
+    bottom: -270px;
     left: 50%;
     margin-left: -113px;
   }
@@ -1006,4 +1006,26 @@ header {
 
 html, .main-layout, .full-screen, .content-wrapper {
   height: 100%;
+}
+
+.search-results {
+  dl {
+    margin: 10px 0 20px 0;
+    line-height: 30px;
+  }
+  dt, dd {
+    display: inline;
+  }
+  dd {
+    margin: 0 15px 0 0;
+  }
+  dt {
+    font-size: 13px;
+    font-weight: normal;
+  }
+  .btn {
+    overflow: hidden;
+    max-width: 240px;
+    text-overflow: ellipsis;
+  }
 }

@@ -149,6 +149,10 @@ module LayoutHelper
     catalog['catalognodename']
   end
 
+  def display_catalog_name_by_id(catalog_id, language_code3)
+    Catalog.catalog_name(catalog_id, language_code3)
+  end
+
   def display_catalog_link(catalog, children)
     "#{catalog['catalognodename']} #{children.nil? ? '' : " <span class='children-amount'>(#{children.length})</span> <span class='expander'></span>"}"
   end

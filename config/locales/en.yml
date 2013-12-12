@@ -19,6 +19,12 @@ en:
       body: 'Comment'
   ui:
     content:
+      search: 'Search:'
+      catalog: 'Catalog:'
+      content_type: 'Content Type:'
+      media_type: 'Media Type:'
+      published: 'Published:'
+      language: 'Language:'
       results: 'Results %{from} - %{to} of %{of}'
       no_results: 'No results'
     catalog:

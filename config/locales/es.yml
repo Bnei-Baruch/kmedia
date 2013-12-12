@@ -16,6 +16,12 @@ es:
       body: 'Comentario'
   ui:
     content:
+      search:  'Buscar:'
+      catalog: 'Catalog:'
+      content_type: 'Tipo de Contenido:'
+      media_type: 'Tipo de Medio:'
+      published: 'Publicado:'
+      language: 'Idioma:'
       results: 'Resultados %{from} - %{to} de %{of}'
       no_results: 'Sin resultados'
     catalog:

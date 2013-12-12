@@ -257,6 +257,21 @@
             $('#search_language_ids').val($('#language_ids').val());
             $('#new_search').submit();
         });
+
+        // clear button on search results
+        $('.search-results dd .btn[data-id]').on('click', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var target = $(this).data('id');
+            $(target).val('');
+            target = $(this).data('id-more');
+            if (target !== undefined) {
+                $(target).val('');
+            }
+            $('#new_search').submit();
+
+            return false;
+        });
     });
 
     function date_type(start, end) {

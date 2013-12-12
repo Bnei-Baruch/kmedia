@@ -16,6 +16,12 @@ de:
       body: 'Kommentar'
   ui:
     content:
+      search: 'Sucher:'
+      catalog: 'Verzeichnis:'
+      content_type: 'Inhalt:'
+      media_type: 'Typ:'
+      published: 'Datum:'
+      language: 'Sprache:'
       results: 'Leistung %{from} - %{to} aus %{of}'
       no_results: 'Keine Leistung'
     catalog:

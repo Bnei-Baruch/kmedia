@@ -16,6 +16,12 @@ he:
       body: 'תוכן התגובה'
   ui:
     content:
+      search: 'חפש:'
+      catalog: 'קטלוג:'
+      content_type: 'סוג תוכן:'
+      media_type: 'סוג חדיה:'
+      published: 'תאריך:'
+      language: 'שפה:'
       results: 'תוצאות חיפוש: %{from} - %{to} מתוך %{of}'
       no_results: 'לא נמצאו תוצאות'
     catalog:

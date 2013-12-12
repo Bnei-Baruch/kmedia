@@ -2,11 +2,55 @@
   = render 'common/topbanner'
   = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
   = render 'tags_cloud'
-  - if @no_results
-    h4.no-results = t('ui.content.no_results')
-  - else
-    h4 = t('ui.content.results', from: (@results.current_page - 1) * @results.limit_value + 1, to: [(@results.current_page * @results.limit_value).to_i, @total].min, of: @total)
-
+  - search = @search || Search.new
+  .search-results class='#{@no_results ? 'no-results' : ''}'
+    - if @no_results
+      h4 = t('ui.content.no_results')
+    - else
+      h4 = t('ui.content.results', from: (@results.current_page - 1) * @results.limit_value + 1, to: [(@results.current_page * @results.limit_value).to_i, @total].min, of: @total)
+    dl
+      - unless search.query_string.blank?
+        dt = t('ui.content.search')
+        dd
+          .btn-group
+            .btn.btn-small.disabled = search.query_string
+            a.btn.btn-small href='#' data-id='#search_query_string'
+              span &times;
+      - if search.catalog_ids
+        dt = t('ui.content.catalog')
+        dd
+          .btn-group
+            .btn.btn-small.disabled = display_catalog_name_by_id(search.catalog_ids.first, @language)
+            a.btn.btn-small href='#' data-id='#search_catalog_ids'
+              span &times;
+      - unless search.content_type_id.blank?
+        dt = t('ui.content.content_type')
+        dd
+          .btn-group
+            .btn.btn-small.disabled = t("ui.sidebar.type.#{search.content_type}")
+            a.btn.btn-small href='#' data-id='#search_content_type_id'
+              span &times;
+      - if search.media_type_id
+        dt = t('ui.content.media_type')
+        dd
+          .btn-group
+            .btn.btn-small.disabled = t("ui.sidebar.type.#{search.media_type}")
+            a.btn.btn-small href='#' data-id='#search_media_type_id'
+              span &times;
+      - if !search.date_type.blank? && search.date_type != 'anytime'
+        dt = t('ui.content.published')
+        dd
+          .btn-group
+            .btn.btn-small.disabled == strip_tags(search.dates_range_text.gsub('<br>', ' &ndash; '))
+            a.btn.btn-small href='#' data-id='#search_date_type' data-id-more='#search_dates_range'
+              span &times;
+      - if search.language_ids
+        dt = t('ui.content.language')
+        dd
+          .btn-group
+            .btn.btn-small.disabled = Language::CODE3_LOCALE[search.language]
+            a.btn.btn-small href='#' data-id='#search_language_ids'
+              span &times;
     = paginate @hits, :window => 2
     = render @results
     = paginate @hits, :window => 2

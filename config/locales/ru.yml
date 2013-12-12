@@ -16,6 +16,12 @@ ru:
       body: 'Отзыв'
   ui:
     content:
+      search: 'Искать:'
+      catalog: 'Каталог:'
+      content_type: 'Тип данных:'
+      media_type: 'Тип контента:'
+      published: 'Дата:'
+      language: 'Язык:'
       results: 'Результаты %{from} - %{to} из %{of}'
       no_results: 'Ничего не найдено'
     catalog:
