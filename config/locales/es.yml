@@ -41,7 +41,7 @@ es:
       first_day_of_week: 2
       abbr_day_names: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do']
       month_names: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-      anytime: 'Qualquier tiempo'
+      anytime: 'Todas'
       today: 'Hoy'
       yesterday: 'Ayer'
       last_7_days: 'Ultimas 7 dias'
@@ -49,7 +49,7 @@ es:
       this_month: 'Esta mes'
       last_month: 'Ultima mes'
       type:
-        all: 'Qualquier'
+        all: 'Todos'
         lesson: 'Clase'
         lecture: 'Lectura'
         program: 'Programa'
