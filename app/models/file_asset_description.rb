@@ -3,4 +3,8 @@ class FileAssetDescription < ActiveRecord::Base
   self.primary_key = :filedescid
 
   belongs_to :file_asset, :foreign_key => :fileid
+
+  def to_s
+    filedesc
+  end
 end
