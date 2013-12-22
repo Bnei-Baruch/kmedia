@@ -18,3 +18,5 @@ module ActiveRecord
 end
 
 I18n.enforce_available_locales = false
+
+MultiJson.use :yajl
