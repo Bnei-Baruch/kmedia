@@ -65,6 +65,7 @@ class Admin::LessonsController < Admin::ApplicationController
     else
       @lesson_descriptions = sort_descriptions
       @lesson_transcripts = sort_transcripts
+      @lessons = Lesson.where(:marked_for_merge => true)
       render :edit
     end
   end
