@@ -31,10 +31,9 @@
                 h5= t('ui.lesson.download')
                 = download_lessons(lesson, 'video', l)
                 = download_lessons(lesson, 'audio', l)
-                = download_lessons(lesson, 'text', l)
-                = download_lessons(lesson, 'graph', l)
+                = download_lessons(lesson, 'text', l, true)
+                = download_lessons(lesson, 'graph', l, true)
               .pull-left.padding-left
                 h5= t('ui.lesson.view_play')
                 = download_lessons(lesson, 'video', l, true)
                 = download_lessons(lesson, 'audio', l, true)
-                = download_lessons(lesson, 'text', l, true)
