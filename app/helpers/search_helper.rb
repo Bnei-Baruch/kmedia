@@ -4,6 +4,7 @@ module SearchHelper
     pattern = item.content_type.try(:pattern)
     pattern = 'program' if pattern == 'magazine'
     pattern = 'image' if pattern == 'graph'
+    pattern = 'book' if pattern == 'text'
     "<i class='icon-km#{size}-#{pattern}'></i>".html_safe
   end
 
@@ -28,8 +29,6 @@ module SearchHelper
                  '<i class="icon-km-small-white-video"></i>&nbsp;'
                when 'audio'
                  '<i class="icon-km-small-white-audio"></i>&nbsp;'
-               when 'magazine', 'program'
-                 '<i class="icon-km-small-white-program"></i>&nbsp;'
                when 'image', 'graph'
                  '<i class="icon-km-small-white-image"></i>&nbsp;'
                else
@@ -77,11 +76,11 @@ module SearchHelper
                        "<div class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{filetype}</a></div>"
                      else
                        # Many files - show as dropdown
-                       "<div class='btn btn-mini dropdown-toggle' data-toggle='dropdown'><a href='javascript:;'>#{filetype} <span class='caret'></span></a></div><ul class='dropdown-menu'>" +
+                       "<div class='btn-group'><div class='btn btn-mini dropdown-toggle' data-toggle='dropdown'><a href='javascript:;'>#{filetype} <span class='caret'></span></a></div><ul class='dropdown-menu'>" +
                            files.inject('') do |memo, fa|
                              "#{memo}<li><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{file_asset_title(fa)}</a></li>"
                            end +
-                           '</ul>'
+                           '</ul></div>'
                      end
     end
 
