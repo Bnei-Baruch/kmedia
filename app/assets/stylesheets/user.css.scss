@@ -160,6 +160,7 @@ header {
     }
   }
   .item-list-data {
+    min-height: 111px;
     background: #fff;
     padding: 10px 0;
     @include border-radius(0 5px 5px 0);

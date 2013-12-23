@@ -13,7 +13,7 @@ header.subhead#overview
       .modal-header
         a.close data-dismiss='modal' &times;
         h3 empty
-    - eilelsif @lessons.map(&:id).include? @lesson.id
+    - elsif @lessons.map(&:id).include? @lesson.id
       .modal-header
         a.close data-dismiss='modal' &times;
         h3 recursion
