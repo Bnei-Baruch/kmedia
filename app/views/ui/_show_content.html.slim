@@ -2,7 +2,6 @@
   = render 'common/topbanner'
   = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
   = render 'tags_cloud'
-  - search = @search || Search.new
   .search-results class='#{@no_results ? 'no-results' : ''}'
     - if @no_results
       h4 = t('ui.content.no_results')
@@ -20,7 +19,7 @@
         dt = t('ui.content.catalog')
         dd
           .btn-group
-            .btn.btn-small.disabled = display_catalog_name_by_id(search.catalog_ids.first, @language)
+            .btn.btn-small.disabled = Catalog.simple_catalog_name(search.catalog_ids.first, @language)
             a.btn.btn-small href='#' data-id='#search_catalog_ids'
               span &times;
       - unless search.content_type_id.blank?
@@ -52,5 +51,5 @@
             a.btn.btn-small href='#' data-id='#search_language_ids'
               span &times;
     = paginate @hits, :window => 2
-    = render @results
+      = render @results
     = paginate @hits, :window => 2

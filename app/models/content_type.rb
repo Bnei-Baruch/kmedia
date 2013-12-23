@@ -8,5 +8,6 @@ class ContentType < ActiveRecord::Base
     CONTENT_TYPE_ID[name] = ct.try(:id)
   end
 
-  ContentType::CONTENT_PROGRAM = ContentType.find_by_pattern('program')
+  CONTENT_PROGRAM = CONTENT_TYPE_ID['program']
+  CONTENT_BOOK = CONTENT_TYPE_ID['book']
 end
