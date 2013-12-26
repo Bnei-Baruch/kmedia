@@ -8,7 +8,7 @@ class StringParser
     month = @string[/((19|20)\d\d)-(0?[1-9]|1[012])-([^a-z0-9][1-9]|0[1-9]|[12][0-9]|3[01])/, 3]
     day = @string[/((19|20)\d\d)-(0?[1-9]|1[012])-([^a-z0-9][1-9]|0[1-9]|[12][0-9]|3[01])/, 4]
     if year.blank? || month.blank? || day.blank?
-      Date.today.to_s.split('-')
+      Date.today.to_s.split('-').map(&:to_i)
     else
       [year.to_i, month.to_i, day.to_i]
     end
