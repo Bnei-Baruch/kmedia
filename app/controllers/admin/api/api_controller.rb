@@ -44,7 +44,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
     @search.per_page = per_page_file_ids(params[:created_from_date])
     # containers
     search_result = @search.search_full_text(1)
-    return render json: {error: @search.error, ids: []} unless search_result   #handle if error
+    return render json: {error: @search.error, ids: []} unless search_result #handle if error
 
     lessons = search_result.results
     if lessons.kind_of?(Array)
@@ -56,8 +56,6 @@ class Admin::Api::ApiController < Admin::ApplicationController
       render json: {ids: files.collect(&:fileid).join(',')}
     end
   end
-
-
 
 
   #request
@@ -296,6 +294,27 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   def patterns
     render json: LessondescPattern.multipluck(:lang, :pattern, :description).to_json
+  end
+
+  def morning_lesson_files
+    from_date = params[:from_date] || Date.yesterday.to_s
+    morning_lesson_catalog = Catalog.find_by_catalognodename('lessons-part')
+    morning_lesson_catalogs = Catalog.descendant_catalogs(morning_lesson_catalog) if morning_lesson_catalog
+    morning_lesson_catalogs_ids = morning_lesson_catalogs.collect(&:catalognodeid).join(",") rescue []
+    @search = Search.new(catalog_ids: morning_lesson_catalogs_ids, date_from: from_date)
+
+    # find the morning lessons
+    search_result = @search.search_full_text(1)
+    #handle the error
+    return render json: {error: @search.error} unless search_result
+    @lessons = search_result.results
+    files = @lessons.map(&:file_assets).flatten
+    @lang_hash = files.group_by(&:filelang)
+    @lang_hash.each do |lang, files_by_lang|
+      @lang_hash[lang]= files_by_lang.group_by { |f| f.filedate.to_date }
+    end
+
+    @lang_hash
   end
 
   private
