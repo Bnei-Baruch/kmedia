@@ -1,5 +1,5 @@
 class Admin::Api::ApiController < Admin::ApplicationController
-  skip_before_filter :authenticate_user!, only: [:patterns, :languages]
+  skip_before_filter :authenticate_user!, only: [:patterns, :languages, :morning_lesson_files]
   before_filter :check_permissions
   # In order to get any service you have to authenticate via
   # POST /admin/api/tokens.json with email and password in body
