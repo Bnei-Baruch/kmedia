@@ -104,11 +104,11 @@ class Search
   end
 
   def date_from=(date)
-    @date_from = parse_time(date)
+    @date_from = parse_date(date)
   end
 
   def date_to=(date)
-    @date_to = parse_time(date)
+    @date_to = parse_date(date)
   end
 
   def created_from_date=(date)
@@ -236,6 +236,10 @@ class Search
 
   def parse_time(time)
     Time.parse(time) rescue nil
+  end
+
+  def parse_date(date)
+    Date.parse(date) rescue nil
   end
 
 end
