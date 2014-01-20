@@ -147,8 +147,8 @@ class Search
         query.with(:media_type_ids).any_of @media_exts if @media_type_id.present?
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
         query.with(:lessondate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
-        query.with(:lessondate).greater_than(@date_from) if @date_from.present? && @date_to.blank?
-        query.with(:lessondate).less_than(@date_to) if @date_to.present? && @date_from.blank?
+        query.with(:lessondate).greater_than_or_equal_to(@date_from) if @date_from.present? && @date_to.blank?
+        query.with(:lessondate).less_than_or_equal_to(@date_to) if @date_to.present? && @date_from.blank?
         query.with(:created).greater_than(@created_from_date) if @created_from_date.present?
 
         case @date_type
