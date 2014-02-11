@@ -3,6 +3,7 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
 
   def index
     @catalogs = Catalog.selected_catalogs_ar('ENG').includes(:parent)
+    @books = Catalog.where(books_catalog: true).first
   end
 
   def new
@@ -22,6 +23,28 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
     else
       render :edit
     end
+  end
+
+  def new_books
+    @catalog = Catalog.new
+  end
+
+  def set_books
+    name = params[:catalog][:catalognodename]
+    catalog = Catalog.where(catalognodename: name).first
+    books_catalogs = Catalog.where(books_catalog: true)
+    if catalog && books_catalogs.each{|catalog| catalog.update_attribute(:books_catalog, false)} && catalog.update_attribute(:books_catalog, true)
+      redirect_to admin_selected_catalogs_url, :notice => "Successfully selected Books Root Catalog."
+    else
+      @catalog = Catalog.new({catalognodename: name})
+      @catalog.errors.add(:catalognodename, "Catalog \"#{name}\" does not exist.")
+      render :new_books
+    end
+  end
+
+  def unset_books
+    Catalog.find(params[:id]).update_attribute(:books_catalog, false)
+    redirect_to :action => 'index', :notice => "Successfully unselected Books Root Catalog."
   end
 
   def set_selected

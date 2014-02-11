@@ -7,6 +7,7 @@
 @import "icon-km";
 @import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
+@import "books";
 @import "bootstrap-rtl";
 
 $mobile-fixed-navbar-height: 40px;
@@ -54,6 +55,7 @@ body {
   @include border-radius(5px);
   padding: 0 0 15px;
   margin: 140px 0 0 !important;
+  position: relative;
   #language_ids {
     width: 100%;
   }

@@ -42,12 +42,16 @@ class UiController < ApplicationController
     @descriptions = Lesson.get_all_descriptions(@item)
   end
 
+  def google_ads
+  end
+
   private
 
   def setup
     @language = Language.where(locale: @locale).pluck(:code3).first
     @boost_tree = Catalog.boost_json(@language)
     @selected_catalogs = Catalog.selected_catalogs(@language)
+    @books_catalog = Catalog.books_catalog(@language).try(:first)
     @search = Search.new(params[:search])
   end
 end

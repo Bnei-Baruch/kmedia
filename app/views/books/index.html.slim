@@ -1,0 +1,21 @@
+.full-screen
+  .row-fluid.main-layout
+    = render 'common_ui/sidebar', search: @search
+    #content.span9
+      = render 'common/topbanner'
+      .books-catalog
+        h3 = @books_catalog['catalognodename']
+        .scroll-wrapper
+          .list-wrapper
+            ul.books-root-list
+              - @boost_tree[@books_catalog['catalognodeid']].each do |node|
+                - id = node['catalognodeid']
+                - name = node['catalognodename']
+                - children = @boost_tree[id]
+                - has_children = !children.nil?
+                li.books-sub-catalog-item
+                  a.books-expander href='javascript: void(0)' data-node-id='#{id}' data-has-children='#{has_children}' = name
+                  - if has_children
+                    = render 'node', nodes: children
+                  - else
+                    = render 'leaf', id: id

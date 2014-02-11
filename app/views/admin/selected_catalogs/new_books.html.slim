@@ -1,0 +1,5 @@
+header.subhead#overview
+  h2 New Books Root Catalog
+
+= simple_form_for @catalog, url: set_books_admin_selected_catalogs_path, method: :post do |f|
+  = render 'books_form', :f => f
