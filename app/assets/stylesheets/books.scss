@@ -1,20 +1,15 @@
 .books-catalog-button {
-  position: absolute;
-  height: 80px;
-  top: -90px;
-  line-height: 70px;
-  font-size: 20px;
-  white-space: nowrap;
-  font-weight: bold;
+  padding : 9px 15px 0;
 }
 
-.books-root-list{
-  overflow: hidden;
+.books-root-list {
+  overflow : hidden;
 }
+
 .books-catalog {
   position      : relative;
   background    : #fff;
-  border-radius : 5px;
+  @include border-radius(5px);
   box-shadow    : 0 0 7px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.7);
   padding       : 10px 0 10px;
   margin        : 0 0 20px;
@@ -34,8 +29,9 @@
     white-space   : nowrap;
   }
 }
-.books-expander{
-  position: relative;
+
+.books-expander {
+  position : relative;
   &:after {
     content      : "";
     position     : absolute;
@@ -47,8 +43,8 @@
     top          : 15px;
     right        : 15px;
   }
-  .expand>&{
-    &:after{
+  .expand > & {
+    &:after {
       border-width : 9px 5px 0 5px;
       border-color : #333333 transparent;
       top          : 17px;
@@ -81,7 +77,7 @@
     height        : 40px;
     line-height   : 40px;
     border        : 1px solid #e0e0e0;
-    border-radius : 2px;
+    @include border-radius(2px);
     margin        : 5px;
     position      : relative;
     background    : #f9f9f9;
@@ -99,23 +95,22 @@
     }
   }
   &.expand {
-    height   : auto;
-    overflow : visible;
+    height      : auto;
+    overflow    : visible;
     padding-top : 10px;
-    &:last-child{
-      position:relative;
-      &:before{
-        content: "";
-        width: 5px;
-        position:absolute;
-        top:26px;
-        bottom:0;
-        left:-3px;
-        background: #fff;
+    &:last-child {
+      position : relative;
+      &:before {
+        content    : "";
+        width      : 5px;
+        position   : absolute;
+        top        : 26px;
+        bottom     : 0;
+        left       : -3px;
+        background : #fff;
       }
-      //background: red;
     }
-    >.books-expander{
+    > .books-expander {
       margin-top : -5px;
     }
     > ul {
@@ -127,12 +122,6 @@
         width      : 5px;
         left       : -1px;
         bottom     : 0;
-      }
-      &:after {
-//        border-width : 12px 7px 0;
-//        border-color : #333333 transparent;
-//        top          : -25px;
-//        right        : 21px;
       }
       &.books-catalog-results {
         &:after {
@@ -166,3 +155,58 @@
   }
 }
 
+/* Landscape phone to portrait tablet */
+@media (max-width : 767px) {
+  .books-catalog {
+    border-radius : 0;
+  }
+  .books-sub-catalog-item {
+    padding          : 0;
+    height           : 40px;
+    background-color : rgba(0, 0, 0, 0.05);
+    > a {
+      border     : 0;
+      background : none;
+      margin     : 0;
+      &:hover {
+        background : none;
+      }
+      &:before {
+        display : none;
+      }
+    }
+    .books-sub-catalog {
+      margin : 0;
+      border : 0;
+    }
+    &.expand {
+      padding-top : 0;
+      > .books-expander {
+        margin-top : 0;
+      }
+      &:last-child {
+        &:before {
+          display : none;
+        }
+      }
+      > ul {
+        &:before {
+          display : none;
+        }
+      }
+    }
+  }
+  .books-catalog-results {
+    @include gradient-vertical(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
+    background-color : transparent;
+    padding-bottom   : 0.1px;
+  }
+  .books-catalog-results-item {
+    border-radius    : 4px;
+    background-color : #fff;
+    margin           : 0 5px 5px;
+    .languages-bar .nav-tabs {
+      background-color : #f2f2f2;
+    }
+  }
+}

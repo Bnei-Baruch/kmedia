@@ -1,5 +1,7 @@
 #sidebar.span3 data-title='Side Bar'
-  = link_to @books_catalog['catalognodename'], books_path, class: 'books-catalog-button btn btn-block btn-primary hidden-phone'
+  - if @books_catalog
+    .books-catalog-button
+      = link_to @books_catalog['catalognodename'], books_path, class: 'btn btn-block btn-inverse'
 
   ul.nav.nav-list
     li.clear-filters
