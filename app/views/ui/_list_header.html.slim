@@ -10,7 +10,7 @@
               a href="javascript:;" data-has-children="leaf" data-node-id="#{id}" = display_catalog_name(catalog)
             - else
               a href="#cat-#{id}" data-toggle="modal" = display_catalog_name(catalog)
-            .category-modal.modal.hide id="cat-#{id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false' data-id='#{id}'
+            .category-modal.modal.hide id="cat-#{id}" tabindex="-1" role="dialog" data-backdrop='false' data-id='#{id}'
               .modal-header
                 button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
                 | &nbsp;

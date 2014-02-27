@@ -42,8 +42,10 @@ module SearchHelper
     description.try(:second) || description.try(:first) || item.lessonname
   end
 
-  def lesson_description(item)
-    descriptions = @descriptions[item.id]
+  def lesson_description(lesson)
+    descriptions = @descriptions ?
+        @descriptions[lesson.id] :
+        lesson.lesson_descriptions.select{|x| x.lessonid == lesson.id}
     description_lang = descriptions.select { |d| d.lang == @language }[0]
     description_eng = descriptions.select { |d| d.lang == 'ENG' }[0]
 
@@ -59,13 +61,13 @@ module SearchHelper
     (item.file_asset_descriptions.select { |d| d.lang == @language } || item.file_asset_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:filedesc) || item.filename
   end
 
-  def download_lessons(item, type, lang, play = false)
+  def download_lessons(item_file_assets, type, lang, play = false)
     # Find requested language
     lang = Language::LOCALE_CODE3[lang]
     # We'll show file assets as Button group
     file_assets = ''
     # Select only files of requested type (video/audio/text) and language
-    item.file_assets.select do |x|
+    item_file_assets.select do |x|
       FileType::EXT_TYPE[x.filetype.downcase] == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
       # Order by ext and split into chunks according to ext
     end.sort.chunk { |fa| fa.filetype }.each do |filetype, files|

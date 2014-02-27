@@ -1,0 +1,82 @@
+header.subhead#overview
+  h2 Special Catalogs
+  p
+    - if can?(:create, Catalog) && Catalog.count_selected_catalogs < 5
+      = link_to "New Selected Catalog", new_admin_selected_catalog_path, :class => 'btn btn-success btn-large pull-left'
+    = link_to "New Books Root Catalog", new_books_admin_selected_catalogs_path, :class => 'btn btn-success btn-large pull-right'
+  h4.clear &nbsp;
+
+section
+  h2 Selected Catalogs
+  table.table.table-striped.table-bordered.table-condensed
+    thead
+      tr
+        th Position
+        th Name
+        th Label
+        th Secure
+        th Visible
+        th Open
+        th Action
+    tbody
+      - @catalogs.each do |catalog|
+        tr(class="#{cycle('odd', 'even')}")
+          td.small = catalog.selected_catalog
+          td
+            - if catalog.parent
+              span.small
+                = catalog.parent.catalognodename.gsub(/\//, ' / ')
+                '  (
+                = catalog.parentnodeid
+                '  ) /
+            span.bold
+              = catalog.catalognodename.gsub(/\//, ' / ')
+              span.small
+                '  (
+                = catalog.catalognodeid
+                |  )
+          td.small = catalog.label
+          td = display_secure(catalog.secure)
+          td = catalog.visible ? 'visible' : 'hidden'
+          td = catalog.open ? 'open' : 'closed'
+          td
+            -if can?(:update, catalog)
+              = link_to 'Edit', edit_admin_selected_catalog_path(catalog)
+          td
+            - if can?(:destroy, catalog)
+              = link_to 'Remove', unset_selected_admin_selected_catalog_path(catalog), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
+
+- if @books.present?
+  section
+    h2 Books Root Catalog
+    table.table.table-striped.table-bordered.table-condensed
+      thead
+        tr
+          th Name
+          th Label
+          th Secure
+          th Visible
+          th Open
+          th Action
+      tbody
+        tr(class="#{cycle('odd', 'even')}")
+          td
+            - if @books.parent
+              span.small
+                = @books.parent.catalognodename.gsub(/\//, ' / ')
+                '  (
+                = @books.parentnodeid
+                '  ) /
+            span.bold
+              = @books.catalognodename.gsub(/\//, ' / ')
+              span.small
+                '  (
+                = @books.catalognodeid
+                |  )
+          td.small = @books.label
+          td = display_secure(@books.secure)
+          td = @books.visible ? 'visible' : 'hidden'
+          td = @books.open ? 'open' : 'closed'
+          td
+            -if can?(:destroy, @books)
+              = link_to 'Remove', unset_books_admin_selected_catalog_path(@books), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'

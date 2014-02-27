@@ -22,6 +22,11 @@
 (function () {
     "use strict";
 
+    $('.books-catalog').on('click', 'a.books-expander', function () {
+        var $this = $(this), $parent = $this.parent('li');
+        $parent.toggleClass('expand');
+    });
+
     var myScroll = null;
 
     Modernizr.load([

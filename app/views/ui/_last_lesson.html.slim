@@ -34,7 +34,7 @@
                     i.icon-km-small-white-video
                 a.left-switch-link href="javascript:;" = t('ui.last_lesson.video')
               .projekktor-container
-                *{class: "video-#{language} projekktor", style:"width:100%;"}
+                div class="video-#{language} projekktor" style="width:100%;"
               javascript:
                 var playlist_#{language}_video = [
                   #{playlist(last_lessons, language, :video)}

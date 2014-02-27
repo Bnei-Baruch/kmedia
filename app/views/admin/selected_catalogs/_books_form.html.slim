@@ -1,0 +1,9 @@
+= display_actions f, admin_selected_catalogs_url
+
+hr.soften
+= display_errors f
+.row
+  .span12
+    = f.input :catalognodename, label: 'Name', input_html: {class: 'span5', data: {autocomplete_source: autocomplete_admin_selected_catalogs_path}}
+hr.soften
+= display_actions f, admin_selected_catalogs_url

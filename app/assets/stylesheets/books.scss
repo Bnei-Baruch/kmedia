@@ -1,0 +1,212 @@
+.books-catalog-button {
+  padding : 9px 15px 0;
+}
+
+.books-root-list {
+  overflow : hidden;
+}
+
+.books-catalog {
+  position      : relative;
+  background    : #fff;
+  @include border-radius(5px);
+  box-shadow    : 0 0 7px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.7);
+  padding       : 10px 0 10px;
+  margin        : 0 0 20px;
+  .back-link {
+    display : none;
+  }
+  ul {
+    margin     : 0; //
+    list-style : none; //
+  }
+  h3 {
+    margin        : 0 0 10px;
+    line-height   : 30px;
+    padding       : 0 20px;
+    text-overflow : ellipsis;
+    overflow      : hidden;
+    white-space   : nowrap;
+  }
+}
+
+.books-expander {
+  position : relative;
+  &:after {
+    content      : "";
+    position     : absolute;
+    width        : 0;
+    height       : 0;
+    border-style : solid;
+    border-width : 5px 0 5px 9px;
+    border-color : transparent #333333;
+    top          : 15px;
+    right        : 15px;
+  }
+  .expand > & {
+    &:after {
+      border-width : 9px 5px 0 5px;
+      border-color : #333333 transparent;
+      top          : 17px;
+      right        : 16px;
+    }
+  }
+}
+
+.books-sub-catalog-item {
+  height   : 47px;
+  overflow : hidden;
+  padding  : 0 0 0 15px;
+  .books-sub-catalog {
+    margin      : -5px 0 0 20px;
+    border-left : 1px solid #e0e0e0;
+  }
+  > ul {
+
+    position : relative;
+
+    &.books-catalog-results {
+      &:after {
+        top : -33px;
+      }
+    }
+  }
+  > a {
+    padding       : 0 20px;
+    display       : block;
+    height        : 40px;
+    line-height   : 40px;
+    border        : 1px solid #e0e0e0;
+    @include border-radius(2px);
+    margin        : 5px;
+    position      : relative;
+    background    : #f9f9f9;
+    &:before {
+      content    : "";
+      position   : absolute;
+      background : #e0e0e0;
+      height     : 1px;
+      width      : 20px;
+      left       : -21px;
+      bottom     : 20px;
+    }
+    &:hover {
+      background : #ffffff;
+    }
+  }
+  &.expand {
+    height      : auto;
+    overflow    : visible;
+    padding-top : 10px;
+    &:last-child {
+      position : relative;
+      &:before {
+        content    : "";
+        width      : 5px;
+        position   : absolute;
+        top        : 26px;
+        bottom     : 0;
+        left       : -3px;
+        background : #fff;
+      }
+    }
+    > .books-expander {
+      margin-top : -5px;
+    }
+    > ul {
+      &:before {
+        content    : "";
+        position   : absolute;
+        background : #ffffff;
+        height     : 21px;
+        width      : 5px;
+        left       : -1px;
+        bottom     : 0;
+      }
+      &.books-catalog-results {
+        &:after {
+          top : -30px;
+        }
+      }
+    }
+  }
+}
+
+.books-catalog-results {
+  a {
+    &:before, &:after {
+      display : none;
+    }
+  }
+}
+
+.books-catalog-results-item {
+  padding       : 10px 20px;
+  border        : 1px solid #b3b3b3;
+  border-radius : 2px;
+  margin        : 5px 5px 0 5px;
+  position      : relative;
+  @include clearfix;
+  .languages-bar {
+    margin : 10px -20px 12px -20px;
+    li.tabs-title {
+      padding : 0 0 0 20px;
+    }
+  }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width : 767px) {
+  .books-catalog {
+    border-radius : 0;
+  }
+  .books-sub-catalog-item {
+    padding          : 0;
+    height           : 40px;
+    background-color : rgba(0, 0, 0, 0.05);
+    > a {
+      border     : 0;
+      background : none;
+      margin     : 0;
+      &:hover {
+        background : none;
+      }
+      &:before {
+        display : none;
+      }
+    }
+    .books-sub-catalog {
+      margin : 0;
+      border : 0;
+    }
+    &.expand {
+      padding-top : 0;
+      > .books-expander {
+        margin-top : 0;
+      }
+      &:last-child {
+        &:before {
+          display : none;
+        }
+      }
+      > ul {
+        &:before {
+          display : none;
+        }
+      }
+    }
+  }
+  .books-catalog-results {
+    @include gradient-vertical(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
+    background-color : transparent;
+    padding-bottom   : 0.1px;
+  }
+  .books-catalog-results-item {
+    border-radius    : 4px;
+    background-color : #fff;
+    margin           : 0 5px 5px;
+    .languages-bar .nav-tabs {
+      background-color : #f2f2f2;
+    }
+  }
+}

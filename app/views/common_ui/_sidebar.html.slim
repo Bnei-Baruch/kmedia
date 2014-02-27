@@ -1,4 +1,8 @@
-.span3#sidebar data-title='Side Bar'
+#sidebar.span3 data-title='Side Bar'
+  - if @books_catalog
+    .books-catalog-button
+      = link_to @books_catalog['catalognodename'], books_path, class: 'btn btn-block btn-inverse'
+
   ul.nav.nav-list
     li.clear-filters
       button.btn.btn-block = t('ui.sidebar.clear_all_filters')
@@ -35,6 +39,5 @@
   ul.nav.nav-list
     li.nav-header= t('ui.sidebar.filter_by_language')
     li
-      = select_tag :language_ids,
-          options_for_select([[t('ui.sidebar.language.all'), 'all']] + Language.order(:language).all.map{|l| ["#{l.language} (#{l.locale})", l.code3]}, selected: search.language),
-          include_blank: false
+      - options = options_for_select([[t('ui.sidebar.language.all'), 'all']] + Language.order(:language).all.map{|l| ["#{l.language} (#{l.locale})", l.code3]}, selected: search.language)
+      = select_tag :language_ids, options, include_blank: false

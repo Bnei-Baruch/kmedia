@@ -11,9 +11,12 @@ Kmedia::Application.routes.draw do
       end
     end
 
+    resources :books, only: [:index, :show]
+
     resources :ui, only: [:index, :show] do
       collection do
         get 'homepage'
+        get 'google_ads'
       end
       member do
         get 'homepage_show'
@@ -77,10 +80,13 @@ Kmedia::Application.routes.draw do
 
       resources :selected_catalogs, only: [:index, :new, :edit, :update] do
         collection do
+          get 'new_books'
+          post 'set_books'
           post 'set_selected'
           get 'autocomplete'
         end
         member do
+          delete 'unset_books'
           delete 'unset_selected'
         end
       end

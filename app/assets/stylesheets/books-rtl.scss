@@ -1,0 +1,57 @@
+.rtl {
+  .books-expander {
+    &:after {
+      border-width : 5px 9px 5px 0;
+      left         : 15px;
+      right        : auto;
+    }
+  }
+  .expand {
+    > .books-expander {
+      &:after {
+        border-width : 9px 5px 0 5px;
+        right        : auto;
+        left         : 16px;
+
+      }
+    }
+  }
+  .books-sub-catalog-item {
+    padding : 0 15px 0 0;
+    &.expand {
+      padding-top : 10px;
+      > ul {
+        &:before {
+          right : -1px;
+          left  : auto;
+        }
+      }
+    }
+    > a {
+      &:before {
+        right : -21px;
+        left  : auto;
+      }
+    }
+    .books-sub-catalog {
+      margin       : -5px 20px 0 0;
+      border-left  : none;
+      border-right : 1px solid #e0e0e0;
+    }
+  }
+  /* Landscape phone to portrait tablet */
+  @media (max-width : 767px) {
+    .books-sub-catalog-item {
+      padding : 0;
+      &.expand {
+        padding-top : 0;
+      }
+      .books-sub-catalog {
+        margin : 0;
+        border : 0;
+      }
+    }
+  }
+}
+
+

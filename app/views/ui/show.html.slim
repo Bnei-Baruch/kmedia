@@ -3,7 +3,7 @@
 - description = long_description.blank? ? short_description : long_description
 .full-screen
   .row-fluid.main-layout
-    = render 'sidebar', search: @search
+    = render 'common_ui/sidebar', search: @search
     #content.span9
       = render 'common/topbanner'
       .item

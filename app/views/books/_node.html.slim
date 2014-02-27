@@ -1,0 +1,12 @@
+ul.books-sub-catalog
+  - nodes.each do |node|
+    - id = node['catalognodeid']
+    - name = node['catalognodename']
+    - children = @boost_tree[id]
+    - has_children = !children.nil?
+    li.books-sub-catalog-item
+      a.books-expander href="javascript: void(0)" = name
+      - if has_children
+        = render 'node', nodes: children
+      - else
+        = render 'leaf', id: id
