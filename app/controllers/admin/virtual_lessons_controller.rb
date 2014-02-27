@@ -59,7 +59,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
 
     # Renumber VLs
     VirtualLesson.vls_from_date(target.film_date).each_with_index do |vl, index|
-      vl.update_attribute :position, index
+      vl.update_attribute :position, index rescue nil
     end
 
     redirect_to admin_virtual_lessons_path, notice: "Container(s) #{vls.map(&:id).join(',')} successfully moved to #{target.id}"
