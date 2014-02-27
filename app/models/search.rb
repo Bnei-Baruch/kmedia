@@ -10,7 +10,7 @@ class Search
 
   def initialize(attributes = {})
     attributes.each do |name, value|
-      send "#{name}=", value
+      send "#{name}=", value rescue nil # ignore unknown parameters
     end if attributes
     @error = nil
   end
