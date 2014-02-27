@@ -108,4 +108,5 @@ class GoogleAnalytics
   language_change: ->
     this.register_event('UI language change', 'click', $('#languages option:selected').text())
 
-$ -> new GA_Events
+# TODO: temporary disable the GA
+# $ -> new GA_Events
