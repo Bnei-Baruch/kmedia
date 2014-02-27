@@ -7,6 +7,8 @@ en:
     homepage: 'Homepage'
     old_version: 'Old version'
     support: 'Archive Support'
+    languages: 'Languages'
+    top_links: 'Links'
     comment:
       cancel: 'Cancel'
       submit: 'Send comment'
@@ -30,6 +32,7 @@ en:
     catalog:
       all_catalogs: 'All catalogs'
     sidebar:
+      sidebar: 'Filters'
       clear_all_filters: 'Clear all filters'
       filter_by_date: 'Filter by Date'
       filter_by_content_type: 'Filter by Content Type'

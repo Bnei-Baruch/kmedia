@@ -4,6 +4,8 @@ he:
     homepage: 'דף הבית'
     old_version: 'גרסה ישנה'
     support: 'תמיכה'
+    languages: 'שפות'
+    top_links: 'קישורים'
     comment:
       cancel: 'ביטול'
       submit: 'שלח'
@@ -27,6 +29,7 @@ he:
     catalog:
       all_catalogs: 'כל הקטלוגים'
     sidebar:
+      sidebar: 'מסננים'
       clear_all_filters: 'בטל את כל הסינונים'
       filter_by_date: 'סנן לפי תאריך'
       filter_by_content_type: 'סנן לפי סוג תוכן'

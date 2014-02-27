@@ -4,7 +4,7 @@
       a.btn.left-menu-btn.visible-phone.btn-inverse
       = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand
       .top-menu-div
-        ul.nav.top-links data-title='Top Links'
+        ul.nav.top-links data-title="#{t('navbar.top_links')}"
           li
             a href='http://www.kabbalahmedia.info' = t('navbar.old_version')
           li
@@ -19,7 +19,7 @@
           = f.input :dates_range, as: :hidden, :wrapper => 'default'
           = f.input :language_ids, as: :hidden, :wrapper => 'default'
           = f.input :catalog_ids, as: :hidden, :wrapper => 'default'
-        = select_tag 'languages', options_for_select(@menu_languages, selected: @current_menu_language), class: 'languages', :'data-title' => 'Languages'
+        = select_tag 'languages', options_for_select(@menu_languages, selected: @current_menu_language), class: 'languages', :'data-title' => t('navbar.languages')
 
 #leave-comment.modal.hide tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false'
   .modal-header

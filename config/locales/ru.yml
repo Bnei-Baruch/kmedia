@@ -4,6 +4,8 @@ ru:
     homepage: 'Домашняя страница'
     old_version: 'Старая версия'
     support: 'Поддержка'
+    languages: 'Языки'
+    top_links: 'Ссылки'
     comment:
       cancel: 'Отмена'
       submit: 'Послать отзыв'
@@ -27,6 +29,7 @@ ru:
     catalog:
       all_catalogs: 'Все каталоги'
     sidebar:
+      sidebar: 'Фильтры'
       clear_all_filters: 'Очистить все фильтры'
       filter_by_date: 'Фильтровать по дате'
       filter_by_content_type: 'Фильтровать по типу данных'

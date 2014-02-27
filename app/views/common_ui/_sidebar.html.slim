@@ -1,4 +1,4 @@
-#sidebar.span3 data-title='Side Bar'
+#sidebar.span3 data-title='#{t('ui.sidebar.sidebar')}'
   - if @books_catalog
     .books-catalog-button
       = link_to @books_catalog['catalognodename'], books_path, class: 'btn btn-block btn-inverse'

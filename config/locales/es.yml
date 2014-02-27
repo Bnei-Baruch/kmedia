@@ -4,6 +4,9 @@ es:
     homepage:  'Página principal'
     old_version:  'Versión vieja'
     support:  'Soporte técnico'
+    languages: 'Idiomas'
+    top_links: 'Enlaces'
+
     comment:
       cancel: 'Cancelar'
       submit: 'Enviar comentario'
@@ -27,6 +30,7 @@ es:
     catalog:
       all_catalogs: 'Todos los catalogos'
     sidebar:
+      sidebar: 'Filtros'
       clear_all_filters: 'Borrar todos los filtros'
       filter_by_date: 'Filtrar por Fecha'
       filter_by_content_type: 'Filtrar por Tipo de Contenido'

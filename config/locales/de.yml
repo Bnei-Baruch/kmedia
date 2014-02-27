@@ -4,6 +4,8 @@ de:
     homepage: 'Hause Seite'
     old_version: 'Alt Version'
     support: 'Unterstützen'
+    languages: 'Sprachen'
+    top_links: 'Links'
     comment:
       cancel: 'Absagen'
       submit: 'Stellen'
@@ -27,6 +29,7 @@ de:
     catalog:
       all_catalogs: 'Alle Verzeichnise'
     sidebar:
+      sidebar: 'Filtern'
       clear_all_filters: 'Filter zurücksetzen'
       filter_by_date: 'Nach Datum filtern'
       filter_by_content_type: 'Filtern nach Inhalt'
