@@ -29,6 +29,7 @@ gem 'therubyracer', '0.11.4'
 gem 'dalli'
 
 gem 'the_sortable_tree', git: 'git://github.com/the-teacher/the_sortable_tree.git'
+gem RUBY_VERSION >= '2.0' ? 'i18nema' : 'i18nema19'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
