@@ -1,6 +1,8 @@
 .topbanner.hidden-phone
   - unless BrowserDetector.is_mobile?(request)
-    #google_ads_div_Kabbalah_media
+    - if @language == 'RUS' then ad = 'kabbalahmedia_rus' elsif @language == 'HEB' then ad = 'kabbalahmedia_heb' elsif @language == 'ENG' then ad = 'Kabbalah_media' else ad = 'Kabbalah_media' end
+
+    div id="google_ads_div_#{ad}"
 
     =javascript_include_tag 'http://partner.googleadservices.com/gampad/google_service.js'
     javascript:
@@ -14,5 +16,5 @@
     javascript:
       if (typeof GA_googleUseFriendlyIframeRendering !== 'undefined' && typeof GA_googleFillSlotWithSize !== 'undefined') {
         GA_googleUseFriendlyIframeRendering();
-        GA_googleFillSlotWithSize('ca-pub-9068547212525872', 'Kabbalah_media', 550, 85);
+        GA_googleFillSlotWithSize('ca-pub-9068547212525872', '#{ad}', 550, 85);
       }
