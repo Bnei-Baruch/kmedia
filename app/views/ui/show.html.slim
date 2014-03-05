@@ -10,7 +10,7 @@
       = render 'common/topbanner'
       .item
         .padding-both
-          h3 == "#{type_of_item_text(@item, ':')} #{lesson_title(@item,  [nil, short_description])} (#{filmed})"
+          h1 == "#{type_of_item_text(@item, ':')} #{lesson_title(@item,  [nil, short_description])} (#{filmed})"
           - unless description.blank?
             p.description = description.gsub(/  /, ' ')
             .languages-bar
