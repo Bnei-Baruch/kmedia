@@ -134,4 +134,6 @@ Kmedia::Application.routes.draw do
     end
     end
   end
+
+  get '*path', to: redirect('/'), status: 301
 end
