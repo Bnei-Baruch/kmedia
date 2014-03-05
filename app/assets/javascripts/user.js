@@ -67,7 +67,6 @@
 
                         $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
                         $('.main-layout').prepend($('#sidebar'));
-//                        $('#content .topbanner').after($('#categories-menu'));
                         $('.left-mobile-menu').remove();
                         $('#content').removeClass("show-left");
                     }

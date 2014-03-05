@@ -116,7 +116,7 @@ class FeedsController < ApplicationController
     # ping Google
     open "http://www.google.com/webmasters/tools/ping?sitemap=#{host}/google_mapindex.xml"
 
-    render text: false
+    render text: 'Done'
   end
 
   private
