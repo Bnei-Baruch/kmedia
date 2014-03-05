@@ -127,7 +127,10 @@ header {
   @include box-shadow((0 0 7px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.7)));
   margin     : 0 0 20px;
   padding    : 10px 0;
-  h3, h4 {
+  h1 {
+    font-size: 24.5px;
+  }
+  h1, h4 {
     margin      : 0 0 10px;
     line-height : 1.2;
     small.pull-right {

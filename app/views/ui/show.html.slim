@@ -1,6 +1,8 @@
 - filmed = film_date(@item)
 - long_description, short_description = lesson_description(@item)
 - description = long_description.blank? ? short_description : long_description
+- content_for(:title) do
+  == "#{lesson_title(@item,  [nil, short_description])} (#{filmed})"
 .full-screen
   .row-fluid.main-layout
     = render 'common_ui/sidebar', search: @search
