@@ -3,7 +3,6 @@ class BooksController < ApplicationController
   before_filter :setup
 
   def index
-    @boost_tree = Catalog.boost_json(@language)
     @books_catalog = Catalog.books_catalog(@language).try(:first)
     @boost_tree = Catalog.boost_json(@language)
 

@@ -37,12 +37,14 @@ html
     = render 'common/navbar'
     .container-fluid.content-wrapper
       = yield
-      .copyright
-        .p This website is maintained by the group of kabbalists "Bnei Baruch"
-        .p
+      .footer.hidden-phone
+        p
+          | This website is maintained by the group of kabbalists "Bnei Baruch"
+          br
           | Copyright © 2003-
           = Time.new.year
-        .p Bnei Baruch, All rights reserved
+          br
+          | Bnei Baruch, All rights reserved
 
     javascript:
       var zclip_list = new Array;
