@@ -142,8 +142,6 @@ GEM
     highline (1.6.20)
     hike (1.2.3)
     i18n (0.6.9)
-    i18nema19 (0.0.8)
-      i18n (>= 0.5)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -281,7 +279,6 @@ DEPENDENCIES
   devise (= 2.2.3)
   exception_notification!
   haml
-  i18nema19
   jquery-rails
   jsonify-rails
   kaminari!

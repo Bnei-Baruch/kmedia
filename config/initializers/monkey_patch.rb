@@ -18,6 +18,5 @@ module ActiveRecord
 end
 
 I18n.enforce_available_locales = false
-I18n.backend = I18nema::Backend.new
 
 MultiJson.use :yajl

@@ -6,7 +6,7 @@ gem 'jquery-rails'
 gem 'mysql2', '>= 0.3'
 
 gem 'haml'
-gem 'sass' #, :tag => '3.0.24'
+gem 'sass'
 gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
 gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git', :branch => 'v2.1'
 gem 'nokogiri'
@@ -29,22 +29,17 @@ gem 'therubyracer', '0.11.4'
 gem 'dalli'
 
 gem 'the_sortable_tree', git: 'git://github.com/the-teacher/the_sortable_tree.git'
-gem RUBY_VERSION >= '2.0' ? 'i18nema' : 'i18nema19'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  #gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
-  #gem 'ruby-debug-ide', '>= 0.4.17.beta14'
   gem 'debugger'
   gem 'debugger-xml'
   gem 'sextant' # rake routes in the browser
   gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller'
-  #gem 'coffee-rails-source-maps'
-  #gem "coffee-script-redux-debugger", :git => "git://github.com/JetBrains/coffee-script-redux-debugger.git"
   gem 'puma'
   gem 'zeus'
 end
