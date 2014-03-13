@@ -246,6 +246,9 @@
         .categories-holder {
           text-align : right;
         }
+        .categories {
+          overflow-y: auto;
+        }
       }
     }
   }

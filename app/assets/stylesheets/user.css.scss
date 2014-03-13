@@ -399,9 +399,9 @@ header {
       .column1 {
         margin : 0 !important;
       }
-      .column2, .column2 ul {
-        display : none;
-      }
+      //     .column2, .column2 ul {
+      //     display : none;
+      //   }
     }
   }
 }
@@ -1128,4 +1128,16 @@ html, .main-layout, .full-screen, .content-wrapper {
     max-width     : 240px;
     text-overflow : ellipsis;
   }
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.element p {
+  @include vertical-align;
 }
