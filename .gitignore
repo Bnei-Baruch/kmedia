@@ -26,3 +26,6 @@ public/source_maps/
 public/google*
 .env
 elasticsearch-*/**
+node_modules
+.ruby-version
+.ruby-gemset

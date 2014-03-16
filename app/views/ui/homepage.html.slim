@@ -1,3 +1,5 @@
+- content_for(:title) do
+  = t('ui.homepage')
 .full-screen
   .row-fluid.main-layout
     = render 'common_ui/sidebar', search: @search

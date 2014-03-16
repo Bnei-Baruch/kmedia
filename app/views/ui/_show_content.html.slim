@@ -1,3 +1,4 @@
+- title = ''
 #content.span9
   = render 'common/topbanner'
   = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
@@ -9,6 +10,7 @@
       h4 = t('ui.content.results', from: (@results.current_page - 1) * @results.limit_value + 1, to: [(@results.current_page * @results.limit_value).to_i, @total].min, of: @total)
     dl
       - unless search.query_string.blank?
+        - title += t('ui.content.search') + ' ' + search.query_string
         dt
           = t('ui.content.search')
           | &nbsp;
@@ -18,6 +20,7 @@
             a.btn.btn-small href='#' data-id='#search_query_string'
               span &times;
       - if search.catalog_ids
+        - title += ' ' + t('ui.content.catalog') + ' ' + Catalog.simple_catalog_name(search.catalog_ids.first, @language)
         dt
           = t('ui.content.catalog')
           | &nbsp;
@@ -27,6 +30,7 @@
             a.btn.btn-small href='#' data-id='#search_catalog_ids'
               span &times;
       - unless search.content_type_id.blank?
+        - title += ' ' + t('ui.content.content_type') + ' ' + t("ui.sidebar.type.#{search.content_type}")
         dt
           = t('ui.content.content_type')
           | &nbsp;
@@ -36,6 +40,7 @@
             a.btn.btn-small href='#' data-id='#search_content_type_id'
               span &times;
       - if search.media_type_id
+        - title += ' ' + t('ui.content.media_type') + ' ' + t("ui.sidebar.type.#{search.media_type}")
         dt
           = t('ui.content.media_type')
           | &nbsp;
@@ -45,6 +50,7 @@
             a.btn.btn-small href='#' data-id='#search_media_type_id'
               span &times;
       - if !search.date_type.blank? && search.date_type != 'anytime'
+        - title += ' ' + t('ui.content.published') + ' ' + strip_tags(search.dates_range_text.gsub('<br>', ' &ndash; '))
         dt
           = t('ui.content.published')
           | &nbsp;
@@ -54,6 +60,7 @@
             a.btn.btn-small href='#' data-id='#search_date_type' data-id-more='#search_dates_range'
               span &times;
       - if search.language_ids
+        - title += ' ' + t('ui.content.language') + ' ' + Language::CODE3_LOCALE[search.language]
         dt
           = t('ui.content.language')
           | &nbsp;
@@ -65,3 +72,6 @@
     = paginate @hits, :window => 2
     = render @results
     = paginate @hits, :window => 2
+
+- content_for(:title) do
+  = title

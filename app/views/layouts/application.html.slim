@@ -1,13 +1,13 @@
 doctype 5
 html
   head
-
-    title= content_for?(:title) ? yield(:title) : 'Kabbalah Media'
+    - title = content_for?(:title) ? yield(:title) : t('ui.homepage')
+    title = title
     link href="http://feeds.feedburner.com/kabbalah-archive/#{@language}" rel='alternate' title='RSS' type='application/rss+xml'
     meta charset='utf-8'
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    meta name="description" content=""
+    meta name="description" content="#{title}"
     meta name="author" content=""
 
     = stylesheet_link_tag 'user'
@@ -15,9 +15,15 @@ html
     = yield(:head)
 
     = javascript_include_tag 'modernizr.custom'
+    /[if lt IE 9]
+      = javascript_include_tag 'jquery-1.9.1.min'
+    <!--[if gte IE 9]><!-->
+      = javascript_include_tag 'jquery-2.0.0.min'
+    <!--<![endif]-->
+    = javascript_include_tag 'user', async: true
+
 
     link rel="shortcut icon" href="/favicon.ico"
-    / <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../docs/assets/ico/apple-touch-icon-144-precomposed.png">
     / <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../docs/assets/ico/apple-touch-icon-114-precomposed.png">
     / <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../docs/assets/ico/apple-touch-icon-72-precomposed.png">
     / <link rel="apple-touch-icon-precomposed" href="../../docs/assets/ico/apple-touch-icon-57-precomposed.png">
@@ -74,13 +80,6 @@ html
           501: '#{I18n.t('ui.projekktor.message_501')}',
           502: '#{I18n.t('ui.projekktor.message_502')}'
       };
-
-    /[if lt IE 9]
-      = javascript_include_tag 'jquery-1.9.1.min'
-    <!--[if gte IE 9]><!-->
-      = javascript_include_tag 'jquery-2.0.0.min'
-    <!--<![endif]-->
-    = javascript_include_tag 'user', async: true
 
     javascript:
       opens_dates_range = $('body').hasClass('rtl') ? 'left' : 'right';

@@ -40,7 +40,6 @@ group :development, :test do
   gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'puma'
   gem 'zeus'
 end
 

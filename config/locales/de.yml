@@ -17,6 +17,7 @@ de:
       subject: 'Thema'
       body: 'Kommentar'
   ui:
+    homepage: 'Kabbalah Media'
     content:
       search: 'Sucher:'
       catalog: 'Verzeichnis:'

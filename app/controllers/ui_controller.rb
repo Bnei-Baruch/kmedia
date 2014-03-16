@@ -48,7 +48,7 @@ class UiController < ApplicationController
   private
 
   def setup
-    @language = Language.where(locale: @locale).pluck(:code3).first
+    @language = Language::LOCALE_CODE3[@locale]
     @boost_tree = Catalog.boost_json(@language)
     @selected_catalogs = Catalog.selected_catalogs(@language)
     @books_catalog = Catalog.books_catalog(@language).try(:first)

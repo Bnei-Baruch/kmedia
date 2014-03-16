@@ -17,6 +17,7 @@ ru:
       subject: 'Тема'
       body: 'Отзыв'
   ui:
+    homepage: 'Kabbalah Media'
     content:
       search: 'Искать:'
       catalog: 'Каталог:'

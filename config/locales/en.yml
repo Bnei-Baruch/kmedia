@@ -20,6 +20,7 @@ en:
       subject: 'Subject'
       body: 'Comment'
   ui:
+    homepage: 'Kabbalah Media'
     content:
       search: 'Search:'
       catalog: 'Catalog:'

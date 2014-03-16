@@ -17,6 +17,7 @@ he:
       subject: 'נושא'
       body: 'תוכן התגובה'
   ui:
+    homepage: 'Kabbalah Media'
     content:
       search: 'חפש:'
       catalog: 'קטלוג:'
