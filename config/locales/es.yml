@@ -18,7 +18,7 @@ es:
       subject: 'Sujeto'
       body: 'Comentario'
   ui:
-    homepage: 'Kabbalah Media'
+    homepage: 'Kabbalah medios'
     content:
       search:  'Buscar:'
       catalog: 'Catalog:'
