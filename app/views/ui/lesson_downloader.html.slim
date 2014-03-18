@@ -1,0 +1,6 @@
+.full-screen
+  .row-fluid.main-layout
+    = render 'common_ui/sidebar', search: @search
+    #content.span9
+      = render 'common/topbanner'
+      = render "downloader_manual_#{@manual_lang}"
