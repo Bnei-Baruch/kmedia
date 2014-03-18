@@ -45,6 +45,15 @@ class UiController < ApplicationController
   def google_ads
   end
 
+  def lesson_downloader
+    @manual_lang = case @locale
+                   when 'en', 'he', 'ru'
+                     @locale
+                   else
+                     'en'
+                   end
+  end
+
   private
 
   def setup

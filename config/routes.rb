@@ -1,6 +1,6 @@
 Kmedia::Application.routes.draw do
 
-  scope '/(:locale)', constraints: {locale: /en|he|ru|es|de/} do
+  scope '/(:locale)', constraints: { locale: /en|he|ru|es|de/ } do
 
     resources :searches
     resources :feeds, only: [:index] do
@@ -17,6 +17,7 @@ Kmedia::Application.routes.draw do
       collection do
         get 'homepage'
         get 'google_ads'
+        get 'lesson_downloader'
       end
       member do
         get 'homepage_show'
@@ -119,21 +120,67 @@ Kmedia::Application.routes.draw do
         resources :labels
       end
 
-    # using "post" method for the api calls because "get"  is being redirected to sign in page
-    namespace :api do
-      resources :tokens, only: [:create, :destroy]
-      resources :api, only: [] do
-        collection do
-          post :register_file, :get_file_servers
-          post :content_types, :file_types, :catalogs, :languages, :file_ids, :files, :patterns, :morning_lesson_files
-          get :patterns
-        end
-        member do
+      # using "post" method for the api calls because "get"  is being redirected to sign in page
+      namespace :api do
+        resources :tokens, only: [:create, :destroy]
+        resources :api, only: [] do
+          collection do
+            post :register_file, :get_file_servers
+            post :content_types, :file_types, :catalogs, :languages, :file_ids, :files, :patterns, :morning_lesson_files
+            get :patterns
+          end
+          member do
+          end
         end
       end
     end
-    end
   end
+
+  # Redirect old landing pages
+  get '/index.php', to: proc { |env|
+    query = env['QUERY_STRING'].upcase
+    case
+    when query.match(/UILANG=RUS/)
+      [301, { location: '/ru' }, []]
+    when query.match(/UILANG=HEB/)
+      [301, { location: '/he' }, []]
+    when query.match(/SPA/)
+      [301, { location: '/es' }, []]
+    else
+      [301, { location: '/en' }, []]
+    end
+  }
+
+  get '/index_rus.html', to: proc { |env| [301, { location: '/ru' }, []] }
+
+  get '/smapless.php', to: proc { |env|
+    query = env['QUERY_STRING'].upcase
+    case
+    when query.match(/CID=4500/)
+      [301, { location: '/he/ui?search%5Bcatalog_ids%5D=4500' }, []]
+    when query.match(/CID=1940/)
+      [301, { location: '/he/ui?search%5Bcatalog_ids%5D=1940' }, []]
+    when query.match(/CID=3691/)
+      [301, { location: '/ru/ui?search%5Bcatalog_ids%5D=3691' }, []]
+    when query.match(/CID=4613/)
+      [301, { location: '/en/ui?search%5Bcatalog_ids%5D=4613' }, []]
+    else
+      [301, { location: '/en' }, []]
+    end
+  }
+
+  get '/lesson-downloader.php', to: proc { |env|
+    query = env['QUERY_STRING'].upcase
+    lang  = case
+            when query.match(/UILANG=RUS/)
+              'ru'
+            when query.match(/UILANG=HEB/)
+              'he'
+            else
+              'en'
+            end
+    [301, { location: "/#{lang}/ui/lesson_downloader" }, []]
+  }
 
   get '*path', to: redirect('/'), status: 301
 end

@@ -128,7 +128,7 @@ header {
   margin     : 0 0 20px;
   padding    : 10px 0;
   h1 {
-    font-size: 24.5px;
+    font-size : 24.5px;
   }
   h1, h4 {
     margin      : 0 0 10px;
@@ -1131,13 +1131,28 @@ html, .main-layout, .full-screen, .content-wrapper {
 }
 
 @mixin vertical-align {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  position          : relative;
+  top               : 50%;
+  -webkit-transform : translateY(-50%);
+  -ms-transform     : translateY(-50%);
+  transform         : translateY(-50%);
 }
 
 .element p {
   @include vertical-align;
+}
+
+.dwnldr-setup-btn {
+  float            : left;
+  background-color : #006c8a;
+  border           : 1px solid #006c8a;
+  color            : white;
+  display          : block;
+  padding          : 3px 5px;
+  text-align       : center;
+  text-transform   : uppercase;
+}
+
+.dwnldr-android-btn {
+  float: right;
 }
