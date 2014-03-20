@@ -3,12 +3,12 @@ html
   head
     - title = content_for?(:title) ? yield(:title) : t('ui.homepage')
     title = title
-    link href="http://feeds.feedburner.com/kabbalah-archive/#{@language}" rel='alternate' title='RSS' type='application/rss+xml'
+    meta name="description" content="#{title}"
     meta charset='utf-8'
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    meta name="description" content="#{title}"
     meta name="author" content=""
+    link href="http://feeds.feedburner.com/kabbalah-archive/#{@language}" rel='alternate' title='RSS' type='application/rss+xml'
 
     = stylesheet_link_tag 'user'
     = csrf_meta_tag
@@ -28,6 +28,7 @@ html
     / <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../docs/assets/ico/apple-touch-icon-72-precomposed.png">
     / <link rel="apple-touch-icon-precomposed" href="../../docs/assets/ico/apple-touch-icon-57-precomposed.png">
 
+  body class="#{@locale} #{@locale == 'he' || @locale == 'ar' ? 'rtl' : ''}"
     /<!-- Google Tag Manager -->
     noscript
       iframe src="//www.googletagmanager.com/ns.html?id=GTM-PKT74Q" height="0" width="0" style="display:none;visibility:hidden"
@@ -39,7 +40,6 @@ html
       })(window,document,'script','dataLayer','GTM-PKT74Q');
     /<!-- End Google Tag Manager -->
 
-  body class="#{@locale} #{@locale == 'he' || @locale == 'ar' ? 'rtl' : ''}"
     = render 'common/navbar'
     .container-fluid.content-wrapper
       = yield
