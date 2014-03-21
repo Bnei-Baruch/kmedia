@@ -1,11 +1,13 @@
 de:
   navbar:
+    more: 'Mehr'
     search: 'Sucher'
     homepage: 'Hause Seite'
     old_version: 'Alt Version'
     support: 'Unterstützen'
     languages: 'Sprachen'
     top_links: 'Links'
+    lesson_downloader: 'Lektion herunterladen'
     comment:
       cancel: 'Absagen'
       submit: 'Stellen'
@@ -70,8 +72,8 @@ de:
     list_header:
       cancel: 'stornieren'
     last_lesson:
-      prev: '&lt; früher'
-      next: 'nächsten &gt;'
+      prev: '&lt; früher Unterricht'
+      next: 'nächsten Unterricht &gt;'
       available_languages: 'verfügbaren Sprachen:'
       play: 'abspielen:'
       listen: 'zuhören:'

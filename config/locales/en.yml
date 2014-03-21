@@ -3,12 +3,14 @@
 
 en:
   navbar:
+    more: 'More'
     search: 'Search'
     homepage: 'Homepage'
     old_version: 'Old version'
     support: 'Archive Support'
     languages: 'Languages'
     top_links: 'Links'
+    lesson_downloader: 'Lesson Downloader'
     comment:
       cancel: 'Cancel'
       submit: 'Send comment'
@@ -73,8 +75,8 @@ en:
     list_header:
       cancel: 'Cancel'
     last_lesson:
-      prev: '&lt; Prev'
-      next: 'Next &gt;'
+      prev: '&lt; Prev Lesson'
+      next: 'Next Lesson &gt;'
       available_languages: 'Available languages:'
       play: 'Play:'
       listen: 'Listen:'

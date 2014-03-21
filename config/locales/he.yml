@@ -1,11 +1,13 @@
 he:
   navbar:
+    more: 'עוד'
     search: 'חפש'
     homepage: 'דף הבית'
     old_version: 'גרסה ישנה'
     support: 'תמיכה'
     languages: 'שפות'
     top_links: 'קישורים'
+    lesson_downloader: 'מוריד שיעורים'
     comment:
       cancel: 'ביטול'
       submit: 'שלח'
@@ -70,8 +72,8 @@ he:
     list_header:
       cancel: 'בטל'
     last_lesson:
-      prev: '&lt; קודם'
-      next: 'הבא &gt;'
+      prev: '&lt; שיעור קודם'
+      next: 'שיעור הבא &gt;'
       available_languages: 'שפות זמינות:'
       play: 'נגן:'
       listen: 'שמע:'

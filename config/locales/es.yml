@@ -1,12 +1,13 @@
 es:
   navbar:
+    more: 'más'
     search:  'Buscar'
     homepage:  'Página principal'
     old_version:  'Versión vieja'
     support:  'Soporte técnico'
     languages: 'Idiomas'
     top_links: 'Enlaces'
-
+    lesson_downloader: 'Lección Descargar'
     comment:
       cancel: 'Cancelar'
       submit: 'Enviar comentario'
@@ -71,8 +72,8 @@ es:
     list_header:
       cancel: 'Cancelar'
     last_lesson:
-      prev: '&lt; Anterior'
-      next: 'Siguente &gt;'
+      prev: '&lt; Anterior Clase'
+      next: 'Siguente Clase &gt;'
       available_languages: 'Idiomas desponibles:'
       play: 'Reproducir:'
       listen: 'Escuchar:'

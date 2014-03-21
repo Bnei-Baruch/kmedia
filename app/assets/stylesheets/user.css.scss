@@ -254,7 +254,7 @@ header {
 }
 
 .navbar .brand {
-  padding : 5px 0 0 20px;
+  padding : 8px 0 0 20px;
 }
 
 #content {
@@ -1080,6 +1080,18 @@ header {
     width       : 99%;
     margin-left : 1%;
   }
+
+  .homepage-banners {
+    margin-bottom: 0;
+    margin-top: 20px;
+    .span4 {
+      padding: 0 20px;
+      margin-bottom: 5px;
+      &:last-child {
+        margin-bottom: 20px;
+      }
+    }
+  }
 }
 
 //ooooo                                    .o8                                                                    oooo
@@ -1142,17 +1154,10 @@ html, .main-layout, .full-screen, .content-wrapper {
   @include vertical-align;
 }
 
-.dwnldr-setup-btn {
-  float            : left;
-  background-color : #006c8a;
-  border           : 1px solid #006c8a;
-  color            : white;
-  display          : block;
-  padding          : 3px 5px;
-  text-align       : center;
-  text-transform   : uppercase;
+.homepage-banners {
+  margin-bottom: 20px;
 }
 
-.dwnldr-android-btn {
-  float: right;
+.navbar-inverse .nav > li > a {
+  color: #dddddd;
 }

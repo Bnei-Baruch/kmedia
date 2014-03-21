@@ -413,11 +413,6 @@
 
     // mark a button as active
     function nextFileStarted(itemIndex) {
-//        ga('send', 'event', {
-//            'eventCategory': 'player',
-//            'eventAction': 'nextFileStarted',
-//            'eventLabel': itemIndex
-//        });
         var buttons = $('.active.tab-pane .projekktor-container').siblings('.btn-toolbar').find('.btn.btn-mini');
         buttons.removeClass('active');
         $(buttons[itemIndex]).addClass('active');
@@ -425,10 +420,6 @@
 
     // type: 'audio' or 'video'
     function setup_projekktor_playlist(type) {
-//        ga('send', 'event', {
-//            'eventCategory': 'player',
-//            'eventAction': 'setup_playlist',
-//            'eventLabel': type
 //        });
         var players = $.grep($('.active.tab-pane .projekktor').attr('class').split(' '), function (n) {
             return n.match('video-');
@@ -441,22 +432,12 @@
 
     function projekktor_play(itemno) {
         if (projekktor_instance) {
-//            ga('send', 'event', {
-//                'eventCategory': 'player',
-//                'eventAction': 'play',
-//                'eventLabel': itemno
-//            });
             projekktor_instance.setActiveItem(itemno);
             projekktor_instance.setPlay();
         }
     }
 
     function stop_projekktor() {
-//        ga('send', 'event', {
-//            'eventCategory': 'player',
-//            'eventAction': 'stop'
-//        });
-
         projekktor_instance.removeListener('item', nextFileStarted);
 
         projekktor_instance.selfDestruct();
@@ -468,11 +449,6 @@
         if ($('.active.tab-pane .projekktor').length === 0) {
             return;
         }
-
-//        ga('send', 'event', {
-//            'eventCategory': 'player',
-//            'eventAction': 'start'
-//        });
 
         projekktor_instance = projekktor('.active.tab-pane .projekktor', {
             plugins: ['display', 'controlbar'],

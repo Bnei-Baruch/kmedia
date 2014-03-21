@@ -6,11 +6,18 @@
       .top-menu-div
         ul.nav.top-links data-title="#{t('navbar.top_links')}"
           li
-            a href='http://old.kabbalahmedia.info' = t('navbar.old_version')
-          li
             a href='http://archivesupport.kbb1.com' = t('navbar.support')
           li
             a href='#leave-comment' data-toggle='modal' = t('navbar.comment.comment')
+          li.dropdown
+            a.dropdown-toggle href="#" data-toggle='dropdown'
+              = t('navbar.more')
+              b.caret
+            ul.dropdown-menu
+              li
+                a href='http://old.kabbalahmedia.info' = t('navbar.old_version')
+              li
+                a href='/ui/lesson_downloader' = t('navbar.lesson_downloader')
         = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get, :'data-title' => t('navbar.search')} do |f|
           = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {text: '<i class="icon-search"></i>'}, :wrapper => 'bootstrap_top_search'
           = f.input :content_type_id, as: :hidden, :wrapper => 'default'

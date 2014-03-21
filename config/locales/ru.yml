@@ -1,11 +1,13 @@
 ru:
   navbar:
+    more: 'Прочее'
     search: 'Искать'
     homepage: 'Домашняя страница'
     old_version: 'Старая версия'
     support: 'Поддержка'
     languages: 'Языки'
     top_links: 'Ссылки'
+    lesson_downloader: 'Загрузчик уроков'
     comment:
       cancel: 'Отмена'
       submit: 'Послать отзыв'
