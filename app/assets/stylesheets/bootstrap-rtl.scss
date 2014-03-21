@@ -42,6 +42,17 @@
     left  : auto;
     right : 0;
   }
+
+  .navbar .nav > li > .dropdown-menu:before {
+    left: auto;
+    right: 9px;
+  }
+
+  .navbar .nav > li > .dropdown-menu:after {
+    left: auto;
+    right: 10px;
+  }
+
   .btn-group > .btn:last-child, .btn-group > .dropdown-toggle {
     @include border-radius(4px 0 0 4px);
 //    @include border-top-right-radius(4px);
@@ -190,7 +201,7 @@
       float : right;
     }
     .brand {
-      padding : 5px 0 0 20px;
+      padding : 8px 0 0 20px;
     }
   }
 
