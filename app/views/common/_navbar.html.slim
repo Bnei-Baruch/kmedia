@@ -6,7 +6,7 @@
       .top-menu-div
         ul.nav.top-links data-title="#{t('navbar.top_links')}"
           li
-            a href='http://archivesupport.kbb1.com' = t('navbar.support')
+            a href='http://old.kabbalahmedia.info' = t('navbar.old_version')
           li
             a href='#leave-comment' data-toggle='modal' = t('navbar.comment.comment')
           li.dropdown
@@ -16,7 +16,7 @@
               b.caret
             ul.dropdown-menu
               li
-                a href='http://old.kabbalahmedia.info' = t('navbar.old_version')
+                a href='http://archivesupport.kbb1.com' = t('navbar.support')
               li
                 a href='/ui/lesson_downloader' = t('navbar.lesson_downloader')
         = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get, :'data-title' => t('navbar.search')} do |f|
