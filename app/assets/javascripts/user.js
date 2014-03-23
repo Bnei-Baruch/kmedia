@@ -472,7 +472,7 @@
 
     // change projekktor to another tab
     // just before show
-    $('.lessons-list .languages-bar a[data-toggle="tab"]').on('show', function (e) {
+    $('.lessons-list .languages-bar a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         var active, prev;
 
         active = e.target; // activated tab
@@ -484,7 +484,7 @@
     });
 
     // immediately after show
-    $('.lessons-list .languages-bar a[data-toggle="tab"]').on('shown', function (e) {
+    $('.lessons-list .languages-bar a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var active, prev;
 
         active = e.target; // activated tab
