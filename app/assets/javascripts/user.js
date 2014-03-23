@@ -470,9 +470,16 @@
         $('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn.btn-mini').first().addClass('active');
     }
 
+    $('body').off('click.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]');
+
+    $('body').on('click.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
+        //notice the e.preventDefault() is missing now
+        $(this).tab('show');
+    });
+
     // change projekktor to another tab
     // just before show
-    $('.lessons-list .languages-bar a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+    $('.lessons-list .languages-bar a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var active, prev;
 
         active = e.target; // activated tab
