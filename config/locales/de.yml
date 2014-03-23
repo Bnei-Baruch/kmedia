@@ -1,4 +1,9 @@
 de:
+  feed:
+    pod_title: 'Bnei-Baruch Kabbalahmedia MP3 Podcast'
+    pod_description: 'Here you will find all the latest Kabbalah articles, videos, audio, news, features, Bnei Baruch website updates and content additions.'
+    pod_lecturer: 'Vortragende'
+    pod_date: 'Datum'
   navbar:
     more: 'Mehr'
     search: 'Sucher'

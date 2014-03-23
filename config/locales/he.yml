@@ -1,4 +1,9 @@
 he:
+  feed:
+    pod_title: 'Bnei-Baruch Kabbalahmedia MP3 Podcast'
+    pod_description: 'כאן תקבלו עדכונים יומיים של שיחות, הרצאות ושיעורי קבלה. התכנים מבוססים על מקורות הקבלה האותנטיים בלבד'
+    pod_lecturer: 'מרצה'
+    pod_date: 'תאריך'
   navbar:
     more: 'עוד'
     search: 'חפש'
@@ -81,7 +86,7 @@ he:
       video: 'וידאו'
       download: 'הורדת השיעור'
       lesson_part: 'חלק'
-      morning_lesson: 'שיעור מ- %{date}'
+      morning_lesson: 'שיעור מתאריך %{date}'
       lesson: 'שיעור'
       preparation: 'הכנה'
       first_part: 'חלק ראשון'

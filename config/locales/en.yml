@@ -2,6 +2,11 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  feed:
+    pod_title: 'Bnei-Baruch Kabbalahmedia MP3 Podcast'
+    pod_description: 'Here you will find all the latest Kabbalah articles, videos, audio, news, features, Bnei Baruch website updates and content additions.'
+    pod_lecturer: 'Lecturer'
+    pod_date: 'Date'
   navbar:
     more: 'More'
     search: 'Search'
