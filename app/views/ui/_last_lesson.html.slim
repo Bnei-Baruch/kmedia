@@ -62,7 +62,7 @@
                 tbody
                   - for lesson in last_lessons
                     tr
-                      td.left-aligned-column = link_to lesson_part(lesson, language), ui_path(lesson)
+                      td.left-aligned-column = lesson_part(lesson, language)
                       td = show_asset(lesson, language, 'wmv')
                       td = show_asset(lesson, language, 'mp4')
                       td = show_asset(lesson, language, 'mp3')
