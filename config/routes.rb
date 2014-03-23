@@ -6,7 +6,7 @@ Kmedia::Application.routes.draw do
     resources :feeds, only: [:index] do
       collection do
         get 'wsxml'
-        get 'rss_video'
+        get 'rss_video', format: :rss
         get 'google_mapindex'
       end
     end
