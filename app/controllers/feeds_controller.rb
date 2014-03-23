@@ -88,7 +88,7 @@ class FeedsController < ApplicationController
     # Get list of 20 last lessons' files
     results      = Lesson.where(content_type_id: 4).includes(:file_assets).order('created desc').limit(20)
 
-    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.filetype == 'mp3' && f.filelang == @language }.flatten.compact.sort { |x, y| x.created <=> y.created }
+    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.filetype == 'mp3' && f.filelang == @language }.flatten.compact.sort { |x, y| y.created <=> x.created }
     @last_update = results.first.created
 
     render 'podcast', layout: false
