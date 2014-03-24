@@ -470,33 +470,16 @@
         $('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn.btn-mini').first().addClass('active');
     }
 
-    $('body').off('click.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]');
-
-    $('body').on('click.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
-        //notice the e.preventDefault() is missing now
-        $(this).tab('show');
-    });
-
     // change projekktor to another tab
     // just before show
-    $('.lessons-list .languages-bar a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var active, prev;
-
-        active = e.target; // activated tab
-        prev = e.relatedTarget; // previous tab
-
+    $(document).on('show', '.lessons-list .languages-bar a[data-toggle="tab"]', function (e) {
         if (projekktor_instance) {
             stop_projekktor();
         }
     });
 
     // immediately after show
-    $('.lessons-list .languages-bar a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var active, prev;
-
-        active = e.target; // activated tab
-        prev = e.relatedTarget; // previous tab
-
+    $(document).on('shown', '.lessons-list .languages-bar a[data-toggle="tab"]', function (e) {
         if (projekktor_instance) {
             stop_projekktor();
         }
@@ -504,7 +487,7 @@
         start_projekktor();
     });
 
-    $('.active.tab-pane .btn[data-item-index]').on('click', function () {
+    $(document).on('click', '.active.tab-pane .btn[data-item-index]', function () {
         projekktor_play($(this).data('item-index'));
     });
 

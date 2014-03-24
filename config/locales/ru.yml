@@ -77,8 +77,8 @@ ru:
     list_header:
       cancel: 'Отмена'
     last_lesson:
-      prev: '&lt; Пред'
-      next: 'След &gt;'
+      prev: '&lt; Пред. урок'
+      next: 'След. урок &gt;'
       available_languages: 'Доступные языки:'
       play: 'Смотреть:'
       listen: 'Слушать:'
