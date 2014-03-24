@@ -41,7 +41,7 @@ en:
       all_catalogs: 'All catalogs'
     sidebar:
       sidebar: 'Filters'
-      clear_all_filters: 'Clear all filters'
+      clear_all_filters: 'All Archive'
       filter_by_date: 'Filter by Date'
       filter_by_content_type: 'Filter by Content Type'
       filter_by_media_type: 'Filter by Media Type'

@@ -38,7 +38,7 @@ ru:
       all_catalogs: 'Все каталоги'
     sidebar:
       sidebar: 'Фильтры'
-      clear_all_filters: 'Очистить все фильтры'
+      clear_all_filters: 'Весь архив'
       filter_by_date: 'Фильтровать по дате'
       filter_by_content_type: 'Фильтровать по типу данных'
       filter_by_media_type: 'Фильтровать по контенту'

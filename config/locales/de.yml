@@ -38,7 +38,7 @@ de:
       all_catalogs: 'Alle Verzeichnise'
     sidebar:
       sidebar: 'Filtern'
-      clear_all_filters: 'Filter zurücksetzen'
+      clear_all_filters: 'Alle Archive'
       filter_by_date: 'Nach Datum filtern'
       filter_by_content_type: 'Filtern nach Inhalt'
       filter_by_media_type: 'Nach Typ filtern'

@@ -38,7 +38,7 @@ he:
       all_catalogs: 'כל הקטלוגים'
     sidebar:
       sidebar: 'מסננים'
-      clear_all_filters: 'בטל את כל הסינונים'
+      clear_all_filters: 'ארכיון מלא'
       filter_by_date: 'סנן לפי תאריך'
       filter_by_content_type: 'סנן לפי סוג תוכן'
       filter_by_media_type: 'סנן לפי סוג מדיה'

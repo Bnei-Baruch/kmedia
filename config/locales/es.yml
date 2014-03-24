@@ -38,7 +38,7 @@ es:
       all_catalogs: 'Todos los catalogos'
     sidebar:
       sidebar: 'Filtros'
-      clear_all_filters: 'Borrar todos los filtros'
+      clear_all_filters: 'Todos Archivo'
       filter_by_date: 'Filtrar por Fecha'
       filter_by_content_type: 'Filtrar por Tipo de Contenido'
       filter_by_media_type: 'Filtrar por Tipo de Material'
