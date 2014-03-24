@@ -10,7 +10,7 @@
         - for nm in new_materials.each
           tr
             td.left-aligned-column
-              a href=ui_path(nm)
+              a.block-link href=ui_path(nm)
                 = nm.id
                 | &nbsp;
                 == lesson_title(nm, lesson_description(nm))

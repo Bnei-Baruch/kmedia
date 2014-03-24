@@ -49,9 +49,7 @@ module HomeHelper
       :
           "#{ext}&nbsp;|&nbsp;#{"%.2f" % filesize}Mb"
       <<-CODE
-        <a class="show-tooltip" href="#{download_url}" rel="tooltip" data-animation="true" data-placement="top" title="#{title}">
-          <i class="icon-download"></i>
-        </a>
+        <a class="btn btn-mini" href="#{download_url}" title="#{title}">#{ext}</a>
       CODE
     else
       '&nbsp;'

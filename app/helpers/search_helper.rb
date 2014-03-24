@@ -42,9 +42,9 @@ module SearchHelper
     description.try(:second) || description.try(:first) || item.lessonname
   end
 
-  def lesson_description(lesson)
-    descriptions = @descriptions ?
-        @descriptions[lesson.id] :
+  def lesson_description(lesson, descr = @descriptions)
+    descriptions = descr ?
+        descr[lesson.id] :
         lesson.lesson_descriptions.select{|x| x.lessonid == lesson.id}
     description_lang = descriptions.select { |d| d.lang == @language }[0]
     description_eng = descriptions.select { |d| d.lang == 'ENG' }[0]
@@ -119,7 +119,7 @@ module SearchHelper
         <td>
           <table class='inner-table'>
             <tr>
-              <td class='left-aligned-column'><a href="#{fa.download_url}" title="#{descr}">#{title}</a></td>
+              <td class='left-aligned-column'><a class="block-link" href="#{fa.download_url}" title="#{descr}">#{title}</a></td>
               <td rowspan='2' class="table-buttons hidden-phone"><a class="show-tooltip btn" href="#{fa.download_url}" rel="tooltip" data-animation="true" data-placement="top" title="#{tip}">#{t('ui.updated_assets.download')}</a></td>
               <td rowspan='2' class="table-buttons hidden-phone"><a href="#{fa.url}" title="#{descr}" class='clipboard btn'>#{t('ui.updated_assets.copy_link')}</a></td>
             </tr>
