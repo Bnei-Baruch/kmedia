@@ -87,8 +87,8 @@ class Catalog < ActiveRecord::Base
 
   def self.selected_catalogs(language_code3, secure = 0)
     catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).where('selected_catalog > 0').order('selected_catalog DESC').limit(5)
-    catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'COALESCE(catnodedesc.catalognodename, catalognode.catalognodename) as catalognodename') +
-        ['catalognodeid' => 0, 'catalognodename' => I18n.t('ui.catalog.all_catalogs')]
+    ['catalognodeid' => 0, 'catalognodename' => "<strong>#{I18n.t('ui.catalog.all_catalogs')}</strong>"] +
+        catalogs.multipluck(:'catalognode.catalognodeid as catalognodeid', :'COALESCE(catnodedesc.catalognodename, catalognode.catalognodename) as catalognodename')
   end
 
   def self.books_catalog(language_code3, secure = 0)
@@ -108,7 +108,7 @@ class Catalog < ActiveRecord::Base
   end
 
   def self.selected_catalogs_ar(language_code3, secure = 0)
-    catalogs = Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).where('selected_catalog > 0').order('selected_catalog DESC').limit(5)
+    Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).where('selected_catalog > 0').order('selected_catalog DESC').limit(5)
   end
 
   def self.count_selected_catalogs

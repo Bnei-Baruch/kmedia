@@ -1,6 +1,6 @@
 //= require jquery_ujs
 //= require_tree ./common
-//= require_tree ./user
+//zzz= require_tree ./user
 
 // We removed the bootstrap-scrollspy because it caused a bug of setting dropdown tab active after scroll
 //= require bootstrap-transition
