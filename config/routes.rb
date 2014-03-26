@@ -154,6 +154,7 @@ Kmedia::Application.routes.draw do
   }
 
   get '/index_rus.html', to: proc { |env| [301, { location: '/ru' }, []] }
+  get '/index_heb.html', to: proc { |env| [301, { location: '/he' }, []] }
 
   get '/smapless.php', to: proc { |env|
     query = env['QUERY_STRING'].upcase
