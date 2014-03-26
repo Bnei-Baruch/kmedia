@@ -96,7 +96,7 @@ he:
       fifth_part: 'חלק חמישי'
     updated_assets:
       other_updates: 'עדכונים נוספים'
-      new_materials: 'חומרים חדשים מי %{date}'
+      new_materials: 'חומרים חדשים מ-%{date}'
       display: 'הצג'
       items: 'פריטים'
       available_languages: 'שפות זמינות:'
