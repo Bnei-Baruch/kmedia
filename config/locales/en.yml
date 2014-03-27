@@ -80,7 +80,7 @@ en:
     list_header:
       cancel: 'Cancel'
     last_lesson:
-      prev: '&lt; Prev Lesson'
+      prev: '&lt; Previous Lesson'
       next: 'Next Lesson &gt;'
       available_languages: 'Available languages:'
       play: 'Play:'
@@ -89,7 +89,7 @@ en:
       video: 'video'
       download: 'Download:'
       lesson_part: 'Lesson Part'
-      morning_lesson: 'Lesson from %{date}'
+      lesson_from: 'from'
       lesson: 'Lesson'
       preparation: 'Preparation'
       first_part: 'First Part'

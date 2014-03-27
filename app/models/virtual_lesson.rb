@@ -9,9 +9,13 @@ class VirtualLesson < ActiveRecord::Base
     if lesson_id.nil?
       # Return the latest lesson
       last_lesson = VirtualLesson.order('film_date DESC, position DESC').first
+    elsif lesson_id =~ /\d\d\d\d-\d\d-\d\d/
+      last_lesson = VirtualLesson.where(film_date: lesson_id).order('position DESC').first
     else
       last_lesson = VirtualLesson.find(lesson_id)
     end
+
+    return [nil, nil, nil] unless last_lesson
 
     next_lesson = VirtualLesson.where('film_date = ? AND position > ?', last_lesson.film_date, last_lesson.position).order('position ASC').first ||
         VirtualLesson.where('film_date > ?', last_lesson.film_date).order('film_date ASC, position ASC').first
@@ -26,11 +30,14 @@ class VirtualLesson < ActiveRecord::Base
       if lessons.count == 1
         lesson = (lessons.first.lesson_descriptions.select { |ld| ld.lang == code3 }.first || lessons.first.lesson_descriptions.select { |ld| ld.lang == 'ENG' }.first).lessondesc
       else
-        I18n.t('ui.last_lesson.morning_lesson', date: film_date)
+        lesson = I18n.t('ui.last_lesson.lesson')
       end
     rescue
-      I18n.t('ui.last_lesson.lesson')
+      lesson = I18n.t('ui.last_lesson.lesson')
     end
+    date = film_date
+
+    [lesson, date]
   end
 
   def lessons_ordered_by_parts

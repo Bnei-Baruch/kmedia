@@ -77,8 +77,8 @@ ru:
     list_header:
       cancel: 'Отмена'
     last_lesson:
-      prev: '&lt; Пред. урок'
-      next: 'След. урок &gt;'
+      prev: '&lt; Предыдущий урок'
+      next: 'Следующий урок &gt;'
       available_languages: 'Доступные языки:'
       play: 'Смотреть:'
       listen: 'Слушать:'
@@ -86,7 +86,7 @@ ru:
       video: 'видео'
       download: 'Скачать:'
       lesson_part: 'Часть урока'
-      morning_lesson: 'Урок от %{date}'
+      lesson_from: 'от'
       lesson: 'Урок'
       preparation: 'Подготовка'
       first_part: 'Первая часть'

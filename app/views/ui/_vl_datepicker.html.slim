@@ -1,0 +1,23 @@
+'
+= I18n.t('ui.last_lesson.lesson_from')
+'
+= text_field_tag '', date, id: 'vl-datepicker-alt', disabled: true, size: 10
+= text_field_tag '', date, id: 'vl-datepicker'
+
+
+- rtl_locale = @locale == 'he' || @locale == 'ar';
+
+javascript:
+
+  function date_value(dateText) {
+    window.location.assign('#{homepage_show_ui_path(0)}?lesson_date=' + dateText);
+
+    return false;
+  }
+
+  vl_datepicker = {
+    dayNamesMin: #{raw t('ui.sidebar.abbr_day_names')},
+    firstDay: #{rtl_locale ? 0 : 1},
+    isRTL: #{rtl_locale},
+    monthNamesShort: #{raw t('ui.sidebar.month_names')}
+  }

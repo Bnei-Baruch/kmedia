@@ -264,6 +264,11 @@
     }
   }
 
+  .item {
+    .ui-datepicker-trigger {
+      left: 25px;
+    }
+  }
   @media (max-width : 767px) {
     .item-list {
       .item-list-data {

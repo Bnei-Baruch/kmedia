@@ -86,7 +86,7 @@ es:
       video: 'video'
       download: 'Descargar:'
       lesson_part: 'Parte de Clase'
-      morning_lesson: 'Clase de %{date}'
+      lesson_from: 'de'
       lesson: 'Clase'
       preparation: 'Preparación'
       first_part: 'Primera Parte'

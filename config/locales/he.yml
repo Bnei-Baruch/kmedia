@@ -86,7 +86,7 @@ he:
       video: 'וידאו'
       download: 'הורדת השיעור'
       lesson_part: 'חלק'
-      morning_lesson: 'שיעור מתאריך %{date}'
+      lesson_from: 'מתאריך'
       lesson: 'שיעור'
       preparation: 'הכנה'
       first_part: 'חלק ראשון'

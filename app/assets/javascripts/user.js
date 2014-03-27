@@ -16,6 +16,7 @@
 //= require jquery.zclip.min
 //= require projekktor.min
 //= require iscroll
+//= require jquery-ui-1.10.4.datepicker
 
 //= require_self
 
@@ -327,6 +328,26 @@
         if ($('.daterange').html() === '') {
             $('.daterange').html(anytime);
         }
+
+        $('#vl-datepicker').datepicker({
+            altField: '#vl-datepicker-alt',
+            altFormat: 'yy-mm-dd',
+            autoSize: true,
+            buttonImageOnly: true,
+            buttonImage: '/assets/calendar.png',
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd',
+            dayNamesMin: vl_datepicker.dayNamesMin,
+            firstDay: vl_datepicker.firstDay,
+            isRTL: vl_datepicker.isRTL,
+            maxDate: 0,
+            monthNamesShort: vl_datepicker.monthNamesShort,
+            nextText: "»",
+            onSelect: date_value,
+            prevText: "«",
+            showOn: "both"
+        });
 
         bind_zero_clipboard();
 

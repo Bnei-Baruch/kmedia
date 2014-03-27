@@ -8,6 +8,7 @@
 @import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
 @import "books";
+@import "jquery-ui-1.10.4.datepicker";
 @import "bootstrap-rtl";
 @import "books-rtl";
 
@@ -143,6 +144,19 @@ header {
   }
   table {
     font-size : 12px;
+  }
+  #vl-datepicker {
+    display : none;
+  }
+  #vl-datepicker-alt {
+    width         : auto;
+    padding       : 0px 4px;
+    margin-bottom : 5px;
+  }
+  .ui-datepicker-trigger {
+    position : relative;
+    left     : -25px;
+    top      : -1px;
   }
 }
 
@@ -767,11 +781,6 @@ header {
   .padding-left, .padding-right {
     padding : 0 10px;
   }
-  .lessons-list {
-    h4 .pull-left, h4 .pull-right {
-      float : none;
-    }
-  }
   .projekktor {
     margin : 10px auto 20px;
   }
@@ -960,6 +969,7 @@ header {
       margin    : 0 0 10px !important;
     }
   }
+
   #categories-menu {
     a {
       text-align : left !important;
@@ -1082,13 +1092,13 @@ header {
   }
 
   .homepage-banners {
-    margin-bottom: 0;
-    margin-top: 20px;
+    margin-bottom : 0;
+    margin-top    : 20px;
     .span4 {
-      padding: 0 20px;
-      margin-bottom: 5px;
+      padding       : 0 20px;
+      margin-bottom : 5px;
       &:last-child {
-        margin-bottom: 20px;
+        margin-bottom : 20px;
       }
     }
   }
@@ -1155,9 +1165,15 @@ html, .main-layout, .full-screen, .content-wrapper {
 }
 
 .homepage-banners {
-  margin-bottom: 20px;
+  margin-bottom : 20px;
 }
 
 .navbar-inverse .nav > li > a {
-  color: #dddddd;
+  color : #dddddd;
+}
+
+.ui-datepicker {
+  background: white;
+  @include border-radius(4);
+  border: 1px solid black;
 }
