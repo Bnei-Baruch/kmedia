@@ -207,28 +207,31 @@
 
         $('.show-tooltip').tooltip();
 
+        var $toggle_div_switch = $('.toggle .switch div'),
+            $toggle_div_switch_i = $toggle_div_switch.find('i');
         $('.toggle .switch').click(function () {
-            $('.toggle .switch div').toggleClass('left right');
-            $('.toggle .switch div i').toggleClass('icon-km-small-white-video icon-km-small-white-audio');
-            $('.toggle .switch div').trigger('video-audio');
+            $toggle_div_switch
+                .toggleClass('left right')
+                .toggleClass('icon-km-small-white-video icon-km-small-white-audio')
+                .trigger('video_audio');
             var th4 = $(this).parent().siblings('h4');
-            if ($('.toggle .switch div i').hasClass('icon-km-small-white-video')) {
+            if ($toggle_div_switch_i.hasClass('icon-km-small-white-video')) {
                 th4.html(th4.data('video'));
             } else {
                 th4.html(th4.data('audio'));
             }
         });
         $('.toggle .left-switch-link').click(function () {
-            $('.toggle .switch div').removeClass('right').addClass('left');
-            $('.toggle .switch div i').removeClass('icon-km-small-white-audio').addClass('icon-km-small-white-video');
-            $('.toggle .switch div').trigger('video-audio');
+            $toggle_div_switch.removeClass('right').addClass('left');
+            $toggle_div_switch_i.removeClass('icon-km-small-white-audio').addClass('icon-km-small-white-video');
+            $toggle_div_switch.trigger('video-audio');
             var th4 = $(this).parent().siblings('h4');
             th4.html(th4.data('video'));
         });
         $('.toggle .right-switch-link').click(function () {
-            $('.toggle .switch div').removeClass('left').addClass('right');
+            $toggle_div_switch.removeClass('left').addClass('right');
             $('.toggle .switch div i').removeClass('icon-km-small-white-video').addClass('icon-km-small-white-audio');
-            $('.toggle .switch div').trigger('video-audio');
+            $toggle_div_switch.trigger('video-audio');
             var th4 = $(this).parent().siblings('h4');
             th4.html(th4.data('audio'));
         });
@@ -329,26 +332,27 @@
             $('.daterange').html(anytime);
         }
 
-        $('#vl-datepicker').datepicker({
-            altField: '#vl-datepicker-alt',
-            altFormat: 'yy-mm-dd',
-            autoSize: true,
-            buttonImageOnly: true,
-            buttonImage: '/assets/calendar.png',
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: 'yy-mm-dd',
-            dayNamesMin: vl_datepicker.dayNamesMin,
-            firstDay: vl_datepicker.firstDay,
-            isRTL: vl_datepicker.isRTL,
-            maxDate: 0,
-            monthNamesShort: vl_datepicker.monthNamesShort,
-            nextText: "»",
-            onSelect: date_value,
-            prevText: "«",
-            showOn: "both"
-        });
-
+        if (typeof(vl_datepicker) !== "undefined") {
+            $('#vl_datepicker').datepicker({
+                altField: '#vl-datepicker-alt',
+                altFormat: 'yy-mm-dd',
+                autoSize: true,
+                buttonImageOnly: true,
+                buttonImage: '/assets/calendar.png',
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'yy-mm-dd',
+                dayNamesMin: vl_datepicker.dayNamesMin,
+                firstDay: vl_datepicker.firstDay,
+                isRTL: vl_datepicker.isRTL,
+                maxDate: 0,
+                monthNamesShort: vl_datepicker.monthNamesShort,
+                nextText: "»",
+                onSelect: date_value,
+                prevText: "«",
+                showOn: "both"
+            });
+        }
         bind_zero_clipboard();
 
         $('.languages-bar a[data-toggle="tab"]').on('shown', function (e) {
@@ -512,7 +516,7 @@
         projekktor_play($(this).data('item-index'));
     });
 
-    $('.toggle .switch div').on('video-audio', function () {
+    $('.toggle .switch').on('video_audio', 'div', function () {
         var klass = $(this).attr('class');
         if (klass.indexOf('left') > 0) {
             setup_projekktor_playlist('video');

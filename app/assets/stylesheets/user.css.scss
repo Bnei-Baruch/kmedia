@@ -1177,3 +1177,17 @@ html, .main-layout, .full-screen, .content-wrapper {
   @include border-radius(4);
   border: 1px solid black;
 }
+
+.projekktor-container {
+  .bottom {
+    .ppscrubber{
+      background : #444444;
+      .ppplayhead {
+        background : #cc181e;
+      }
+      .pploaded {
+        background : #777777;
+      }
+    }
+  }
+}
