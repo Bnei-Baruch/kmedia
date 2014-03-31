@@ -1,27 +1,32 @@
 - if @last_lessons.blank?
   .item.lessons-list
     .padding-both
-      h4.clearfix
-        = t('ui.content.no_results')
-        = render 'vl_datepicker', date: @lesson_date
+      h1.clearfix
+        .pull-left
+          = t('ui.content.no_results')
+        .pull-right
+          = render 'vl_datepicker', date: @lesson_date
 - else
+  - lesson, date = lesson_name
   .item.lessons-list
     .padding-both
-      h4.clearfix
+      h1.clearfix
         .pull-left
+          = lesson
+          '
+          = I18n.t('ui.last_lesson.lesson_from')
+          '
+        .pull-right
           - if prev_lesson
             = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id), class: 'prev-lesson'
           - else
             == t('ui.last_lesson.prev')
-        .pull-right
+          '
+          = render 'vl_datepicker', date: date
           - if next_lesson
             = link_to t('ui.last_lesson.next').html_safe, homepage_show_ui_path(next_lesson.id), class: 'next-lesson'
           - else
             == t('ui.last_lesson.next')
-      h4.clearfix
-        - lesson, date = lesson_name
-        = lesson
-        = render 'vl_datepicker', date: date
       .languages-bar
         ul.nav.nav-tabs
           li.tabs-title = t('ui.last_lesson.available_languages')

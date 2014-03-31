@@ -26,18 +26,7 @@ class VirtualLesson < ActiveRecord::Base
   end
 
   def virtual_name(code3)
-    begin
-      if lessons.count == 1
-        lesson = (lessons.first.lesson_descriptions.select { |ld| ld.lang == code3 }.first || lessons.first.lesson_descriptions.select { |ld| ld.lang == 'ENG' }.first).lessondesc
-      else
-        lesson = I18n.t('ui.last_lesson.lesson')
-      end
-    rescue
-      lesson = I18n.t('ui.last_lesson.lesson')
-    end
-    date = film_date
-
-    [lesson, date]
+    [I18n.t('ui.last_lesson.lesson'), film_date]
   end
 
   def lessons_ordered_by_parts

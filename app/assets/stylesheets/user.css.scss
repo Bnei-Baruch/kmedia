@@ -149,15 +149,25 @@ header {
     display : none;
   }
   #vl-datepicker-alt {
-    width         : auto;
-    padding       : 0px 4px;
-    margin-bottom : 5px;
+//    width         : auto;
+//    padding       : 0px 4px;
+//    margin-bottom : 5px;
+//    margin: 0 0 0 10px;
+    margin: 0;
+    text-align: center;
+    width: 90px;
   }
   .ui-datepicker-trigger {
-    position : relative;
-    left     : -25px;
-    top      : -1px;
+//    position : relative;
+//    left     : -25px;
+//    top      : -1px;
   }
+
+}
+.ui-datepicker {
+  background: white;
+  @include border-radius(4);
+  border: 1px solid black;
 }
 
 .item-list {
@@ -1172,11 +1182,7 @@ html, .main-layout, .full-screen, .content-wrapper {
   color : #dddddd;
 }
 
-.ui-datepicker {
-  background: white;
-  @include border-radius(4);
-  border: 1px solid black;
-}
+
 
 .projekktor-container {
   .bottom {

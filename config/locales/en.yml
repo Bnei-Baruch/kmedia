@@ -80,8 +80,8 @@ en:
     list_header:
       cancel: 'Cancel'
     last_lesson:
-      prev: '&lt; Previous Lesson'
-      next: 'Next Lesson &gt;'
+      prev: '&laquo;'
+      next: '&raquo;'
       available_languages: 'Available languages:'
       play: 'Play:'
       listen: 'Listen:'

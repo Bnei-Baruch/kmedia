@@ -77,8 +77,8 @@ es:
     list_header:
       cancel: 'Cancelar'
     last_lesson:
-      prev: '&lt; Anterior Clase'
-      next: 'Siguente Clase &gt;'
+      prev: '&laquo;'
+      next: '&raquo;'
       available_languages: 'Idiomas desponibles:'
       play: 'Reproducir:'
       listen: 'Escuchar:'

@@ -77,8 +77,8 @@ de:
     list_header:
       cancel: 'stornieren'
     last_lesson:
-      prev: '&lt; früher Unterricht'
-      next: 'nächsten Unterricht &gt;'
+      prev: '&laquo;'
+      next: '&raquo;'
       available_languages: 'verfügbaren Sprachen:'
       play: 'abspielen:'
       listen: 'zuhören:'
