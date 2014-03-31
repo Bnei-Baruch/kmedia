@@ -333,7 +333,7 @@
         }
 
         if (typeof(vl_datepicker) !== "undefined") {
-            $('#vl_datepicker').datepicker({
+            $('#vl-datepicker').datepicker({
                 altField: '#vl-datepicker-alt',
                 altFormat: 'yy-mm-dd',
                 autoSize: true,
