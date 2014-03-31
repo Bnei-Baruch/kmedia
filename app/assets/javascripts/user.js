@@ -210,10 +210,9 @@
         var $toggle_div_switch = $('.toggle .switch div'),
             $toggle_div_switch_i = $toggle_div_switch.find('i');
         $('.toggle .switch').click(function () {
-            $toggle_div_switch
-                .toggleClass('left right')
-                .toggleClass('icon-km-small-white-video icon-km-small-white-audio')
-                .trigger('video_audio');
+            $toggle_div_switch.toggleClass('left right');
+            $toggle_div_switch_i.toggleClass('icon-km-small-white-video icon-km-small-white-audio');
+            $toggle_div_switch.trigger('video_audio');
             var th4 = $(this).parent().siblings('h4');
             if ($toggle_div_switch_i.hasClass('icon-km-small-white-video')) {
                 th4.html(th4.data('video'));
@@ -491,7 +490,7 @@
             messages: projekktor_messages
         });
         projekktor('.active.tab-pane .projekktor').addListener('item', nextFileStarted);
-        setup_projekktor_playlist('video');
+        setup_projekktor_playlist('audio');
         $('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn.btn-mini').first().addClass('active');
     }
 
