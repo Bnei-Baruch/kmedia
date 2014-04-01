@@ -77,8 +77,8 @@ he:
     list_header:
       cancel: 'בטל'
     last_lesson:
-      prev: '&raquo;'
-      next: '&laquo;'
+      next: '&raquo;'
+      prev: '&laquo;'
       available_languages: 'שפות זמינות:'
       play: 'נגן:'
       listen: 'שמע:'
