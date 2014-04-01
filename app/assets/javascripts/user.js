@@ -223,14 +223,14 @@
         $('.toggle .left-switch-link').click(function () {
             $toggle_div_switch.removeClass('right').addClass('left');
             $toggle_div_switch_i.removeClass('icon-km-small-white-audio').addClass('icon-km-small-white-video');
-            $toggle_div_switch.trigger('video-audio');
+            $toggle_div_switch.trigger('video_audio');
             var th4 = $(this).parent().siblings('h4');
             th4.html(th4.data('video'));
         });
         $('.toggle .right-switch-link').click(function () {
             $toggle_div_switch.removeClass('left').addClass('right');
             $('.toggle .switch div i').removeClass('icon-km-small-white-video').addClass('icon-km-small-white-audio');
-            $toggle_div_switch.trigger('video-audio');
+            $toggle_div_switch.trigger('video_audio');
             var th4 = $(this).parent().siblings('h4');
             th4.html(th4.data('audio'));
         });
@@ -515,7 +515,7 @@
         projekktor_play($(this).data('item-index'));
     });
 
-    $('.toggle .switch').on('video_audio', 'div', function () {
+    $(document).on('video_audio', '.toggle .switch div', function () {
         var klass = $(this).attr('class');
         if (klass.indexOf('left') > 0) {
             setup_projekktor_playlist('video');
