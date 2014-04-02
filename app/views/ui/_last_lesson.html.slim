@@ -11,11 +11,7 @@
   .item.lessons-list
     .padding-both
       h1.clearfix
-        .pull-left
-          = lesson
-          '
-          = I18n.t('ui.last_lesson.lesson_from')
-          '
+        .pull-left = I18n.t('ui.last_lesson.lesson')
         .pull-right
           - if prev_lesson
             = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id), class: 'prev-lesson'

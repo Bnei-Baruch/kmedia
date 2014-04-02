@@ -8,7 +8,8 @@
 @import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
 @import "books";
-@import "jquery-ui-1.10.4.datepicker";
+//@import "jquery-ui-1.10.4.datepicker";
+@import "jquery-ui-oleg.datepicker";
 @import "bootstrap-rtl";
 @import "books-rtl";
 
@@ -151,14 +152,6 @@ header {
     width: 90px;
     background: #EEEEEE;
   }
-  .ui-datepicker-trigger {
-  }
-
-}
-.ui-datepicker {
-  background: white;
-  @include border-radius(4);
-  border: 1px solid black;
 }
 
 .item-list {
