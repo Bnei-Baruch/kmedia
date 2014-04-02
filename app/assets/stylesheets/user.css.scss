@@ -146,21 +146,12 @@ header {
     font-size : 12px;
   }
   #vl-datepicker {
-    display : none;
-  }
-  #vl-datepicker-alt {
-//    width         : auto;
-//    padding       : 0px 4px;
-//    margin-bottom : 5px;
-//    margin: 0 0 0 10px;
     margin: 0;
     text-align: center;
     width: 90px;
+    background: #EEEEEE;
   }
   .ui-datepicker-trigger {
-//    position : relative;
-//    left     : -25px;
-//    top      : -1px;
   }
 
 }

@@ -333,8 +333,6 @@
 
         if (typeof(vl_datepicker) !== "undefined") {
             $('#vl-datepicker').datepicker({
-                altField: '#vl-datepicker-alt',
-                altFormat: 'yy-mm-dd',
                 autoSize: true,
                 buttonImageOnly: true,
                 buttonImage: '/assets/calendar.png',
@@ -350,6 +348,8 @@
                 onSelect: date_value,
                 prevText: "«",
                 showOn: "both"
+            }).on('keydown', function(e) {
+                e.preventDefault();
             });
         }
         bind_zero_clipboard();
