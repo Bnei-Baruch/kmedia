@@ -86,7 +86,7 @@ class FeedsController < ApplicationController
     @host        = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get list of 20 last lessons' files
-    results      = Lesson.where(content_type_id: 4).includes(:file_assets).order('created desc').limit(20)
+    results      = Lesson.includes(:file_assets).order('created desc').limit(20)
 
     @files       = results.map(&:file_assets).flatten.compact.select { |f| f.filetype == 'mp3' && f.filelang == @language }.flatten.compact.sort { |x, y| y.created <=> x.created }
     @last_update = results.first.created
