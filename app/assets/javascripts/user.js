@@ -23,7 +23,7 @@
 (function () {
     "use strict";
 
-    $('.books-catalog').on('click', 'a.books-expander', function () {
+    $(document).on('click', '.books-catalog a.books-expander', function () {
         var $this = $(this), $parent = $this.parent('li');
         $parent.toggleClass('expand');
     });
@@ -57,7 +57,7 @@
                             .append($('.top-menu-div .top-links'))
                             .append('<br/><br/>');
 
-                        $('input, select').on('touchstart mousedown', function (e) {
+                        $(document).on('touchstart mousedown', 'input, select', function (e) {
                             e.stopPropagation();
                         });
                         myScroll = new iScroll('left-mobile-menu');
@@ -130,7 +130,7 @@
 
     $(function () {
         //Categories Popup
-        $('#categories-menu .category-li > a').on('click', function () {
+        $(document).on('click', '#categories-menu .category-li > a', function () {
             // Follow final links
             if ($(this).data('has-children') === 'leaf') {
                 var id = $(this).data('node-id');
@@ -149,10 +149,10 @@
             }
             $(this).parent().addClass('active');
         });
-        $('#categories-menu .category-modal').on('hide', function () {
+        $(document).on('hide', '#categories-menu .category-modal', function () {
             $('#categories-menu .category-li').removeClass('active');
         });
-        $('.modal-body').on('click', '.categories a', function () {
+        $(document).on('click', '.modal-body .categories a', function () {
             var id = $(this).data('node-id'),
                 tree = all_tree[id],
                 html = '<div class="categories column2"><ul>',
@@ -240,7 +240,7 @@
         });
 
         // search page support
-        $('a.content-type').on('click', function (e) {
+        $(document).on('click', 'a.content-type', function (e) {
             var type = $(this).data('content-type');
 
             e.preventDefault();
@@ -249,7 +249,7 @@
             $('#new_search').submit();
         });
 
-        $('a.media-type').on('click', function (e) {
+        $(document).on('click', 'a.media-type', function (e) {
             var type = $(this).data('media-type');
 
             e.preventDefault();
@@ -258,7 +258,7 @@
             $('#new_search').submit();
         });
 
-        $('#language_ids').on('change', function (e) {
+        $(document).on('change', '#language_ids', function (e) {
             e.preventDefault();
 
             $('#search_language_ids').val($('#language_ids').val());
@@ -266,7 +266,7 @@
         });
 
         // clear button on search results
-        $('.search-results dd .btn[data-id]').on('click', function (e) {
+        $(document).on('click', '.search-results dd .btn[data-id]', function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             var target = $(this).data('id');
@@ -348,22 +348,22 @@
                 onSelect: date_value,
                 prevText: "«",
                 showOn: "both"
-            }).on('keydown', function(e) {
+            }).on('keydown', function (e) {
                 e.preventDefault();
             });
         }
         bind_zero_clipboard();
 
-        $('.languages-bar a[data-toggle="tab"]').on('shown', function (e) {
+        $(document).on('shown', '.languages-bar a[data-toggle="tab"]', function (e) {
             bind_zero_clipboard();
         });
 
-        $('.clear-filters button').on('click', function () {
+        $(document).on('click', '.clear-filters button', function () {
             $('#new_search input').val('');
             $('#new_search').submit();
         });
 
-        $('form#new_search button').on('click', function () {
+        $(document).on('click', 'form#new_search button', function () {
             // Click on "Search" button should start new "clean" search
             var search_query_string = $('#search_query_string').val();
             $('#new_search input').val('');
