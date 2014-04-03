@@ -130,7 +130,7 @@
 
     $(function () {
         //Categories Popup
-        $(document).on('click', '#categories-menu .category-li > a', function () {
+        $('#categories-menu .category-li > a').on('click', function () {
             // Follow final links
             if ($(this).data('has-children') === 'leaf') {
                 var id = $(this).data('node-id');
@@ -149,10 +149,10 @@
             }
             $(this).parent().addClass('active');
         });
-        $(document).on('hide', '#categories-menu .category-modal', function () {
+        $('#categories-menu .category-modal').on('hide', function () {
             $('#categories-menu .category-li').removeClass('active');
         });
-        $(document).on('click', '.modal-body .categories a', function () {
+        $('.modal-body').on('click', '.categories a', function () {
             var id = $(this).data('node-id'),
                 tree = all_tree[id],
                 html = '<div class="categories column2"><ul>',
