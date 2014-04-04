@@ -1,4 +1,5 @@
 .datepicker-wrapper
+  = text_field_tag '', date, id: 'vl-datepicker-alt', disabled: true, size: 10
   = text_field_tag '', date, id: 'vl-datepicker'
 
 - rtl_locale = @locale == 'he' || @locale == 'ar';
