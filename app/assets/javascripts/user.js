@@ -334,7 +334,7 @@
         if (typeof(vl_datepicker) !== "undefined") {
             $('#vl-datepicker').datepicker({
                 autoSize: true,
-                buttonImageOnly: true,
+//                buttonImageOnly: true,
                 buttonImage: '/assets/calendar.png',
                 changeMonth: true,
                 changeYear: true,
