@@ -44,26 +44,26 @@
   }
 
   .navbar .nav > li > .dropdown-menu:before {
-    left: auto;
-    right: 9px;
+    left  : auto;
+    right : 9px;
   }
 
   .navbar .nav > li > .dropdown-menu:after {
-    left: auto;
-    right: 10px;
+    left  : auto;
+    right : 10px;
   }
 
   .btn-group > .btn:last-child, .btn-group > .dropdown-toggle {
     @include border-radius(4px 0 0 4px);
-//    @include border-top-right-radius(4px);
-//    @include border-bottom-right-radius(4px);
+    //    @include border-top-right-radius(4px);
+    //    @include border-bottom-right-radius(4px);
 
   }
 
   .btn-group > .btn:first-child {
     @include border-radius(0 4px 4px 0);
-//    @include border-top-left-radius(4px);
-//    @include border-bottom-left-radius(4px);
+    //    @include border-top-left-radius(4px);
+    //    @include border-bottom-left-radius(4px);
   }
 
   .btn-group > .btn:only-child {
@@ -258,7 +258,7 @@
           text-align : right;
         }
         .categories {
-          overflow-y: auto;
+          overflow-y : auto;
         }
       }
     }
@@ -266,7 +266,7 @@
 
   .item {
     .ui-datepicker-trigger {
-      left: 25px;
+      left : 25px;
     }
   }
   @media (max-width : 767px) {
@@ -317,4 +317,14 @@
     }
   }
 
+  .datepicker-wrapper {
+    .ui-datepicker-trigger {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  #vl-datepicker-alt {
+    margin : 0 0 0 26px;
+  }
 }
