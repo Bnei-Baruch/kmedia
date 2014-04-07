@@ -109,7 +109,7 @@ class FeedsController < ApplicationController
       Lesson.joins(:catalogs).where('catalognode.secure = 0').pluck(:lessonid).uniq.each do |lesson|
         langs.each do |lang|
           if count == 0
-            filename = "public/google_sitemap_#{fileno}.xml.gz"
+            filename = "google_sitemap_#{fileno}.xml.gz"
             index.write "<sitemap><loc>#{host}/#{filename}</loc></sitemap>\n"
             fz = Zlib::GzipWriter.open(filename, 9)
             fz.write "<?xml version='1.0' encoding='UTF-8'?>\n"
@@ -135,10 +135,12 @@ class FeedsController < ApplicationController
       index.write "</sitemapindex>\n"
     end
 
-    # ping Google
-    open "http://www.google.com/webmasters/tools/ping?sitemap=#{host}/google_mapindex.xml"
-    # ping Bing
-    open "http://www.bing.com/ping?sitemap=#{host}/google_mapindex.xml"
+    if Rails.env.production
+      # ping Google
+      open "http://www.google.com/webmasters/tools/ping?sitemap=#{host}/google_mapindex.xml"
+      # ping Bing
+      open "http://www.bing.com/ping?sitemap=#{host}/google_mapindex.xml"
+    end
 
     render text: 'Done'
   end
