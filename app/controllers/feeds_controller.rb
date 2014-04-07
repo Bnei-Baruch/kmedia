@@ -135,7 +135,7 @@ class FeedsController < ApplicationController
       index.write "</sitemapindex>\n"
     end
 
-    if Rails.env.production
+    if Rails.env.production?
       # ping Google
       open "http://www.google.com/webmasters/tools/ping?sitemap=#{host}/google_mapindex.xml"
       # ping Bing
