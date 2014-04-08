@@ -319,12 +319,16 @@
 
   .datepicker-wrapper {
     .ui-datepicker-trigger {
-      left: auto;
-      right: 0;
+      left  : auto;
+      right : 0;
     }
   }
 
   #vl-datepicker-alt {
     margin : 0 0 0 26px;
+  }
+
+  .search-results dd {
+    margin : 0 0 0 15px;
   }
 }

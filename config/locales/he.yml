@@ -29,7 +29,7 @@ he:
       search: 'חפש:'
       catalog: 'קטלוג:'
       content_type: 'סוג תוכן:'
-      media_type: 'סוג חדיה:'
+      media_type: 'סוג מדיה:'
       published: 'תאריך:'
       language: 'שפה:'
       results: 'תוצאות חיפוש: %{from} - %{to} מתוך %{of}'
