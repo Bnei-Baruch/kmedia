@@ -7,7 +7,7 @@ class Language < ActiveRecord::Base
   has_many :label_descriptions, :foreign_key => :lang, :primary_key => :code3
 
   # UI languages
-  UI_LANGUAGES = ['ENG', 'HEB', 'RUS', 'SPA', 'GER']
+  UI_LANGUAGES = ['en', 'he', 'ru', 'es', 'de']
 
   # code3 => locale
   CODE3_LOCALE = Hash.new('en')
