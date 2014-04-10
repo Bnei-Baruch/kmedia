@@ -20,6 +20,8 @@ class AutoCatalogAssignment < ActiveRecord::Base
         match_part(lesson, 'lesson_fourth-part')
       when 4
         match_part(lesson, 'lesson_fifth-part')
+      when 5
+        match_part(lesson, 'lesson_sixth-part')
     end
 
     log_results(lesson)

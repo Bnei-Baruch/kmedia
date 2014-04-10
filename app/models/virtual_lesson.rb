@@ -59,6 +59,10 @@ class VirtualLesson < ActiveRecord::Base
       ids = l.catalogs.map(&:id)
       ids.include?(Lesson::FIFTH_PART) && l.file_assets.secure(0).count > 0
     end
+    result << list.select do |l|
+      ids = l.catalogs.map(&:id)
+      ids.include?(Lesson::SIXTH_PART) && l.file_assets.secure(0).count > 0
+    end
 
     result.flatten!.compact!
 

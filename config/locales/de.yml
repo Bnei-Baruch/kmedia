@@ -94,6 +94,7 @@ de:
       third_part: 'dritte Teil'
       fourth_part: 'vierte Teil'
       fifth_part: 'fünfte Teil'
+      sixth_part: 'sechste Teil'
     updated_assets:
       other_updates: 'andere Updates'
       new_materials: 'neue Materialen von %{date}'

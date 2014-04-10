@@ -19,6 +19,8 @@ module HomeHelper
         I18n.t('ui.last_lesson.fourth_part')
       when ids.include?(Lesson::FIFTH_PART)
         I18n.t('ui.last_lesson.fifth_part')
+      when ids.include?(Lesson::SIXTH_PART)
+        I18n.t('ui.last_lesson.sixth_part')
       else
         I18n.t('ui.last_lesson.first_part')
     end

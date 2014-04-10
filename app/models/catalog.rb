@@ -65,7 +65,7 @@ class Catalog < ActiveRecord::Base
 
   CATALOG_ID = {}
 
-  %w(lesson_preparation lesson_first-part lesson_second-part lesson_third-part lesson_fourth-part lesson_fifth-part).each do |name|
+  %w(lesson_preparation lesson_first-part lesson_second-part lesson_third-part lesson_fourth-part lesson_fifth-part lesson_sixth-part).each do |name|
     ct               = Catalog.where(catalognodename: name).first
     CATALOG_ID[name] = ct.try(:id)
   end

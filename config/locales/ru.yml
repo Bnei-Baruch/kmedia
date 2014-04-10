@@ -94,6 +94,7 @@ ru:
       third_part: 'Третья часть'
       fourth_part: 'Четвертая часть'
       fifth_part: 'Пятая часть'
+      sixth_part: 'Шестая часть'
     updated_assets:
       other_updates: 'Прочие обновления'
       new_materials: 'Новые материалы от %{date}'

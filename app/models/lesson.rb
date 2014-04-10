@@ -40,6 +40,7 @@ class Lesson < ActiveRecord::Base
   THIRD_PART = Catalog::CATALOG_ID['lesson_third-part']
   FOURTH_PART = Catalog::CATALOG_ID['lesson_fourth-part']
   FIFTH_PART = Catalog::CATALOG_ID['lesson_fifth-part']
+  SIXTH_PART = Catalog::CATALOG_ID['lesson_sixth-part']
 
   accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 
