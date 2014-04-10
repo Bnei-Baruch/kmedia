@@ -95,7 +95,7 @@ class FeedsController < ApplicationController
   end
 
   def google_mapindex
-    host  = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+    host  = Rails.env.production? ? 'http://kabbalahmedia.info' : "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
     langs = Language::UI_LANGUAGES
 
     File.open('public/google_mapindex.xml', 'w+') do |index|
