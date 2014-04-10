@@ -6,6 +6,9 @@ class Language < ActiveRecord::Base
   has_many :dictionary_descriptions, :foreign_key => :lang, :primary_key => :code3
   has_many :label_descriptions, :foreign_key => :lang, :primary_key => :code3
 
+  # UI languages
+  UI_LANGUAGES = ['ENG', 'HEB', 'RUS', 'SPA', 'GER']
+
   # code3 => locale
   CODE3_LOCALE = Hash.new('en')
   Language.all.map{|l| CODE3_LOCALE[l.code3] = l.locale}
