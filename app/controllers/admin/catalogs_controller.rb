@@ -85,7 +85,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def manage
-    @catalogs = Catalog.all
+    @catalogs = Catalog.order('catorder ASC').all
   end
 
   def move_prepare

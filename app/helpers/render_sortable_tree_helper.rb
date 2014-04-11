@@ -7,7 +7,7 @@
 # or use h.html_escape(node.content)
 # for escape potentially dangerous content
 module RenderSortableTreeHelper
-  module Render 
+  module Render
     class << self
       attr_accessor :h, :options
 
@@ -17,9 +17,9 @@ module RenderSortableTreeHelper
         node = options[:node]
 
         "
-          <li id='#{ node.id }_#{ options[:klass] }'>
+          <li data-node-id='#{ node.id }' id='#{ node.id }_#{ options[:klass] }'>
             <div class='item #{node.visible ? '' : 'in'}visible-node #{node.open ? 'status-open' : 'status-closed'}'>
-              <i class='#{options[:boost][node.id].blank? ? 'tree-zipper' : 'tree-zipper plus'}'></i>
+              <i class='#{options[:boost][node.id.to_s].blank? ? 'tree-zipper' : 'tree-zipper plus'}'></i>
               <i class='handle'></i>
               #{ show_link }
               #{ controls }

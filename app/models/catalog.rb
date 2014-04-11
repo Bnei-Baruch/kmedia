@@ -167,8 +167,15 @@ class Catalog < ActiveRecord::Base
     self.update_attribute(:parent_id, category.id) unless self.parent_id == category.id
   end
 
-  alias_method :move_to_right_of, :move_to_child_of
-  alias_method :move_to_left_of, :move_to_child_of
+  def move_to_right_of(category)
+    self.update_attribute(:parent_id, category.parent_id) unless self.parent_id == category.parent_id
+    self.update_attribute(:catorder, category.catorder - 1)
+  end
+
+  def move_to_left_of(category)
+    self.update_attribute(:parent_id, category.parent_id) unless self.parent_id == category.parent_id
+    self.update_attribute(:catorder, category.catorder + 1)
+  end
 
 # /Additions to acts_as_tree
 

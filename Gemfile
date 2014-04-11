@@ -7,8 +7,8 @@ gem 'mysql2', '>= 0.3'
 
 gem 'haml'
 gem 'sass'
-gem 'kaminari', :git => 'https://github.com/amatsuda/kaminari.git' #for pagination
-gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git', :branch => 'v2.1'
+gem 'kaminari', github: 'amatsuda/kaminari' #for pagination
+gem 'simple_form', github: 'plataformatec/simple_form', branch: 'v2.1'
 gem 'nokogiri'
 gem 'ckeditor', '3.7.1'
 gem 'paperclip'
@@ -17,18 +17,18 @@ gem 'puma'
 gem 'unicorn'
 gem 'slim'
 
-gem 'acts_as_tree', :git => 'https://github.com/amerine/acts_as_tree.git'
+gem 'acts_as_tree', github: 'amerine/acts_as_tree'
 
 gem 'cancan', '1.6.9'
 gem 'devise', '2.2.3'
 gem 'sunspot_rails', '2.0.0'
 gem 'sunspot_solr', '2.0.0'
-gem 'progress_bar', :git => 'git://github.com/flori/progress_bar.git', :branch => 'betterplace' # for sunspot
+gem 'progress_bar', github: 'paul/progress_bar' # for sunspot
 gem 'best_in_place'
 gem 'therubyracer', '0.11.4'
 gem 'dalli'
 
-gem 'the_sortable_tree', git: 'git://github.com/the-teacher/the_sortable_tree.git'
+gem 'the_sortable_tree', github: 'the-teacher/the_sortable_tree'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -62,12 +62,12 @@ gem 'bootstrap-sass', '~> 2.3.2.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '>= 3.2'
+  gem 'sass-rails'
   gem 'coffee-rails', '~> 3.2.0', :require => 'coffee_script'
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'term-ansicolor'
+gem 'term-ansicolor', github: 'flori/term-ansicolor'
 gem 'exception_notification', github: 'smartinez87/exception_notification'
 gem 'jsonify-rails'
 gem 'yajl-ruby', :require => 'yajl' # Required if we want json with utf8 strings

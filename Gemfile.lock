@@ -1,12 +1,32 @@
 GIT
-  remote: git://github.com/flori/progress_bar.git
-  revision: 99540143881eaedbe54d6e93e412bde49a0a71b7
-  branch: betterplace
+  remote: git://github.com/amatsuda/kaminari.git
+  revision: 30215b19f1c504e74074d8f0bc0a6858969a6a46
   specs:
-    progress_bar (0.4.0)
+    kaminari (0.15.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+
+GIT
+  remote: git://github.com/amerine/acts_as_tree.git
+  revision: c2990670a8bcc778a39390ad7aa22801adda36ab
+  specs:
+    acts_as_tree (1.5.1)
+      activerecord (>= 3.0.0)
+
+GIT
+  remote: git://github.com/flori/term-ansicolor.git
+  revision: 36a3e7c4e27e363b2b64ce06d99559a36c5f63b0
+  specs:
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
+
+GIT
+  remote: git://github.com/paul/progress_bar.git
+  revision: 57efc6ce1c5ed5928ae75a45f3c279132acd715e
+  specs:
+    progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
-      tins (~> 0.5)
 
 GIT
   remote: git://github.com/plataformatec/simple_form.git
@@ -19,7 +39,7 @@ GIT
 
 GIT
   remote: git://github.com/smartinez87/exception_notification.git
-  revision: 7c0f16375a6e56045bc21fb33d3e4ca09a69c6c4
+  revision: b80d3dda1265b1d22c5d0952b020d92dc11484ab
   specs:
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
@@ -27,25 +47,10 @@ GIT
 
 GIT
   remote: git://github.com/the-teacher/the_sortable_tree.git
-  revision: 9f40ceaeea5f2cd6aa4e4c112dc887c6690eb65f
+  revision: 4681fd0e75e19f19794fd60a504a7defec28fd9d
   specs:
-    the_sortable_tree (2.4.0)
+    the_sortable_tree (2.5.0)
       rails (>= 3.1)
-
-GIT
-  remote: https://github.com/amatsuda/kaminari.git
-  revision: b4bf763eb847f3d5fb80246f2fdcae7c36c0ade0
-  specs:
-    kaminari (0.15.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
-
-GIT
-  remote: https://github.com/amerine/acts_as_tree.git
-  revision: fbc0ef9573325d7dcc559ce7fee0662b33ea3cd8
-  specs:
-    acts_as_tree (1.4.0)
-      activerecord (>= 3.0.0)
 
 GIT
   remote: https://github.com/moumar/wmainfo-rb.git
@@ -84,11 +89,13 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     arel (3.0.3)
-    bcrypt-ruby (3.1.2)
+    bcrypt (3.1.7)
+    bcrypt-ruby (3.1.5)
+      bcrypt (>= 3.1.3)
     best_in_place (2.1.0)
       jquery-rails
       rails (~> 3.1)
-    better_errors (1.0.1)
+    better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
@@ -96,7 +103,7 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.0.4)
-    bullet (4.7.1)
+    bullet (4.8.0)
       activesupport
       uniform_notifier (>= 1.4.0)
     cancan (1.6.9)
@@ -105,7 +112,7 @@ GEM
       orm_adapter
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.3)
+    cocaine (0.5.4)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (3.2.2)
@@ -114,17 +121,17 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.3)
+    coffee-script-source (1.7.0)
     columnize (0.3.6)
     daemons (1.1.9)
-    dalli (2.6.4)
+    dalli (2.7.0)
     debug_inspector (0.0.2)
-    debugger (1.6.3)
+    debugger (1.6.6)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.4)
+      debugger-ruby_core_source (~> 1.3.2)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.4)
+    debugger-ruby_core_source (1.3.2)
     debugger-xml (0.3.3)
       builder (>= 2.0.0)
       debugger (>= 1.6.2)
@@ -136,14 +143,13 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
-    fattr (2.2.1)
-    haml (4.0.4)
+    haml (4.0.5)
       tilt
-    highline (1.6.20)
+    highline (1.6.21)
     hike (1.2.3)
     i18n (0.6.9)
     journey (1.0.4)
-    jquery-rails (3.0.4)
+    jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
@@ -152,35 +158,34 @@ GEM
     jsonify-rails (0.3.2)
       actionpack
       jsonify (< 0.4.0)
-    kgio (2.8.1)
+    kgio (2.9.2)
     libv8 (3.11.8.17)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_portile (0.5.2)
-    multi_json (1.8.2)
-    mysql2 (0.3.14)
-    newrelic_rpm (3.6.9.171)
-    nokogiri (1.6.0)
+    mini_portile (0.5.3)
+    multi_json (1.9.2)
+    mysql2 (0.3.15)
+    newrelic_rpm (3.7.3.204)
+    nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    options (2.3.0)
-      fattr
+    options (2.3.2)
     orm_adapter (0.5.0)
-    paperclip (3.5.2)
+    paperclip (4.1.1)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    polyglot (0.3.3)
+    polyglot (0.3.4)
     pr_geohash (1.0.0)
-    puma (2.7.1)
+    puma (2.8.1)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-ssl (1.3.3)
+    rack-ssl (1.3.4)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -199,15 +204,15 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    raindrops (0.12.0)
-    rake (10.1.0)
+    raindrops (0.13.0)
+    rake (10.2.2)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
-    rsolr (1.0.9)
+    rsolr (1.0.10)
       builder (>= 2.1.2)
-    ruby-mp3info (0.8.2)
-    sass (3.2.12)
+    ruby-mp3info (0.8.3)
+    sass (3.3.4)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -230,33 +235,31 @@ GEM
       sunspot (= 2.0.0)
     sunspot_solr (2.0.0)
     temple (0.6.7)
-    term-ansicolor (1.2.2)
-      tins (~> 0.8)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
-    thin (1.6.1)
+    thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
-    thor (0.18.1)
+    thor (0.19.1)
     tilt (1.4.1)
-    tins (0.13.1)
+    tins (1.1.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.38)
-    uglifier (2.3.2)
+    tzinfo (0.3.39)
+    uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicorn (4.7.0)
+    unicorn (4.8.2)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
     uniform_notifier (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
-    yajl-ruby (1.1.0)
+    yajl-ruby (1.2.0)
     zeus (0.13.3)
       method_source (>= 0.6.7)
 
@@ -292,13 +295,13 @@ DEPENDENCIES
   rails (= 3.2.16)
   ruby-mp3info
   sass
-  sass-rails (>= 3.2)
+  sass-rails
   sextant
   simple_form!
   slim
   sunspot_rails (= 2.0.0)
   sunspot_solr (= 2.0.0)
-  term-ansicolor
+  term-ansicolor!
   the_sortable_tree!
   therubyracer (= 0.11.4)
   thin
