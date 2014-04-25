@@ -60,10 +60,10 @@ class FeedsController < ApplicationController
     @host  = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get list of updated files
-    @files = get_updated_files(@days).map do |file|
+    @files = FileAsset.get_updated_files(@days).map do |file|
       {
           lesson_id: file[0],
-          title:     get_lesson_title(file[0], @language),
+          title:     Lesson.get_lesson_title(file[0], @language),
           updated:   file[1][0].updated,
           files:     file[1].group_by { |x| x['ftype'].downcase }
       }
@@ -144,31 +144,4 @@ class FeedsController < ApplicationController
 
     render text: 'Done'
   end
-
-  private
-
-  # Select updated files and their lesson IDs
-  def get_updated_files(days)
-    FileAsset.
-        select("CONCAT( servers.httpurl, '/', files.filename ) AS 'link', files.filelang AS 'flang', files.filetype AS 'ftype', files.filesize AS 'fsize', files.updated  AS 'updated', lessonfiles.lessonid AS 'lessonid'").
-        where(:'files.updated' => days.days.ago.to_s(:db)..0.days.ago.to_s(:db)).
-        joins(:server, :lessons).
-        order(:lessonid, :ftype).
-        all.group_by { |x| x['lessonid'] }
-  end
-
-  def get_lesson_title(id, language)
-    lesson = Lesson.find(id) rescue { lessonname: '----------', lessondate: '1970-01-01', created: '1970-01-01' }
-    descr             = lesson.lesson_descriptions.by_language(language).first.try(:lessondesc)
-    descr             = lesson.lesson_descriptions.by_language('ENG').first.try(:lessondesc) if descr.blank?
-    lesson.lessonname = descr if descr
-
-    if descr && (lesson.catalogs.map(&:id) & [3606, 3661, 3662]).empty?
-      nil
-    else
-      lesson.lessonname +
-          (lesson.lessondate.to_s == '0000-00-00' ? '' : " (#{lesson.lessondate})")
-    end
-  end
-
 end

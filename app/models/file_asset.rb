@@ -100,4 +100,14 @@ class FileAsset < ActiveRecord::Base
     "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{filename}"
   end
 
+  # Select updated files and their lesson IDs
+  def FileAsset.get_updated_files(days)
+    FileAsset.
+        select("CONCAT( servers.httpurl, '/', files.filename ) AS 'link', files.filelang AS 'flang', files.filetype AS 'ftype', files.filesize AS 'fsize', files.updated  AS 'updated', lessonfiles.lessonid AS 'lessonid'").
+        where(:'files.updated' => days.days.ago.to_s(:db)..0.days.ago.to_s(:db)).
+        joins(:server, :lessons).
+        order(:lessonid, :ftype).
+        all.group_by { |x| x['lessonid'] }
+  end
+
 end

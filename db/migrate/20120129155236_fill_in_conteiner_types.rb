@@ -27,7 +27,7 @@ class FillInConteinerTypes < ActiveRecord::Migration
       execute "UPDATE lessons SET container_type_id = #{ct.id} WHERE lessonname LIKE '%_#{ct.pattern}_%';"
       execute "UPDATE lessons SET container_type_id = #{ct.id} WHERE lessonname LIKE '%_#{ct.pattern}.%';"
     end
-    # All lessons with unknown contaier type will be ... lessons!
+    # All lessons with unknown container type will be ... lessons!
     lct = ContainerType.find_by_pattern 'lesson'
     execute "UPDATE lessons SET container_type_id = #{lct.id} WHERE container_type_id IS NULL;"
   end

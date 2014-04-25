@@ -11,6 +11,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def show
     begin
       @lesson = Lesson.find(params[:id])
+      @censor_email = @lesson.censor_id ? User.where(id: @lesson.censor_id).pluck(:email)[0] : nil
       authorize! :show, @lesson
     rescue
       redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."

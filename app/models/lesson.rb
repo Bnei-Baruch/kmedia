@@ -15,8 +15,8 @@ class Lesson < ActiveRecord::Base
   belongs_to :content_type
   belongs_to :virtual_lesson, dependent: :destroy
   has_and_belongs_to_many :file_assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
-                          :association_foreign_key => "fileid", :order => "date(updated) DESC, filename ASC"
-  has_and_belongs_to_many :catalogs, :join_table => "catnodelessons", :foreign_key => "lessonid",
+                          :association_foreign_key  => "fileid", :order => "date(updated) DESC, filename ASC"
+  has_and_belongs_to_many :catalogs, :join_table   => "catnodelessons", :foreign_key => "lessonid",
                           :association_foreign_key => "catalognodeid", :order => "catalognodename"
   belongs_to :language, :foreign_key => :lang, :primary_key => :code3
 
@@ -34,13 +34,13 @@ class Lesson < ActiveRecord::Base
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
-  PREPARATION = Catalog::CATALOG_ID['lesson_preparation']
-  FIRST_PART = Catalog::CATALOG_ID['lesson_first-part']
-  SECOND_PART = Catalog::CATALOG_ID['lesson_second-part']
-  THIRD_PART = Catalog::CATALOG_ID['lesson_third-part']
-  FOURTH_PART = Catalog::CATALOG_ID['lesson_fourth-part']
-  FIFTH_PART = Catalog::CATALOG_ID['lesson_fifth-part']
-  SIXTH_PART = Catalog::CATALOG_ID['lesson_sixth-part']
+  PREPARATION            = Catalog::CATALOG_ID['lesson_preparation']
+  FIRST_PART             = Catalog::CATALOG_ID['lesson_first-part']
+  SECOND_PART            = Catalog::CATALOG_ID['lesson_second-part']
+  THIRD_PART             = Catalog::CATALOG_ID['lesson_third-part']
+  FOURTH_PART            = Catalog::CATALOG_ID['lesson_fourth-part']
+  FIFTH_PART             = Catalog::CATALOG_ID['lesson_fifth-part']
+  SIXTH_PART             = Catalog::CATALOG_ID['lesson_sixth-part']
 
   accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 
@@ -188,19 +188,33 @@ class Lesson < ActiveRecord::Base
 
   def self.get_appropriate_lessons(filter, security)
     case filter
-      when 'all'
-        Lesson
-      when 'secure_changed'
-        Lesson.secure_changed
-      when 'no_files'
-        Lesson.no_files
-      when 'lost'
-        Lesson.lost
-      when 'by_security'
-        Lesson.security(security)
-      else
-        Lesson.need_update
+    when 'all'
+      Lesson
+    when 'secure_changed'
+      Lesson.secure_changed
+    when 'no_files'
+      Lesson.no_files
+    when 'lost'
+      Lesson.lost
+    when 'by_security'
+      Lesson.security(security)
+    else
+      Lesson.need_update
     end.where(for_censorship: false)
+  end
+
+  def self.get_lesson_title(id, language)
+    lesson            = Lesson.find(id) rescue { lessonname: '----------', lessondate: '1970-01-01', created: '1970-01-01' }
+    descr             = lesson.lesson_descriptions.by_language(language).first.try(:lessondesc)
+    descr             = lesson.lesson_descriptions.by_language('ENG').first.try(:lessondesc) if descr.blank?
+    lesson.lessonname = descr if descr
+
+    if descr && (lesson.catalogs.map(&:id) & [3606, 3661, 3662]).empty?
+      nil
+    else
+      lesson.lessonname +
+          (lesson.lessondate.to_s == '0000-00-00' ? '' : " (#{lesson.lessondate})")
+    end
   end
 
   # Register file(s) into a container.
@@ -242,8 +256,8 @@ class Lesson < ActiveRecord::Base
         }
         my_logger.info("Catalogs after assignment from pattern: #{get_catalogs_names(c.catalogs)}")
         c.content_type_id = sp.content_type.id
-        c.secure = sp.content_security_level
-        c.auto_parsed = true
+        c.secure          = sp.content_security_level
+        c.auto_parsed     = true
 
         languages = Language.order('code3').all
 
@@ -261,9 +275,9 @@ class Lesson < ActiveRecord::Base
     my_logger.info("Container saved")
 
     (files || []).each do |file|
-      name = file['file']
+      name   = file['file']
       server = file['server'] || DEFAULT_FILE_SERVER
-      size = file['size'] || 0
+      size   = file['size'] || 0
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
       extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
@@ -280,8 +294,8 @@ class Lesson < ActiveRecord::Base
                 file['playtime_secs'].to_i
               else
                 server_url = Server.find(server)
-                uri = URI(server_url.httpurl)
-                path = "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{name}"
+                uri        = URI(server_url.httpurl)
+                path       = "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{name}"
 
                 if extension == 'mp3'
                   m = Mp3Info.open(open(path))
@@ -303,10 +317,10 @@ class Lesson < ActiveRecord::Base
         # New file
         name =~ /^([^_]+)_/
         lang = Language.find_by_code3($1.upcase).code3 rescue 'ENG'
-        sp = ::StringParser.new name
+        sp     = ::StringParser.new name
         secure = sp.content_security_level
 
-        file_asset = FileAsset.new(filename: name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
+        file_asset = FileAsset.new(filename:      name, filelang: lang, filetype: extension, filedate: datetime, filesize: size,
                                    playtime_secs: playtime_secs, lastuser: 'system', servername: server, secure: secure)
         my_logger.info("New file lang=#{lang} secure=#{secure}")
       elsif !dry_run
@@ -331,18 +345,18 @@ class Lesson < ActiveRecord::Base
                     extension.downcase == 'zip' ? '<b>scan ZIP</b>' : '<b>scan</b>'
                   else
                     case extension.downcase.downcase
-                      when '.zip'
-                        '<b>ZIP FILE</b>'
-                      when '.pdf'
-                        '<b>pdf</b>'
-                      when '.flv'
-                        '<b>flv</b>'
-                      when '.mp4'
-                        '<b>mp4</b>'
-                      else
-                        if name =~ /_96k/
-                          '2/2 <b>original 96K</b>'
-                        end
+                    when '.zip'
+                      '<b>ZIP FILE</b>'
+                    when '.pdf'
+                      '<b>pdf</b>'
+                    when '.flv'
+                      '<b>flv</b>'
+                    when '.mp4'
+                      '<b>mp4</b>'
+                    else
+                      if name =~ /_96k/
+                        '2/2 <b>original 96K</b>'
+                      end
                     end
                   end
       my_logger.info("File description file_desc=#{file_desc}")
@@ -380,7 +394,7 @@ class Lesson < ActiveRecord::Base
     return if container.secure != 0 # Ignore secure containers
     my_logger.info("create_virtual_lesson: ... not exists; creating")
 
-    vl = nil
+    vl  = nil
     ids = container.catalogs.map(&:id)
     if ids.include?(FIRST_PART) ||
         ids.include?(SECOND_PART) ||
@@ -395,29 +409,29 @@ class Lesson < ActiveRecord::Base
 
     position = VirtualLesson.where('film_date = ?', container.lessondate).count
     my_logger.info("create_virtual_lesson: position - #{position}")
-    vl = VirtualLesson.create({film_date: container.lessondate, position: position}, without_protection: true) if vl.nil?
+    vl = VirtualLesson.create({ film_date: container.lessondate, position: position }, without_protection: true) if vl.nil?
     my_logger.info("create_virtual_lesson: #{vl.film_date}")
     container.virtual_lesson = vl
     vl
   end
 
   def self.parse_lesson_name(lessonname, id)
-    lessonname ||= Lesson.find(id).lessonname
-    sp = ::StringParser.new lessonname
-    @date = sp.date
-    @language = sp.language
-    @lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
-    @descriptions = sp.descriptions
-    @catalogs = @descriptions.select { |d| !d.catalogs.empty? }.first.try(:catalogs)
+    lessonname       ||= Lesson.find(id).lessonname
+    sp               = ::StringParser.new lessonname
+    @date            = sp.date
+    @language        = sp.language
+    @lecturerid      = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
+    @descriptions    = sp.descriptions
+    @catalogs        = @descriptions.select { |d| !d.catalogs.empty? }.first.try(:catalogs)
     @content_type_id = sp.content_type.id
-    @security = sp.content_security_level
+    @security        = sp.content_security_level
     [@date, @language, @lecturerid, @descriptions, @catalogs, @content_type_id, @security]
   end
 
   def set_updated_attributes(user, attributes)
-    self.attributes = attributes
+    self.attributes     = attributes
     self.secure_changed = self.operator_changed_secure_field?(user)
-    self.auto_parsed = false
+    self.auto_parsed    = false
   end
 
   def operator_changed_secure_field?(user)
@@ -429,7 +443,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def build_descriptions_and_translations(languages)
-    lang_codes = self.lesson_descriptions.map(&:lang)
+    lang_codes            = self.lesson_descriptions.map(&:lang)
     transcript_lang_codes = self.lesson_transcripts.map(&:lang)
 
     languages.each { |l|
