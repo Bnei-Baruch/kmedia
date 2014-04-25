@@ -39,8 +39,8 @@
   }
 
   .dropdown-menu {
-    left  : auto;
-    right : 0;
+    left  : auto !important;
+    right : 0 !important;
   }
 
   .navbar .nav > li > .dropdown-menu:before {
