@@ -25,8 +25,15 @@ class VirtualLesson < ActiveRecord::Base
     [last_lesson, prev_lesson, next_lesson]
   end
 
-  def virtual_name(code3)
-    [I18n.t('ui.last_lesson.lesson'), film_date]
+  # Get number of lesson in case there are more than one lesson on the same date
+  def lesson_of
+    [position, VirtualLesson.where(film_date: film_date).count]
+  end
+
+  def virtual_name
+    position, total = lesson_of
+
+    [I18n.t('ui.last_lesson.lesson'), film_date, position, total]
   end
 
   def lessons_ordered_by_parts

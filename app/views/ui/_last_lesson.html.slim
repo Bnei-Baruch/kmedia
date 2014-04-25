@@ -7,7 +7,7 @@
         .pull-right
           = render 'vl_datepicker', date: @lesson_date
 - else
-  - lesson, date = lesson_name
+  - lesson, date, position, total = lesson_name
   .item.lessons-list
     .padding-both
       h1.clearfix
@@ -17,6 +17,12 @@
           = I18n.t('ui.last_lesson.lesson_from')
           '
           = l(date)
+          - if total > 1
+            | &nbsp;(
+            = position + 1
+            | /
+            = total
+            | )
         .pull-right
           - if prev_lesson
             = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id), class: 'prev-lesson'

@@ -15,7 +15,7 @@ class UiController < ApplicationController
     last_virtual_lesson, @prev_lesson, @next_lesson = VirtualLesson.last_lesson(params[:lesson_date] || params[:id])
     if last_virtual_lesson
       @last_lessons = last_virtual_lesson.lessons_ordered_by_parts
-      @lesson_name = last_virtual_lesson.virtual_name(@language)
+      @lesson_name = last_virtual_lesson.virtual_name
 
       @available_last_lessons_languages = FileAsset.insecure.available_languages(@last_lessons.map(&:file_assets).flatten)
       @active_tab = @available_last_lessons_languages.include?(@locale) ? @locale : 'all'
