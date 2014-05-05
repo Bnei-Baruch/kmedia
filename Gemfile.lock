@@ -14,6 +14,12 @@ GIT
       activerecord (>= 3.0.0)
 
 GIT
+  remote: git://github.com/arbarlow/ruby-mp4info.git
+  revision: 7cde76dc34108fdbb4dc1b4c3bb3ef30c4da403e
+  specs:
+    mp4info (1.7.3)
+
+GIT
   remote: git://github.com/flori/term-ansicolor.git
   revision: 36a3e7c4e27e363b2b64ce06d99559a36c5f63b0
   specs:
@@ -292,6 +298,7 @@ DEPENDENCIES
   jsonify-rails
   kaminari!
   moumar-wmainfo-rb!
+  mp4info!
   mysql2 (>= 0.3)
   newrelic_rpm
   nokogiri

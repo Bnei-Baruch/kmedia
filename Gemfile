@@ -86,8 +86,8 @@ gem 'ruby-mp3info', :require => 'mp3info'
 # f.info['playtime_seconds']
 gem 'moumar-wmainfo-rb', :git => 'https://github.com/moumar/wmainfo-rb.git', :require => 'wmainfo'
 
-#gem 'mp4info', git: 'git://github.com/arbarlow/ruby-mp4info.git', require: 'mp4info'
 # info = MP4Info.open('data/4.mp4')
 # info.SECS or "#{info.MM}:#{info.SS}.#{info.MS}"
+gem 'mp4info', git: 'git://github.com/arbarlow/ruby-mp4info.git', require: 'mp4info'
 
 # antiword - to extract text from .doc file
