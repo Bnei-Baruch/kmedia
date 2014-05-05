@@ -204,7 +204,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.get_lesson_title(id, language)
-    lesson            = Lesson.find(id) rescue { lessonname: '----------', lessondate: '1970-01-01', created: '1970-01-01' }
+    lesson = Lesson.find(id) rescue { lessonname: '----------', lessondate: '1970-01-01', created: '1970-01-01' }
     descr             = lesson.lesson_descriptions.by_language(language).first.try(:lessondesc)
     descr             = lesson.lesson_descriptions.by_language('ENG').first.try(:lessondesc) if descr.blank?
     lesson.lessonname = descr if descr
@@ -285,31 +285,7 @@ class Lesson < ActiveRecord::Base
 
       file_asset = FileAsset.find_by_filename(name)
 
-      playtime_secs =
-          if dry_run
-            0
-          else
-            begin
-              if file['playtime_secs'].to_i > 0
-                file['playtime_secs'].to_i
-              else
-                server_url = Server.find(server)
-                uri        = URI(server_url.httpurl)
-                path       = "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{name}"
-
-                if extension == 'mp3'
-                  m = Mp3Info.open(open(path))
-                  m.length.round(0)
-                elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
-                  f = WmaInfo.new(open(path))
-                  f.info['playtime_seconds']
-                end || 0
-              end
-            rescue Exception => e
-              my_logger.info("WET_RUN; UPS(#{path}) #{e.message}")
-              0
-            end
-          end
+      playtime_secs = file['playtime_secs'].to_i
 
       my_logger.info("File name=#{name} server=#{server} size=#{size} datetime=#{datetime} extension=#{extension} playtime_secs=#{playtime_secs}")
 
@@ -368,6 +344,9 @@ class Lesson < ActiveRecord::Base
           file_asset.file_asset_descriptions << FileAssetDescription.new(lang: ui_lang, filedesc: file_desc)
         }
       end
+
+      file_asset.update_playtime unless dry_run
+
     end
 
     my_logger.info("Finished %%%%%%%%%%%%%%%%%%%%%%%%%%")
