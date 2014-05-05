@@ -27,6 +27,7 @@ gem 'progress_bar', github: 'paul/progress_bar' # for sunspot
 gem 'best_in_place'
 gem 'therubyracer', '0.11.4'
 gem 'dalli'
+gem 'delayed_job_active_record'
 
 gem 'the_sortable_tree', github: 'the-teacher/the_sortable_tree'
 

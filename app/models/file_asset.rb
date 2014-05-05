@@ -1,7 +1,7 @@
 class FileAsset < ActiveRecord::Base
-  self.table_name = :files
+  self.table_name  = :files
   self.primary_key = :fileid
-  has_and_belongs_to_many :lessons, :join_table => "lessonfiles", :foreign_key => "fileid",
+  has_and_belongs_to_many :lessons, :join_table    => "lessonfiles", :foreign_key => "fileid",
                           :association_foreign_key => "lessonid", :order => "date(lessons.updated) DESC, lessonname ASC"
   has_many :file_asset_descriptions, :foreign_key => :fileid do
     def by_language(code3)
@@ -83,10 +83,44 @@ class FileAsset < ActiveRecord::Base
     self.filetype <=> other.filetype
   end
 
+  def update_playtime
+    playtime_secs = begin
+      uri  = URI(server.httpurl)
+      path = "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{filename}"
+
+      extension = File.extname(filename) rescue raise("Wrong :file value (Unable to detect file extension): #{filename}")
+      extension = extension[1..10] # Skip '.' in the beginning of extension, i.e. .mp3 => mp3
+
+      if extension == 'mp3'
+        m = Mp3Info.open(open(path))
+        m.length.round(0)
+      elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
+        f = WmaInfo.new(open(path))
+        f.info['playtime_seconds']
+      else
+        0
+      end
+    rescue Exception => e
+      logger = Lesson.my_logger
+      logger.info("update_playtime; UPS(#{path}) #{e.message}")
+      0
+    end
+
+    if playtime_secs > 0
+      update_attribute(:playtime_secs, playtime_secs)
+
+      lessons.each do |container|
+        if container.playtime_secs.to_i <= 0
+            container.update_attribute(:playtime_secs, playtime_secs)
+        end
+      end
+    end
+  end
+
   def self.available_languages(file_assets)
     return nil if file_assets.nil?
-    field = file_assets[0].respond_to?(:filelang) ? :filelang : :lang
-    code3s = file_assets.map(&field).uniq.map { |l| Language::CODE3_LOCALE[l] }
+    field     = file_assets[0].respond_to?(:filelang) ? :filelang : :lang
+    code3s    = file_assets.map(&field).uniq.map { |l| Language::CODE3_LOCALE[l] }
     languages = []
     MAIN_LOCALES.each { |locale|
       languages << code3s.select { |code3| code3 == locale }

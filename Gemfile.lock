@@ -135,6 +135,11 @@ GEM
     debugger-xml (0.3.3)
       builder (>= 2.0.0)
       debugger (>= 1.6.2)
+    delayed_job (4.0.1)
+      activesupport (>= 3.0, < 4.2)
+    delayed_job_active_record (4.0.1)
+      activerecord (>= 3.0, < 4.2)
+      delayed_job (>= 3.0, < 4.1)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -279,6 +284,7 @@ DEPENDENCIES
   dalli
   debugger
   debugger-xml
+  delayed_job_active_record
   devise (= 2.2.3)
   exception_notification!
   haml
