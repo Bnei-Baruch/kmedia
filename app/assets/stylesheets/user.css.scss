@@ -1169,7 +1169,15 @@ html, .main-layout, .full-screen, .content-wrapper {
   color : #dddddd;
 }
 
+.prev-lesson {
+  padding-right: 10px;
+  display: inline;
+}
 
+.next-lesson {
+  padding-left: 10px;
+  display: inline;
+}
 
 .projekktor-container {
   .bottom {
