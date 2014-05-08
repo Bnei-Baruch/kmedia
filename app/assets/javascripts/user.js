@@ -491,7 +491,7 @@
         });
         projekktor('.active.tab-pane .projekktor').addListener('item', nextFileStarted);
         setup_projekktor_playlist('audio');
-        $('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn').first().addClass('active');
+        $('.active.tab-pane .projekktor-container').siblings('.btn-toolbar').find('.btn').first().addClass('active');
     }
 
     // change projekktor to another tab
