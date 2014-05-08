@@ -73,6 +73,7 @@ gem 'exception_notification', github: 'smartinez87/exception_notification'
 gem 'jsonify-rails'
 gem 'yajl-ruby', :require => 'yajl' # Required if we want json with utf8 strings
 
+gem 'rake', '~> 10.3.1'
 gem 'newrelic_rpm'
 
 # mp3 info
