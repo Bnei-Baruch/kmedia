@@ -437,7 +437,7 @@
 
     // mark a button as active
     function nextFileStarted(itemIndex) {
-        var buttons = $('.active.tab-pane .projekktor-container').siblings('.btn-toolbar').find('.btn.btn-mini');
+        var buttons = $('.active.tab-pane .projekktor-container').siblings('.btn-toolbar').find('.btn');
         buttons.removeClass('active');
         $(buttons[itemIndex]).addClass('active');
     }
@@ -491,7 +491,7 @@
         });
         projekktor('.active.tab-pane .projekktor').addListener('item', nextFileStarted);
         setup_projekktor_playlist('audio');
-        $('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn.btn-mini').first().addClass('active');
+        $('.active.tab-pane .projekktor').siblings('.btn-toolbar').find('.btn').first().addClass('active');
     }
 
     // change projekktor to another tab
