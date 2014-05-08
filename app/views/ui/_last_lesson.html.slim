@@ -24,16 +24,18 @@
             = total
             | )
         .pull-right
-          - if prev_lesson
-            = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id), class: 'prev-lesson'
-          - else
-            == t('ui.last_lesson.prev')
+          .prev-lesson
+            - if prev_lesson
+              = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id)
+            - else
+              == t('ui.last_lesson.prev')
           '
           = render 'vl_datepicker', date: date
-          - if next_lesson
-            = link_to t('ui.last_lesson.next').html_safe, homepage_show_ui_path(next_lesson.id), class: 'next-lesson'
-          - else
-            == t('ui.last_lesson.next')
+          .next-lesson
+            - if next_lesson
+              = link_to t('ui.last_lesson.next').html_safe, homepage_show_ui_path(next_lesson.id)
+            - else
+              == t('ui.last_lesson.next')
       .languages-bar
         ul.nav.nav-tabs
           li.tabs-title = t('ui.last_lesson.available_languages')
@@ -69,21 +71,20 @@
                   .btn-toolbar
                     .btn-group
                       - last_lessons.each_with_index do |lesson, index|
-                        button.btn.btn-mini data-item-index=index = lesson_part(lesson, language)
+                        button.btn data-item-index=index = index + 1
             .span6
               .padding-right
                 h4 = t('ui.last_lesson.download')
                 table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
                   tbody
-                    - for lesson in last_lessons
+                    - last_lessons.each_with_index do |lesson, index|
                       tr
                         td
                           table.inner-table
                             tbody
                               tr
-                                td.left-aligned-column
-                                  strong = lesson_part(lesson, language)
-                              tr
+                                td.lesson-part-number(rowspan="2")
+                                  strong = index + 1
                                 td.left-aligned-column
                                   == lesson_title(lesson, lesson_description(lesson, Lesson.get_all_descriptions(lesson)))
                               tr
