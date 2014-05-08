@@ -94,6 +94,9 @@ class FileAsset < ActiveRecord::Base
       if extension == 'mp3'
         m = Mp3Info.open(open(path))
         m.length.round(0)
+      elsif extension == 'mp4'
+        info = MP4Info.open(open(path))
+        info.SECS
       elsif extension == 'wma' || extension == 'wmv' || extension == 'asf'
         f = WmaInfo.new(open(path))
         f.info['playtime_seconds']
@@ -111,7 +114,7 @@ class FileAsset < ActiveRecord::Base
 
       lessons.each do |container|
         if container.playtime_secs.to_i <= 0
-            container.update_attribute(:playtime_secs, playtime_secs)
+          container.update_attribute(:playtime_secs, playtime_secs)
         end
       end
     end
@@ -134,7 +137,7 @@ class FileAsset < ActiveRecord::Base
     "#{uri.scheme}://#{uri.host}#{uri.port == 80 ? '' : ":#{uri.port}"}/download#{uri.path}/#{filename}"
   end
 
-  # Select updated files and their lesson IDs
+# Select updated files and their lesson IDs
   def FileAsset.get_updated_files(days)
     FileAsset.
         select("CONCAT( servers.httpurl, '/', files.filename ) AS 'link', files.filelang AS 'flang', files.filetype AS 'ftype', files.filesize AS 'fsize', files.updated  AS 'updated', lessonfiles.lessonid AS 'lessonid'").

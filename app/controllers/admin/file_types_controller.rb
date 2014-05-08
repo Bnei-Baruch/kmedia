@@ -14,7 +14,7 @@ class Admin::FileTypesController < Admin::ApplicationController
 
   def create
     if @file_type.save
-      redirect_to [:admin, @file_type], :notice => 'Successfully created File Type.'
+      redirect_to [:admin, @file_type], notice: 'Successfully created File Type.'
     else
       render :new
     end
@@ -34,6 +34,6 @@ class Admin::FileTypesController < Admin::ApplicationController
 
   def destroy
     @file_type.destroy
-    redirect_to admin_file_types_url, :notice => 'Successfully destroyed File Type.'
+    redirect_to admin_file_types_url, notice: 'Successfully destroyed File Type.'
   end
 end

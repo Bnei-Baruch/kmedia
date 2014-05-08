@@ -150,10 +150,10 @@ header {
     display : none;
   }
   #vl-datepicker-alt {
-    margin: 0 26px 0 0;
-    text-align: center;
-    width: 90px;
-    background: #EEEEEE;
+    margin     : 0 26px 0 0;
+    text-align : center;
+    width      : 90px;
+    background : #eeeeee;
   }
 }
 
@@ -781,11 +781,6 @@ header {
   .projekktor {
     margin : 10px auto 20px;
   }
-  .btn-toolbar {
-    .btn-group {
-      white-space : normal;
-    }
-  }
   body {
     padding-left  : 0;
     padding-right : 0;
@@ -1169,11 +1164,26 @@ html, .main-layout, .full-screen, .content-wrapper {
   color : #dddddd;
 }
 
+.prev-lesson {
+  padding-right : 10px;
+  display       : inline;
+}
 
+.next-lesson {
+  padding-left : 10px;
+  display      : inline;
+}
+
+.lessons-list .btn-toolbar .btn-group {
+  white-space : normal;
+  .btn {
+    font-weight: bold;
+  }
+}
 
 .projekktor-container {
   .bottom {
-    .ppscrubber{
+    .ppscrubber {
       background : #444444;
       .ppplayhead {
         background : #cc181e;
@@ -1183,4 +1193,10 @@ html, .main-layout, .full-screen, .content-wrapper {
       }
     }
   }
+}
+
+.lesson-part-number {
+  vertical-align : middle !important;
+  font-size      : 14px;
+  width          : 20px;
 }

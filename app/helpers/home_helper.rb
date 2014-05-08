@@ -54,7 +54,7 @@ module HomeHelper
         <a class="btn btn-mini" href="#{download_url}" title="#{title}">#{ext}</a>
       CODE
     else
-      '&nbsp;'
+      ''
     end.html_safe
   end
 
