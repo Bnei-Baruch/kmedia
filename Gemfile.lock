@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/amatsuda/kaminari.git
-  revision: 30215b19f1c504e74074d8f0bc0a6858969a6a46
+  revision: bcb6c1357a1751b86f93aa724a3e5a250526cbbc
   specs:
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/amerine/acts_as_tree.git
-  revision: c2990670a8bcc778a39390ad7aa22801adda36ab
+  revision: 1e6330ff5f60a5ff78157aa969fa3f85e83acb81
   specs:
-    acts_as_tree (1.5.1)
+    acts_as_tree (1.6.0)
       activerecord (>= 3.0.0)
 
 GIT
@@ -25,6 +25,13 @@ GIT
   specs:
     term-ansicolor (1.3.0)
       tins (~> 1.0)
+
+GIT
+  remote: git://github.com/joliss/jquery-ui-rails.git
+  revision: 8b2d28d20d4d9372f5ae6318a878bfec275d7b10
+  specs:
+    jquery-ui-rails (4.2.1)
+      railties (>= 3.2.16)
 
 GIT
   remote: git://github.com/paul/progress_bar.git
@@ -45,15 +52,15 @@ GIT
 
 GIT
   remote: git://github.com/smartinez87/exception_notification.git
-  revision: b80d3dda1265b1d22c5d0952b020d92dc11484ab
+  revision: 38de1870c859084577f7d5f3b97ab7828dd17662
   specs:
-    exception_notification (4.0.1)
+    exception_notification (4.1.0.rc1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
 
 GIT
   remote: git://github.com/the-teacher/the_sortable_tree.git
-  revision: 4681fd0e75e19f19794fd60a504a7defec28fd9d
+  revision: 090809540fb40618f3771dc80ee32c63fdd3ae4a
   specs:
     the_sortable_tree (2.5.0)
       rails (>= 3.1)
@@ -67,12 +74,12 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    actionmailer (3.2.16)
-      actionpack (= 3.2.16)
+    actionmailer (3.2.18)
+      actionpack (= 3.2.18)
       mail (~> 2.5.4)
-    actionpack (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
+    actionpack (3.2.18)
+      activemodel (= 3.2.18)
+      activesupport (= 3.2.18)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -80,18 +87,18 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activemodel (3.2.16)
-      activesupport (= 3.2.16)
+    activemodel (3.2.18)
+      activesupport (= 3.2.18)
       builder (~> 3.0.0)
-    activerecord (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
+    activerecord (3.2.18)
+      activemodel (= 3.2.18)
+      activesupport (= 3.2.18)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.16)
-      activemodel (= 3.2.16)
-      activesupport (= 3.2.16)
-    activesupport (3.2.16)
+    activeresource (3.2.18)
+      activemodel (= 3.2.18)
+      activesupport (= 3.2.18)
+    activesupport (3.2.18)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     arel (3.0.3)
@@ -109,9 +116,9 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.0.4)
-    bullet (4.8.0)
+    bullet (4.9.0)
       activesupport
-      uniform_notifier (>= 1.4.0)
+      uniform_notifier (~> 1.6.0)
     cancan (1.6.9)
     ckeditor (3.7.1)
       mime-types
@@ -128,16 +135,16 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    columnize (0.3.6)
+    columnize (0.8.9)
     daemons (1.1.9)
-    dalli (2.7.0)
+    dalli (2.7.1)
     debug_inspector (0.0.2)
     debugger (1.6.6)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.3.2)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.3.2)
+    debugger-ruby_core_source (1.3.4)
     debugger-xml (0.3.3)
       builder (>= 2.0.0)
       debugger (>= 1.6.2)
@@ -177,9 +184,8 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.3)
-    multi_json (1.9.2)
+    multi_json (1.10.0)
     mysql2 (0.3.15)
-    newrelic_rpm (3.7.3.204)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     options (2.3.2)
@@ -191,7 +197,7 @@ GEM
       mime-types
     polyglot (0.3.4)
     pr_geohash (1.0.0)
-    puma (2.8.1)
+    puma (2.8.2)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
@@ -200,30 +206,30 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.16)
-      actionmailer (= 3.2.16)
-      actionpack (= 3.2.16)
-      activerecord (= 3.2.16)
-      activeresource (= 3.2.16)
-      activesupport (= 3.2.16)
+    rails (3.2.18)
+      actionmailer (= 3.2.18)
+      actionpack (= 3.2.18)
+      activerecord (= 3.2.18)
+      activeresource (= 3.2.18)
+      activesupport (= 3.2.18)
       bundler (~> 1.0)
-      railties (= 3.2.16)
-    railties (3.2.16)
-      actionpack (= 3.2.16)
-      activesupport (= 3.2.16)
+      railties (= 3.2.18)
+    railties (3.2.18)
+      actionpack (= 3.2.18)
+      activesupport (= 3.2.18)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     raindrops (0.13.0)
-    rake (10.2.2)
+    rake (10.3.1)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
     rsolr (1.0.10)
       builder (>= 2.1.2)
-    ruby-mp3info (0.8.3)
-    sass (3.3.4)
+    ruby-mp3info (0.8.4)
+    sass (3.3.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -255,7 +261,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.19.1)
     tilt (1.4.1)
-    tins (1.1.0)
+    tins (1.2.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -263,15 +269,15 @@ GEM
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicorn (4.8.2)
+    unicorn (4.8.3)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    uniform_notifier (1.4.0)
+    uniform_notifier (1.6.1)
     warden (1.2.3)
       rack (>= 1.0)
     yajl-ruby (1.2.0)
-    zeus (0.13.3)
+    zeus (0.15.1)
       method_source (>= 0.6.7)
 
 PLATFORMS
@@ -295,17 +301,17 @@ DEPENDENCIES
   exception_notification!
   haml
   jquery-rails
+  jquery-ui-rails!
   jsonify-rails
   kaminari!
   moumar-wmainfo-rb!
   mp4info!
   mysql2 (>= 0.3)
-  newrelic_rpm
   nokogiri
   paperclip
   progress_bar!
   puma
-  rails (= 3.2.16)
+  rails (= 3.2.18)
   ruby-mp3info
   sass
   sass-rails

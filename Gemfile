@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.18'
 gem 'jquery-rails'
+gem 'jquery-ui-rails', github: 'joliss/jquery-ui-rails'
 
 gem 'mysql2', '>= 0.3'
 
@@ -73,7 +74,7 @@ gem 'exception_notification', github: 'smartinez87/exception_notification'
 gem 'jsonify-rails'
 gem 'yajl-ruby', :require => 'yajl' # Required if we want json with utf8 strings
 
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 
 # mp3 info
 require 'open-uri'
