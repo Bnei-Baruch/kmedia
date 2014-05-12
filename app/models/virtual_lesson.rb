@@ -79,6 +79,32 @@ class VirtualLesson < ActiveRecord::Base
     result
   end
 
+  def self.combine(vls)
+    # Move containers to the target VL and remove empty VLs
+    if vls.is_a? String
+      vls    = vls.split(',').map { |vl| VirtualLesson.find vl }
+    end
+    target = vls.shift
+    vls.each do |vl|
+      vl.lessons.each do |lesson|
+        target.lessons << lesson
+      end
+      vl.destroy
+    end
+
+    # Renumber containers in the target VL
+    target.lessons.order('position ASC').each_with_index do |lesson, index|
+      lesson.update_attribute(:position, params[:position][index])
+    end
+
+    # Renumber VLs
+    VirtualLesson.vls_from_date(target.film_date).each_with_index do |vl, index|
+      vl.update_attribute :position, index rescue nil
+    end
+
+    "Container(s) #{vls.map(&:id).join(',')} were successfully moved to #{target.id}"
+  end
+
   def self.vls_from_date(date)
     VirtualLesson.where(film_date: date).order(:position)
   end

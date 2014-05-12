@@ -43,6 +43,9 @@ Kmedia::Application.routes.draw do
         collection do
           get 'combine'
         end
+        member do
+          put 'reorder'
+        end
       end
       resources :file_types
       resources :comments, only: [:index, :destroy]
