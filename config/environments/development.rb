@@ -57,4 +57,6 @@ Kmedia::Application.configure do
 
   # Indent html for pretty debugging and do not sort attributes
   Slim::Engine.set_default_options :pretty => true, :sort_attrs => false
+
+  # config.i18n.available_locales = Language::UI_LANGUAGES
 end

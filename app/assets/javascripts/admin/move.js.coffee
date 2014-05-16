@@ -35,7 +35,7 @@ class MoveHelper
   combine_virtual_lessons: (event) ->
     vls = $('.virtual-lessons .selected:checked')
     if vls.length < 2
-      e.preventDefault
+      event.preventDefault
       alert('Please select at least two VLs')
       return false
 
@@ -44,7 +44,7 @@ class MoveHelper
     error = false
     $('.virtual-lessons .selected:checked').each(->
       if film_date != $(this).parents('tr').find('.film-date').text()
-        e.preventDefault
+        event.preventDefault
         alert('All VLs have to belong to the same film_date')
         error = true
         return false
@@ -76,7 +76,7 @@ class MoveHelper
     error = false
     $('.lessons .selected:checked').each(->
       if film_date != $(this).parents('tr').find('.created').text()
-        e.preventDefault
+        event.preventDefault
         alert('All Containers have to belong to the same "filmed" date')
         error = true
         return false # this will breake each()

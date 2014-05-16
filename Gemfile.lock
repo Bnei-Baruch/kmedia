@@ -59,6 +59,15 @@ GIT
       activesupport (>= 3.0.4)
 
 GIT
+  remote: git://github.com/svenfuchs/rails-i18n.git
+  revision: 67e14f3c63b4430449e4e0dbf211daa6238168a5
+  branch: rails-3-x
+  specs:
+    rails-i18n (3.0.1)
+      i18n (~> 0.5)
+      rails (>= 3.0.0, < 4.0.0)
+
+GIT
   remote: git://github.com/the-teacher/the_sortable_tree.git
   revision: 090809540fb40618f3771dc80ee32c63fdd3ae4a
   specs:
@@ -181,7 +190,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.3)
     multi_json (1.10.0)
@@ -277,8 +285,6 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     yajl-ruby (1.2.0)
-    zeus (0.15.1)
-      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -312,6 +318,7 @@ DEPENDENCIES
   progress_bar!
   puma
   rails (= 3.2.18)
+  rails-i18n!
   ruby-mp3info
   sass
   sass-rails
@@ -327,4 +334,3 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicorn
   yajl-ruby
-  zeus
