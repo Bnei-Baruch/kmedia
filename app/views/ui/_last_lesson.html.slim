@@ -7,7 +7,6 @@
         .pull-right
           = render 'vl_datepicker', date: @lesson_date
 - else
-  - lesson, date, position, total = lesson_name
   .item.lessons-list
     .padding-both
       h1.clearfix
@@ -16,26 +15,13 @@
           '
           = I18n.t('ui.last_lesson.lesson_from')
           '
-          = l(date)
-          - if total > 1
-            | &nbsp;(
-            = position + 1
-            | /
-            = total
-            | )
+          = l(lesson_name)
         .pull-right
           .prev-lesson
-            - if prev_lesson
-              = link_to t('ui.last_lesson.prev').html_safe, homepage_show_ui_path(prev_lesson.id)
-            - else
-              == t('ui.last_lesson.prev')
-          '
-          = render 'vl_datepicker', date: date
+            = link_to t('ui.last_lesson.prev').html_safe, prev_lesson_ui_path(lesson_name)
+          = render 'vl_datepicker', date: lesson_name
           .next-lesson
-            - if next_lesson
-              = link_to t('ui.last_lesson.next').html_safe, homepage_show_ui_path(next_lesson.id)
-            - else
-              == t('ui.last_lesson.next')
+            = link_to t('ui.last_lesson.next').html_safe, next_lesson_ui_path(lesson_name)
       .languages-bar
         ul.nav.nav-tabs
           li.tabs-title = t('ui.last_lesson.available_languages')

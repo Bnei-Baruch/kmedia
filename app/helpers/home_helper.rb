@@ -3,29 +3,6 @@ module HomeHelper
     requested_amount.to_i == amount.to_i ? 'active' : 'non-active'
   end
 
-  def lesson_part(lesson, language = 'en')
-    language = Language::LOCALE_CODE3[language]
-    ids = lesson.catalogs.map(&:id)
-    case
-      when ids.include?(Lesson::PREPARATION)
-        I18n.t('ui.last_lesson.preparation')
-      when ids.include?(Lesson::FIRST_PART)
-        I18n.t('ui.last_lesson.first_part')
-      when ids.include?(Lesson::SECOND_PART)
-        I18n.t('ui.last_lesson.second_part')
-      when ids.include?(Lesson::THIRD_PART)
-        I18n.t('ui.last_lesson.third_part')
-      when ids.include?(Lesson::FOURTH_PART)
-        I18n.t('ui.last_lesson.fourth_part')
-      when ids.include?(Lesson::FIFTH_PART)
-        I18n.t('ui.last_lesson.fifth_part')
-      when ids.include?(Lesson::SIXTH_PART)
-        I18n.t('ui.last_lesson.sixth_part')
-      else
-        I18n.t('ui.last_lesson.first_part')
-    end
-  end
-
   def list_assets(lesson, locale, exts, type)
     code3 = Language::LOCALE_CODE3[locale]
     extensions = exts.to_a.map { |ext| ".#{ext}" }

@@ -1,0 +1,8 @@
+tr:
+  views:
+    pagination:
+      first: '&laquo; ilk'
+      last: 'son &raquo;'
+      previous: '&lsaquo; önceki'
+      next: 'bir sonraki &rsaquo;'
+      truncate: '&hellip;'

@@ -1,6 +1,6 @@
 Kmedia::Application.routes.draw do
 
-  scope '/(:locale)', constraints: { locale: /en|he|ru|es|de/ } do
+  scope '/(:locale)', constraints: { locale: /#{Language::UI_LANGUAGES.join('|')}/ } do
 
     resources :searches
     resources :feeds, only: [:index] do
@@ -21,6 +21,8 @@ Kmedia::Application.routes.draw do
       end
       member do
         get 'homepage_show'
+        get 'next_lesson'
+        get 'prev_lesson'
       end
     end
 
@@ -42,6 +44,9 @@ Kmedia::Application.routes.draw do
       resources :virtual_lessons do
         collection do
           get 'combine'
+        end
+        member do
+          put 'reorder'
         end
       end
       resources :file_types

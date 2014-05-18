@@ -1,7 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.18'
+gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-3-x'
 gem 'jquery-rails'
+gem 'jquery-ui-rails', github: 'joliss/jquery-ui-rails'
 
 gem 'mysql2', '>= 0.3'
 
@@ -41,7 +43,6 @@ group :development, :test do
   gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'zeus'
 end
 
 group :test do
@@ -74,7 +75,7 @@ gem 'jsonify-rails'
 gem 'yajl-ruby', :require => 'yajl' # Required if we want json with utf8 strings
 
 gem 'rake', '~> 10.3.1'
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 
 # mp3 info
 require 'open-uri'

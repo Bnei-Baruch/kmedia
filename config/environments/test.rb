@@ -40,4 +40,5 @@ Kmedia::Application.configure do
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
 
+  # config.i18n.available_locales = Language::UI_LANGUAGES
 end

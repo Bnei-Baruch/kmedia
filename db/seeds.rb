@@ -7,6 +7,8 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+#
+# https://github.com/tigrish/iso/blob/master/locales/en.yml
 puts '--> Languages'
 [{ :code3 => "ENG", :language => "English", :locale => 'en' },
  { :code3 => "HEB", :language => "Hebrew", :locale => 'he' },
@@ -17,7 +19,7 @@ puts '--> Languages'
  { :code3 => "DUT", :language => "Dutch", :locale => 'nl' },
  { :code3 => "FRE", :language => "French", :locale => 'fr' },
  { :code3 => "POR", :language => "Portuguese", :locale => 'pt' },
- { :code3 => "TRK", :language => "Turkish", :locale => 'tk' },
+ { :code3 => "TRK", :language => "Turkish", :locale => 'tr' },
  { :code3 => "POL", :language => "Polish", :locale => 'pl' },
  { :code3 => "ARB", :language => "Arabic", :locale => 'ar' },
  { :code3 => "HUN", :language => "Hungarian", :locale => 'hu' },
@@ -27,14 +29,15 @@ puts '--> Languages'
  { :code3 => "BUL", :language => "Bulgarian", :locale => 'bg' },
  { :code3 => "GEO", :language => "Georgian", :locale => 'ka' },
  { :code3 => "NOR", :language => "Norwegian", :locale => 'no' },
- { :code3 => "SWE", :language => "Swedish", :locale => 'sw' },
+ { :code3 => "SWE", :language => "Swedish", :locale => 'sv' },
  { :code3 => "HRV", :language => "Croatian", :locale => 'hr' },
  { :code3 => "CHN", :language => "Chinese", :locale => 'zh' },
  { :code3 => "FAR", :language => "Persian", :locale => 'fa' },
  { :code3 => "ROU", :language => "Romanian", :locale => 'ro' },
+ { :code3 => "HIN", :language => "Hindi", :locale => 'hi' },
  { :code3 => "UKR", :language => "Ukrainian", :locale => 'uk' },
  { :code3 => "MKD", :language => "Macedonian", :locale => 'mk' },
- { :code3 => "SLV", :language => "Slovenian", :locale => 'si' },
+ { :code3 => "SLV", :language => "Slovenian", :locale => 'sl' },
  { :code3 => "LAV", :language => "Latvian", :locale => 'lv' },
  { :code3 => "SLK", :language => "Slovak", :locale => 'sk' },
 ].each { |e| Language.find_or_create_by_locale(e) }

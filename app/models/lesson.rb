@@ -1,24 +1,22 @@
 class Lesson < ActiveRecord::Base
   self.primary_key = :lessonid
-  has_many :lessondesc_patterns, :foreign_key => :lessonid
-  has_many :lesson_descriptions, :foreign_key => :lessonid do
+  has_many :lessondesc_patterns, foreign_key: :lessonid
+  has_many :lesson_descriptions, foreign_key: :lessonid do
     def by_language(code3)
-      where(:lang => code3)
+      where(lang: code3)
     end
   end
-  has_many :lesson_transcripts, :foreign_key => :lessonid do
+  has_many :lesson_transcripts, foreign_key: :lessonid do
     def by_language(code3)
-      where(:lang => code3)
+      where(lang: code3)
     end
   end
-  belongs_to :lecturer, :foreign_key => :lecturerid
+  belongs_to :lecturer, foreign_key: :lecturerid
   belongs_to :content_type
   belongs_to :virtual_lesson, dependent: :destroy
-  has_and_belongs_to_many :file_assets, :join_table => "lessonfiles", :foreign_key => "lessonid",
-                          :association_foreign_key  => "fileid", :order => "date(updated) DESC, filename ASC"
-  has_and_belongs_to_many :catalogs, :join_table   => "catnodelessons", :foreign_key => "lessonid",
-                          :association_foreign_key => "catalognodeid", :order => "catalognodename"
-  belongs_to :language, :foreign_key => :lang, :primary_key => :code3
+  has_and_belongs_to_many :file_assets, join_table: 'lessonfiles', foreign_key: 'lessonid', association_foreign_key: 'fileid', order: 'date(updated) DESC, filename ASC'
+  has_and_belongs_to_many :catalogs, join_table: 'catnodelessons', foreign_key: 'lessonid', association_foreign_key: 'catalognodeid', order: 'catalognodename'
+  belongs_to :language, foreign_key: :lang, primary_key: :code3
 
   has_and_belongs_to_many :labels, uniq: true
   belongs_to :user
@@ -34,13 +32,8 @@ class Lesson < ActiveRecord::Base
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
-  PREPARATION            = Catalog::CATALOG_ID['lesson_preparation']
-  FIRST_PART             = Catalog::CATALOG_ID['lesson_first-part']
-  SECOND_PART            = Catalog::CATALOG_ID['lesson_second-part']
-  THIRD_PART             = Catalog::CATALOG_ID['lesson_third-part']
-  FOURTH_PART            = Catalog::CATALOG_ID['lesson_fourth-part']
-  FIFTH_PART             = Catalog::CATALOG_ID['lesson_fifth-part']
-  SIXTH_PART             = Catalog::CATALOG_ID['lesson_sixth-part']
+  LESSON_PART            = Catalog.where(catalognodename: 'lessons-part').first
+  VIDEO_CATALOG          = Catalog.where(catalognodename: 'Video').first
 
   accepts_nested_attributes_for :lesson_descriptions, :lesson_transcripts
 
@@ -236,39 +229,34 @@ class Lesson < ActiveRecord::Base
     my_logger.info("Container arrived #{container_name} dry_run= #{dry_run}")
 
     # Create/update container
-    container = Lesson.find_or_initialize_by_lessonname(container_name) { |c|
+    container = Lesson.where(lessonname: container_name).first_or_initialize do |c|
       # Update fields for new container only
-      if c.new_record?
-        # Try to update auto-fill-able fields
-        # Only for new containers
-        video = Catalog.find_by_catalognodename('Video') rescue raise('Unable to find catalog "Video"')
-        c.catalogs << video unless c.catalogs.include? video
-        my_logger.info("Catalogs after video assignment: #{get_catalogs_names(c.catalogs)}")
-        sp = ::StringParser.new container_name
-        c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Time.now.to_date
-        c.lang = sp.language.upcase rescue 'ENG'
-        c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
-        sp.descriptions.each { |pattern|
-          c.lesson_descriptions.build(:lang => pattern.lang, :lessondesc => pattern.description)
-          pattern.catalogs.each { |pc|
-            c.catalogs << pc unless c.catalogs.include? pc
-          }
-        }
-        my_logger.info("Catalogs after assignment from pattern: #{get_catalogs_names(c.catalogs)}")
-        c.content_type_id = sp.content_type.id
-        c.secure          = sp.content_security_level
-        c.auto_parsed     = true
+      return unless c.new_record?
 
-        languages = Language.order('code3').all
-
-        lang_codes = c.lesson_descriptions.map(&:lang)
-        languages.each { |l|
-          c.lesson_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
+      # Try to update auto-fill-able fields
+      c.catalogs << VIDEO_CATALOG unless c.catalogs.include? VIDEO_CATALOG
+      my_logger.info("Catalogs after video assignment: #{get_catalogs_names(c.catalogs)}")
+      sp = ::StringParser.new container_name
+      c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Time.now.to_date
+      c.lang = sp.language.upcase rescue 'ENG'
+      c.lecturerid = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
+      sp.descriptions.includes(:catalogs).each { |pattern|
+        c.lesson_descriptions.build(lang: pattern.lang, lessondesc: pattern.description)
+        pattern.catalogs.each { |pc|
+          c.catalogs << pc unless c.catalogs.include? pc
         }
-        AutoCatalogAssignment.match_catalog(c) unless dry_run
-        create_virtual_lesson(c) unless dry_run
-      end
-    }
+      }
+      my_logger.info("Catalogs after assignment from pattern: #{get_catalogs_names(c.catalogs)}")
+      c.content_type_id = sp.content_type.id
+      c.secure          = sp.content_security_level
+      c.auto_parsed     = true
+
+      lang_codes = c.lesson_descriptions.map(&:lang)
+      Language::ALL_LANGUAGES.each { |l|
+        c.lesson_descriptions.build(lang: l.code3) unless lang_codes.include?(l.code3)
+      }
+      create_virtual_lesson(c) unless dry_run
+    end
     my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")
 
     container.save!(:validate => false) unless dry_run
@@ -281,7 +269,7 @@ class Lesson < ActiveRecord::Base
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
       extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
-      extension = extension[1..10] # Skip '.' in the beginning of extension, i.e. .mp3 => mp3
+      extension = extension[1..-1] # Skip '.' in the beginning of extension, i.e. .mp3 => mp3
 
       file_asset = FileAsset.find_by_filename(name)
 
@@ -307,32 +295,29 @@ class Lesson < ActiveRecord::Base
       if !dry_run && !container.file_asset_ids.include?(file_asset.id)
         my_logger.info("Adding to container...")
         container.file_assets << file_asset
-        if container.playtime_secs.to_i <= 0 && file_asset.playtime_secs > 0
-          container.update_attribute(:playtime_secs, file_asset.playtime_secs)
-        end
+        container.update_attribute(:playtime_secs, file_asset.playtime_secs) if container.playtime_secs.to_i <= 0 && file_asset.playtime_secs > 0
         raise "Unable to save/update file #{name}" unless file_asset.save
         my_logger.info("... added")
       end
 
       # Update file description for non-existing UI languages
-      file_desc = if name =~ /_draw_/
+      file_desc = case
+                  when name =~ /_draw_/
                     extension.downcase == 'zip' ? '<b>draw ZIP</b>' : '<b>draw</b>'
-                  elsif name =~ /_scan_/
+                  when name =~ /_scan_/
                     extension.downcase == 'zip' ? '<b>scan ZIP</b>' : '<b>scan</b>'
                   else
                     case extension.downcase.downcase
-                    when '.zip'
+                    when 'zip'
                       '<b>ZIP FILE</b>'
-                    when '.pdf'
+                    when 'pdf'
                       '<b>pdf</b>'
-                    when '.flv'
+                    when 'flv'
                       '<b>flv</b>'
-                    when '.mp4'
+                    when 'mp4'
                       '<b>mp4</b>'
                     else
-                      if name =~ /_96k/
-                        '2/2 <b>original 96K</b>'
-                      end
+                      '2/2 <b>original 96K</b>' if name =~ /_96k/
                     end
                   end
       my_logger.info("File description file_desc=#{file_desc}")
@@ -345,7 +330,9 @@ class Lesson < ActiveRecord::Base
         }
       end
 
-      file_asset.update_playtime unless dry_run
+      unless dry_run
+        Rails.env.production? ? file_asset.delay.update_playtime : file_asset.update_playtime
+      end
 
     end
 
@@ -359,52 +346,40 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.get_catalogs_names(catalogs)
-    names = []
-    catalogs.each { |c|
+    catalogs.inject([]) { |names, c|
       names << c.catalognodename
-    }
-    names.join(',')
+      names
+    }.join(',')
   end
 
   def self.create_virtual_lesson(container)
-    my_logger.info("create_virtual_lesson for: #{container.lessonname} ...")
     return unless container.content_type_id == LESSON_CONTENT_TYPE_ID # Not a lesson
     return if container.virtual_lesson.present? # Already belongs to some virtual lesson
     return if container.secure != 0 # Ignore secure containers
-    my_logger.info("create_virtual_lesson: ... not exists; creating")
+    my_logger.info("find/create_virtual_lesson for: #{container.lessonname} ...")
 
-    vl  = nil
-    ids = container.catalogs.map(&:id)
-    if ids.include?(FIRST_PART) ||
-        ids.include?(SECOND_PART) ||
-        ids.include?(THIRD_PART) ||
-        ids.include?(FOURTH_PART) ||
-        ids.include?(FIFTH_PART)
-      # first_part - create a new container or add to last_container
-      # second_part...fifth_part - add to last_container
-      vl = VirtualLesson.where(film_date: container.lessondate).last
-      my_logger.info("create_virtual_lesson: #{vl ? "selected #{vl.film_date}" : "not selected"}")
-    end
+    container.catalogs << LESSON_PART unless container.catalogs.include? LESSON_PART
 
-    position = VirtualLesson.where('film_date = ?', container.lessondate).count
-    my_logger.info("create_virtual_lesson: position - #{position}")
-    vl = VirtualLesson.create({ film_date: container.lessondate, position: position }, without_protection: true) if vl.nil?
+    vl = VirtualLesson.where(film_date: container.lessondate).last || VirtualLesson.create({ film_date: container.lessondate }, without_protection: true)
     my_logger.info("create_virtual_lesson: #{vl.film_date}")
+
     container.virtual_lesson = vl
+
     vl
   end
 
   def self.parse_lesson_name(lessonname, id)
-    lessonname       ||= Lesson.find(id).lessonname
-    sp               = ::StringParser.new lessonname
-    @date            = sp.date
-    @language        = sp.language
-    @lecturerid      = Lecturer.rav.first.lecturerid if sp.lecturer_rav?
-    @descriptions    = sp.descriptions
-    @catalogs        = @descriptions.select { |d| !d.catalogs.empty? }.first.try(:catalogs)
-    @content_type_id = sp.content_type.id
-    @security        = sp.content_security_level
-    [@date, @language, @lecturerid, @descriptions, @catalogs, @content_type_id, @security]
+    lessonname      ||= Lesson.find(id).lessonname
+    sp              = ::StringParser.new lessonname
+    date            = sp.date
+    language        = sp.language
+    lecturerid      = sp.lecturer_rav? ? Lecturer.rav.first.lecturerid : nil
+    descriptions    = sp.descriptions
+    catalogs        = descriptions.includes(:catalogs).select { |d| !d.catalogs.empty? }.first.try(:catalogs)
+    content_type_id = sp.content_type.id
+    security = sp.content_security_level.
+        catalogs << LESSON_PART unless catalogs.include? LESSON_PART if content_type_id == LESSON_CONTENT_TYPE_ID
+    [date, language, lecturerid, descriptions, catalogs, content_type_id, security]
   end
 
   def set_updated_attributes(user, attributes)
@@ -416,9 +391,10 @@ class Lesson < ActiveRecord::Base
   def operator_changed_secure_field?(user)
     if user.role?(:operator)
       changed_fields = self.changes
-      return changed_fields.size == 1 && (changed_fields.has_key? ("secure"))
+      changed_fields.size == 1 && changed_fields.has_key?('secure')
+    else
+      false
     end
-    return false
   end
 
   def build_descriptions_and_translations(languages)

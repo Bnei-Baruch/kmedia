@@ -1,0 +1,82 @@
+header.subhead#overview
+  h2 Virtual Lesson
+  .subnav
+    ul.nav.nav-pills
+      -if can?(:destroy, @virtual_lesson)
+        li
+          = link_to "Destroy", admin_virtual_lesson_path(@virtual_lesson), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
+      -if can?(:read, @virtual_lesson)
+        li
+          = link_to "View All", admin_virtual_lessons_path
+section
+  .row
+    .span5.well.well-small
+      input(type='text' placeholder='VL ID' style='margin-bottom: 0;')
+      = link_to 'Move to Existing VL', '#', class: 'btn btn-warning'
+    .span2.well.well-small
+      = link_to 'Move to NEW VL', '#', class: 'btn btn-warning'
+
+section.well
+  = display_show_item('ID', @virtual_lesson.id)
+  = display_show_item('Film Date', @virtual_lesson.film_date)
+  = display_show_item('Created', @virtual_lesson.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @virtual_lesson.updated_at.to_s(:long_ordinal))
+  = display_show_item('User', @virtual_lesson.user.try(:email))
+
+section
+  strong Lessons:
+  table#virtual-lessons.table.table-striped.table-bordered.table-condensed
+    thead
+      tr
+        th
+        th Pos
+        th ID
+        th Name
+        th Filming Date
+        th Created Date
+        th Updated Date
+        th Language
+        th Catalogs
+    tbody
+      - @virtual_lesson.lessons.order('position ASC, lessonid ASC').includes(:catalogs).each do |lesson|
+        tr(id='position=#{lesson.id}')
+          td.sort-heper
+            i.fa.fa-sort
+              | &nbsp;
+          td.item-position = lesson.position.to_i
+          td = link_to lesson.id, admin_lesson_path(lesson)
+          td = lesson.lessonname
+          td = lesson.lessondate.try(:to_date)
+          td = lesson.created.try(:to_date)
+          td = lesson.updated.try(:to_date)
+          td = lesson.lang
+          td = lesson.catalogs.map{|c| "#{c.catalognodeid} - #{c.catalognodename}"}
+
+javascript:
+  $(document).ready(function () {
+
+    // Enable sorting Content Items
+    $('#virtual-lessons tbody').sortable({
+      dropOnEmpty: true,
+      opacity: 0.4,
+      scroll: true,
+      axis: 'y',
+      cursor: "move",
+      forceHelperSize: true,
+      forcePlaceholderSize: true,
+      placeholder: '.ui-state-highlight',
+      handle: '.fa-sort',
+      update: function () {
+        $(this).find(".item-position").each(function (index) {
+          var pos = index + 1;
+          $(this).html(pos);
+        });
+        var data = $(this).sortable('serialize');
+        $.ajax({
+          data: data,
+          type: 'PUT',
+          url: '#{reorder_admin_virtual_lesson_path(@virtual_lesson)}'
+        });
+      }
+    });
+  });

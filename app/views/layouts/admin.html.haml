@@ -5,6 +5,7 @@
       = content_for?(:title) ? yield(:title) : "Kabbala Media - Admin"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     = stylesheet_link_tag 'admin'
+    %link(href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet")
     = csrf_meta_tag
     /[if gte IE 9]
       :css

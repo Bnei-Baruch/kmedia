@@ -4,7 +4,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
   respond_to :html, :json
 
   def index
-    @virtual_lessons = VirtualLesson.includes(:lessons, lessons: :file_assets).order('film_date DESC, position ASC').page(params[:page])
+    @virtual_lessons = VirtualLesson.includes(:lessons).order('film_date DESC').page(params[:page])
   end
 
   def new
@@ -27,7 +27,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
   end
 
   def update
-    permitted = can? :update, :virtual_lesson
+    permitted       = can? :update, :virtual_lesson
     @virtual_lesson = VirtualLesson.find params[:id]
 
     respond_to do |format|
@@ -42,26 +42,24 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
     end
   end
 
+  def reorder
+    permitted = can? :update, :virtual_lesson
+    render text: 'You don\'t have permission to do it' and return unless permitted
+
+    @virtual_lesson = VirtualLesson.find params[:id]
+    params[:position].each_with_index do |id, index|
+      Lesson.find(id).update_attribute(:position, index + 1)
+    end
+
+    render text: 'OK'
+  end
+
   def combine
     permitted = can? :update, :virtual_lesson
+    render text: 'You don\'t have permission to do it' and return unless permitted
 
-    # Move containers to the target VL and remove empty VLs
-    vls = params[:vls].split(',').map {|vl| VirtualLesson.find vl }
-    target = vls.shift
-    vls.each do |vl|
-      vl.lessons.each do |lesson|
-        target.lessons << lesson
-      end
-      vl.destroy
-    end
+    notice = VirtualLesson.combine(params[:vls])
 
-    # TODO: Renumber containers in the target VL
-
-    # Renumber VLs
-    VirtualLesson.vls_from_date(target.film_date).each_with_index do |vl, index|
-      vl.update_attribute :position, index rescue nil
-    end
-
-    redirect_to admin_virtual_lessons_path, notice: "Container(s) #{vls.map(&:id).join(',')} successfully moved to #{target.id}"
+    redirect_to admin_virtual_lessons_path, notice: notice
   end
 end

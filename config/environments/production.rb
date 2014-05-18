@@ -73,4 +73,5 @@ Kmedia::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # config.i18n.available_locales = Language::UI_LANGUAGES
 end

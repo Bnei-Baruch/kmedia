@@ -33,27 +33,27 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def file_ids
-    @search = Search.new(catalog_ids: get_all_catalog_ids(params[:catalog_ids]),
-                         content_type_ids: params[:content_type_ids],
-                         media_type_ids: params[:media_type_ids],
-                         query_string: params[:query_string],
-                         date_from: params[:from_date],
-                         date_to: params[:to_date],
+    @search = Search.new(catalog_ids:       get_all_catalog_ids(params[:catalog_ids]),
+                         content_type_ids:  params[:content_type_ids],
+                         media_type_ids:    params[:media_type_ids],
+                         query_string:      params[:query_string],
+                         date_from:         params[:from_date],
+                         date_to:           params[:to_date],
                          created_from_date: params[:created_from_date])
 
     @search.per_page = per_page_file_ids(params[:created_from_date])
     # containers
-    search_result = @search.search_full_text(1)
-    return render json: {error: @search.error, ids: []} unless search_result #handle if error
+    search_result    = @search.search_full_text(1)
+    return render json: { error: @search.error, ids: [] } unless search_result #handle if error
 
     lessons = search_result.results
     if lessons.kind_of?(Array)
       lesson_ids = lessons.collect(&:lessonid)
-      q = FileAsset
-      q = q.where("filelang in (?)", get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
-      q = q.where("filetype in (?)", get_media_types(params[:media_type_ids])) if params[:media_type_ids].present?
-      files = q.joins(:lessons).where("lessons.lessonid in (?)", lesson_ids)
-      render json: {ids: files.collect(&:fileid).join(',')}
+      q          = FileAsset
+      q          = q.where(filelang: get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
+      q          = q.where(filetype: get_media_types(params[:media_type_ids])) if params[:media_type_ids].present?
+      files      = q.joins(:lessons).where('lessons.lessonid in (?)', lesson_ids)
+      render json: { ids: files.collect(&:fileid).join(',') }
     end
   end
 
@@ -102,7 +102,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # The following tables/fields will be updated automatically:
   # container:  date, language, lecturer (if rav), container type, descriptions
   #
-  # If 'dry_run' is true - nothing will be created, just a validations will be performed
+  # If 'dry_run' is true - nothing will be created, just validations will be performed
   #
   # Request header: Content-Type: application.json
   # Request Body  :
@@ -135,19 +135,19 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     unless current_user.roles.include? api_role
       logger.info("User #{email} is not an API user.")
-      render :status => 401, :json => {:message => "Not an API user.", code: false}
+      render status: 401, json: { message: 'Not an API user.', code: false }
       return
     end
 
     render json:
                begin
                  Lesson.add_update(params[:container], params[:files], params[:dry_run] || params[:dry_run] == 'true')
-                 {message: "Success", code: true}
+                 { message: 'Success', code: true }
                rescue Exception => e
                  message = "Exception: #{e.message}\n\n\tBacktrace: #{e.backtrace.join("\n\t")}"
                  logger.error "#{message}\n\n\tParams: #{params.inspect}"
-                 ExceptionNotifier::Notifier.exception_notification(request.env, e).deliver if Rails.env.production?
-                 {message: message, code: false}
+                 ExceptionNotifier::Notifier.notify_exception(e).deliver if Rails.env.production?
+                 { message: message, code: false }
                end
   end
 
@@ -166,7 +166,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # @returns {found: true, "server":"FILES-EU"}
   def get_file_servers
     file = FileAsset.find_by_filename(params[:filename] || '')
-    render json: {found: !file.nil?, server: (file.try(:servername) || DEFAULT_FILE_SERVER)}
+    render json: { found: !file.nil?, server: (file.try(:servername) || DEFAULT_FILE_SERVER) }
   end
 
   # List of catalogs
@@ -219,7 +219,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def content_types
-    @content_types = ContentType.where("secure <= ?", @secure)
+    @content_types = ContentType.where('secure <= ?', @secure)
   end
 
   # List of file types
@@ -297,18 +297,18 @@ class Admin::Api::ApiController < Admin::ApplicationController
   end
 
   def morning_lesson_files
-    from_date = params[:from_date] || Date.yesterday.to_s
-    morning_lesson_catalog = Catalog.find_by_catalognodename('lessons-part')
-    morning_lesson_catalogs = Catalog.descendant_catalogs(morning_lesson_catalog) if morning_lesson_catalog
-    morning_lesson_catalogs_ids = morning_lesson_catalogs.collect(&:catalognodeid).join(",") rescue []
-    @search = Search.new(catalog_ids: morning_lesson_catalogs_ids, date_from: from_date)
+    from_date                   = params[:from_date] || Date.yesterday.to_s
+    morning_lesson_catalog      = Catalog.where(catalognodename: 'lessons-part').first
+
+    @search       = Search.new(catalog_ids: morning_lesson_catalog.catalognodeid, date_from: from_date)
 
     # find the morning lessons
     search_result = @search.search_full_text(1)
     #handle the error
-    return render json: {error: @search.error} unless search_result
-    @lessons = search_result.results
-    files = @lessons.map(&:file_assets).flatten
+    return render json: { error: @search.error } unless search_result
+
+    @lessons   = search_result.results
+    files      = @lessons.map(&:file_assets).flatten
     @lang_hash = files.group_by(&:filelang)
     @lang_hash.each do |lang, files_by_lang|
       @lang_hash[lang]= files_by_lang.group_by { |f| f.filedate.to_date }
@@ -319,12 +319,10 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   private
 
-  def per_page_file_ids(created_from_date)
-    def per_page_file_ids(created_from_date = nil)
-      f = FileAsset
-      f = f.where("created > ?", created_from_date) if created_from_date
-      f.count
-    end
+  def per_page_file_ids(created_from_date = nil)
+    f = FileAsset
+    f = f.where("created > ?", created_from_date) if created_from_date
+    f.count
   end
 
   def check_permissions
@@ -346,7 +344,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   def get_media_types(ids)
     media_type_ids = ids ? ids.split(/\s*,\s*/) : []
-    media_exts = media_type_ids.inject([]) do |result, media_type|
+    media_exts     = media_type_ids.inject([]) do |result, media_type|
       result << FileType.where(:typename => (media_type == 'image' ? 'graph' : media_type)).first.try(:extlist).try(:send, :split, ',')
     end
     media_exts.flatten

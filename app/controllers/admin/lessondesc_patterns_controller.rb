@@ -41,10 +41,10 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
   private
 
   def common_set
-    @languages = Language.order('code3').all
+    @languages = Language::ALL_LANGUAGES
   end
 
   def default_sort_column
-    "pattern"
+    'pattern'
   end
 end
