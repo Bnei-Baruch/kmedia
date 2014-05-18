@@ -109,7 +109,7 @@ class FeedsController < ApplicationController
       Lesson.joins(:catalogs).where('catalognode.secure = 0').pluck(:lessonid).uniq.each do |lesson|
         langs.each do |lang|
           if count == 0
-            filename = "google_sitemap_#{fileno}.xml.gz"
+            filename = "public/google_sitemap_#{fileno}.xml.gz"
             index.write "<sitemap><loc>#{host}/#{filename}</loc></sitemap>\n"
             fz = Zlib::GzipWriter.open(filename, 9)
             fz.write "<?xml version='1.0' encoding='UTF-8'?>\n"
