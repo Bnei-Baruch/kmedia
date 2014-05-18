@@ -10,12 +10,9 @@
     li.divider
     li.nav-header = t('ui.sidebar.filter_by_date')
     li
-      a#dates_range href='javascript:;'
-        i.icon-km-month
-        span.daterange
-          '
-          == search.dates_range_text
-        span.caret
+      javascript:
+        dates_range_value = '#{ search.date_one_day rescue Date.today }';
+      #dates_range
     li.divider
   ul.nav.nav-list
     li.nav-header = t('ui.sidebar.filter_by_content_type')
