@@ -12,7 +12,7 @@
 //= require bootstrap-tab
 //= require bootstrap-tooltip
 
-//= require_tree ../../../lib/assets/javascripts/daterange
+//zzz= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
 //= require projekktor.min
 //= require iscroll
@@ -281,20 +281,10 @@
         });
     });
 
-    function date_type(start, end) {
-        if (start !== null) {
-            if (start.getFullYear() === 1000) {
-                $('.daterange').html(anytime);
-                $('#search_date_type').val('anytime');
-            } else if (start.valueOf() === end.valueOf()) {
-                $('.daterange').html(start.toString('MMMM d, yyyy'));
-                $('#search_date_type').val('one_day');
-            } else {
-                $('.daterange').html(start.toString('MMMM d, yyyy') + '<br/><i class="icon-km-all"></i> ' + end.toString('MMMM d, yyyy'));
-                $('#search_date_type').val('range');
-            }
-        }
-        $('#search_dates_range').val($('.daterange').html());
+    function date_type(dateText) {
+        $('.daterange').html(dateText);
+        $('#search_date_type').val('one_day');
+        $('#search_dates_range').val(dateText);
         $('#new_search').submit();
 
         return false;
@@ -318,34 +308,41 @@
         window_resize();
         $(window).resize(window_resize);
 
-        $('#dates_range').daterangepicker({
-            opens: (opens_dates_range === 'undefined') ? '' : opens_dates_range,
-            format: 'yyyy-MM-dd',
-            locale: (locale_dates_range === 'undefined') ? '' : locale_dates_range,
-            ranges: open_dates_ranges
-        }, function (start, end) {
-            date_type(start, end);
-        });
+        var dates_range = $('#dates_range'),
+            vl_datepicker = $('#vl-datepicker');
 
-        if ($('.daterange').html() === '') {
-            $('.daterange').html(anytime);
+        if (dates_range !== undefined) {
+            dates_range.datepicker({
+                autoSize: true,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'yy-mm-dd',
+                dayNamesMin: datepicker_info.dayNamesMin,
+                defaultDate: dates_range_value,
+                firstDay: datepicker_info.firstDay,
+                isRTL: datepicker_info.isRTL,
+                maxDate: 0,
+                monthNamesShort: datepicker_info.monthNamesShort,
+                nextText: "»",
+                onSelect: date_type,
+                prevText: "«",
+                showOn: "both"
+            });
         }
-
-        if (typeof(vl_datepicker) !== "undefined") {
-            $('#vl-datepicker').datepicker({
+        if (vl_datepicker[0] !== undefined) {
+            vl_datepicker.datepicker({
                 altField: '#vl-datepicker-alt',
                 altFormat: 'yy-mm-dd',
                 autoSize: true,
-//                buttonImageOnly: true,
                 buttonImage: '/assets/calendar.png',
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: 'yy-mm-dd',
-                dayNamesMin: vl_datepicker.dayNamesMin,
-                firstDay: vl_datepicker.firstDay,
-                isRTL: vl_datepicker.isRTL,
+                dayNamesMin: datepicker_info.dayNamesMin,
+                firstDay: datepicker_info.firstDay,
+                isRTL: datepicker_info.isRTL,
                 maxDate: 0,
-                monthNamesShort: vl_datepicker.monthNamesShort,
+                monthNamesShort: datepicker_info.monthNamesShort,
                 nextText: "»",
                 onSelect: date_value,
                 prevText: "«",
