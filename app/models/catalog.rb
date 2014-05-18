@@ -36,10 +36,10 @@ class Catalog < ActiveRecord::Base
     end
   end
 
-  scope :secure, ->(level) { where("secure <= ?", level) }
-  scope :open_matching_string, ->(string) { where("catalognodename like ? AND open = ?", "%#{string}%", true) }
+  scope :secure, ->(level) { where('secure <= ?', level) }
+  scope :open_matching_string, ->(string) { where('catalognodename like ? AND open = ?', "%#{string}%", true) }
   scope :visible, -> { where(:visible => true) }
-  scope :books, ->(language_code3, secure) { Catalog.secure(secure).joins(:catalog_descriptions).where('catnodedesc.lang = ?', language_code3).where('books_catalog = true') }
+  scope :books, ->(language_code3, secure) { Catalog.secure(secure).joins(:catalog_descriptions).where('books_catalog = true').where('catnodedesc.lang = ?', language_code3) }
 
   before_create :create_timestamps
   before_update :update_timestamps
@@ -61,13 +61,6 @@ class Catalog < ActiveRecord::Base
 
   def update_timestamps
     write_attribute :updated, Time.now
-  end
-
-  CATALOG_ID = {}
-
-  %w(lesson_preparation lesson_first-part lesson_second-part lesson_third-part lesson_fourth-part lesson_fifth-part lesson_sixth-part).each do |name|
-    ct               = Catalog.where(catalognodename: name).first
-    CATALOG_ID[name] = ct.try(:id)
   end
 
 # returns children catalogs for the given catalog id
@@ -115,16 +108,17 @@ class Catalog < ActiveRecord::Base
     self.where('selected_catalog > 0').count
   end
 
-  def self.descendant_catalogs(catalog)
-    return catalog if catalog.children.empty?
-    all_children = catalog.children.inject([catalog]) do |result, child|
-      result << descendant_catalogs(child)
+  def descendant_catalogs(include_self = true)
+    res = include_self ? self : []
+    return res if children.empty?
+    children.inject(res) do |result, child|
+      result << child.descendant_catalogs
     end
   end
 
   def self.descendant_catalogs_by_catalog_id(catalog_id)
     begin
-      descendant_catalogs(Catalog.where(catalognodeid: catalog_id).first)
+      Catalog.where(catalognodeid: catalog_id).first.descendant_catalogs
     rescue
       nil
     end

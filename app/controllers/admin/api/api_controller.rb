@@ -298,14 +298,9 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   def morning_lesson_files
     from_date                   = params[:from_date] || Date.yesterday.to_s
-    morning_lesson_catalog      = Catalog.find_by_catalognodename('lessons-part')
-    morning_lesson_catalogs_ids = if morning_lesson_catalog
-                                    Catalog.descendant_catalogs(morning_lesson_catalog).collect(&:catalognodeid).join(',')
-                                  else
-                                    []
-                                  end
+    morning_lesson_catalog      = Catalog.where(catalognodename: 'lessons-part').first
 
-    @search       = Search.new(catalog_ids: morning_lesson_catalogs_ids, date_from: from_date)
+    @search       = Search.new(catalog_ids: morning_lesson_catalog.catalognodeid, date_from: from_date)
 
     # find the morning lessons
     search_result = @search.search_full_text(1)

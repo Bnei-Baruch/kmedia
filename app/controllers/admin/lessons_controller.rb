@@ -216,7 +216,7 @@ class Admin::LessonsController < Admin::ApplicationController
 
   private
   def set_fields
-    @languages = Language.order('code3').all
+    @languages = Language::ALL_LANGUAGES
     @lecturers = Lecturer.all
     @content_types = ContentType.all.map { |ct| [ct.name, ct.id] }
     @security = SECURITY.collect { |s| [s[:name], s[:level]] }

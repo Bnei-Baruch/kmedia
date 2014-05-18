@@ -1,11 +1,11 @@
 class Admin::CatalogsController < Admin::ApplicationController
   include TheSortableTreeController::Rebuild
 
-  load_resource :only => [:show, :new, :destroy, :edit, :update, :create]
+  load_resource only: [:show, :new, :destroy, :edit, :update, :create]
   authorize_resource
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
+    redirect_to admin_lessons_path, alert: "There is no Container with ID=#{params[:id]}."
   end
 
   def index
@@ -21,7 +21,7 @@ class Admin::CatalogsController < Admin::ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @catalogs }
+      format.json { render json: @catalogs }
     end
   end
 
@@ -30,16 +30,14 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def new
-    Language.order('code3').all.each { |l|
-      @catalog.catalog_descriptions.build(:lang => l.code3)
-    }
+    Language::ALL_LANGUAGES.each { |l| @catalog.catalog_descriptions.build(lang: l.code3) }
     @catalog_descriptions = sort_descriptions(@catalog)
   end
 
   def create
     @catalog.user = current_user
     if @catalog.save
-      redirect_to [:admin, @catalog], :notice => "Successfully created catalog."
+      redirect_to [:admin, @catalog], notice: "Successfully created catalog."
     else
       render :new
     end
@@ -47,8 +45,8 @@ class Admin::CatalogsController < Admin::ApplicationController
 
   def edit
     # existing_languages - all_languages
-    (Language.order('code3').pluck(:code3) - @catalog.catalog_descriptions.pluck(:lang)).each { |code3|
-      @catalog.catalog_descriptions.build(:lang => code3)
+    (Language::ALL_LANGUAGES.map(&:code3) - @catalog.catalog_descriptions.pluck(:lang)).each { |code3|
+      @catalog.catalog_descriptions.build(lang: code3)
     }
     @catalog_descriptions = sort_descriptions(@catalog)
   end
@@ -58,7 +56,7 @@ class Admin::CatalogsController < Admin::ApplicationController
     @catalog.user = current_user
     update_children_visibility if visibility_changed?
     if @catalog.save
-      redirect_to admin_catalog_path(@catalog), :notice => "Successfully updated catalog."
+      redirect_to admin_catalog_path(@catalog), notice: "Successfully updated catalog."
     else
       render :edit
     end
@@ -66,21 +64,21 @@ class Admin::CatalogsController < Admin::ApplicationController
 
   def destroy
     @catalog.destroy
-    redirect_to admin_catalogs_url, :notice => "Successfully destroyed catalog."
+    redirect_to admin_catalogs_url, notice: "Successfully destroyed catalog."
   end
 
   def batch
     container = Lesson.find(params[:lesson_id]) rescue nil
-    render :json => {ok: false, msg: "Unable to find container #{params[:lesson_id]}"} and return unless container
+    render json: {ok: false, msg: "Unable to find container #{params[:lesson_id]}"} and return unless container
 
     case
       when md = /security_(?<security_level>[0-4])/.match(params[:batch_type])
         container.update_attribute(:secure, md[:security_level])
       else
-        render :json => {ok: false, msg: "Unknown request #{params[:batch_type]}"} and return
+        render json: {ok: false, msg: "Unknown request #{params[:batch_type]}"} and return
     end
     respond_to do |format|
-      format.json { render :json => {ok: true} }
+      format.json { render json: {ok: true} }
     end
   end
 
@@ -117,11 +115,11 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def default_sort_column
-    "catalognodename"
+    'catalognodename'
   end
 
   def default_sort_direction
-    "asc"
+    'asc'
   end
 
   def update_children_visibility
@@ -129,7 +127,7 @@ class Admin::CatalogsController < Admin::ApplicationController
     return if @catalog.children.empty?
     children = get_all_children(@catalog).flatten
     ids = children.collect(&:catalognodeid)
-    Catalog.update_all({:visible => @catalog.visible}, ["catalognodeid IN (?)", ids]) unless ids.empty?
+    Catalog.update_all({visible: @catalog.visible}, ['catalognodeid IN (?)', ids]) unless ids.empty?
   end
 
   def visibility_changed?
@@ -139,8 +137,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   # We use recursion method to fetch all the children for catalog node => should be changed after moving to postgres
   # Gets all children(descendants) for the given catalog node
    def get_all_children(catalog)
-    Catalog.descendant_catalogs(catalog)
+     catalog.descendant_catalogs
   end
-
 
 end

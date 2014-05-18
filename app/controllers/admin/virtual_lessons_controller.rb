@@ -4,7 +4,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
   respond_to :html, :json
 
   def index
-    @virtual_lessons = VirtualLesson.includes(:lessons, lessons: :file_assets).order('film_date DESC, position ASC').page(params[:page])
+    @virtual_lessons = VirtualLesson.includes(:lessons).order('film_date DESC').page(params[:page])
   end
 
   def new

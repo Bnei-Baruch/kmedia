@@ -46,7 +46,7 @@ class Admin::FileAssetsController < Admin::ApplicationController
   private
 
   def set_fields
-    @languages = Language.order('code3').all
+    @languages = Language::ALL_LANGUAGES
     @servers = Server.order('servername ASC').all
     @security = SECURITY.map { |s| [s[:name], s[:level]] }
   end
