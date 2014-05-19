@@ -109,9 +109,9 @@ class FeedsController < ApplicationController
       Lesson.joins(:catalogs).where('catalognode.secure = 0').pluck(:lessonid).uniq.each do |lesson|
         langs.each do |lang|
           if count == 0
-            filename = "public/google_sitemap_#{fileno}.xml.gz"
+            filename = "google_sitemap_#{fileno}.xml.gz"
             index.write "<sitemap><loc>#{host}/#{filename}</loc></sitemap>\n"
-            fz = Zlib::GzipWriter.open(filename, 9)
+            fz = Zlib::GzipWriter.open("public/#{filename}", 9)
             fz.write "<?xml version='1.0' encoding='UTF-8'?>\n"
             fz.write "<urlset xmlns='http://www.google.com/schemas/sitemap/0.84' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.google.com/schemas/sitemap/0.84 http://www.google.com/schemas/sitemap/0.84/siteindex.xsd'>\n"
           end
