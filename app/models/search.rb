@@ -100,7 +100,6 @@ class Search
   def content_type_ids=(ids)
     @content_type_id = ids
     @content_type_ids = ids ? ids.split(/\s*,\s*/) : nil
-
   end
 
   def date_from=(date)
@@ -114,7 +113,6 @@ class Search
   def created_from_date=(date)
     @created_from_date = parse_time(date)
   end
-
 
   def date_one_day
     Time.parse(@dates_range)

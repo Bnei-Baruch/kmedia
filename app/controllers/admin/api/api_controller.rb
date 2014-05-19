@@ -297,12 +297,10 @@ class Admin::Api::ApiController < Admin::ApplicationController
   end
 
   def morning_lesson_files
-    from_date                   = params[:from_date] || Date.yesterday.to_s
-    morning_lesson_catalog      = Catalog.where(catalognodename: 'lessons-part').first
-
-    @search       = Search.new(catalog_ids: morning_lesson_catalog.catalognodeid, date_from: from_date)
+    from_date = params[:from_date] || Date.yesterday.to_s
 
     # find the morning lessons
+    @search       = Search.new(content_type_id: Lesson::LESSON_CONTENT_TYPE_ID, date_from: from_date)
     search_result = @search.search_full_text(1)
     #handle the error
     return render json: { error: @search.error } unless search_result
