@@ -1,7 +1,7 @@
 class VirtualLesson < ActiveRecord::Base
-  has_many :lessons, conditions: { for_censorship: false }, order: 'position ASC'
+  has_many :lessons, conditions: { for_censorship: false, secure: 0 }, order: 'position ASC'
 
-  default_scope joins(:lessons).where(lessons: { for_censorship: false }).uniq
+  default_scope joins(:lessons).where(lessons: { for_censorship: false, secure: 0 }).uniq
 
   belongs_to :user
 
