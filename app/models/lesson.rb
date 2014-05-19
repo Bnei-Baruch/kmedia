@@ -236,6 +236,7 @@ class Lesson < ActiveRecord::Base
       # Try to update auto-fill-able fields
       c.catalogs << VIDEO_CATALOG unless c.catalogs.include? VIDEO_CATALOG
       my_logger.info("Catalogs after video assignment: #{get_catalogs_names(c.catalogs)}")
+
       sp = ::StringParser.new container_name
       c.lessondate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Time.now.to_date
       c.lang = sp.language.upcase rescue 'ENG'
@@ -377,8 +378,9 @@ class Lesson < ActiveRecord::Base
     descriptions    = sp.descriptions
     catalogs        = descriptions.includes(:catalogs).select { |d| !d.catalogs.empty? }.first.try(:catalogs)
     content_type_id = sp.content_type.id
-    security = sp.content_security_level.
-        catalogs << LESSON_PART unless catalogs.include? LESSON_PART if content_type_id == LESSON_CONTENT_TYPE_ID
+    security = sp.content_security_level
+    catalogs << LESSON_PART unless catalogs.include? LESSON_PART if content_type_id == LESSON_CONTENT_TYPE_ID
+
     [date, language, lecturerid, descriptions, catalogs, content_type_id, security]
   end
 

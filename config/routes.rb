@@ -61,7 +61,6 @@ Kmedia::Application.routes.draw do
 
       resources :lessons do
         member do
-          get 'parse_lesson_name'
           get 'edit_long_descr'
           get 'edit_transcript'
           get 'mark_for_merge'
@@ -72,7 +71,6 @@ Kmedia::Application.routes.draw do
           post 'send_to_censor'
         end
         collection do
-          get 'parse_new_lesson_name'
           get 'get_update'
           post 'add_update'
           get 'combine'

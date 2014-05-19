@@ -112,18 +112,6 @@ class Admin::LessonsController < Admin::ApplicationController
     redirect_to admin_lessons_url, :notice => "Successfully destroyed admin/container."
   end
 
-  def parse_lesson_name
-    if params[:name].blank? && params[:id].blank?
-      render :js => 'alert("Empty Container Name");'
-      return
-    end
-    @date, @language, @lecturerid, @descriptions, @catalogs, @content_type_id, @security = Lesson.parse_lesson_name(params[:name], params[:id])
-
-    render :parse_lesson_name, :layout => false
-  end
-
-  alias :parse_new_lesson_name :parse_lesson_name
-
   def mark_for_merge
     begin
       lesson = Lesson.find(params[:id])

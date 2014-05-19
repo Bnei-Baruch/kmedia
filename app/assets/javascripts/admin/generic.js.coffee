@@ -1,24 +1,4 @@
 #  We have to submit ID=0 for new lesson
-auto_parse = ->
-  $("a.auto-parse").on "click", (e) ->
-    element = $(this)
-    method = undefined
-    url = undefined
-    data = undefined
-    dataType = undefined
-    method = element.attr("data-method") or "GET"
-    url = element.attr("href")
-    data = "name=" + $("#lesson_lessonname").val()
-    dataType = element.attr("data-type") or ($.ajaxSettings and $.ajaxSettings.dataType)
-    $.ajax
-      url: url
-      type: method
-      data: data
-      dataType: dataType
-      success: (data) ->
-        eval data
-    e.preventDefault()
-
 submit_action = (action, element) ->
   $element = $(element)
   form = $element.closest("form")
@@ -82,7 +62,6 @@ $ ->
     else
       # Remove RSS categories to catalogs
       $("#lesson_catalog_tokens").tokenInput "remove", rss_catalog
-  auto_parse()
   # Check all
   $("#batch-all").click ->
     $(this).closest("table").find(".batch").prop "checked", $(this).prop("checked")

@@ -7,11 +7,6 @@
   = display_errors f
   .row
     .span6.rborder
-      - if cannot?(:edit_all_lesson_fields, @lesson)
-        .pull-right.auto-parse= link_to 'Automatic parsing', 'javascript:void(0);', :class => 'auto-parse unable'
-      - else
-        - url = parse_new_lesson_name_admin_lessons_url(:ts => Time.now.to_i)
-        .pull-right= link_to 'Automatic parsing', url, :class => 'auto-parse'
       = f.input :lessonname, :label => 'Name', :disabled => disabled, :input_html => {:class => 'span5'}
       = f.input :content_type_id, :collection => @content_types, :label => 'Type', :disabled => disabled, :prompt => '-- Please select container type --', :input_html => {:class => 'span5'}
       = f.input :v_lessondate, :label => 'Date', :disabled => disabled, :order => [:day, :month, :year], :input_html => {:class => 'span2'}
