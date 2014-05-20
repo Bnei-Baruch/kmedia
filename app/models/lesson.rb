@@ -13,7 +13,7 @@ class Lesson < ActiveRecord::Base
   end
   belongs_to :lecturer, foreign_key: :lecturerid
   belongs_to :content_type
-  belongs_to :virtual_lesson, dependent: :destroy
+  belongs_to :virtual_lesson
   has_and_belongs_to_many :file_assets, join_table: 'lessonfiles', foreign_key: 'lessonid', association_foreign_key: 'fileid', order: 'date(updated) DESC, filename ASC'
   has_and_belongs_to_many :catalogs, join_table: 'catnodelessons', foreign_key: 'lessonid', association_foreign_key: 'catalognodeid', order: 'catalognodename'
   belongs_to :language, foreign_key: :lang, primary_key: :code3
