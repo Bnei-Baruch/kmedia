@@ -365,6 +365,7 @@ class Lesson < ActiveRecord::Base
     my_logger.info("create_virtual_lesson: #{vl.film_date}")
 
     container.virtual_lesson = vl
+    container.position = vl.lessons.count + 1
 
     vl
   end
