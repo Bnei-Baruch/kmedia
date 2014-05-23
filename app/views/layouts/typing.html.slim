@@ -1,0 +1,98 @@
+doctype 5
+html
+  head
+    - title = content_for?(:title) ? yield(:title) : t('ui.homepage')
+    title = title
+    meta name="description" content="#{title}"
+    meta charset='utf-8'
+    meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta name="author" content=""
+    link href="http://feeds.feedburner.com/kabbalah-archive/#{@language}" rel='alternate' title='RSS' type='application/rss+xml'
+
+    = stylesheet_link_tag 'user'
+    = csrf_meta_tag
+    = yield(:head)
+
+    = javascript_include_tag 'modernizr.custom'
+    /[if lt IE 9]
+      = javascript_include_tag 'jquery-1.9.1.min'
+    <!--[if gte IE 9]><!-->
+      = javascript_include_tag 'jquery-2.0.0.min'
+    <!--<![endif]-->
+    = javascript_include_tag 'user', async: true
+
+
+    link rel="shortcut icon" href="/favicon.ico"
+  / <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../docs/assets/ico/apple-touch-icon-114-precomposed.png">
+  / <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../docs/assets/ico/apple-touch-icon-72-precomposed.png">
+  / <link rel="apple-touch-icon-precomposed" href="../../docs/assets/ico/apple-touch-icon-57-precomposed.png">
+
+  body class="#{@locale} #{(@locale == 'he' || @locale == 'ar') ? 'rtl' : ''}"
+    /<!-- Google Tag Manager -->
+    noscript
+      iframe src="//www.googletagmanager.com/ns.html?id=GTM-PKT74Q" height="0" width="0" style="display:none;visibility:hidden"
+    javascript:
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-PKT74Q');
+    /<!-- End Google Tag Manager -->
+
+    = render 'common/navbar'
+    .container-fluid.content-wrapper
+      = yield
+      .footer.hidden-phone
+        p
+          | This website is maintained by the group of kabbalists "Bnei Baruch – Kabbalah L’Am Association"
+          br
+          | Copyright © 2003-
+          = Time.new.year
+          br
+          | Bnei Baruch – Kabbalah L’Am Association, All rights reserved
+
+    javascript:
+      var zclip_list = new Array;
+      var anytime = '#{t('ui.sidebar.anytime')}';
+      var projekktor_messages = {
+        // general
+        0: '#{I18n.t('ui.projekktor.message_0')}',
+        1: '#{I18n.t('ui.projekktor.message_1')}',
+        2: '#{I18n.t('ui.projekktor.message_2')}',
+        3: '#{I18n.t('ui.projekktor.message_3')}',
+        4: '#{I18n.t('ui.projekktor.message_4')}',
+        5: '#{I18n.t('ui.projekktor.message_5')}',
+        6: '#{I18n.t('ui.projekktor.message_6')}',
+        7: '#{I18n.t('ui.projekktor.message_7')}',
+        8: '#{I18n.t('ui.projekktor.message_8')}',
+        9: '#{I18n.t('ui.projekktor.message_9')}',
+        10: '#{I18n.t('ui.projekktor.message_10')}',
+        11: '#{I18n.t('ui.projekktor.message_11')}',
+        12: '#{I18n.t('ui.projekktor.message_12')}',
+        80: '#{I18n.t('ui.projekktor.message_80')}',
+        97: '#{I18n.t('ui.projekktor.message_97')}',
+        98: '#{I18n.t('ui.projekktor.message_98')}',
+        99: '#{I18n.t('ui.projekktor.message_99')}',
+        100: '#{I18n.t('ui.projekktor.message_100')}',
+        // Youtube errors
+        500: '#{I18n.t('ui.projekktor.message_500')}',
+        501: '#{I18n.t('ui.projekktor.message_501')}',
+        502: '#{I18n.t('ui.projekktor.message_502')}'
+      };
+
+  - rtl_locale = @locale == 'he' || @locale == 'ar';
+
+  javascript:
+    datepicker_info = {
+      dayNamesMin: #{raw t('ui.sidebar.abbr_day_names')},
+      firstDay: #{rtl_locale ? 0 : 1},
+      isRTL: #{rtl_locale},
+      monthNamesShort: #{raw t('ui.sidebar.month_names')},
+      currentText: '#{raw t('ui.sidebar.today')}'
+    };

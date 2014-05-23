@@ -1,0 +1,45 @@
+.navbar.navbar-fixed-top.navbar-inverse
+  .navbar-inner
+    .container-fluid
+      a.btn.left-menu-btn.visible-phone.btn-inverse
+      = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand
+      .top-menu-div
+        ul.nav.top-links data-title="#{t('navbar.top_links')}"
+          li
+            = link_to t('navbar.old_version'), ui_index_path
+          li
+            a href='#leave-comment' data-toggle='modal' = t('navbar.comment.comment')
+          li.dropdown
+            a.dropdown-toggle href="#" data-toggle='dropdown'
+              = t('navbar.more')
+              '
+              b.caret
+            ul.dropdown-menu
+              li
+                a href='http://archivesupport.kbb1.com' = t('navbar.support')
+              li
+                a href='/ui/lesson_downloader' = t('navbar.lesson_downloader')
+        = simple_form_for [@search || Search.new], :url => ui_index_path, :html => {:class => 'navbar-form', :method => :get, :'data-title' => t('navbar.search')} do |f|
+          = f.input :query_string, :label => false, :placeholder => t('navbar.search'), :input_html => {text: '<i class="icon-search"></i>'}, :wrapper => 'bootstrap_top_search'
+          = f.input :content_type_id, as: :hidden, :wrapper => 'default'
+          = f.input :media_type_id, as: :hidden, :wrapper => 'default'
+          = f.input :date_type, as: :hidden, :wrapper => 'default'
+          = f.input :dates_range, as: :hidden, :wrapper => 'default'
+          = f.input :language_ids, as: :hidden, :wrapper => 'default'
+          = f.input :catalog_ids, as: :hidden, :wrapper => 'default'
+        = select_tag 'languages', options_for_select(@menu_languages, selected: @current_menu_language), class: 'languages', :'data-title' => t('navbar.languages')
+
+#leave-comment.modal.hide tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='false'
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+    = t('navbar.comment.comment')
+  .modal-body
+    .alert.hide
+    = simple_form_for @comment_data do |f|
+      .span3= f.input :name, label: t('navbar.comment.name'), input_html: {class: 'span3'}
+      .span3= f.input :email, label: t('navbar.comment.email'), input_html: {class: 'span3'}
+      .span6= f.input :subject, label: t('navbar.comment.subject'), input_html: {class: 'span6'}
+      .span6= f.input :comment, label: t('navbar.comment.body'), input_html: {class: 'span6', rows: 9}
+  .modal-footer
+    button.btn data-dismiss="modal" aria-hidden="true" = t('navbar.comment.cancel')
+    button#submit_comment.btn.btn-primary data-dismiss="modal" aria-hidden="true" = t('navbar.comment.submit')
