@@ -85,8 +85,8 @@ class UiController < ApplicationController
       @lesson_name  = vl.film_date
       @lesson_id    = vl.id
 
-      @available_last_lessons_languages = FileAsset.insecure.available_languages(@last_lessons.map(&:file_assets).flatten)
-      @active_tab                       = @available_last_lessons_languages.include?(@locale) ? @locale : 'all'
+      @available_languages = FileAsset.insecure.available_languages(@last_lessons.map(&:file_assets).flatten)
+      @active_tab          = @available_languages.include?(@locale) ? @locale : @available_languages[0]
     else
       @lesson_date = params[:lesson_date]
     end

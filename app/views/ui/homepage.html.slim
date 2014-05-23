@@ -7,7 +7,7 @@
       = render 'common/topbanner'
       = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
       = render 'tags_cloud'
-      = render 'last_lesson', lesson_name: @lesson_name, lesson_id: @lesson_id, available_languages: @available_last_lessons_languages, active_tab: @active_tab, last_lessons: @last_lessons
+      = render 'last_lesson', lesson_name: @lesson_name, available_languages: @available_languages, active_tab: @active_tab, last_lessons: @last_lessons
       /ZZZ = render 'homepage_banners'
       - unless @new_materials.blank?
         = render 'new_materials', new_materials: @new_materials
