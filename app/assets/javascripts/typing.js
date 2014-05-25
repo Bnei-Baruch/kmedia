@@ -32,5 +32,10 @@
                 showOn: "both"
             });
         }
+
+        $('#languages').change(function () {
+            window.location = $(this).val();
+        });
+
     });
 }());
