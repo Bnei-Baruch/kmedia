@@ -38,8 +38,8 @@
     = simple_form_for @comment_data do |f|
       .span3= f.input :name, label: t('navbar.comment.name'), input_html: {class: 'span3'}
       .span3= f.input :email, label: t('navbar.comment.email'), input_html: {class: 'span3'}
-      .span6= f.input :subject, label: t('navbar.comment.subject'), input_html: {class: 'span6'}
-      .span6= f.input :comment, label: t('navbar.comment.body'), input_html: {class: 'span6', rows: 9}
+      .span5= f.input :subject, label: t('navbar.comment.subject'), input_html: {class: 'span5'}
+      .span5= f.input :comment, label: t('navbar.comment.body'), input_html: {class: 'span5', rows: 9}
   .modal-footer
     button.btn data-dismiss="modal" aria-hidden="true" = t('navbar.comment.cancel')
     button#submit_comment.btn.btn-primary data-dismiss="modal" aria-hidden="true" = t('navbar.comment.submit')
