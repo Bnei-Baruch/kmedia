@@ -87,6 +87,9 @@ ru:
       download: 'Скачать:'
       lesson_from: 'от'
       lesson: 'Урок'
+      lessons: 'Уроки'
+      lectures: 'Лекции'
+      programs: 'Программы'
       preparation: 'Подготовка'
     updated_assets:
       other_updates: 'Прочие обновления'
@@ -128,6 +131,8 @@ ru:
       message_500: 'Youtube видео удалено или объявлено private'
       message_501: 'Владелец Youtube файла запретил embedding.'
       message_502: 'Указан неправильный Youtube Video-Id.'
+  typing:
+    title: 'Набор текстов'
 
 # Standard Rails
   date:

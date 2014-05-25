@@ -87,6 +87,9 @@ en:
       download: 'Download:'
       lesson_from: 'from'
       lesson: 'Lesson'
+      lessons: 'Lessons'
+      lectures: 'Lecturеs'
+      programs: 'Programs'
       preparation: 'Preparation'
     updated_assets:
       other_updates: 'Other updates'
@@ -128,3 +131,5 @@ en:
       message_500: 'This Youtube video has been removed or set to private'
       message_501: 'The Youtube user owning this video disabled embedding.'
       message_502: 'Invalid Youtube Video-Id specified.'
+  typing:
+    title: 'Typing system'

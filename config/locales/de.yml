@@ -87,6 +87,9 @@ de:
       download: 'downloaden:'
       lesson_from: 'von'
       lesson: 'Unterricht'
+      lessons: 'Unterrichten'
+      lectures: 'Vorträgen'
+      programs: 'Programmen'
       preparation: 'Vorbereitung'
     updated_assets:
       other_updates: 'andere Updates'
@@ -128,6 +131,8 @@ de:
       message_500: 'Dieses Youtube-Video wurde entfernt oder privat'
       message_501: 'Der YouTube-Nutzer besitzen dieses Video deaktiviert Einbettung.'
       message_502: 'Ungültige Youtube Video-ID angegeben.'
+  typing:
+    title: 'Typing system'
 
 # Standard Rails
   date:

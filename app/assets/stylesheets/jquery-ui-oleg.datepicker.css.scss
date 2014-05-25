@@ -93,7 +93,17 @@
 
 .ui-datepicker .ui-datepicker-prev,
 .ui-datepicker .ui-datepicker-next {
-  display : none;
+  span {
+    text-indent: 0;
+    position: relative;
+    top: 5px;
+  }
+}
+.ui-datepicker .ui-datepicker-prev {
+  float: right;
+}
+.ui-datepicker .ui-datepicker-next {
+  float: left;
 }
 
 .ui-datepicker .ui-datepicker-title {
@@ -107,7 +117,7 @@
 
 .ui-datepicker select.ui-datepicker-month,
 .ui-datepicker select.ui-datepicker-year {
-  width  : 115px;
+  width  : auto !important;
   margin : 0 5px;
 }
 

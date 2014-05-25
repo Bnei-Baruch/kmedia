@@ -315,7 +315,6 @@ header {
           }
           &:before {
             border-width : 0 8px 8px 8px;
-            border-color : #cccccc;
             border-color : transparent transparent rgba(0, 0, 0, 0.3) transparent;
             margin-left  : -8px;
           }
@@ -340,9 +339,8 @@ header {
     display : table-cell;
   }
   .category-modal {
-    margin     : 0;
     top        : 100%;
-    margin-top : 8px;
+    margin     : 8px 0 0;
     left       : -1px;
     position   : absolute;
     width      : 100%;
@@ -373,11 +371,10 @@ header {
         overflow-y    : scroll;
         //@extend .f-left;
         display       : inline-block;
-        margin        : 0;
         //width: 225px;
         @include box-sizing(border-box);
         width         : 33%;
-        margin-left   : 0.5%;
+        margin        : 0 0 0 0.5%;
         padding-right : 5px;
         ul {
           margin  : 0;
@@ -528,7 +525,7 @@ header {
   overflow : visible;
 }
 
-#dates_range {
+.dates_range {
   white-space  : nowrap;
   cursor       : pointer;
   position     : relative;

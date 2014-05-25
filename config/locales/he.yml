@@ -87,6 +87,9 @@ he:
       download: 'הורדת השיעור'
       lesson_from: 'מתאריך'
       lesson: 'שיעור'
+      lessons: 'שיעורים'
+      lectures: 'הרצאות'
+      programs: 'תוכניות'
       preparation: 'הכנה'
     updated_assets:
       other_updates: 'עדכונים נוספים'
@@ -128,6 +131,8 @@ he:
       message_500: 'This Youtube video has been removed or set to private'
       message_501: 'The Youtube user owning this video disabled embedding.'
       message_502: 'Invalid Youtube Video-Id specified.'
+  typing:
+    title: 'מערך הקלדות'
 
 # Standard Rails
   date:

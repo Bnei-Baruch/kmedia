@@ -1,15 +1,12 @@
-- content_for(:title) do
-  = t('ui.homepage')
+
+javascript:
+  var index_url = "#{@current_menu_language}";
+
 .full-screen
   .row-fluid.main-layout
-    = render 'common_ui/sidebar', search: @search
-    #content.span9
-      = render 'common/topbanner'
-      = render 'list_header', selected_catalogs: @selected_catalogs, boost_tree: @boost_tree
-      = render 'tags_cloud'
-      = render 'last_lesson', lesson_name: @lesson_name, lesson_id: @lesson_id, available_languages: @available_last_lessons_languages, active_tab: @active_tab, last_lessons: @last_lessons
-      /ZZZ = render 'homepage_banners'
-      - unless @new_materials.blank?
-        = render 'new_materials', new_materials: @new_materials
-      - unless @updated_assets.blank?
-        = render 'updated_assets', updated_assets: @updated_assets, updated_languages: @available_updated_assets_languages
+    #content.span12 style='padding-top: 50px;'
+      - title = I18n.t('ui.last_lesson.lessons')
+      = render 'last_lesson', title: title, language: @language, lesson_date: @lesson_date, last_lessons: @last_lessons
+      - # Lectures & Programs
+      - title = "#{I18n.t('ui.last_lesson.lectures')} &amp; #{I18n.t('ui.last_lesson.programs')}".html_safe
+      = render 'last_lesson', title: title, language: @language, lesson_date: @lesson_date, last_lessons: @last_lectures_programs

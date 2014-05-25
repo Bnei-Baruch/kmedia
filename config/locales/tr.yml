@@ -88,6 +88,9 @@ tr:
       lesson_part: 'Ders Kısmı'
       lesson_from: ' '
       lesson: 'Dersler'
+      lessons: 'Dersleri'
+      lectures: 'Konferanslar'
+      programs: 'Programları'
       preparation: 'Hazırlık'
       first_part: 'İlk Kısım'
       second_part: 'İkinci Kısım'
@@ -135,3 +138,5 @@ tr:
       message_500: 'Bu Youtube video kaldırıldı veya kişiselleştirildi'
       message_501: 'Bu videoya sahip olan Youtube kullanıcısı yolu link yolunu görünmez kıldı.'
       message_502: 'Geçersiz Youtube Video-özelleşmiş kimlik.'
+  typing:
+    title: 'Typing system'

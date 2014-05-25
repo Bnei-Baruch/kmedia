@@ -97,6 +97,11 @@ class Lesson < ActiveRecord::Base
 
   scope :security, -> sec { where(secure: sec) }
 
+  def self.last_lectures_programs(lesson_date = Date.today, language = 'ENG')
+    joins(:file_assets).where('files.filelang' => language).where(lessondate: lesson_date).where(content_type_id: [ContentType::CONTENT_TYPE_ID['lecture'], ContentType::CONTENT_TYPE_ID['program']])
+  end
+
+
   def self.available_languages(lessons)
     return nil if lessons.nil?
     FileAsset.available_languages lessons.map(&:file_assets).flatten.sort.uniq.compact
@@ -379,7 +384,7 @@ class Lesson < ActiveRecord::Base
     descriptions    = sp.descriptions
     catalogs        = descriptions.includes(:catalogs).select { |d| !d.catalogs.empty? }.first.try(:catalogs)
     content_type_id = sp.content_type.id
-    security = sp.content_security_level
+    security        = sp.content_security_level
     catalogs << LESSON_PART unless catalogs.include? LESSON_PART if content_type_id == LESSON_CONTENT_TYPE_ID
 
     [date, language, lecturerid, descriptions, catalogs, content_type_id, security]

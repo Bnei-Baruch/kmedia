@@ -308,10 +308,10 @@
         window_resize();
         $(window).resize(window_resize);
 
-        var dates_range = $('#dates_range'),
+        var dates_range = $('.dates_range'),
             vl_datepicker = $('#vl-datepicker');
 
-        if (dates_range !== undefined) {
+        if (dates_range.length > 0) {
             dates_range.datepicker({
                 autoSize: true,
                 changeMonth: true,
@@ -329,7 +329,7 @@
                 showOn: "both"
             });
         }
-        if (vl_datepicker[0] !== undefined) {
+        if (vl_datepicker.length > 0) {
             vl_datepicker.datepicker({
                 altField: '#vl-datepicker-alt',
                 altFormat: 'yy-mm-dd',

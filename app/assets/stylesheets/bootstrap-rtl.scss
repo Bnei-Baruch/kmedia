@@ -241,7 +241,7 @@
     }
   }
 
-  #dates_range {
+  .dates_range {
     .ui-datepicker th {
       text-align: right;
     }
@@ -339,4 +339,10 @@
   .next-lesson {
     padding-right: 10px;
   }
+}
+.ui-datepicker .ui-datepicker-prev {
+  float: left;
+}
+.ui-datepicker .ui-datepicker-next {
+  float: right;
 }

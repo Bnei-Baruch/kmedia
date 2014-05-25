@@ -87,6 +87,9 @@ es:
       download: 'Descargar:'
       lesson_from: 'de'
       lesson: 'Clase'
+      lessons: 'Clases'
+      lectures: 'Lecturas'
+      programs: 'Programas'
       preparation: 'Preparación'
     updated_assets:
       other_updates: 'Otras actualizaciones'
@@ -128,7 +131,8 @@ es:
       message_500: 'Este video de Youtube se ha eliminado o se establece en privado'
       message_501: 'El usuario de Youtube que posee este vídeo ha discapacitado incorporarlo.'
       message_502: 'Inválido Youtube Video-ID especificado.'
-
+  typing:
+    title: 'Typing system'
 # stardard Rails
   date:
     abbr_day_names:

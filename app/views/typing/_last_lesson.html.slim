@@ -1,84 +1,36 @@
-- if @last_lessons.blank?
-  .item.lessons-list
-    .padding-both
-      h1.clearfix
-        .pull-left
-          = t('ui.content.no_results')
-        .pull-right
-          = render 'vl_datepicker', date: @lesson_date
-- else
-  .item.lessons-list
-    .padding-both
-      h1.clearfix
-        .pull-left
-          = I18n.t('ui.last_lesson.lesson')
-          '
-          = I18n.t('ui.last_lesson.lesson_from')
-          '
-          = l(lesson_name)
-        .pull-right
-          .prev-lesson
-            = link_to t('ui.last_lesson.prev').html_safe, prev_lesson_ui_path(lesson_name)
-          = render 'vl_datepicker', date: lesson_name
-          .next-lesson
-            = link_to t('ui.last_lesson.next').html_safe, next_lesson_ui_path(lesson_name)
-      .languages-bar
-        ul.nav.nav-tabs
-          li.tabs-title = t('ui.last_lesson.available_languages')
-          - for l in available_languages
-            li class=(l == active_tab ? 'active' : '')
-              a href="##{l}-player" data-toggle='tab' = l.upcase
-    .tab-content
-      - for language in available_languages
-        .tab-pane.fade.in id="#{language}-player" class=(language == active_tab ? 'active' : '')
-          .row-fluid
-            .span6
-              .padding-left
-                h4.pull-left data-video="#{t('ui.last_lesson.play')}" data-audio="#{t('ui.last_lesson.listen')}" class='toggle-h4'
-                  = t('ui.last_lesson.play')
-                .pull-right.toggle
-                  a.right-switch-link href="javascript:;" = t('ui.last_lesson.audio')
-                  .switch
-                    i.icon-km-small-video
-                    i.icon-km-small-audio
-                    .right.btn.btn-mini.btn-primary href="javascript:;"
-                      i.icon-km-small-white-audio
-                  a.left-switch-link href="javascript:;" = t('ui.last_lesson.video')
-                .projekktor-container
-                  div class="video-#{language} projekktor" style="width:100%;"
-                javascript:
-                  var playlist_#{language}_video = [
-                    #{playlist(last_lessons, language, :video)}
-                  ];
-                  var playlist_#{language}_audio = [
-                    #{playlist(last_lessons, language, :audio)}
-                  ];
-                - unless last_lessons.count == 1
-                  .btn-toolbar
-                    .btn-group
-                      - last_lessons.each_with_index do |lesson, index|
-                        button.btn data-item-index=index = index + 1
-            .span6
-              .padding-right
-                h4 = t('ui.last_lesson.download')
-                table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
-                  tbody
-                    - last_lessons.each_with_index do |lesson, index|
-                      tr
-                        td
-                          table.inner-table
-                            tbody
-                              tr
-                                td.lesson-part-number(rowspan="2")
-                                  strong = index + 1
-                                td.left-aligned-column
-                                  == lesson_title(lesson, lesson_description(lesson, Lesson.get_all_descriptions(lesson)))
-                              tr
-                                td.left-aligned-column style="padding-bottom: 5px !important;"
-                                  = t('ui.last_lesson.download')
-                                  = show_asset(lesson, language, 'wmv')
-                                  = show_asset(lesson, language, 'mp4')
-                                  = show_asset(lesson, language, 'mp3')
-                                  = show_asset(lesson, language, 'doc')
-                                  = show_asset(lesson, language, 'zip')
-                                  br
+.item.lessons-list
+  .padding-both
+    h1.clearfix
+      .pull-left
+        = title
+  .tab-content
+    .row-fluid
+      .padding-both
+        .span3
+          h4 = lesson_date
+          javascript:
+            dates_range_value = '#{ lesson_date }';
+          .dates_range
+        .span9
+          h4 = t('ui.last_lesson.download')
+          table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
+            tbody
+              - last_lessons.each_with_index do |lesson, index|
+                tr
+                  td
+                    table.inner-table
+                      tbody
+                        tr
+                          td.lesson-part-number(rowspan="2")
+                            strong = index + 1
+                          td.left-aligned-column
+                            == lesson_title(lesson, lesson_description(lesson, Lesson.get_all_descriptions(lesson)))
+                        tr
+                          td.left-aligned-column style="padding-bottom: 5px !important;"
+                            = t('ui.last_lesson.download')
+                            - language = Language::CODE3_LOCALE[language]
+                            = show_asset(lesson, language, 'wmv')
+                            = show_asset(lesson, language, 'mp4')
+                            = show_asset(lesson, language, 'mp3')
+                            = show_asset(lesson, language, 'doc')
+                            = show_asset(lesson, language, 'zip')

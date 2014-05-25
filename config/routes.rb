@@ -26,6 +26,9 @@ Kmedia::Application.routes.draw do
       end
     end
 
+    resources :typing, only: [:index] do
+    end
+
     resources :comments, only: :create
 
     root to: 'ui#homepage'
@@ -188,5 +191,5 @@ Kmedia::Application.routes.draw do
     [301, { location: "/#{lang}/ui/lesson_downloader" }, []]
   }
 
-  get '*path', to: redirect('/'), status: 301
+  get '*path', to: redirect('/'), status: 301, constraints: ->(request) { request.path =~ /rails\/path/ }
 end
