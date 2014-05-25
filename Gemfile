@@ -30,7 +30,7 @@ gem 'best_in_place'
 gem 'therubyracer', '0.11.4'
 gem 'dalli'
 gem 'delayed_job_active_record'
-
+gem 'rakismet'
 gem 'the_sortable_tree', github: 'the-teacher/the_sortable_tree'
 
 # Bundle gems for the local environment. Make sure to

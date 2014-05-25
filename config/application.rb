@@ -57,6 +57,9 @@ module Kmedia
 
     config.active_record.schema_format = :sql
 
+    config.rakismet.key = '5b4263e0f74f'
+    config.rakismet.url = 'www.kabbalahmedia.info'
+
     # don't generate RSpec tests for views and helpers
     # we’re using Cucumber scenarios (integration tests)
     config.generators do |g|
