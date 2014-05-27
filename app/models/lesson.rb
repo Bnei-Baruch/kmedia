@@ -261,9 +261,11 @@ class Lesson < ActiveRecord::Base
       Language::ALL_LANGUAGES.each { |l|
         c.lesson_descriptions.build(lang: l.code3) unless lang_codes.include?(l.code3)
       }
-      create_virtual_lesson(c) unless dry_run
+      c.create_virtual_lesson unless dry_run
     end
     my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")
+
+    container.position = virtual_lesson.lessons.count
 
     container.save!(:validate => false) unless dry_run
     my_logger.info("Container saved")
@@ -352,27 +354,20 @@ class Lesson < ActiveRecord::Base
   end
 
   def self.get_catalogs_names(catalogs)
-    catalogs.inject([]) { |names, c|
-      names << c.catalognodename
-      names
-    }.join(',')
+    catalogs.map(&:catalognodename).join(',')
   end
 
-  def self.create_virtual_lesson(container)
-    return unless container.content_type_id == LESSON_CONTENT_TYPE_ID # Not a lesson
-    return if container.virtual_lesson.present? # Already belongs to some virtual lesson
-    return if container.secure != 0 # Ignore secure containers
-    my_logger.info("find/create_virtual_lesson for: #{container.lessonname} ...")
+  def create_virtual_lesson
+    return unless content_type_id == LESSON_CONTENT_TYPE_ID # Not a lesson
+    return if virtual_lesson.present? # Already belongs to some virtual lesson
+    return if secure != 0 # Ignore secure containers
 
-    container.catalogs << LESSON_PART unless container.catalogs.include? LESSON_PART
+    catalogs << LESSON_PART unless catalogs.include? LESSON_PART
 
-    vl = VirtualLesson.where(film_date: container.lessondate).last || VirtualLesson.create({ film_date: container.lessondate }, without_protection: true)
-    my_logger.info("create_virtual_lesson: #{vl.film_date}")
+    my_logger.info("find/create_virtual_lesson for: #{lessondate} ...")
 
-    container.virtual_lesson = vl
-    container.update_attribute :position, vl.lessons.count
-
-    vl
+    self.virtual_lesson = VirtualLesson.where(film_date: lessondate).last ||
+        VirtualLesson.create({ film_date: lessondate }, without_protection: true)
   end
 
   def self.parse_lesson_name(lessonname, id)
