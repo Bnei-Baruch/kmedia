@@ -13,4 +13,6 @@ class LabelDescription < ActiveRecord::Base
   # --- Accessors ---
 
   attr_accessible :text, :lang
+
+  scope :text_like, ->(pattern) { where('text like ?', "%#{pattern}%") }
 end

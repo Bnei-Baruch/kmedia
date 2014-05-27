@@ -36,7 +36,8 @@ class Catalog < ActiveRecord::Base
     end
   end
 
-  scope :secure, ->(level) { where('secure <= ?', level) }
+  scope :secure, ->(level) { where('catalognode.secure <= ?', level) }
+  scope :insecure, -> { where('catalognode.secure = 0') }
   scope :open_matching_string, ->(string) { where('catalognodename like ? AND open = ?', "%#{string}%", true) }
   scope :visible, -> { where(:visible => true) }
   scope :books, ->(language_code3, secure) { Catalog.secure(secure).joins(:catalog_descriptions).where('books_catalog = true').where('catnodedesc.lang = ?', language_code3) }

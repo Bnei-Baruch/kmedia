@@ -106,7 +106,7 @@ class FeedsController < ApplicationController
       count  = 0
       fz     = nil
 
-      Lesson.joins(:catalogs).where('catalognode.secure = 0').pluck(:lessonid).uniq.each do |lesson|
+      Lesson.uniq.joins(:catalogs).merge(Catalog.insecure).pluck(:lessonid).each do |lesson|
         langs.each do |lang|
           if count == 0
             filename = "google_sitemap_#{fileno}.xml.gz"
