@@ -265,7 +265,7 @@ class Lesson < ActiveRecord::Base
     end
     my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")
 
-    container.position = virtual_lesson.lessons.count
+    container.position = container.virtual_lesson.lessons.count
 
     container.save!(:validate => false) unless dry_run
     my_logger.info("Container saved")
