@@ -11,7 +11,7 @@ class TypingController < ApplicationController
 
     @last_lectures_programs = Lesson.last_lectures_programs(@lesson_date, @language)
 
-    vl            = VirtualLesson.last_lesson(params[:lesson_date])
+    vl            = VirtualLesson.last_lesson(@lesson_date)
     @last_lessons = vl ? vl.lessons_ordered_by_parts : []
   end
 

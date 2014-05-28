@@ -9,7 +9,7 @@ class VirtualLesson < ActiveRecord::Base
     if lesson_id.nil?
       # Return the latest lesson
       VirtualLesson.order('film_date DESC').first
-    elsif lesson_id =~ /\d\d\d\d-\d\d-\d\d/
+    elsif lesson_id.to_s =~ /\d\d\d\d-\d\d-\d\d/
       # that's date, not id...
       VirtualLesson.where(film_date: lesson_id).first
     else
