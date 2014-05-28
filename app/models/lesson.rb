@@ -364,7 +364,7 @@ class Lesson < ActiveRecord::Base
 
     catalogs << LESSON_PART unless catalogs.include? LESSON_PART
 
-    my_logger.info("find/create_virtual_lesson for: #{lessondate} ...")
+    Lesson.my_logger.info("find/create_virtual_lesson for: #{lessondate} ...")
 
     self.virtual_lesson = VirtualLesson.where(film_date: lessondate).last ||
         VirtualLesson.create({ film_date: lessondate }, without_protection: true)
