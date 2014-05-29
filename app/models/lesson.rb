@@ -60,7 +60,6 @@ class Lesson < ActiveRecord::Base
       record.lesson_descriptions.map { |x| lds[x.lang] = x.lessondesc }
       if lds['ENG'].blank? || lds['RUS'].blank? || lds['HEB'].blank?
         record.errors[:base] << "Empty Basic Description(s)"
-        return
       end
     end
   end
@@ -265,7 +264,9 @@ class Lesson < ActiveRecord::Base
     end
     my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")
 
-    container.position = container.virtual_lesson.lessons.count rescue nil
+    if !dry_run && container.position.blank?
+      container.position = (container.virtual_lesson.lessons.count + 1) rescue 0
+    end
 
     container.save!(:validate => false) unless dry_run
     my_logger.info("Container saved")
