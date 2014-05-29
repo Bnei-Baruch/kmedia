@@ -191,5 +191,5 @@ Kmedia::Application.routes.draw do
     [301, { location: "/#{lang}/ui/lesson_downloader" }, []]
   }
 
-  get '*path', to: redirect('/'), status: 301, constraints: ->(request) { request.path =~ /rails\/path/ }
+  get '*path', to: redirect('/'), status: 301, constraints: ->(request) { request.path !~ /rails\/routes/ }
 end
