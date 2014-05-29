@@ -28,7 +28,6 @@
                         tr
                           td.left-aligned-column style="padding-bottom: 5px !important;"
                             = t('ui.last_lesson.download')
-                            - language = Language::CODE3_LOCALE[language]
                             = show_asset(lesson, language, 'wmv')
                             = show_asset(lesson, language, 'mp4')
                             = show_asset(lesson, language, 'mp3')
