@@ -144,6 +144,7 @@ Kmedia::Application.routes.draw do
 
   # Redirect old landing pages
   get '/rss.php', to: 'feeds#podcast', as: :podcast, format: :rss
+  get '/rss_video.php', to: 'feeds#rss_video', format: :rss
 
   get '/index.php', to: proc { |env|
     query = env['QUERY_STRING'].upcase

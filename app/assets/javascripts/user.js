@@ -473,7 +473,7 @@
 
         projekktor_instance = projekktor('.active.tab-pane .projekktor', {
             plugins: ['display', 'controlbar'],
-            platforms: ['flash', 'browser', 'ios', 'android', 'native', 'vlc'],
+            platforms: ['browser', 'ios', 'android', 'native', 'vlc', 'flash'],
             autoplay: false,
             controls: true,
             volume: 0.5,
