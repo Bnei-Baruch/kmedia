@@ -26,6 +26,8 @@ Kmedia::Application.routes.draw do
       end
     end
 
+    resources :simple, only: [:index, :show]
+
     resources :typing, only: [:index] do
     end
 

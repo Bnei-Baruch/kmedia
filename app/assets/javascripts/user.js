@@ -15,7 +15,7 @@
 //zzz= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
 //= require projekktor.min
-//= require iscroll
+//zzz= require iscroll
 //= require jquery-ui-1.10.4.datepicker
 
 //= require_self
@@ -28,7 +28,7 @@
         $parent.toggleClass('expand');
     });
 
-    var myScroll = null;
+//    var myScroll = null;
 
     Modernizr.load([
         //first test need for polyfill
@@ -60,11 +60,11 @@
                         $(document).on('touchstart mousedown', 'input, select', function (e) {
                             e.stopPropagation();
                         });
-                        myScroll = new iScroll('left-mobile-menu');
+//                        myScroll = new iScroll('left-mobile-menu');
                     },
                     unmatch: function () {
-                        myScroll.destroy();
-                        myScroll = null;
+//                        myScroll.destroy();
+//                        myScroll = null;
 
                         $('.top-menu-div').append($('.left-mobile-menu .top-links, .left-mobile-menu form')).append($('.left-mobile-menu .languages'));
                         $('.main-layout').prepend($('#sidebar'));

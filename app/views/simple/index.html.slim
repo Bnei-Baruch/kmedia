@@ -1,0 +1,19 @@
+.container
+  .row
+    #sidebar.span3(style="margin-top: 75px !important; padding: 0" )
+      .languages(style="text-align: center;" )
+        - Language::UI_LANGUAGES.each do |lang|
+          - name = Language::LOCALE_CODE3[lang]
+          - if name == @language
+            span(style='text-transform: uppercase; padding: 0 3px 0 0;') = name
+          - else
+            = link_to name, simple_index_path(lang), style: 'text-transform: uppercase; padding: 0 3px 0 0;'
+      .dates_range
+      javascript:
+        dates_range_value = '#{ Date.today }';
+        index_url = '#{ simple_path(-1) }';
+    #content.span9
+      = paginate @virtual_lessons, :window => 2
+      - @virtual_lessons.each do |vl|
+        = render 'show_content', vl: vl
+      = paginate @virtual_lessons, :window => 2

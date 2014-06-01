@@ -1,0 +1,21 @@
+
+.container
+  .row
+    #sidebar.span3(style="margin-top: 0 !important; padding: 0" )
+      .languages(style="text-align: center;" )
+        - Language::UI_LANGUAGES.each do |lang|
+          - name = Language::LOCALE_CODE3[lang]
+          - if name == @language
+            span(style='text-transform: uppercase; padding: 0 3px 0 0;') = name
+          - else
+            = link_to name, simple_index_path(lang), style: 'text-transform: uppercase; padding: 0 3px 0 0;'
+      .dates_range
+      javascript:
+        dates_range_value = '#{ @film_date || Date.today }';
+        index_url = '#{ simple_path(-1) }';
+    #content.span9
+      - if @virtual_lesson
+        = render 'show_content', vl: @virtual_lesson
+      - else
+        h4 = t('ui.content.no_results')
+
