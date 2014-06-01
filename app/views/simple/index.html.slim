@@ -1,6 +1,6 @@
 .container
   .row
-    #sidebar.span3(style="margin-top: 75px !important; padding: 0" )
+    #sidebar.span3(style="margin-top: 75px !important; padding: 0;" )
       .languages(style="text-align: center;" )
         - Language::UI_LANGUAGES.each do |lang|
           - name = Language::LOCALE_CODE3[lang]
@@ -12,7 +12,7 @@
       javascript:
         dates_range_value = '#{ Date.today }';
         index_url = '#{ simple_path(-1) }';
-    #content.span9
+    #content.span9(style="margin-top: 75px;" )
       = paginate @virtual_lessons, :window => 2
       - @virtual_lessons.each do |vl|
         = render 'show_content', vl: vl

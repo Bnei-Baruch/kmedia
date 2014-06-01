@@ -1,7 +1,7 @@
 
 .container
   .row
-    #sidebar.span3(style="margin-top: 0 !important; padding: 0" )
+    #sidebar.span3(style="margin-top: 75px !important; padding: 0" )
       .languages(style="text-align: center;" )
         - Language::UI_LANGUAGES.each do |lang|
           - name = Language::LOCALE_CODE3[lang]
@@ -13,7 +13,7 @@
       javascript:
         dates_range_value = '#{ @film_date || Date.today }';
         index_url = '#{ simple_path(-1) }';
-    #content.span9
+    #content.span9(style="margin-top: 75px;" )
       - if @virtual_lesson
         = render 'show_content', vl: @virtual_lesson
       - else
