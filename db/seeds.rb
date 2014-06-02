@@ -33,7 +33,7 @@ puts '--> Languages'
  { :code3 => "HRV", :language => "Croatian", :locale => 'hr' },
  { :code3 => "CHN", :language => "Chinese", :locale => 'zh' },
  { :code3 => "FAR", :language => "Persian", :locale => 'fa' },
- { :code3 => "ROU", :language => "Romanian", :locale => 'ro' },
+ { :code3 => "RON", :language => "Romanian", :locale => 'ro' },
  { :code3 => "HIN", :language => "Hindi", :locale => 'hi' },
  { :code3 => "UKR", :language => "Ukrainian", :locale => 'uk' },
  { :code3 => "MKD", :language => "Macedonian", :locale => 'mk' },
