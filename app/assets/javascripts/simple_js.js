@@ -1,7 +1,4 @@
 //= require jquery_ujs
-
-//= require jquery-ui-1.10.4.datepicker
-
 //= require_self
 
 (function () {
