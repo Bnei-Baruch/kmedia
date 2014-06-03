@@ -75,7 +75,7 @@ module SearchHelper
       file_assets += if files.length == 1
                        # Only one file - show as button
                        fa = files[0]
-                       "<div class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{filetype}</a></div>"
+                       "<div class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{type}</a></div>"
                      else
                        # Many files - show as dropdown
                        "<div class='btn-group'><div class='btn btn-mini dropdown-toggle' data-toggle='dropdown'><a href='javascript:;'>#{filetype} <span class='caret'></span></a></div><ul class='dropdown-menu'>" +

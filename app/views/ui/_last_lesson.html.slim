@@ -76,9 +76,9 @@
                               tr
                                 td.left-aligned-column style="padding-bottom: 5px !important;"
                                   = t('ui.last_lesson.download')
-                                  = show_asset(lesson, language, 'wmv')
-                                  = show_asset(lesson, language, 'mp4')
-                                  = show_asset(lesson, language, 'mp3')
+                                  = show_asset(lesson, language, 'mp4', t('ui.last_lesson.video'))
+                                  = show_asset(lesson, language, 'mp3', t('ui.last_lesson.audio'))
                                   = show_asset(lesson, language, 'doc')
                                   = show_asset(lesson, language, 'zip')
+                                  = show_asset(lesson, language, 'wmv')
                                   br

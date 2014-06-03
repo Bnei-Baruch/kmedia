@@ -15,9 +15,10 @@ module HomeHelper
     end.join(',')
   end
 
-  def show_asset(lesson, locale, ext)
+  def show_asset(lesson, locale, ext, name = nil)
     code3 = Language::LOCALE_CODE3[locale]
     extension = ".#{ext}"
+    name ||= ext
     asset = lesson.file_assets.select { |fa| fa.filelang == code3 && File.extname(fa.filename) == extension }.first
     if asset
       download_url = asset.download_url
@@ -28,7 +29,7 @@ module HomeHelper
       :
           "#{ext}&nbsp;|&nbsp;#{"%.2f" % filesize}Mb"
       <<-CODE
-        <a class="btn btn-mini" href="#{download_url}" title="#{title}">#{ext}</a>
+        <a class="btn btn-mini" href="#{download_url}" title="#{title}">#{name}</a>
       CODE
     else
       ''
