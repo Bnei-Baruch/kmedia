@@ -6,7 +6,7 @@
       - assets = l.file_assets
       - file_types = assets.map(&:filetype).sort.uniq
       - file_types.each do |ft|
-        .upcase
+        .upcase.ltr
           = ft
           ' :
           - assets.select{|a| a.filetype == ft}.each do |asset|

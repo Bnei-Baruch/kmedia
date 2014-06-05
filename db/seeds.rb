@@ -40,7 +40,6 @@ puts '--> Languages'
  { :code3 => "SLV", :language => "Slovenian", :locale => 'sl' },
  { :code3 => "LAV", :language => "Latvian", :locale => 'lv' },
  { :code3 => "SLK", :language => "Slovak", :locale => 'sk' },
- { :code3 => "DUT", :language => "Dutch", :locale => 'nl' },
 ].each { |e| Language.find_or_create_by_locale(e) }
 
 puts '--> Roles'
