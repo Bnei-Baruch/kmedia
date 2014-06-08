@@ -1,6 +1,6 @@
 .topbanner.hidden-phone
   - unless BrowserDetector.is_mobile?(request)
-    - if @language == 'RUS' then ad = 'kabbalahmedia_rus' elsif @language == 'HEB' then ad = 'kabbalahmedia_heb' elsif @language == 'ENG' then ad = 'Kabbalah_media' else ad = 'Kabbalah_media' end
+    - ad = ['RUS', 'HEB', 'SPA', 'GER'].include?(@language) ? "kabbalahmedia_#{@language.downcase}" : 'Kabbalah_media'
 
     div id="google_ads_div_#{ad}"
 
