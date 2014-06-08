@@ -482,6 +482,9 @@ header {
     &.download-url {
       white-space : normal;
     }
+    &.date-was-changed {
+      border-top: 3px double red;
+    }
   }
   thead th {
     font-size      : 9px;

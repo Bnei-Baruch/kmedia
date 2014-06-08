@@ -63,9 +63,16 @@
                 h4 = t('ui.last_lesson.download')
                 table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
                   tbody
+                    - current_date = last_lessons.first.created.to_date
+                    - date_was_changed = false
                     - last_lessons.each_with_index do |lesson, index|
                       tr
-                        td
+                        - if date_was_changed == false && lesson.created.to_date != current_date
+                          - date_was_changed = true
+                          - klass = 'date-was-changed'
+                        - else
+                          - klass = ''
+                        td(class="#{klass}")
                           table.inner-table
                             tbody
                               tr
