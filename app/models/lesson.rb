@@ -95,6 +95,7 @@ class Lesson < ActiveRecord::Base
   ) }
 
   scope :security, -> sec { where(secure: sec) }
+  scope :non_secure, -> { where(secure: 0) }
 
   def self.last_lectures_programs(lesson_date = Date.today, language = 'ENG')
     joins(:file_assets).where('files.filelang' => language).where(lessondate: lesson_date).where(content_type_id: [ContentType::CONTENT_TYPE_ID['lecture'], ContentType::CONTENT_TYPE_ID['program']])

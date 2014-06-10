@@ -25,6 +25,7 @@ en:
       body: 'Comment'
   ui:
     homepage: 'Kabbalah Media'
+    not_found: 'Lesson not found'
     content:
       search: 'Search:'
       catalog: 'Catalog:'

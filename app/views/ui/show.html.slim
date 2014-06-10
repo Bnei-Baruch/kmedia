@@ -1,34 +1,44 @@
-- filmed = film_date(@item)
-- long_description, short_description = lesson_description(@item)
-- description = long_description.blank? ? short_description : long_description
-- content_for(:title) do
-  == "#{lesson_title(@item,  [nil, short_description])} (#{filmed})"
-.full-screen
-  .row-fluid.main-layout
-    = render 'common_ui/sidebar', search: @search
-    #content.span9
-      = render 'common/topbanner'
-      .item
-        .padding-both
-          h1 == "#{type_of_item_text(@item, ':')} #{lesson_title(@item,  [nil, short_description])} (#{filmed})"
-          - unless description.blank?
-            p.description = description.gsub(/  /, ' ')
-            .languages-bar
-              ul.nav.nav-tabs
-                li.tabs-title = t('ui.updated_assets.available_languages')
-                li class="#{@available_languages.include?(@locale) ? '' : 'active'}"
-                  a href="#all-media" data-toggle='tab' = t('ui.updated_assets.all')
-                - @available_languages.each do |l|
-                  li class="#{l == @locale ? 'active' : ''}"
-                    a href="##{l}-media" data-toggle='tab' = l.upcase
-          .tab-content
-            #all-media.tab-pane.fade.in class="#{@available_languages.include?(@locale) ? '' : 'active'}"
-              table.media-table.table.table-striped.table-hover.table-bordered
-                tbody
-                  = list_items_all(@item, filmed)
-
-            - @available_languages.each do |l|
-              .tab-pane.fade.in id="#{l}-media" class="#{l == @locale ? 'active' : ''}"
+- if @item.blank?
+  .full-screen
+    .row-fluid.main-layout
+      = render 'common_ui/sidebar', search: @search
+      #content.span9
+        = render 'common/topbanner'
+        .item
+          .padding-both
+            h1 = t('ui.not_found')
+- else
+  - filmed = film_date(@item)
+  - long_description, short_description = lesson_description(@item)
+  - description = long_description.blank? ? short_description : long_description
+  - content_for(:title) do
+    == "#{lesson_title(@item,  [nil, short_description])} (#{filmed})"
+  .full-screen
+    .row-fluid.main-layout
+      = render 'common_ui/sidebar', search: @search
+      #content.span9
+        = render 'common/topbanner'
+        .item
+          .padding-both
+            h1 == "#{type_of_item_text(@item, ':')} #{lesson_title(@item,  [nil, short_description])} (#{filmed})"
+            - unless description.blank?
+              p.description = description.gsub(/  /, ' ')
+              .languages-bar
+                ul.nav.nav-tabs
+                  li.tabs-title = t('ui.updated_assets.available_languages')
+                  li class="#{@available_languages.include?(@locale) ? '' : 'active'}"
+                    a href="#all-media" data-toggle='tab' = t('ui.updated_assets.all')
+                  - @available_languages.each do |l|
+                    li class="#{l == @locale ? 'active' : ''}"
+                      a href="##{l}-media" data-toggle='tab' = l.upcase
+            .tab-content
+              #all-media.tab-pane.fade.in class="#{@available_languages.include?(@locale) ? '' : 'active'}"
                 table.media-table.table.table-striped.table-hover.table-bordered
                   tbody
-                    = list_items_lang(@item, l, filmed)
+                    = list_items_all(@item, filmed)
+
+              - @available_languages.each do |l|
+                .tab-pane.fade.in id="#{l}-media" class="#{l == @locale ? 'active' : ''}"
+                  table.media-table.table.table-striped.table-hover.table-bordered
+                    tbody
+                      = list_items_lang(@item, l, filmed)

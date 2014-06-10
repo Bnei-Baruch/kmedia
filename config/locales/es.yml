@@ -25,6 +25,7 @@ es:
       body: 'Comentario'
   ui:
     homepage: 'Kabbalah medios'
+    not_found: 'Lección no encontrado'
     content:
       search:  'Buscar:'
       catalog: 'Catalog:'

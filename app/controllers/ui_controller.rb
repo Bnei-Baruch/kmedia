@@ -42,9 +42,8 @@ class UiController < ApplicationController
 
   # Show specific item page
   def show
-    @item                = Lesson.find params[:id]
-    @available_languages = FileAsset.available_languages(@item.file_assets)
-    @descriptions        = Lesson.get_all_descriptions(@item)
+    @item                               = Lesson.where(lessonid: params[:id]).non_secure.first
+    @available_languages, @descriptions = @item ? [FileAsset.available_languages(@item.file_assets), Lesson.get_all_descriptions(@item)] : [[], []]
   end
 
   def google_ads

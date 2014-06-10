@@ -25,6 +25,7 @@ ru:
       body: 'Отзыв'
   ui:
     homepage: 'Каббала Медиа'
+    not_found: 'Урок не найден'
     content:
       search: 'Искать:'
       catalog: 'Каталог:'

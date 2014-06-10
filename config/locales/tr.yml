@@ -25,6 +25,7 @@ tr:
       body: 'Yorum'
   ui:
     homepage: 'Kabala Medya'
+    not_found: 'Ders bulunamadı'
     content:
       search: 'Araştırma:'
       catalog: 'Katalog:'

@@ -25,6 +25,7 @@ he:
       body: 'תוכן התגובה'
   ui:
     homepage: 'קבלה מדיה'
+    not_found: 'שיעור אינו קיים'
     content:
       search: 'חפש:'
       catalog: 'קטלוג:'
