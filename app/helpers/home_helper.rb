@@ -19,7 +19,7 @@ module HomeHelper
     code3 = Language::LOCALE_CODE3[locale]
     extensions = ext.split('|').map{|x| ".#{x}"}
     name ||= ext
-    asset = lesson.file_assets.select { |fa| fa.filelang == code3 && extensions.include?(File.extname(fa.filename)) }.first
+    asset = lesson.file_assets.select { |fa| (locale ? fa.filelang == code3 : true) && extensions.include?(File.extname(fa.filename)) }.first
     if asset
       download_url = asset.download_url
       filesize = asset.filesize.to_f / 1024 / 1024
