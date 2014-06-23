@@ -143,6 +143,10 @@ header {
       }
     }
   }
+  h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
   table {
     font-size : 12px;
   }
@@ -158,7 +162,6 @@ header {
 }
 
 .item-list {
-  background : #777;
   padding    : 0;
   .item-list-meta {
     .padding-both {
@@ -177,52 +180,50 @@ header {
     }
   }
   .item-list-data {
-    min-height : 111px;
-    background : #fff;
     padding    : 10px 0;
-    @include border-radius(0 5px 5px 0);
   }
 }
 
 .languages-bar {
-  margin : 0 -10px 10px;
-
+  padding-top: 4px;
+  border-top: 1px solid #e0e0e0;
+  .lessons-list & {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 4px;
+  }
   .nav-tabs {
     margin       : 0;
-    border       : 1px solid #b3b3b3;
-    border-width : 1px 0;
-    background   : #d8d8d8;
+    border: 0 none;
     li {
-      @extend .f-right;
-      border-width : 0 0 0 1px;
-      border-style : solid;
-      border-color : #b3b3b3;
-      /*  border-width:1px 0 0 1px;*/
+      border: 0 none;
 
       &.tabs-title {
         @extend .f-left;
-        line-height : 30px;
+        line-height : 26px;
         border      : 0 none;
         font-style  : italic;
-        @extend .padding-left;
+        @extend .padding-right;
       }
     }
     & > li > a {
-      margin        : 0;
+      margin        : 0 1px;
       width         : 29px;
-      height        : 29px;
+      height        : 26px;
       padding       : 0;
       text-align    : center;
-      line-height   : 30px;
-      border-radius : 0;
-      text-shadow   : 0 1px #e4e4e4;
+      line-height   : 26px;
+      border-radius : 2px;
+      border: 0 none;
     }
-    & > li > a, & > .active > a, & > .active > a:hover {
-      border-width : 1px 0 0 1px;
-      border-color : #e4e4e4;
+    & > li > a:hover {
+      border: 0 none;
+      height : 26px;
     }
     & > .active > a, & > .active > a:hover {
-      border-color : white;
+      background: #0088cc;
+      color: white;
+      border: 0 none;
     }
   }
 }
@@ -950,22 +951,14 @@ header {
       }
     }
     .navbar-inner {
-      //padding: 0;
-      //border: 0 none;
       display  : block;
       overflow : hidden;
     }
     .divider-vertical {
       display : none;
-      //margin: 0;
-      //width: 0 !important;
     }
     .category-modal {
-      //margin: 0;
-      //top: 48px;
-      //left: -1px;
       position     : static;
-      //border: 0 none;
       border-color : #dddddd;
       border-width : 0 0 1px;
       @include border-radius(0);
@@ -992,7 +985,7 @@ header {
             position : relative;
             a {
               position : static;
-              display  : inline;
+              display  : block;
               .expander {
                 right : 5px;
               }
@@ -1074,6 +1067,9 @@ html, .main-layout, .full-screen, .content-wrapper {
     overflow      : hidden;
     max-width     : 240px;
     text-overflow : ellipsis;
+  }
+  .item{
+    margin-bottom: 10px;
   }
 }
 

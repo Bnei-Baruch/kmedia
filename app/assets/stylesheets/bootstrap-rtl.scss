@@ -156,9 +156,10 @@
     float : right;
   }
 
-  .navbar .nav > li {
+  .navbar .nav > li, .nav-tabs > li {
     float : right;
   }
+
 
   #content {
     .category-modal {
@@ -306,6 +307,10 @@
         padding-left  : 40px;
         padding-right : 0;
       }
+    }
+    #categories-menu .category-modal .modal-body .categories ul li a .expander, #categories-menu .category-modal .modal-body .categories ul li a #sidebar .active:after, #sidebar #categories-menu .category-modal .modal-body .categories ul li a .active:after {
+      right: auto;
+      left: 5px;
     }
   }
 

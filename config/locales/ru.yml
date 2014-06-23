@@ -36,6 +36,7 @@ ru:
       results: 'Результаты %{from} - %{to} из %{of}'
       no_results: 'Ничего не найдено'
     catalog:
+      catalogs: 'Каталоги'
       all_catalogs: 'Все каталоги'
     sidebar:
       sidebar: 'Фильтры'

@@ -36,6 +36,7 @@ he:
       results: 'תוצאות חיפוש: %{from} - %{to} מתוך %{of}'
       no_results: 'לא נמצאו תוצאות'
     catalog:
+      catalogs: 'קטלוגים'
       all_catalogs: 'כל הקטלוגים'
     sidebar:
       sidebar: 'מסננים'

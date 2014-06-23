@@ -36,6 +36,7 @@ de:
       results: 'Leistung %{from} - %{to} aus %{of}'
       no_results: 'Keine Leistung'
     catalog:
+      catalogs: 'Verzeichnise'
       all_catalogs: 'Alle Verzeichnise'
     sidebar:
       sidebar: 'Filtern'

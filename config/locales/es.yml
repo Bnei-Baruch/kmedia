@@ -36,6 +36,7 @@ es:
       results: 'Resultados %{from} - %{to} de %{of}'
       no_results: 'Sin resultados'
     catalog:
+      catalogs: 'Los catalogos'
       all_catalogs: 'Todos los catalogos'
     sidebar:
       sidebar: 'Filtros'

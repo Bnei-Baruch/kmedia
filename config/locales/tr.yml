@@ -36,6 +36,7 @@ tr:
       results: 'Sonuçlar %{from} - %{to} of %{of}'
       no_results: 'Sonuçlar yok'
     catalog:
+      catalogs: 'kataloglar'
       all_catalogs: 'Bütün kataloglar'
     sidebar:
       sidebar: 'Filtreler'

@@ -1,4 +1,8 @@
 h4
+  = type_of_item(item, '')
+  | &nbsp;/&nbsp;
+  span = film_date(item)
+  | &nbsp;/&nbsp;
   a href="#{ui_path(item)}"
     == lesson_title(item, lesson_description(item))
     - playtime = item.playtime_secs.to_i
@@ -11,11 +15,11 @@ h4
   ul.nav.nav-tabs
     li.tabs-title = t('ui.last_lesson.available_languages')
     - available_languages.each_with_index do |l, idx|
-      li class=(l == @locale ? 'active' : '')
+      li
         a href="##{l}-#{item.id}" data-toggle='tab' = l.upcase
 .tab-content
   - available_languages.each_with_index do |l, idx|
-    .tab-pane.fade.in id="#{l}-#{item.id}" class=(l == @locale ? 'active' : '')
+    .tab-pane.fade.in id="#{l}-#{item.id}"
       - item_file_assets = item.file_assets
       .pull-left
         - unless only_download
