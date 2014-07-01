@@ -110,7 +110,7 @@ class Catalog < ActiveRecord::Base
   end
 
   def descendant_catalogs(include_self = true)
-    res = include_self ? self : []
+    res = include_self ? [self] : []
     return res if children.empty?
     children.inject(res) do |result, child|
       result << child.descendant_catalogs
