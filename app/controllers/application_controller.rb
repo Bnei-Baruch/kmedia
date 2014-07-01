@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
 
   def set_data
     I18n.locale = @locale = params[:locale] || cookies[:kmedia_locale] || 'en'
-    cookies[:kmedia_locale] = @locale
+    cookies[:kmedia_locale] = {value: @locale, expires: 1.year.from_now}
     @menu_languages = Language.menu_languages(Language::UI_LANGUAGES).map{|x| [x['language'], root_url(x['locale'])]}
     @current_menu_language = root_url(@locale)
 
