@@ -114,6 +114,7 @@ class Catalog < ActiveRecord::Base
     return res if children.empty?
     children.inject(res) do |result, child|
       result << child.descendant_catalogs
+      result
     end
   end
 
