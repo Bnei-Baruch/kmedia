@@ -1,16 +1,14 @@
 class Lecturer < ActiveRecord::Base
-  self.table_name = :lecturer
-  self.primary_key = :lecturerid
-  has_many :lecturer_descriptions, :foreign_key => :lecturerid
-  has_many :lessons, :foreign_key => :lecturerid
+  has_many :lecturer_descriptions
+  has_many :lessons
 
-  scope :rav, where('lecturername LIKE \'%Rav%\'').limit(1)
+  scope :rav, where('name ILIKE \'%rav%\'').limit(1)
 
   def to_param
-    read_attribute :lecturerid
+    read_attribute :id
   end
 
   def to_s
-    lecturername
+    name
   end
 end

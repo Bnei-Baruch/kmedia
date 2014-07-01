@@ -178,14 +178,14 @@
 
             // Build new ul
             $.each(tree, function (key, value) {
-                var name = value.catalognodename;
+                var name = value.name;
                 try {
-                    children = all_tree[value.catalognodeid].length;
+                    children = all_tree[value.id].length;
                 } catch (err) {
                     children = 0;
                 }
                 children_str = children > 0 ? ' <span class="children-amount">(' + children + ')</span> <span class="expander"></span>' : '';
-                html += '<li><a href="javascript:;" data-has-children="' + (children > 0) + '" data-node-id="' + value.catalognodeid + '">' + name + children_str + '</a></li>';
+                html += '<li><a href="javascript:;" data-has-children="' + (children > 0) + '" data-node-id="' + value.id + '">' + name + children_str + '</a></li>';
             });
             html += '</ul></div>';
 

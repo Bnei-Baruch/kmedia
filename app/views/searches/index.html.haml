@@ -40,7 +40,7 @@
               %hr.soften
               = result.lesson_descriptions.by_language(@language).first.try(:descr)
             %td
-              = result.file_assets.select('distinct filetype').map(&:filetype).join(' ')
+              = result.file_assets.select('distinct type').map(&:type).join(' ')
           %tr
             %td(colspan="3")
               %table.table.table-striped.table-bordered.table-condensed
@@ -54,13 +54,13 @@
                 %tbody
                   - result.file_assets.each do |asset|
                     %tr
-                      %td= link_to asset.fileid, asset.url, :target => '_blank'
-                      %td= asset.filename
-                      %td= asset.filelang
+                      %td= link_to asset.id, asset.url, target: '_blank'
+                      %td= asset.name
+                      %td= asset.lang
                       %td
                         - ad = asset.file_asset_descriptions.by_language(@language).first
-                        = ad ? ad.filedesc : ''
+                        = ad ? ad.desc : ''
                       %td
-                        = image_tag File.basename(asset.icon)
-                        = asset.typename
+                        = image_tag FileAsset.basename(asset.icon)
+                        = asset.name
 

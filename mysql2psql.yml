@@ -1,0 +1,72 @@
+#  # To install mysql2psql (under ubuntu 11.10): No need to get from github, just:
+#  sudo apt-get install ruby gems libmysqlclient-dev libpq-dev
+#  gem install mysql pg mysql2psql
+#  # To get info about the mysql socket:
+#  netstat -l | grep mysql
+#  mysql2psql # creates a .yml templae
+#  vi mysql2psql.yml # edit the template
+#  mysql2psql # connects to mysql database and write into postgres database
+mysql:
+ hostname: localhost
+ port: 3306
+ socket: /var/run/mysqld/mysqld.sock
+ username: root
+ password: root
+ database: kabbalahmedia
+
+destination:
+ # if file is given, output goes to file, else postgres
+ file:
+ postgres:
+  hostname: localhost
+  port: 5432
+  username: postgres
+  password: postgres
+  database: kabbalahmedia
+
+# if tables is given, only the listed tables will be converted.  leave empty to convert all tables.
+tables:
+- catalognode
+- catnodedesc
+- catnodelessons
+- ckeditor_assets
+- comments
+- container_creation_patterns
+- content_types
+- delayed_jobs
+- departments
+- dictionaries
+- dictionary_descriptions
+- filedesc
+- files
+- label_descriptions
+- labels_lessons
+- languages
+- lecturer
+- lecturerdesc
+- lesson_transcripts
+- lessondesc_patterns
+- lessondesc_patterns_catalogs
+- lessonfiles
+- lessons
+- roles
+- roles_users
+- schema_migrations
+- servers
+- users
+- virtual_lessons
+
+# if exclude_tables is given, exclude the listed tables from the conversion.
+#exclude_tables:
+#- table3
+#- table4
+
+
+# if supress_data is true, only the schema definition will be exported/migrated, and not the data
+supress_data: false
+
+# if supress_ddl is true, only the data will be exported/imported, and not the schema
+supress_ddl: false
+
+# if force_truncate is true, forces a table truncate before table loading
+force_truncate: false

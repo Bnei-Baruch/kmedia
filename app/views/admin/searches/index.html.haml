@@ -29,9 +29,9 @@
             - case
             - when klass == FileAsset
               - asset = result
-              %td= asset.fileid
+              %td= asset.id
               %td= link_to 'File', admin_file_asset_path(asset)
-              %td= "#{asset.filename} (#{asset.filesize} bytes)"
+              %td= "#{asset.name} (#{asset.size} bytes)"
               %td &nbsp;
             - when klass == Lesson
               - lesson = result
@@ -56,7 +56,7 @@
               %td &nbsp;
             - when klass == LessonDescription
               - lesson_description = result
-              %td= lesson_description.lessondescid
+              %td= lesson_description.id
               %td
                 - if lesson_description.lesson
                   = link_to 'Lesson Description', admin_lesson_path(lesson_description.lesson.id)
@@ -72,34 +72,34 @@
               %td &nbsp;
             - when klass == CatalogDescription
               - catalog_description = result
-              %td= catalog_description.catnodedescid
+              %td= catalog_description.id
               %td
                 - if catalog_description.catalog
                   = link_to 'Catalog Description', admin_catalog_path(catalog_description.catalog.id)
                 - else
                   Catalog Description
               %td
-                = catalog_description.catalognodename
+                = catalog_description.name
                 (
                 = catalog_description.lang
                 )
               %td &nbsp;
             - when klass == Catalog
               - catalog = result
-              %td= result.catalognodeid
+              %td= result.id
               %td= link_to klass, admin_catalog_path(catalog)
               %td
                 - if catalog.parent
                   %span.small
-                    = catalog.parent.catalognodename.gsub(/\//, ' / ')
+                    = catalog.parent.name.gsub(/\//, ' / ')
                     (
-                    = catalog.parentnodeid
+                    = catalog.parent_id
                     ) /
                 %span.bold
-                  = catalog.catalognodename.gsub(/\//, ' / ')
+                  = catalog.name.gsub(/\//, ' / ')
                   %span.small
                     (
-                    = catalog.catalognodeid
+                    = catalog.id
                     )
               %td &nbsp;
             - else

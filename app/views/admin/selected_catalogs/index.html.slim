@@ -25,15 +25,15 @@ section
           td
             - if catalog.parent
               span.small
-                = catalog.parent.catalognodename.gsub(/\//, ' / ')
+                = catalog.parent.name.gsub(/\//, ' / ')
                 '  (
-                = catalog.parentnodeid
+                = catalog.parent_id
                 '  ) /
             span.bold
-              = catalog.catalognodename.gsub(/\//, ' / ')
+              = catalog.name.gsub(/\//, ' / ')
               span.small
                 '  (
-                = catalog.catalognodeid
+                = catalog.id
                 |  )
           td.small = catalog.label
           td = display_secure(catalog.secure)
@@ -63,15 +63,15 @@ section
           td
             - if @books.parent
               span.small
-                = @books.parent.catalognodename.gsub(/\//, ' / ')
+                = @books.parent.name.gsub(/\//, ' / ')
                 '  (
-                = @books.parentnodeid
+                = @books.parent_id
                 '  ) /
             span.bold
-              = @books.catalognodename.gsub(/\//, ' / ')
+              = @books.name.gsub(/\//, ' / ')
               span.small
                 '  (
-                = @books.catalognodeid
+                = @books.id
                 |  )
           td.small = @books.label
           td = display_secure(@books.secure)

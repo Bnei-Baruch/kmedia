@@ -10,7 +10,7 @@
   %table.table.table-striped.table-bordered.table-condensed
     %thead
       %tr
-        %th= sortable("catalognodename", "Catalog")
+        %th= sortable("name", "Catalog")
         %th= sortable("label", "Label")
         %th= sortable("created", "Created")
         %th= sortable("updated", "Updated")
@@ -24,19 +24,19 @@
           %td
             - if catalog.parent
               %span.small
-                = catalog.parent.catalognodename.gsub(/\//, ' / ')
+                = catalog.parent.name.gsub(/\//, ' / ')
                 (
-                = catalog.parentnodeid
+                = catalog.parent_id
                 ) /
             %span.bold
-              = catalog.catalognodename.gsub(/\//, ' / ')
+              = catalog.name.gsub(/\//, ' / ')
               %span.small
                 (
-                = catalog.catalognodeid
+                = catalog.id
                 )
           %td.small= catalog.label
-          %td.small= catalog.created.to_date
-          %td.small= catalog.updated.to_date
+          %td.small= catalog.created_at.to_date
+          %td.small= catalog.updated_at.to_date
           %td= display_secure(catalog.secure)
           %td= catalog.visible ? 'visible' : 'hidden'
           %td= catalog.open ? 'open' : 'closed'

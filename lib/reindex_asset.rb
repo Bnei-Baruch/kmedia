@@ -1,14 +1,13 @@
 require 'progress_bar'
 
-# Full list of models to reindex: [FileAsset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern]
+# Full list of models to reindex: [FileAsset, Catalog, CatalogDescription, Container, LessonDescription, LessondescPattern]
 class ReindexAsset
-  def self.lesson
-    klass = Lesson
-    reindex([Lesson])
+  def self.container
+    reindex([Container])
   end
 
   def self.reindex_all
-    reindex([FileAsset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern])
+    reindex([FileAsset, Catalog, CatalogDescription, Container, ContainerDescription, ContainerDescriptionPattern])
   end
 
   def self.reindex(sunspot_models)

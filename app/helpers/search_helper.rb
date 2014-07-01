@@ -13,15 +13,15 @@ module SearchHelper
   end
 
   def creation_date(item)
-    item.created.strftime '%Y-%02m-%02d'
+    item.created_at.strftime '%Y-%02m-%02d'
   end
 
   def film_date(item)
-    item.lessondate.try(:strftime, '%Y-%02m-%02d')
+    item.date.try(:strftime, '%Y-%02m-%02d')
   end
 
   def item_includes(item)
-    FileType.map_file_exts_to_types(item.file_assets.map(&:filetype).uniq).inject('') do |memo, type|
+    FileType.map_file_exts_to_types(item.file_assets.map(&:type).uniq).inject('') do |memo, type|
       memo + case type
                when 'text'
                  '<i class="icon-km-small-white-text"></i>&nbsp;'
@@ -38,14 +38,14 @@ module SearchHelper
   end
 
   # Description is pair [long_descr, short_descr]
-  def lesson_title(item, description)
-    description.try(:second) || description.try(:first) || item.lessonname
+  def container_title(item, description)
+    description.try(:second) || description.try(:first) || item.name
   end
 
-  def lesson_description(lesson, descr = @descriptions)
+  def container_description(container, descr = @descriptions)
     descriptions = descr ?
-        descr[lesson.id] :
-        lesson.lesson_descriptions.select{|x| x.lessonid == lesson.id}
+        descr[container.id] :
+        container.container_descriptions.select{|x| x.id == container.id}
     description_lang = descriptions.select { |d| d.lang == @language }[0]
     description_eng = descriptions.select { |d| d.lang == 'ENG' }[0]
 
@@ -58,7 +58,7 @@ module SearchHelper
   end
 
   def file_asset_title(item)
-    (item.file_asset_descriptions.select { |d| d.lang == @language } || item.file_asset_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:filedesc) || item.filename
+    (item.file_asset_descriptions.select { |d| d.lang == @language } || item.file_asset_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:desc) || item.name
   end
 
   def download_lessons(item_file_assets, type, lang, play = false)
@@ -68,19 +68,19 @@ module SearchHelper
     file_assets = ''
     # Select only files of requested type (video/audio/text) and language
     item_file_assets.select do |x|
-      FileType::EXT_TYPE[x.filetype.downcase] == type && (x.filelang.blank? ? 'ENG' : x.filelang) == lang
+      FileType::EXT_TYPE[x.type.downcase] == type && (x.lang.blank? ? 'ENG' : x.lang) == lang
       # Order by ext and split into chunks according to ext
-    end.sort.chunk { |fa| fa.filetype }.each do |filetype, files|
-      filetype.upcase!
+    end.sort.chunk { |fa| fa.type }.each do |type, files|
+      type.upcase!
       file_assets += if files.length == 1
                        # Only one file - show as button
                        fa = files[0]
-                       "<div class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{type} #{fa.filetype}</a></div>"
+                       "<div class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{type} #{fa.type}</a></div>"
                      else
                        # Many files - show as dropdown
-                       "<div class='btn-group'><div class='btn btn-mini dropdown-toggle' data-toggle='dropdown'><a href='javascript:;'>#{filetype} <span class='caret'></span></a></div><ul class='dropdown-menu'>" +
+                       "<div class='btn-group'><div class='btn btn-mini dropdown-toggle' data-toggle='dropdown'><a href='javascript:;'>#{type} <span class='caret'></span></a></div><ul class='dropdown-menu'>" +
                            files.inject('') do |memo, fa|
-                             "#{memo}<li><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{file_asset_title(fa)} #{fa.filetype}</a></li>"
+                             "#{memo}<li><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{file_asset_title(fa)} #{fa.type}</a></li>"
                            end +
                            '</ul></div>'
                      end
@@ -95,7 +95,7 @@ module SearchHelper
     lang = Language::LOCALE_CODE3[lang]
     # Select only files of requested language
     file_assets = (file_assets || item.file_assets).select do |x|
-      (x.filelang.blank? ? 'ENG' : x.filelang) == lang
+      (x.lang.blank? ? 'ENG' : x.lang) == lang
     end
     list_items_all(nil, filmed, file_assets)
   end
@@ -104,15 +104,15 @@ module SearchHelper
     list = ''
     # Order by ext
     (file_assets || item.file_assets).sort.each do |fa|
-      title = fa.filename
-      descr = fa.file_asset_descriptions.first.try(:filedesc) || fa.filename
-      filesize = fa.filesize.to_f / 1024 / 1024
+      title = fa.name
+      descr = fa.file_asset_descriptions.first.try(:filedesc) || fa.name
+      size = fa.size.to_f / 1024 / 1024
       playtime = fa.playtime_secs.to_i || item.playtime_secs.to_i
       ext = File.extname(fa.url)[1..10]
       tip = playtime > 0 ?
-          "#{ext}&nbsp;|&nbsp;#{"%.2f" % filesize}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
+          "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
       :
-          "#{ext}&nbsp;|&nbsp;#{"%.2f" % filesize}Mb"
+          "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb"
 
       list += <<-LIST
       <tr>
@@ -125,7 +125,7 @@ module SearchHelper
             </tr>
             <tr>
               <td class='left-aligned-column'>
-                #{filmed || fa.filedate.strftime('%Y-%02m-%02d')} | #{fa.filetype} | #{fa.filelang} | #{"%.2f" % filesize}Mb | #{playtime <= 0 ? '00:00:00' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}
+                #{filmed || fa.date.strftime('%Y-%02m-%02d')} | #{fa.asset_type} | #{fa.lang} | #{"%.2f" % size}Mb | #{playtime <= 0 ? '00:00:00' : "#{Time.at(playtime).utc.strftime('%H:%M:%S')}"}
               </td>
             </tr>
           </table>

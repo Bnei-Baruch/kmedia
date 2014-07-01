@@ -24,7 +24,7 @@ class Admin::FileTypesController < Admin::ApplicationController
   end
 
   def update
-    data = params[:file_type].except(:typename)
+    data = params[:file_type].except(:name)
     if @file_type.update_attributes(data)
       redirect_to [:admin, @file_type], notice: 'Successfully updated File Type.'
     else

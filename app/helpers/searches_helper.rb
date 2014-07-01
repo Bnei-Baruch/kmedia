@@ -12,8 +12,6 @@ module SearchesHelper
   end
 
   def file_type_ids_to_list
-    FileType.all.map do |ct|
-      [ct.typename.humanize, ct.typename]
-    end
+    FileType.all.map { |ct| [ct.name.humanize, ct.name] }
   end
 end

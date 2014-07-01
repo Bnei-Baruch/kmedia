@@ -48,12 +48,12 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     lessons = search_result.results
     if lessons.kind_of?(Array)
-      lesson_ids = lessons.collect(&:lessonid)
+      lesson_ids = lessons.collect(&:id)
       q          = FileAsset
-      q          = q.where(filelang: get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
-      q          = q.where(filetype: get_media_types(params[:media_type_ids])) if params[:media_type_ids].present?
-      files      = q.joins(:lessons).where('lessons.lessonid in (?)', lesson_ids)
-      render json: { ids: files.collect(&:fileid).join(',') }
+      q          = q.where(lang: get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
+      q          = q.where(type: get_media_types(params[:media_type_ids])) if params[:media_type_ids].present?
+      files      = q.joins(:lessons).where(:'lessons.id' => lesson_ids)
+      render json: { ids: files.collect(&:id).join(',') }
     end
   end
 
@@ -165,7 +165,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # @returns {found: true, "server":"VIDEO-EU"}
   # @returns {found: true, "server":"FILES-EU"}
   def get_file_servers
-    file = FileAsset.find_by_filename(params[:filename] || '')
+    file = FileAsset.find_by_name(params[:filename] || '')
     render json: { found: !file.nil?, server: (file.try(:servername) || DEFAULT_FILE_SERVER) }
   end
 
@@ -307,9 +307,9 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     @lessons   = search_result.results
     files      = @lessons.map(&:file_assets).flatten
-    @lang_hash = files.group_by(&:filelang)
+    @lang_hash = files.group_by(&:lang)
     @lang_hash.each do |lang, files_by_lang|
-      @lang_hash[lang]= files_by_lang.group_by { |f| f.filedate.to_date }
+      @lang_hash[lang]= files_by_lang.group_by { |f| f.date.to_date }
     end
 
     @lang_hash
@@ -319,7 +319,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   def per_page_file_ids(created_from_date = nil)
     f = FileAsset
-    f = f.where("created > ?", created_from_date) if created_from_date
+    f = f.where("created_at > ?", created_from_date) if created_from_date
     f.count
   end
 
@@ -332,7 +332,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
     return [] if parents_catalog_ids.blank?
     # the method can return one catalog or an array of catalogs
     all_catalogs = Catalog.descendant_catalogs_by_catalog_id(parents_catalog_ids)
-    all_catalogs_ids = [all_catalogs].flatten.collect(&:catalognodeid).join(",") rescue []
+    [all_catalogs].flatten.collect(&:id).join(",") rescue []
   end
 
   def get_language_by_ids(ids)
@@ -343,7 +343,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def get_media_types(ids)
     media_type_ids = ids ? ids.split(/\s*,\s*/) : []
     media_exts     = media_type_ids.inject([]) do |result, media_type|
-      result << FileType.where(:typename => (media_type == 'image' ? 'graph' : media_type)).first.try(:extlist).try(:send, :split, ',')
+      result << FileType.where(name: (media_type == 'image' ? 'graph' : media_type)).first.try(:extlist).try(:send, :split, ',')
     end
     media_exts.flatten
   end

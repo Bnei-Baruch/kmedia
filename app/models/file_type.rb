@@ -1,12 +1,12 @@
 class FileType < ActiveRecord::Base
-  self.table_name = :filetypes
-  self.primary_key = :typename
+  self.primary_key = :name
+
   scope :e2type, lambda { |ext| where("extlist like '%#{ext}%'") }
 
   # ext -> type
   EXT_TYPE = FileType.all.inject({}) do |h, f|
     f.extlist.split(/\s*,\s*/).map do |ft|
-      h[ft] = f.typename
+      h[ft] = f.name
     end
     h
   end

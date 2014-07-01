@@ -11,6 +11,6 @@
       %li= link_to "View All", admin_file_types_path
 
 %section.well
-  = display_show_item('Name', @file_type.typename)
+  = display_show_item('Name', @file_type.name)
   = display_show_item('Extensions', @file_type.extlist)
   = display_show_item('Picture', @file_type.pic)

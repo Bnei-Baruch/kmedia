@@ -1,7 +1,7 @@
 ul.books-sub-catalog
   - nodes.each do |node|
-    - id = node['catalognodeid']
-    - name = node['catalognodename']
+    - id = node['id']
+    - name = node['name']
     - children = @boost_tree[id]
     - has_children = !children.nil?
     li.books-sub-catalog-item

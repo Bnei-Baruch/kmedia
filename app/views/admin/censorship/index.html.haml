@@ -7,9 +7,9 @@
     %thead
       %tr
         %th
-        %th= sortable("lessonid", "ID", @filter)
-        %th= sortable("lessonname", "Name", @filter)
-        %th= sortable("lessondate", "Filmed", @filter)
+        %th= sortable("id", "ID", @filter)
+        %th= sortable("name", "Name", @filter)
+        %th= sortable("filmdate", "Filmed", @filter)
         %th= sortable("created", "Created", @filter)
         %th= sortable("updated", "Updated", @filter)
         %th= sortable("lang", "Language", @filter)
@@ -21,7 +21,7 @@
           %td= check_box_tag "cb_#{lesson.id}", lesson.id, false, class: 'selected'
           %td{:class => lesson.marked_for_merge ? 'btn btn-warning' : ''}= lesson.lessonid
           %td= lesson.lessonname.truncate(57, :omission => '&hellip;').html_safe
-          %td.created= lesson.lessondate.try(:to_date)
+          %td.created= lesson.filmdate.try(:to_date)
           %td= lesson.created.try(:to_date)
           %td= lesson.updated.try(:to_date)
           %td= lesson.lang

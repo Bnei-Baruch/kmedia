@@ -18,19 +18,19 @@
           = link_to 'Has no Container', '/#'
 
 %section.well
-  = display_show_item 'ID', @asset.fileid
-  = display_show_item 'Filename', @asset.filename
-  = display_show_item 'Created on', @asset.created
-  = display_show_item 'Updated on', @asset.updated
-  = display_show_item 'Recording date', @asset.filedate
-  = display_show_item 'Type', @asset.filetype
-  = display_show_item 'Language', @asset.filelang
-  = display_show_item 'Size', number_to_human_size(@asset.filesize)
+  = display_show_item 'ID', @asset.id
+  = display_show_item 'Name', @asset.name
+  = display_show_item 'Created at', @asset.created_at
+  = display_show_item 'Updated at', @asset.updated_at
+  = display_show_item 'Recording date', @asset.date
+  = display_show_item 'Type', @asset.type
+  = display_show_item 'Language', @asset.lang
+  = display_show_item 'Size', number_to_human_size(@asset.size)
   = display_show_item 'Playtime (secs)', convert_seconds_to_human_readable(@asset.playtime_secs)
   = display_show_item 'Server name', @asset.servername
-  = display_show_item 'Status', @asset.filestatus
+  = display_show_item 'Status', @asset.status
   = display_show_item 'Last user', @asset.lastuser
-  = display_show_item 'Clicks', @asset.fileclicks
+  = display_show_item 'Clicks', @asset.clicks
   = display_show_item('Secure', display_secure(@asset.secure), true)
   = display_show_item('User', @asset.user.try(:email))
 
@@ -41,14 +41,14 @@
       %tr
         %th Language
         %th FileAsset Description
-        %th Created on
-        %th Updated on
+        %th Created at
+        %th Updated at
         %th ID
     %tbody
       - @asset.file_asset_descriptions.each do |asset_desc|
         %tr
           %td= asset_desc.lang
-          %td= asset_desc.filedesc
-          %td= asset_desc.created.try(:to_date)
-          %td= asset_desc.updated.try(:to_date)
-          %td= asset_desc.filedescid
+          %td= asset_desc.desc
+          %td= asset_desc.created_at.try(:to_date)
+          %td= asset_desc.updated_at.try(:to_date)
+          %td= asset_desc.id

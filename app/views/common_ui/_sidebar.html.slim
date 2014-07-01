@@ -5,7 +5,7 @@
       button.btn.btn-block.btn-primary = t('ui.sidebar.clear_all_filters')
   - if @books_catalog
     .books-catalog-button
-      = link_to @books_catalog['catalognodename'], books_path, class: 'btn btn-block btn-inverse'
+      = link_to @books_catalog['name'], books_path, class: 'btn btn-block btn-inverse'
   ul.nav.nav-list
     li.divider
     li.nav-header = t('ui.sidebar.filter_by_date')

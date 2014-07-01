@@ -12,7 +12,7 @@
       %tr
         %th= sortable("pattern", "Pattern")
         %th= sortable("description", "Description")
-        %th= sortable("catalognode.catalognodename", "Catalogs")
+        %th= sortable("catalogs.name", "Catalogs")
         %th= sortable("lang", "Lang")
         = display_actions_title(LessondescPattern)
     %tbody
@@ -20,7 +20,7 @@
         %tr(class="#{cycle('odd', 'even')}")
           %td= lessondesc_pattern.pattern
           %td= lessondesc_pattern.description
-          %td= lessondesc_pattern.catalogs.uniq.map{|c| c.catalognodename}.join(', ')
+          %td= lessondesc_pattern.catalogs.uniq.map{|c| c.name}.join(', ')
           %td= lessondesc_pattern.lang
           -if can?(:read, lessondesc_pattern)
             %td

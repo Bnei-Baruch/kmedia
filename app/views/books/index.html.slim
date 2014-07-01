@@ -4,13 +4,13 @@
     #content.span9
       = render 'common/topbanner'
       .books-catalog
-        h3 = @books_catalog['catalognodename']
+        h3 = @books_catalog['name']
         .scroll-wrapper
           .list-wrapper
             ul.books-root-list
-              - @boost_tree[@books_catalog['catalognodeid']].each do |node|
-                - id = node['catalognodeid']
-                - name = node['catalognodename']
+              - @boost_tree[@books_catalog['id']].each do |node|
+                - id = node['id']
+                - name = node['name']
                 - children = @boost_tree[id]
                 - has_children = !children.nil?
                 li.books-sub-catalog-item

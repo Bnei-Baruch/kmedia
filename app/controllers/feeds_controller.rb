@@ -14,7 +14,7 @@ class FeedsController < ApplicationController
     date_to    = params[:DT] || (Date.today - 30).to_s
 
     begin
-      catalogs = Catalog.where(catalognodeid: catalog_id).first.all_children_with_root.map(&:id).join(',')
+      catalogs = Catalog.where(id: catalog_id).first.all_children_with_root.map(&:id).join(',')
     rescue
       render text: nil
       return
@@ -22,13 +22,13 @@ class FeedsController < ApplicationController
 
     sql = <<-SQL
       select distinct lesson.*
-      from lessons lesson, catnodelessons cnl
+      from lessons lesson, catalogs_lessons cnl
       where
-        lesson.lessonid = cnl.lessonid and
-        ( cnl.catalognodeid in (#{catalogs})  and
-        (lesson.lessondate BETWEEN '#{date_to}' and '#{date_from}')  and
+        lesson.id = cnl.lesson_id and
+        ( cnl.id in (#{catalogs})  and
+        (lesson.filmdate BETWEEN '#{date_to}' and '#{date_from}')  and
         lesson.secure=0 )
-      order by lesson.lessondate desc, created desc, lessonname asc
+      order by lesson.filmdate desc, created_at desc, name asc
     SQL
 
     @lessons = Lesson.find_by_sql sql
@@ -86,10 +86,10 @@ class FeedsController < ApplicationController
     @host        = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get list of 20 last lessons' files
-    results      = Lesson.includes(:file_assets).order('created desc').limit(20)
+    results      = Lesson.includes(:file_assets).order('created_at desc').limit(20)
 
-    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.filetype == 'mp3' && f.filelang == @language }.flatten.compact.sort { |x, y| y.created <=> x.created }
-    @last_update = results.first.created
+    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
+    @last_update = results.first.created_at
 
     render 'podcast', layout: false
   end
@@ -106,7 +106,7 @@ class FeedsController < ApplicationController
       count  = 0
       fz     = nil
 
-      Lesson.uniq.joins(:catalogs).merge(Catalog.insecure).pluck(:lessonid).each do |lesson|
+      Lesson.uniq.joins(:catalogs).merge(Catalog.insecure).pluck(:id).each do |lesson|
         langs.each do |lang|
           if count == 0
             filename = "google_sitemap_#{fileno}.xml.gz"

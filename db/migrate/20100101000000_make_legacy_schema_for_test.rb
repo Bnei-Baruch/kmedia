@@ -2,54 +2,6 @@ class MakeLegacySchemaForTest < ActiveRecord::Migration
   def up
     if Rails.env.test?
       sql = <<-SQL
-CREATE TABLE IF NOT EXISTS answers (
-  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  ip varchar(15) NOT NULL DEFAULT '',
-  qid varchar(10) NOT NULL DEFAULT '',
-  qdata text NOT NULL,
-  lang char(3) NOT NULL DEFAULT '',
-  PRIMARY KEY (`datetime`,ip,qid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS banners (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  langs varchar(50) DEFAULT NULL,
-  banner text,
-  PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS books (
-  fileid int(10) NOT NULL AUTO_INCREMENT,
-  filename varchar(50) DEFAULT NULL,
-  filedate datetime DEFAULT NULL,
-  filesize int(10) DEFAULT NULL,
-  servername varchar(30) DEFAULT NULL,
-  filestatus varchar(10) DEFAULT NULL,
-  created datetime DEFAULT NULL,
-  updated datetime DEFAULT NULL,
-  PRIMARY KEY (fileid),
-  KEY servername (servername)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS booksdesc (
- filedescid int(10) NOT NULL AUTO_INCREMENT,
- fileid int(10) NOT NULL DEFAULT '0',
- filedesc varchar(255) DEFAULT NULL,
- lang char(3) DEFAULT NULL,
- created datetime DEFAULT NULL,
- updated datetime DEFAULT NULL,
- PRIMARY KEY (filedescid),
- KEY fileid (fileid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-      SQL
-      execute sql
-      sql = <<-SQL
 CREATE TABLE IF NOT EXISTS catalognode (
  catalognodeid int(10) NOT NULL AUTO_INCREMENT,
  catalognodename varchar(100) NOT NULL DEFAULT '',
@@ -198,102 +150,6 @@ CREATE TABLE IF NOT EXISTS lessons (
       SQL
       execute sql
       sql = <<-SQL
-CREATE TABLE IF NOT EXISTS lessons_offline (
- lessonid int(11) NOT NULL DEFAULT '0',
- PRIMARY KEY (lessonid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS music (
- fileid int(10) NOT NULL AUTO_INCREMENT,
- filename varchar(50) DEFAULT NULL,
- filedate datetime DEFAULT NULL,
- filesize int(10) DEFAULT NULL,
- servername varchar(30) DEFAULT NULL,
- filestatus varchar(10) DEFAULT NULL,
- created datetime DEFAULT NULL,
- updated datetime DEFAULT NULL,
- PRIMARY KEY (fileid),
- KEY servername (servername)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS musicdesc (
- filedescid int(10) NOT NULL AUTO_INCREMENT,
- fileid int(10) NOT NULL DEFAULT '0',
- filedesc varchar(255) DEFAULT NULL,
- lang char(3) DEFAULT NULL,
- created datetime DEFAULT NULL,
- updated datetime DEFAULT NULL,
- PRIMARY KEY (filedescid),
- KEY fileid (fileid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS search_strings (
- id int(11) NOT NULL AUTO_INCREMENT,
- search_str varchar(255) NOT NULL DEFAULT '',
- search_count int(11) NOT NULL DEFAULT '0',
- PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12978 ;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS subscription (
- id int(11) NOT NULL AUTO_INCREMENT,
- email varchar(255) NOT NULL DEFAULT '',
- `name` varchar(50) NOT NULL DEFAULT '',
- rate varchar(10) DEFAULT 'day',
- `last` date DEFAULT NULL,
- created date DEFAULT NULL,
- ipcreated varchar(15) NOT NULL DEFAULT '',
- lang char(3) NOT NULL DEFAULT '',
- valid bool DEFAULT FALSE,
- valcode varchar(10) NOT NULL DEFAULT '',
- lastsuccess bool DEFAULT FALSE,
- PRIMARY KEY (id),
- UNIQUE KEY email (email,`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS subscription_backup (
- id int(11) NOT NULL DEFAULT '0',
- email varchar(255) NOT NULL DEFAULT '',
- `name` varchar(50) NOT NULL DEFAULT '',
- rate varchar(10) DEFAULT 'day',
- `last` date DEFAULT NULL,
- created date DEFAULT NULL,
- ipcreated varchar(15) NOT NULL DEFAULT '',
- lang char(3) NOT NULL DEFAULT '',
- valid bool DEFAULT FALSE,
- valcode varchar(10) NOT NULL DEFAULT '',
- lastsuccess bool DEFAULT FALSE,
- PRIMARY KEY (id),
- UNIQUE KEY email (email,`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS tmp_access (
- cnt int(11) DEFAULT NULL,
- filename varchar(150) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-      SQL
-      execute sql
-      sql = <<-SQL
-CREATE TABLE IF NOT EXISTS updated (
- lang char(3) NOT NULL DEFAULT '',
- days int(11) NOT NULL DEFAULT '0',
- ts timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
- `value` mediumblob NOT NULL,
- PRIMARY KEY (lang,days)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-      SQL
-      execute sql
       sql = <<-SQL
 CREATE TABLE IF NOT EXISTS users (
  id int(11) NOT NULL AUTO_INCREMENT,
@@ -335,10 +191,6 @@ CREATE TABLE IF NOT EXISTS servers (
   def down
     execute <<-SQL
 DROP TABLE
-answers,
-banners,
-books,
-booksdesc,
 catalognode,
 labels,
 label_descriptions,

@@ -8,7 +8,7 @@
       = f.input :pattern
       = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
     .span8
-      = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lessondesc_pattern.catalogs.map{|c| {:id => c.catalognodeid, :name => c.catalognodename}}.to_json}
+      = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lessondesc_pattern.catalogs.map{|c| {:id => c.id, :name => c.name}}.to_json}
       = f.input :description, :as => :text, :input_html => {:style => 'width: 600px; height: 200px'}
 
   %hr.soften

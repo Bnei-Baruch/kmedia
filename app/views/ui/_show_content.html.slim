@@ -69,9 +69,10 @@
             .btn.btn-small.disabled = Language::CODE3_LOCALE[search.language]
             a.btn.btn-small href='#' data-id='#search_language_ids'
               span &times;
-    = paginate @hits, :window => 2
-    = render @results
-    = paginate @hits, :window => 2
+    - unless @no_results
+      = paginate @hits, :window => 2
+      = render @results
+      = paginate @hits, :window => 2
 
 - content_for(:title) do
   = title

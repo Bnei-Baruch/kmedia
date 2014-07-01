@@ -1,21 +1,21 @@
 = simple_form_for [:admin, catalog] do |f|
-  = display_actions f, catalog.catalognodeid ? admin_catalog_url(catalog) : admin_catalogs_url
+  = display_actions f, catalog.id ? admin_catalog_url(catalog) : admin_catalogs_url
   %hr.soften
   = display_errors f
 
   .catalogs
     .list
-      - if catalog.parentnodeid
-        = f.input :parentnodeid, :label => 'Parent',
-         :input_html => {"data-pre" => [{:id => catalog.parent.catalognodeid, :name => catalog.parent.catalognodename}].to_json}
+      - if catalog.parent_id
+        = f.input :parent_id, :label => 'Parent',
+         :input_html => {"data-pre" => [{:id => catalog.parent.id, :name => catalog.parent.name}].to_json}
       - else
-        = f.input :parentnodeid, :label => 'Parent'
-    = f.input :catalognodename, :label => 'Name'
+        = f.input :parent_id, :label => 'Parent'
+    = f.input :name, :label => 'Name'
     - if can?(:special_admin_features, catalog)
       = f.input :label, :label => 'Label'
       = f.input :visible, :as => :boolean, :inline_label => 'Visible', :label => false
       = f.input :open, :as => :boolean, :inline_label => 'Open', :label => false
   %hr.soften
-  = display_descriptions f, catalog_descriptions, 'catalog_descriptions', 'catalognodename'
+  = display_descriptions f, catalog_descriptions, 'catalog_descriptions', 'name'
   %hr.soften
-  = display_actions f, catalog.catalognodeid ? admin_catalog_url(catalog) : admin_catalogs_url
+  = display_actions f, catalog.id ? admin_catalog_url(catalog) : admin_catalogs_url

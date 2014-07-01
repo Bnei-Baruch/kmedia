@@ -20,9 +20,9 @@ submit_action = (action, element) ->
 $ ->
   $catalog_tokens = $("#lesson_catalog_tokens")
   $pattern_catalog_tokens = $("#lessondesc_pattern_catalog_tokens")
-  $catalog_parentnodeid = $("#catalog_parentnodeid")
+  $catalog_parent_id = $("#catalog_parent_id")
   $lesson_label_tokens = $("#lesson_label_tokens")
-  $catalog_catalognodename = $("#catalog_catalognodename")
+  $catalog_name = $("#catalog_name")
   $catalog_tokens.tokenInput "/admin/catalogs.json",
     minChars: 2
     crossDomain: false
@@ -39,22 +39,22 @@ $ ->
     crossDomain: false
     preventDuplicates: true
     prePopulate: $pattern_catalog_tokens.data("pre")
-  $catalog_parentnodeid.tokenInput "/admin/catalogs.json",
+  $catalog_parent_id.tokenInput "/admin/catalogs.json",
     minChars: 2
     crossDomain: false
     preventDuplicates: true
     tokenLimit: 1
-    prePopulate: $catalog_parentnodeid.data("pre")
+    prePopulate: $catalog_parent_id.data("pre")
   $lesson_label_tokens.tokenInput "/admin/dictionaries/labels/assignable.json",
     crossDomain: false
     preventDuplicates: true
     prePopulate: $lesson_label_tokens.data("pre")
   # Limit name of catalog to lowercase english letters and digits, '-'
   # Convert letters to lowercase; convert '_' and ' ' to '-'
-  $catalog_catalognodename.alphanumeric allow: "-_ "
+  $catalog_name.alphanumeric allow: "-_ "
   $("#catalog_submit").click ->
-    text = $catalog_catalognodename.val()
-    $catalog_catalognodename.val text.replace(/[\s_]/g, "-").toLowerCase()
+    text = $catalog_name.val()
+    $catalog_name.val text.replace(/[\s_]/g, "-").toLowerCase()
   $("#lesson_rss").on "click", ->
     if $(this).is(":checked")
       # Add RSS categories to catalogs

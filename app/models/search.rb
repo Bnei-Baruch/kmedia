@@ -17,7 +17,7 @@ class Search
 
   def self.models
     [['-- All Kinds --', ''],
-     ['Files', FileAsset],
+     ['FileAssets', FileAsset],
      ['Catalogs', Catalog],
      ['Catalog Descriptions', CatalogDescription],
      ['Container', Lesson],
@@ -67,7 +67,7 @@ class Search
 
   def media_type_id=(name)
     @media_type_id = (name == 'all' || name.blank?) ? nil : name
-    @media_exts = @media_type_id.nil? ? [] : FileType.where(:typename => (name == 'image' ? 'graph' : name)).first.try(:extlist).try(:send, :split, ',')
+    @media_exts = @media_type_id.nil? ? [] : FileType.where(name: (name == 'image' ? 'graph' : name)).first.try(:extlist).try(:send, :split, ',')
   end
 
   def media_type_ids=(ids)
@@ -134,7 +134,7 @@ class Search
   def search_full_text(page_no = nil)
     query_text = query_string_normalized
     begin
-      Lesson.search(include: [:content_type, :file_assets, :lesson_descriptions]) do |query|
+      Container.search(include: [:content_type, :file_assets, :container_descriptions]) do |query|
         query.fulltext query_text, :highlight => true unless query_text.blank?
         query.paginate :page => page_no, :per_page => per_page.present? ? per_page : 30
         query.with(:secure, 0)
@@ -144,21 +144,21 @@ class Search
         query.with(:file_language_ids).any_of @language_exts if @language_ids.present?
         query.with(:media_type_ids).any_of @media_exts if @media_type_id.present?
         query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
-        query.with(:lessondate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
-        query.with(:lessondate).greater_than_or_equal_to(@date_from) if @date_from.present? && @date_to.blank?
-        query.with(:lessondate).less_than_or_equal_to(@date_to) if @date_to.present? && @date_from.blank?
-        query.with(:created).greater_than(@created_from_date) if @created_from_date.present?
+        query.with(:filmdate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
+        query.with(:filmdate).greater_than_or_equal_to(@date_from) if @date_from.present? && @date_to.blank?
+        query.with(:filmdate).less_than_or_equal_to(@date_to) if @date_to.present? && @date_from.blank?
+        query.with(:created_at).greater_than(@created_from_date) if @created_from_date.present?
 
         case @date_type
           when 'one_day'
             date = date_one_day
-            query.with(:lessondate).between Range.new(date.beginning_of_day, date.end_of_day)
+            query.with(:filmdate).between Range.new(date.beginning_of_day, date.end_of_day)
           when 'range'
             beginning, ending = date_range
-            query.with(:lessondate).between Range.new(beginning.beginning_of_day, ending.end_of_day) unless beginning.nil? || ending.nil?
+            query.with(:filmdate).between Range.new(beginning.beginning_of_day, ending.end_of_day) unless beginning.nil? || ending.nil?
         end
 
-        query.order_by :lessondate, :desc
+        query.order_by :filmdate, :desc
       end
     rescue Net::HTTPFatalError => e
       @error = set_search_network_error(e)
@@ -205,13 +205,13 @@ class Search
       query.with(:for_censorship, false)
       query.with(:closed_by_censor, false)
       query.with(:content_type_ids).any_of @content_type_ids if @content_type_ids.present?
-      query.with(:filelang).any_of @language_exts if @language_exts.present?
-      query.with(:filetype).any_of @media_exts if @media_type_id.present?
+      query.with(:lang).any_of @language_exts if @language_exts.present?
+      query.with(:type).any_of @media_exts if @media_type_id.present?
       query.with(:catalog_ids).any_of @catalog_ids if @catalog_ids.present?
-      query.with(:filedate).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
-      query.with(:filedate).greater_than(@date_from) if @date_from.present? && @date_to.blank?
-      query.with(:filedate).less_than(@date_to) if @date_to.present? && @date_from.blank?
-      query.with(:created).greater_than(@created_from_date) if @created_from_date.present?
+      query.with(:date).between Range.new(@date_from, @date_to) if @date_from.present? && @date_to.present?
+      query.with(:date).greater_than(@date_from) if @date_from.present? && @date_to.blank?
+      query.with(:date).less_than(@date_to) if @date_to.present? && @date_from.blank?
+      query.with(:created_at).greater_than(@created_from_date) if @created_from_date.present?
     end
   rescue Net::HTTPFatalError => e
     @error = set_search_network_error(e)

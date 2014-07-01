@@ -32,18 +32,18 @@ class UiController < ApplicationController
   # Search result
   def index
     @results    = @search.search_full_text params[:page]
-    @hits       = @results.try(:hits)
-    @total      = @results.try(:total)
+    @hits       = @results.try(:hits) rescue nil
+    @total      = @results.try(:total)  rescue nil
     @no_results = @results.is_a?(String) || !@results || @results.results.empty?
 
-    @results      = @results.try(:results)
-    @descriptions = Lesson.get_all_descriptions(@results)
+    @results      = @results.try(:results) rescue nil
+    @descriptions = Container.get_all_descriptions(@results) rescue nil
   end
 
   # Show specific item page
   def show
-    @item                               = Lesson.where(lessonid: params[:id]).non_secure.first
-    @available_languages, @descriptions = @item ? [FileAsset.available_languages(@item.file_assets), Lesson.get_all_descriptions(@item)] : [[], []]
+    @item                               = Container.where(id: params[:id]).non_secure.first
+    @available_languages, @descriptions = @item ? [FileAsset.available_languages(@item.file_assets), Container.get_all_descriptions(@item)] : [[], []]
   end
 
   def google_ads
@@ -75,7 +75,7 @@ class UiController < ApplicationController
 
     search = Search.new({ date_type: 'one_day', dates_range: (Time.now - 7.days).to_s, per_page: 100 })
     @new_materials = search.search_full_text.results rescue []
-    @descriptions = Lesson.get_all_descriptions(@new_materials)
+    @descriptions = Container.get_all_descriptions(@new_materials)
   end
 
   def set_virtual_lesson(vl)

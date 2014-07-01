@@ -5,9 +5,9 @@
   = display_show_item('ID', @lesson.lessonid)
   = display_show_item('Name', @lesson.lessonname)
   = display_show_item('Type', @lesson.content_type.try(:name))
-  = display_show_item('Created', @lesson.created.to_s(:long_ordinal))
-  = display_show_item('Updated', @lesson.updated.to_s(:long_ordinal))
-  = display_show_item('Container date', @lesson.lessondate)
+  = display_show_item('Created', @lesson.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @lesson.updated_at.to_s(:long_ordinal))
+  = display_show_item('Container date', @lesson.filmdate)
   = display_show_item('Language', @lesson.language)
   = display_show_item('Lecturer', @lesson.lecturer)
   = display_show_item('Secure', display_secure(@lesson.secure), true)
@@ -22,8 +22,8 @@
       %tr
         %th Language
         %th Container Description/Long Description
-        %th Created on
-        %th Updated on
+        %th Created at
+        %th Updated at
         %th ID
     %tbody
       - @lesson.lesson_descriptions.each do |admin_lesson_desc|
@@ -35,9 +35,9 @@
             - unless admin_lesson_desc.descr.blank?
               %hr.soften.no-margin
               = admin_lesson_desc.descr
-          %td= admin_lesson_desc.created.try(:to_date)
-          %td= admin_lesson_desc.updated.try(:to_date)
-          %td= admin_lesson_desc.lessondescid
+          %td= admin_lesson_desc.created_at.try(:to_date)
+          %td= admin_lesson_desc.updated_at.try(:to_date)
+          %td= admin_lesson_desc.id
 %section
   %strong Transcripts:
   %table.table.table-striped.table-bordered.table-condensed
@@ -46,8 +46,8 @@
         %th Language
         %th TOC
         %th Transcript
-        %th Created on
-        %th Updated on
+        %th Created at
+        %th Updated at
         %th ID
     %tbody
       - @lesson.lesson_transcripts.each do |t|
@@ -81,8 +81,8 @@
     %tbody
       - @lesson.catalogs.each do |catalog|
         %tr
-          %td= catalog.catalognodeid
-          %td= catalog.catalognodename
+          %td= catalog.id
+          %td= catalog.name
 %section
   %strong Files:
   %table.table.table-striped.table-bordered.table-condensed
@@ -100,12 +100,12 @@
     %tbody
       - @lesson.file_assets.each do |asset|
         %tr
-          %td= asset.fileid
-          %td= link_to asset.filename, asset.url, :target => '_blank'
+          %td= asset.id
+          %td= link_to asset.name, asset.url, :target => '_blank'
           %td= display_secure asset.secure
-          %td= number_to_human_size asset.filesize
+          %td= number_to_human_size asset.size
           %td= convert_seconds_to_human_readable asset.playtime_secs
-          %td= asset.filedate.try(:to_date)
-          %td= asset.created.try(:to_date)
-          %td= asset.updated.try(:to_date)
-          %td= asset.filelang
+          %td= asset.date.try(:to_date)
+          %td= asset.created_at.try(:to_date)
+          %td= asset.updated_at.try(:to_date)
+          %td= asset.lang

@@ -141,7 +141,7 @@ class Admin::LessonsController < Admin::ApplicationController
   def merge
     @lesson = Lesson.find(params[:id])
     merge_ids = params[:lesson][:container_ids].map(&:to_i)
-    merges = Lesson.where(:lessonid => merge_ids).each { |merge|
+    merges = Lesson.where(id: merge_ids).each { |merge|
       # copy files
       merge.file_assets.each { |fa|
         @lesson.file_assets << fa rescue nil
@@ -181,7 +181,7 @@ class Admin::LessonsController < Admin::ApplicationController
                      raise
                    end
 
-      film_date = containers[0].lessondate
+      film_date = containers[0].filmdate
       vl = VirtualLesson.create!(film_date: film_date)
       vl.lessons = containers
     rescue Exception => e
@@ -208,7 +208,7 @@ class Admin::LessonsController < Admin::ApplicationController
     @lecturers = Lecturer.all
     @content_types = ContentType.all.map { |ct| [ct.name, ct.id] }
     @security = SECURITY.collect { |s| [s[:name], s[:level]] }
-    @rss = Catalog.find_by_catalognodename('Video')
+    @rss = Catalog.find_by_name('Video')
   end
 
   def sort_descriptions
@@ -265,7 +265,7 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def default_sort_column
-    'created'
+    'created_at'
   end
 
   def sort_order
