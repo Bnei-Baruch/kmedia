@@ -1,5 +1,5 @@
-= simple_form_for [:admin, @lessondesc_pattern] do |f|
-  = display_actions f, @lessondesc_pattern.id ? admin_lessondesc_pattern_url(@lessondesc_pattern) : admin_lessondesc_patterns_url
+= simple_form_for [:admin, @container_desc_pattern] do |f|
+  = display_actions f, @container_desc_pattern.id ? admin_container_description_pattern_url(@container_desc_pattern) : admin_container_description_patterns_url
   %hr.soften
   = display_errors f
 
@@ -8,8 +8,8 @@
       = f.input :pattern
       = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
     .span8
-      = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @lessondesc_pattern.catalogs.map{|c| {:id => c.id, :name => c.name}}.to_json}
+      = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @container_desc_pattern.catalogs.map{|c| {:id => c.id, :name => c.name}}.to_json}
       = f.input :description, :as => :text, :input_html => {:style => 'width: 600px; height: 200px'}
 
   %hr.soften
-  = display_actions f, @lessondesc_pattern.id ? admin_lessondesc_pattern_url(@lessondesc_pattern) : admin_lessondesc_patterns_url
+  = display_actions f, @container_desc_pattern.id ? admin_container_description_pattern_url(@container_desc_pattern) : admin_container_description_patterns_url

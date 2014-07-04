@@ -1,6 +1,6 @@
 require 'progress_bar'
 
-# Full list of models to reindex: [FileAsset, Catalog, CatalogDescription, Container, LessonDescription, LessondescPattern]
+# Full list of models to reindex: [FileAsset, Catalog, CatalogDescription, Container, ContainerDescription, ContainerDescriptionPattern]
 class ReindexAsset
   def self.container
     reindex([Container])

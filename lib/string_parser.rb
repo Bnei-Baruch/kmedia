@@ -24,7 +24,7 @@ class StringParser
   end
 
   def descriptions
-    LessondescPattern.pattern_matches(@string)
+    ContainerDescriptionPattern.pattern_matches(@string)
   end
 
   def content_type

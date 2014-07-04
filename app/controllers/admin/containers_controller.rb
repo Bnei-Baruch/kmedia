@@ -1,49 +1,49 @@
-class Admin::LessonsController < Admin::ApplicationController
+class Admin::ContainersController < Admin::ApplicationController
   before_filter :set_fields, :only => [:new, :create, :edit, :update, :edit_long_descr, :update_long_descr, :edit_transcript, :update_transcript, :send_to_censor]
 
   def index
-    authorize! :index, Lesson
+    authorize! :index, Container
     @filter = params[:filter]
     @security = params[:security]
-    @lessons = Lesson.get_appropriate_lessons(@filter, @security).order(sort_order).page(params[:page])
+    @containers = Container.get_appropriate_containers(@filter, @security).order(sort_order).page(params[:page])
   end
 
   def show
     begin
-      @lesson = Lesson.find(params[:id])
-      @censor_email = @lesson.censor_id ? User.where(id: @lesson.censor_id).pluck(:email)[0] : nil
-      authorize! :show, @lesson
+      @container = Container.find(params[:id])
+      @censor_email = @container.censor_id ? User.where(id: @container.censor_id).pluck(:email)[0] : nil
+      authorize! :show, @container
     rescue
-      redirect_to admin_lessons_path, :alert => "There is no Container with ID=#{params[:id]}."
+      redirect_to admin_containers_path, :alert => "There is no Container with ID=#{params[:id]}."
       return
     end
-    @secure = SECURITY.select { |s| s[:level] == @lesson.secure }.first[:name]
+    @secure = SECURITY.select { |s| s[:level] == @container.secure }.first[:name]
   end
 
   def new
-    @lesson = Lesson.new
-    authorize! :new, @lesson
-    @lesson.catalogs << @rss # Add it to RSS by default
+    @container = Container.new
+    authorize! :new, @container
+    @container.catalogs << @rss # Add it to RSS by default
     @languages.each { |l|
-      @lesson.lesson_descriptions.build(:lang => l.code3)
-      @lesson.lesson_transcripts.build(:lang => l.code3)
+      @container.container_descriptions.build(:lang => l.code3)
+      @container.container_transcripts.build(:lang => l.code3)
     }
-    @lesson_descriptions = sort_descriptions
-    @lesson_transcripts = sort_transcripts
+    @container_descriptions = sort_descriptions
+    @container_transcripts = sort_transcripts
   end
 
   def create
-    @lesson = Lesson.new
-    authorize! :create, @lesson
+    @container = Container.new
+    authorize! :create, @container
 
-    @lesson.attributes = params[:lesson]
-    @lesson.user = current_user
+    @container.attributes = params[:container]
+    @container.user = current_user
 
-    if @lesson.save
-      redirect_to admin_lesson_path(@lesson), :notice => "Successfully created admin/container."
+    if @container.save
+      redirect_to admin_container_path(@container), :notice => "Successfully created admin/container."
     else
-      @lesson_descriptions = sort_descriptions
-      @lesson_transcripts = sort_transcripts
+      @container_descriptions = sort_descriptions
+      @container_transcripts = sort_transcripts
       render :new
     end
   end
@@ -51,22 +51,22 @@ class Admin::LessonsController < Admin::ApplicationController
   def edit
     authorize_and_build_language_maps
 
-    @lessons = Lesson.where(:marked_for_merge => true)
+    @containers = Container.where(:marked_for_merge => true)
   end
 
   def update
-    @lesson = Lesson.find(params[:id])
-    authorize! :update, @lesson
+    @container = Container.find(params[:id])
+    authorize! :update, @container
 
-    @lesson.set_updated_attributes @current_user, params[:lesson]
-    @lesson.user = current_user
+    @container.set_updated_attributes @current_user, params[:container]
+    @container.user = current_user
 
-    if @lesson.save
-      redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated admin/container."
+    if @container.save
+      redirect_to admin_container_path(@container), :notice => "Successfully updated admin/container."
     else
-      @lesson_descriptions = sort_descriptions
-      @lesson_transcripts = sort_transcripts
-      @lessons = Lesson.where(:marked_for_merge => true)
+      @container_descriptions = sort_descriptions
+      @container_transcripts = sort_transcripts
+      @containers = Container.where(:marked_for_merge => true)
       render :edit
     end
   end
@@ -80,71 +80,71 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def update_transcript
-    @lesson = Lesson.find(params[:id])
-    authorize! :edit_descriptions, @lesson
+    @container = Container.find(params[:id])
+    authorize! :edit_descriptions, @container
 
-    @lesson.attributes = params[:lesson]
+    @container.attributes = params[:container]
     generate_transcript_table_of_content
-    if @lesson.lesson_transcripts.each(&:save)
-      redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated container transcript."
+    if @container.container_transcripts.each(&:save)
+      redirect_to admin_container_path(@container), :notice => "Successfully updated container transcript."
     else
-      @lesson_transcripts = sort_transcripts
+      @container_transcripts = sort_transcripts
       render :edit_transcript
     end
   end
 
   def update_long_descr
-    @lesson = Lesson.find(params[:id])
-    authorize! :edit_descriptions, @lesson
-    @lesson.attributes = params[:lesson]
-    if @lesson.lesson_descriptions.each(&:save)
-      redirect_to admin_lesson_path(@lesson), :notice => "Successfully updated container long description."
+    @container = Container.find(params[:id])
+    authorize! :edit_descriptions, @container
+    @container.attributes = params[:container]
+    if @container.container_descriptions.each(&:save)
+      redirect_to admin_container_path(@container), :notice => "Successfully updated container long description."
     else
-      @lesson_descriptions = sort_descriptions
+      @container_descriptions = sort_descriptions
       render :edit_long_descr
     end
   end
 
   def destroy
-    @lesson = Lesson.find(params[:id])
-    authorize! :destroy, @lesson
-    @lesson.destroy
-    redirect_to admin_lessons_url, :notice => "Successfully destroyed admin/container."
+    @container = Container.find(params[:id])
+    authorize! :destroy, @container
+    @container.destroy
+    redirect_to admin_containers_url, :notice => "Successfully destroyed admin/container."
   end
 
   def mark_for_merge
     begin
-      lesson = Lesson.find(params[:id])
+      container = Container.find(params[:id])
     rescue
       render :js => 'alert("No such container")'
       return
     end
-    lesson.update_attribute(:marked_for_merge, !lesson.marked_for_merge)
-    render :js => lesson.marked_for_merge ?
+    container.update_attribute(:marked_for_merge, !container.marked_for_merge)
+    render :js => container.marked_for_merge ?
         "$('.mark_for_merge').addClass('btn-warning').text('Unmark')" :
         "$('.mark_for_merge').removeClass('btn-warning').text('Mark')"
   end
 
   def merge_get_list
-    @lesson = Lesson.find(params[:id])
-    render :nothing => true and return unless @lesson
+    @container = Container.find(params[:id])
+    render :nothing => true and return unless @container
 
-    @lessons = Lesson.where(:marked_for_merge => true)
+    @containers = Container.where(:marked_for_merge => true)
 
-    render :text => 'empty' and return if @lessons.count == 0
+    render :text => 'empty' and return if @containers.count == 0
 
-    render :text => 'recursion' and return if @lessons.map(&:id).include? @lesson.id # Recursion
+    render :text => 'recursion' and return if @containers.map(&:id).include? @container.id # Recursion
 
     render :layout => false
   end
 
   def merge
-    @lesson = Lesson.find(params[:id])
-    merge_ids = params[:lesson][:container_ids].map(&:to_i)
-    merges = Lesson.where(id: merge_ids).each { |merge|
+    @container = Container.find(params[:id])
+    merge_ids = params[:container][:container_ids].map(&:to_i)
+    merges = Container.where(id: merge_ids).each { |merge|
       # copy files
       merge.file_assets.each { |fa|
-        @lesson.file_assets << fa rescue nil
+        @container.file_assets << fa rescue nil
       }
       # empty files from merged container
       merge.file_assets = []
@@ -152,7 +152,7 @@ class Admin::LessonsController < Admin::ApplicationController
       merge.destroy
     }
     # clear all selections
-    Lesson.where(:marked_for_merge => true).each { |lesson| lesson.update_attribute(:marked_for_merge, false) }
+    Container.where(:marked_for_merge => true).each { |container| container.update_attribute(:marked_for_merge, false) }
     render :show
   end
 
@@ -161,44 +161,44 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def add_update
-    Lesson.add_update(params[:container_name], [params[:files]], params[:dry_run])
+    Container.add_update(params[:container_name], [params[:files]], params[:dry_run])
     @update = OpenStruct.new(container_name: params[:container_name], files: params[:files], dry_run: params[:dry_run])
     render :get_update, alert: 'Executed'
   end
 
   # Combine containers to VL
   def combine
-    permitted = can? :update, :lesson
+    permitted = can? :update, :container
 
     begin
       containers = if params[:container]
                      # Create new VL
-                     [Lesson.find(params[:container])]
+                     [Container.find(params[:container])]
                    elsif params[:containers]
                      # Add containers to a new VL
-                     params[:containers].split(',').map { |vl| Lesson.find vl }
+                     params[:containers].split(',').map { |vl| Container.find vl }
                    else
                      raise
                    end
 
       film_date = containers[0].filmdate
-      vl = VirtualLesson.create!(film_date: film_date)
-      vl.lessons = containers
+      vl = VirtualContainer.create!(film_date: film_date)
+      vl.containers = containers
     rescue Exception => e
-      redirect_to admin_lessons_path, alert: "Error: #{e.message}"
+      redirect_to admin_containers_path, alert: "Error: #{e.message}"
       return
     end
 
-    redirect_to admin_lessons_path, notice: "Container(s) #{params[:containers]} successfully moved to VL(#{vl.id}, #{vl.film_date})"
+    redirect_to admin_containers_path, notice: "Container(s) #{params[:containers]} successfully moved to VL(#{vl.id}, #{vl.film_date})"
   end
 
   def send_to_censor
-    lesson = Lesson.find(params[:id])
-    lesson.update_attribute :for_censorship, true
+    container = Container.find(params[:id])
+    container.update_attribute :for_censorship, true
 
     @filter = params[:filter]
     @security = params[:security]
-    @lessons = Lesson.get_appropriate_lessons(@filter, @security).order(sort_order).page(params[:page])
+    @containers = Container.get_appropriate_containers(@filter, @security).order(sort_order).page(params[:page])
     redirect_to request.referer, notice: 'Sent for Censorship'
   end
 
@@ -212,42 +212,42 @@ class Admin::LessonsController < Admin::ApplicationController
   end
 
   def sort_descriptions
-    lesson_descriptions_main = {}
-    lesson_descriptions_all = []
-    @lesson.lesson_descriptions.each { |x|
+    container_descriptions_main = {}
+    container_descriptions_all = []
+    @container.container_descriptions.each { |x|
       if MAIN_LANGS.include? x.lang
-        lesson_descriptions_main[x.lang] = x
+        container_descriptions_main[x.lang] = x
       else
-        lesson_descriptions_all << x
+        container_descriptions_all << x
       end
     }
-    MAIN_LANGS.map { |l| lesson_descriptions_main[l] } + lesson_descriptions_all.sort_by { |x| x.lang }
+    MAIN_LANGS.map { |l| container_descriptions_main[l] } + container_descriptions_all.sort_by { |x| x.lang }
   end
 
   def sort_transcripts
-    lesson_transcripts_main = {}
-    lesson_transcripts_all = []
-    @lesson.lesson_transcripts.each { |x|
+    container_transcripts_main = {}
+    container_transcripts_all = []
+    @container.container_transcripts.each { |x|
       if MAIN_LANGS.include? x.lang
-        lesson_transcripts_main[x.lang] = x
+        container_transcripts_main[x.lang] = x
       else
-        lesson_transcripts_all << x
+        container_transcripts_all << x
       end
     }
-    MAIN_LANGS.map { |l| lesson_transcripts_main[l] } + lesson_transcripts_all.sort_by { |x| x.lang }
+    MAIN_LANGS.map { |l| container_transcripts_main[l] } + container_transcripts_all.sort_by { |x| x.lang }
   end
 
   def authorize_and_build_language_maps
-    @lesson = Lesson.find(params[:id])
-    authorize! :edit_descriptions, @lesson
+    @container = Container.find(params[:id])
+    authorize! :edit_descriptions, @container
 
-    @lesson.build_descriptions_and_translations(@languages)
-    @lesson_descriptions = sort_descriptions
-    @lesson_transcripts = sort_transcripts
+    @container.build_descriptions_and_translations(@languages)
+    @container_descriptions = sort_descriptions
+    @container_transcripts = sort_transcripts
   end
 
   def generate_transcript_table_of_content
-    @lesson.lesson_transcripts.each do |t|
+    @container.container_transcripts.each do |t|
       doc = Nokogiri::HTML.parse(t.transcript)
       toc = ''
       doc.xpath('//h1').each do |h_tag|
@@ -271,6 +271,6 @@ class Admin::LessonsController < Admin::ApplicationController
   def sort_order
     sort_line = sort_column + ' ' + sort_direction
     #secondary sort parameter
-    sort_line += ', ' + 'lessonname asc' unless params[:sort].equal?('lessonname')
+    sort_line += ', ' + 'containername asc' unless params[:sort].equal?('containername')
   end
 end

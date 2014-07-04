@@ -66,11 +66,11 @@ module LayoutHelper
 .actions
   %button.btn.btn-primary.btn-large{:type => 'submit', :'data-disable-with' => 'Please wait...'} Update
   %button.btn.btn-large{:onclick => "location.href='#{location}'; return false;", :type => 'button'} Cancel
-  - if @lesson.id && can?(:merge, @lesson)
+  - if @container.id && can?(:merge, @container)
     .merge.pull-right
-      %button.mark_for_merge.btn{:onclick => "mark_me(this); return false;", :'data-mark-path' => mark_for_merge_admin_lesson_path(@lesson), :class => @lesson.marked_for_merge ? 'btn-warning' : '', :type => 'button'}
-        = @lesson.marked_for_merge ? "Unmark" : "Mark"
-      %button.btn.btn-danger{:onclick => "merge_to_me_get_list(this); return false;", :'data-merge-path' => merge_get_list_admin_lesson_path(@lesson)}= 'Merge Preview'
+      %button.mark_for_merge.btn{:onclick => "mark_me(this); return false;", :'data-mark-path' => mark_for_merge_admin_container_path(@container), :class => @container.marked_for_merge ? 'btn-warning' : '', :type => 'button'}
+        = @container.marked_for_merge ? "Unmark" : "Mark"
+      %button.btn.btn-danger{:onclick => "merge_to_me_get_list(this); return false;", :'data-merge-path' => merge_get_list_admin_container_path(@container)}= 'Merge Preview'
     HAML
     engine.render self, :form => f
   end

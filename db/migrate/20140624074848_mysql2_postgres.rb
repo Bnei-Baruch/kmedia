@@ -20,7 +20,7 @@ class Mysql2Postgres < ActiveRecord::Migration
     rename_column :file_assets, :fileid, :id
     rename_column :file_assets, :filename, :name
     rename_column :file_assets, :filelang, :lang
-    rename_column :file_assets, :filetype, :type
+    rename_column :file_assets, :filetype, :asset_type
     rename_column :file_assets, :filedate, :date
     rename_column :file_assets, :filesize, :size
     rename_column :file_assets, :created, :created_at

@@ -39,12 +39,14 @@ tables:
 - dictionary_descriptions
 - filedesc
 - files
+- filetypes
 - label_descriptions
 - labels_lessons
 - languages
 - lecturer
 - lecturerdesc
 - lesson_transcripts
+- lessondesc
 - lessondesc_patterns
 - lessondesc_patterns_catalogs
 - lessonfiles

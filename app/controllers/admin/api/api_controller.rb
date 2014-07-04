@@ -14,7 +14,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # Request:
   # { "search": {
   #     "auth_token":"<authentication-token>"
-  #     "query_text": <string>, -- free text search to search in lesson descriptions
+  #     "query_text": <string>, -- free text search to search in container descriptions
   #     "secure": [<integer>, ...], -- default: 0
   #     "content_types": [<integer>, ...], -- ids of content types
   #     "file_languages": [<integer>, ...], -- ids of languages
@@ -141,7 +141,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     render json:
                begin
-                 Lesson.add_update(params[:container], params[:files], params[:dry_run] || params[:dry_run] == 'true')
+                 Container.add_update(params[:container], params[:files], params[:dry_run] || params[:dry_run] == 'true')
                  { message: 'Success', code: true }
                rescue Exception => e
                  message = "Exception: #{e.message}\n\n\tBacktrace: #{e.backtrace.join("\n\t")}"
@@ -293,14 +293,14 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def patterns
-    render json: LessondescPattern.multipluck(:lang, :pattern, :description).to_json
+    render json: ContainerDescriptionPattern.multipluck(:lang, :pattern, :description).to_json
   end
 
   def morning_lesson_files
     from_date = params[:from_date] || Date.yesterday.to_s
 
     # find the morning lessons
-    @search       = Search.new(content_type_id: Lesson::LESSON_CONTENT_TYPE_ID, date_from: from_date)
+    @search       = Search.new(content_type_id: Container::LESSON_CONTENT_TYPE_ID, date_from: from_date)
     search_result = @search.search_full_text(1)
     #handle the error
     return render json: { error: @search.error } unless search_result

@@ -117,7 +117,7 @@ Kmedia::Application.routes.draw do
           get :become
         end
       end
-      resources :lessondesc_patterns
+      resources :container_desc_patterns
       resources :searches
       resources :dictionaries do
         collection do

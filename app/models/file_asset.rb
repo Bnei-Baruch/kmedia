@@ -89,7 +89,7 @@ class FileAsset < ActiveRecord::Base
         0
       end
     rescue Exception => e
-      logger = Lesson.my_logger
+      logger = Container.my_logger
       logger.info("update_playtime; UPS(#{path}) #{e.message}")
       0
     end

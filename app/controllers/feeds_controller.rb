@@ -21,34 +21,34 @@ class FeedsController < ApplicationController
     end
 
     sql = <<-SQL
-      select distinct lesson.*
-      from lessons lesson, catalogs_lessons cnl
+      select distinct container.*
+      from containers container, catalogs_container cnl
       where
-        lesson.id = cnl.lesson_id and
+        container.id = cnl.container_id and
         ( cnl.id in (#{catalogs})  and
-        (lesson.filmdate BETWEEN '#{date_to}' and '#{date_from}')  and
-        lesson.secure=0 )
-      order by lesson.filmdate desc, created_at desc, name asc
+        (container.filmdate BETWEEN '#{date_to}' and '#{date_from}')  and
+        container.secure=0 )
+      order by container.filmdate desc, created_at desc, name asc
     SQL
 
-    @lessons = Lesson.find_by_sql sql
+    @containers = Container.find_by_sql sql
 
     @server = "http://#{request.env['HTTP_HOST']}/#{Language::CODE3_LOCALE[@language]}/ui"
 
-    respond_with @lessons
+    respond_with @containers
   end
 
   # Script accepts two GET parameters:
   # - DAYS - number of 24-hour periods (1..31 inclusive, default: 1). I.e. 1 means last 24 hours, 2 - last 48 hours etc.
-  # - DLANG - 3-letter language abberviation. This is used to select lesson description only.
+  # - DLANG - 3-letter language abberviation. This is used to select container description only.
   #           Default: ENG
   #
-  # If a lesson has description then in order to be published in RSS it must belong to one the following categories:
+  # If a container has description then in order to be published in RSS it must belong to one the following categories:
   #   3606 - Video
   #   3661 - Audio
   #   3662 - RSS_update
   #
-  # If a lesson has no description it will always be published.
+  # If a container has no description it will always be published.
 
   def rss_video
     @language   = params[:DLANG] || 'ENG'
@@ -62,10 +62,10 @@ class FeedsController < ApplicationController
     # Get list of updated files
     @files = FileAsset.get_updated_files(@days).map do |file|
       {
-          lesson_id: file[0],
-          title:     Lesson.get_lesson_title(file[0], @language),
-          updated:   file[1][0].updated,
-          files:     file[1].group_by { |x| x['ftype'].downcase }
+          container_id: file[0],
+          title:        Container.get_container_title(file[0], @language),
+          updated:      file[1][0].updated,
+          files:        file[1].group_by { |x| x['ftype'].downcase }
       }
     end.select do |file|
       file[:title]
@@ -85,8 +85,8 @@ class FeedsController < ApplicationController
     @description = I18n.t('feed.pod_description')
     @host        = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
-    # Get list of 20 last lessons' files
-    results      = Lesson.includes(:file_assets).order('created_at desc').limit(20)
+    # Get list of 20 last containers' files
+    results      = Container.includes(:file_assets).order('created_at desc').limit(20)
 
     @files       = results.map(&:file_assets).flatten.compact.select { |f| f.type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
     @last_update = results.first.created_at
@@ -106,7 +106,7 @@ class FeedsController < ApplicationController
       count  = 0
       fz     = nil
 
-      Lesson.uniq.joins(:catalogs).merge(Catalog.insecure).pluck(:id).each do |lesson|
+      Container.uniq.joins(:catalogs).merge(Catalog.insecure).pluck(:id).each do |container|
         langs.each do |lang|
           if count == 0
             filename = "google_sitemap_#{fileno}.xml.gz"
@@ -115,7 +115,7 @@ class FeedsController < ApplicationController
             fz.write "<?xml version='1.0' encoding='UTF-8'?>\n"
             fz.write "<urlset xmlns='http://www.google.com/schemas/sitemap/0.84' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.google.com/schemas/sitemap/0.84 http://www.google.com/schemas/sitemap/0.84/siteindex.xsd'>\n"
           end
-          fz.write "<url><loc>#{host}/#{lang}/ui/#{lesson}</loc></url>"
+          fz.write "<url><loc>#{host}/#{lang}/ui/#{container}</loc></url>"
           count += 1
 
           if count == 49_000

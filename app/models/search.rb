@@ -20,9 +20,9 @@ class Search
      ['FileAssets', FileAsset],
      ['Catalogs', Catalog],
      ['Catalog Descriptions', CatalogDescription],
-     ['Container', Lesson],
-     ['Container Description (Long/Short)', LessonDescription],
-     ['Container Pattern', LessondescPattern]
+     ['Container', Container],
+     ['Container Description (Long/Short)', ContainerDescription],
+     ['Container Pattern', ContainerDescriptionPattern]
     ]
   end
 
@@ -172,12 +172,12 @@ class Search
   def search_full_text_admin(page_no)
     query_text = query_string_normalized
     if model.blank?
-      models = [FileAsset, Catalog, CatalogDescription, Lesson, LessonDescription, LessondescPattern]
+      models = [FileAsset, Catalog, CatalogDescription, Container, ContainerDescription, ContainerDescriptionPattern]
     else
       models = [model.constantize]
     end
     order = :score
-    censorship = models.include? Lesson
+    censorship = models.include? Container
     begin
       Sunspot.search(models) do |query|
         query.fulltext query_text, :highlight => true unless query_text.blank?

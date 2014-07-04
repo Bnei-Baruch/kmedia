@@ -1,4 +1,4 @@
-module Admin::LessonsHelper
+module Admin::ContainersHelper
   def filtered_selected?
     @filter ? '' : 'active'
   end

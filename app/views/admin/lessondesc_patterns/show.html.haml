@@ -3,18 +3,18 @@
   .subnav
     %ul.nav.nav-pills
       %li
-        = link_to_if can?(:update, @lessondesc_pattern), "Edit", edit_admin_lessondesc_pattern_path(@lessondesc_pattern) do
+        = link_to_if can?(:update, @container_desc_pattern), "Edit", edit_admin_container_description_pattern_path(@container_desc_pattern) do
           %a.unable Edit
       %li
-        = link_to_if can?(:destroy, @lessondesc_pattern), "Destroy", [:admin, @lessondesc_pattern], :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
+        = link_to_if can?(:destroy, @container_desc_pattern), "Destroy", [:admin, @container_esc_pattern], :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete do
           %a.unable Destroy
-      %li= link_to "View All", admin_lessondesc_patterns_path
+      %li= link_to "View All", admin_container_description_patterns_path
 
 %section.well
-  = display_show_item('Pattern', @lessondesc_pattern.pattern.gsub(/\s/, '&#9251;'))
-  = display_show_item('Description', @lessondesc_pattern.description)
-  = display_show_item('Lang', @lessondesc_pattern.lang)
-  = display_show_item('User', @lessondesc_pattern.user.try(:email))
+  = display_show_item('Pattern', @container_desc_pattern.pattern.gsub(/\s/, '&#9251;'))
+  = display_show_item('Description', @container_desc_pattern.description)
+  = display_show_item('Lang', @container_desc_pattern.lang)
+  = display_show_item('User', @container_desc_pattern.user.try(:email))
 %section
   %strong Catalogs:
   %table.table.table-striped.table-bordered.table-condensed
@@ -23,7 +23,7 @@
         %th ID
         %th Name
     %tbody
-      - @lessondesc_pattern.catalogs.each do |catalog|
+      - @container_desc_pattern.catalogs.each do |catalog|
         %tr
           %td= catalog.id
           %td= catalog.name

@@ -1,11 +1,11 @@
 module LayoutAbilityHelper
 
-  def columns_for_lesson_index()
+  def columns_for_container_index()
     columns = 0
-    columns += 1 if can?(:read, Lesson) # column for show action
-    columns += 2 if can?(:edit_descriptions, Lesson) # column for edit/edit long description/transcripts lesson actions
-    columns += 1 if can?(:destroy, Lesson) # column for destroy lesson action
-    columns += 1 if can?(:send_to_censor, Lesson) # column to mark for censorship lesson action
+    columns += 1 if can?(:read, Container) # column for show action
+    columns += 2 if can?(:edit_descriptions, Container) # column for edit/edit long description/transcripts container actions
+    columns += 1 if can?(:destroy, Container) # column for destroy container action
+    columns += 1 if can?(:send_to_censor, Container) # column to mark for censorship container action
     columns
   end
 
@@ -14,7 +14,7 @@ module LayoutAbilityHelper
     columns += 1 if can?(:read, klass) # column for show action
     columns += 1 if can?(:update, klass) # column for edit action
     columns += 1 if can?(:destroy, klass) # column for destroy action
-    columns += 1 if can?(:send_to_censor, Lesson) # column for destroy lesson action
+    columns += 1 if can?(:send_to_censor, Container) # column for destroy container action
     columns
   end
 
@@ -27,8 +27,8 @@ module LayoutAbilityHelper
     engine.render
   end
 
-  def display_actions_title_for_lessons()
-    colspan = columns_for_lesson_index
+  def display_actions_title_for_containers()
+    colspan = columns_for_container_index
     engine = Haml::Engine.new <<-HAML
 -if #{colspan} > 0
   %th{:colspan =>  #{colspan}} Actions

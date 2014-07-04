@@ -17,11 +17,11 @@ module SearchHelper
   end
 
   def film_date(item)
-    item.date.try(:strftime, '%Y-%02m-%02d')
+    item.filmdate.try(:strftime, '%Y-%02m-%02d')
   end
 
   def item_includes(item)
-    FileType.map_file_exts_to_types(item.file_assets.map(&:type).uniq).inject('') do |memo, type|
+    FileType.map_file_exts_to_types(item.file_assets.map(&:asset_type).uniq).inject('') do |memo, type|
       memo + case type
                when 'text'
                  '<i class="icon-km-small-white-text"></i>&nbsp;'
@@ -51,8 +51,8 @@ module SearchHelper
 
     long_descr = description_lang.try(:descr)
     long_descr_eng = description_eng.try(:descr)
-    short_descr = description_lang.try(:lessondesc)
-    short_descr_eng = description_eng.try(:lessondesc)
+    short_descr = description_lang.try(:container_desc)
+    short_descr_eng = description_eng.try(:container_desc)
 
     [long_descr || long_descr_eng, short_descr || short_descr_eng]
   end
@@ -61,26 +61,26 @@ module SearchHelper
     (item.file_asset_descriptions.select { |d| d.lang == @language } || item.file_asset_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:desc) || item.name
   end
 
-  def download_lessons(item_file_assets, type, lang, play = false)
+  def download_containers(item_file_assets, type, lang, play = false)
     # Find requested language
     lang = Language::LOCALE_CODE3[lang]
     # We'll show file assets as Button group
     file_assets = ''
     # Select only files of requested type (video/audio/text) and language
     item_file_assets.select do |x|
-      FileType::EXT_TYPE[x.type.downcase] == type && (x.lang.blank? ? 'ENG' : x.lang) == lang
+      FileType::EXT_TYPE[x.asset_type.downcase] == type && (x.lang.blank? ? 'ENG' : x.lang) == lang
       # Order by ext and split into chunks according to ext
-    end.sort.chunk { |fa| fa.type }.each do |type, files|
+    end.sort.chunk { |fa| fa.asset_type }.each do |type, files|
       type.upcase!
       file_assets += if files.length == 1
                        # Only one file - show as button
                        fa = files[0]
-                       "<div class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{type} #{fa.type}</a></div>"
+                       "<div class='btn btn-mini'><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{type} #{fa.asset_type}</a></div>"
                      else
                        # Many files - show as dropdown
                        "<div class='btn-group'><div class='btn btn-mini dropdown-toggle' data-toggle='dropdown'><a href='javascript:;'>#{type} <span class='caret'></span></a></div><ul class='dropdown-menu'>" +
                            files.inject('') do |memo, fa|
-                             "#{memo}<li><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{file_asset_title(fa)} #{fa.type}</a></li>"
+                             "#{memo}<li><a href='#{play ? fa.url : fa.download_url}' #{play ? 'target="_blank"' : nil} title='#{fa.file_asset_descriptions.select { |d| d.lang == lang }.first}'>#{file_asset_title(fa)} #{fa.asset_type}</a></li>"
                            end +
                            '</ul></div>'
                      end

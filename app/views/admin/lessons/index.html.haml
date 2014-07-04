@@ -1,7 +1,7 @@
 %header.subhead#overview
   %h2 Containers
   %p
-    -if can?(:create, Lesson)
+    -if can?(:create, Container)
       = link_to "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right span2'
     -if can?(:create, VirtualLesson)
       = link_to 'Combine selected containers to VL', combine_admin_lessons_path, class: 'btn btn-warning pull-right span2 lesson-combine-selected'

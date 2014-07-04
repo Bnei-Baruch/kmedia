@@ -36,7 +36,7 @@
           %tr
             %td= result.lessonid
             %td
-              = result.lesson_descriptions.by_language(@language).first.try(:lessondesc) || result.lesson_descriptions.by_language('ENG').first.try(:lessondesc) || result.lessonname
+              = result.lesson_descriptions.by_language(@language).first.try(:container_desc) || result.lesson_descriptions.by_language('ENG').first.try(:container_desc) || result.lessonname
               %hr.soften
               = result.lesson_descriptions.by_language(@language).first.try(:descr)
             %td

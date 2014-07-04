@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   belongs_to :department
 
   has_many :lessons
-  has_many :lessondesc_patterns
+  has_many :container_description_patterns
   has_many :catalogs
   has_many :file_assets
   has_many :virtual_lessons

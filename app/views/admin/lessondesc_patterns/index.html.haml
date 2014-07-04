@@ -1,11 +1,11 @@
 %header.subhead#overview
   %h2 Container Description Patterns
-  -if can?(:create, LessondescPattern)
+  -if can?(:create, ContainerDescriptionPattern)
     %p
-      = link_to "New Pattern", new_admin_lessondesc_pattern_path, :class => 'btn btn-success btn-large pull-right'
+      = link_to "New Pattern", new_admin_container_description_pattern_path, :class => 'btn btn-success btn-large pull-right'
 
 %section
-  = paginate @lessondesc_patterns
+  = paginate @container_desc_patterns
 
   %table.table.table-striped.table-bordered.table-condensed
     %thead
@@ -14,20 +14,20 @@
         %th= sortable("description", "Description")
         %th= sortable("catalogs.name", "Catalogs")
         %th= sortable("lang", "Lang")
-        = display_actions_title(LessondescPattern)
+        = display_actions_title(ContainerDescriptionPattern)
     %tbody
-      - for lessondesc_pattern in @lessondesc_patterns
+      - for container_desc_pattern in @container_desc_patterns
         %tr(class="#{cycle('odd', 'even')}")
-          %td= lessondesc_pattern.pattern
-          %td= lessondesc_pattern.description
-          %td= lessondesc_pattern.catalogs.uniq.map{|c| c.name}.join(', ')
-          %td= lessondesc_pattern.lang
-          -if can?(:read, lessondesc_pattern)
+          %td= container_desc_pattern.pattern
+          %td= container_desc_pattern.description
+          %td= container_desc_pattern.catalogs.uniq.map{|c| c.name}.join(', ')
+          %td= container_desc_pattern.lang
+          -if can?(:read, container_desc_pattern)
             %td
-              = link_to 'Show', [:admin, lessondesc_pattern]
-          -if can?(:update, lessondesc_pattern)
+              = link_to 'Show', [:admin, container_desc_pattern]
+          -if can?(:update, container_desc_pattern)
             %td
-              = link_to 'Edit', edit_admin_lessondesc_pattern_path(lessondesc_pattern)
-          -if can?(:destroy, lessondesc_pattern)
+              = link_to 'Edit', edit_admin_container_desc_riptionpattern_path(container_desc_pattern)
+          -if can?(:destroy, container_desc_pattern)
             %td
-              = link_to 'Destroy', [:admin, lessondesc_pattern], :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
+              = link_to 'Destroy', [:admin, container_desc_pattern], :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'

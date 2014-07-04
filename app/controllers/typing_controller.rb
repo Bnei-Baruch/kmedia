@@ -7,11 +7,11 @@ class TypingController < ApplicationController
     @current_menu_language = typing_index_url(@locale)
 
     @language    = Language::LOCALE_CODE3[@locale]
-    @lesson_date = params[:lesson_date] || Date.today
+    @container_date = params[:container_date] || Date.today
 
-    @last_lectures_programs = Lesson.last_lectures_programs(@lesson_date, @language)
+    @last_lectures_programs = Container.last_lectures_programs(@container_date, @language)
 
-    vl            = VirtualLesson.last_lesson(@lesson_date)
+    vl            = VirtualLesson.last_lesson(@container_date)
     @last_lessons = vl ? vl.lessons_ordered_by_parts : []
   end
 

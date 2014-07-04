@@ -2,7 +2,7 @@ xml.instruct!
 xml.lessons do
   @lessons.each do |lesson|
     xml.lesson do
-      @descriptions = Lesson.get_all_descriptions(lesson)
+      @descriptions = Container.get_all_descriptions(lesson)
       xml.title lesson_title(lesson, lesson_description(lesson))
       xml.description @descriptions[lesson.id].select{|d| d.lang == @language}.first.descr
       xml.link "#{@server}/#{lesson.id}"

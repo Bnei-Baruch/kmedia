@@ -68,7 +68,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def batch
-    container = Lesson.find(params[:lesson_id]) rescue nil
+    container = Container.find(params[:lesson_id]) rescue nil
     render json: {ok: false, msg: "Unable to find container #{params[:lesson_id]}"} and return unless container
 
     case
@@ -94,7 +94,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   def move
     target = Catalog.find(params[:id])
     source = Catalog.find(params[:from])
-    containers = Lesson.where(id: params[:containers].split(',').map(&:to_i))
+    containers = Container.where(id: params[:containers].split(',').map(&:to_i))
     Catalog.move(target: target, source: source, containers: containers)
 
     redirect_to manage_admin_catalogs_path

@@ -33,16 +33,16 @@
               %td= link_to 'File', admin_file_asset_path(asset)
               %td= "#{asset.name} (#{asset.size} bytes)"
               %td &nbsp;
-            - when klass == Lesson
+            - when klass == Container
               - lesson = result
               %td= lesson.lessonid
               %td= link_to 'Container', admin_lesson_path(lesson)
               %td= lesson.lessonname
-              - if can?(:send_to_censor, Lesson)
+              - if can?(:send_to_censor, Container)
                 %td= link_to 'Censor', send_to_censor_admin_lesson_path(lesson, filter: @filter, securty: @security), method: 'post'
               - else
                 %td &nbsp;
-            - when klass == LessondescPattern
+            - when klass == ContainerdescPattern
               - pattern = result
               %td= pattern.id
               %td= link_to 'Containers\' pattern', admin_lessondesc_pattern_path(pattern)
@@ -54,14 +54,14 @@
                 = pattern.description
                 )
               %td &nbsp;
-            - when klass == LessonDescription
+            - when klass == ContainerDescription
               - lesson_description = result
               %td= lesson_description.id
               %td
                 - if lesson_description.lesson
-                  = link_to 'Lesson Description', admin_lesson_path(lesson_description.lesson.id)
+                  = link_to 'Container Description', admin_lesson_path(lesson_description.lesson.id)
                 - else
-                  Lesson Description
+                  Container Description
               %td
                 = lesson_description.lessondesc
                 %hr

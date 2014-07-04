@@ -40,7 +40,7 @@
           = f.input :label_tokens, label: 'Labels', input_html: {:'data-pre' => @lesson.labels.map{|lbl| {id: lbl.id, name: lbl.display_name}}.to_json}
 
   %hr.soften
-  = display_descriptions f, @lesson_descriptions, 'lesson_descriptions', 'lessondesc'
+  = display_descriptions f, @lesson_descriptions, 'container__descriptions', 'container_desc'
   %hr.soften
   = display_actions_with_mark f, admin_lessons_url
 

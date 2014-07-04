@@ -42,11 +42,11 @@
         %th ID
     %tbody
       - @lesson.lesson_descriptions.each do |admin_lesson_desc|
-        - next if (admin_lesson_desc.lessondesc || admin_lesson_desc.descr).blank?
+        - next if (admin_lesson_desc.container_desc || admin_lesson_desc.descr).blank?
         %tr
           %td= admin_lesson_desc.lang
           %td
-            = admin_lesson_desc.lessondesc
+            = admin_lesson_desc.container_desc
             - unless admin_lesson_desc.descr.blank?
               %hr.soften.no-margin
               = admin_lesson_desc.descr
