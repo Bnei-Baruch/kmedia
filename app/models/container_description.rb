@@ -5,7 +5,9 @@ class ContainerDescription < ActiveRecord::Base
 
   searchable do
     text :descr, as: :kmedia
-    text :container_desc, as: :kmedia
+    text :container_desc, as: :kmedia do
+      container_desc.nil? ? '' : container_desc.gsub!(/[^[:print:]]/i, '')
+    end
 
     boolean :for_censorship do
       false
