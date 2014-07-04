@@ -27,7 +27,8 @@ class Container < ActiveRecord::Base
     end
 
     # remove empty virtual lessons
-    container.virtual_lesson && container.virtual_lesson.destroy
+    virtual_lesson = container.virtual_lesson
+    virtual_lesson.destroy if virtual_lesson && virtual_lesson.containers.count > 1
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
@@ -85,7 +86,7 @@ class Container < ActiveRecord::Base
   scope :lost, -> { where(<<-LOST
       id not in
         (SELECT distinct id from catalogs_containers INNER JOIN catalogs ON catalogs.id = catalogs_containers.catalog_id WHERE
-        (name NOT IN ('Lessons','lesson_first-part','lesson_second-part','lesson_third-part','lesson_fourth-part',
+        (name NOT IN ('Containers','lesson_first-part','lesson_second-part','lesson_third-part','lesson_fourth-part',
         'lesson_fifth-part','RSS_update','Video','Audio')))
   LOST
   ) }
@@ -118,7 +119,7 @@ class Container < ActiveRecord::Base
     text :name, as: :kmedia
 
     text :description, as: :kmedia do
-      container_descriptions.pluck('CONCAT(COALESCE(container_desc,\'\'), COALESCE(descr,\'\'))').join(' ').gsub(/[^[:print:]]/i, '')
+      container_descriptions.pluck('CONCAT(COALESCE(container_desc,\'\'), COALESCE(descr,\'\'))').join(' ').gsub!(/[^[:print:]]/i, '')
     end
 
     integer :secure
