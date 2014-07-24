@@ -28,7 +28,8 @@ class Lesson < ActiveRecord::Base
     end
 
     # remove empty virtual lessons
-    lesson.virtual_lesson && lesson.virtual_lesson.destroy
+    virtual_lesson = lesson.virtual_lesson
+    lesson.virtual_lesson.destroy if virtual_lesson && virtual_lesson.lessons.count > 1
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
@@ -122,7 +123,7 @@ class Lesson < ActiveRecord::Base
     text :lessonname, as: :kmedia
 
     text :description, as: :kmedia do
-      lesson_descriptions.pluck('CONCAT(COALESCE(lessondesc,""), COALESCE(descr,""))').join(' ')
+      lesson_descriptions.pluck('CONCAT(COALESCE(lessondesc,""), COALESCE(descr,""))').join(' ').gsub!(/[^[:print:]]/i, '')
     end
 
     integer :secure

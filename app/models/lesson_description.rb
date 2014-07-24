@@ -7,7 +7,9 @@ class LessonDescription < ActiveRecord::Base
 
   searchable do
     text :descr, as: :kmedia
-    text :lessondesc, as: :kmedia
+    text :lessondesc, as: :kmedia do
+      lessondesc.nil? ? '' : lessondesc.gsub!(/[^[:print:]]/i, '')
+    end
 
     boolean :for_censorship do
       false
