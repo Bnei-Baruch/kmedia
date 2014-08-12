@@ -49,10 +49,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'minitest-rails', "~> 1.0"
+  gem 'minitest-rails'
   gem 'minitest-rails-capybara'
-  gem 'shoulda-context'
+  gem 'shoulda'
   gem 'minitest-reporters'
+  gem 'factory_girl_rails'
+  gem 'mocha', require: false
 end
 
 gem 'bootstrap-sass', '~> 2.3.2.0'
