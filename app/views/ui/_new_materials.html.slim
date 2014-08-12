@@ -13,7 +13,7 @@
               a.block-link href=ui_path(nm)
                 = nm.id
                 | &nbsp;
-                == lesson_title(nm, lesson_description(nm))
+                == container_title(nm, container_description(nm))
             td.left-aligned-column
               - playtime = nm.playtime_secs.to_i
               - if playtime > 0

@@ -63,16 +63,21 @@ module Kmedia
     # don't generate RSpec tests for views and helpers
     # we’re using Cucumber scenarios (integration tests)
     config.generators do |g|
-      g.view_specs false
-      g.helper_specs false
-      g.test_framework :rspec,
-                       :fixtures => true,
-                       :view_specs => false,
-                       :helper_specs => false,
-                       :routing_specs => false,
-                       :controller_specs => true,
-                       :request_specs => true
-      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+      g.helper false
+      g.javascripts false
+      g.stylesheets false
+      g.test_framework :mini_test, spec: true
+
+      # g.view_specs false
+      # g.helper_specs false
+      # g.test_framework :rspec,
+      #                  :fixtures => true,
+      #                  :view_specs => false,
+      #                  :helper_specs => false,
+      #                  :routing_specs => false,
+      #                  :controller_specs => true,
+      #                  :request_specs => true
+      # g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
   end
 end

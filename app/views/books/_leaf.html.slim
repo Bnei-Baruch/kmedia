@@ -1,4 +1,4 @@
 ul.books-catalog-results
-  - Catalog.find(id).lessons.includes(:lesson_descriptions).each do |lesson|
+  - Catalog.find(id).containers.includes(:container_descriptions).each do |lesson|
     li.books-catalog-results-item
       = render 'common_ui/one_lesson', item: lesson, only_download: true

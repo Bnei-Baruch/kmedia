@@ -516,7 +516,7 @@ CREATE TABLE file_assets (
     id integer DEFAULT nextval('file_assets_fileid_seq'::regclass) NOT NULL,
     name character varying(150),
     lang character(3),
-    type character varying(10),
+    asset_type character varying(10),
     date timestamp without time zone,
     size integer,
     servername character varying(30) DEFAULT 'DEFAULT'::character varying,

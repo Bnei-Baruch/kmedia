@@ -12,9 +12,9 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
 
     @files.each do |file|
       xml.item do
-        lesson = file.lessons.first
-        xml.title lesson_title(lesson, lesson_description(lesson))
-        lecturer = lesson.lecturer
+        container = file.lessons.first
+        xml.title container_title(container, container_description(container))
+        lecturer = container.lecturer
         xml.description "<div>#{lecturer ? "<b>#{t('feed.pod_lecturer')}:</b> #{lecturer.name}" : ''}</div>" +
                             "<div><b>#{t('feed.pod_date')}:</b> #{file.created_at.rfc2822}</div>"
         url = file.url

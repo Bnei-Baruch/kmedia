@@ -55,19 +55,19 @@
                 )
               %td &nbsp;
             - when klass == ContainerDescription
-              - lesson_description = result
-              %td= lesson_description.id
+              - container_description = result
+              %td= container_description.id
               %td
-                - if lesson_description.lesson
-                  = link_to 'Container Description', admin_lesson_path(lesson_description.lesson.id)
+                - if container_description.lesson
+                  = link_to 'Container Description', admin_lesson_path(container_description.lesson.id)
                 - else
                   Container Description
               %td
-                = lesson_description.lessondesc
+                = container_description.lessondesc
                 %hr
-                = lesson_description.descr
+                = container_description.descr
                 (
-                = lesson_description.lang
+                = container_description.lang
                 )
               %td &nbsp;
             - when klass == CatalogDescription

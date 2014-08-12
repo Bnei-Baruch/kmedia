@@ -2,7 +2,7 @@
   h4 = l(vl.film_date)
   - vl.lessons.each do |l|
     .well
-      h4 = l.lesson_descriptions.by_language(@language).first.try(:container_desc) || l.lesson_descriptions.by_language('ENG').first.try(:container_desc) || l.lessonname
+      h4 = l.container_descriptions.by_language(@language).first.try(:container_desc) || l.container_descriptions.by_language('ENG').first.try(:container_desc) || l.containername
       - assets = l.file_assets
       - file_types = assets.map(&:type).sort.uniq
       - file_types.each do |ft|

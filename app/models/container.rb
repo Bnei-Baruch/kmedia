@@ -57,7 +57,7 @@ class Container < ActiveRecord::Base
     def validate(record)
       # At least ENG, RUS and HEB must be non-empty
       lds = {}
-      record.lesson_descriptions.map { |x| lds[x.lang] = x.lesson_descriptions }
+      record.container_descriptions.map { |x| lds[x.lang] = x.container_descriptions }
       if lds['ENG'].blank? || lds['RUS'].blank? || lds['HEB'].blank?
         record.errors[:base] << "Empty Basic Description(s)"
       end

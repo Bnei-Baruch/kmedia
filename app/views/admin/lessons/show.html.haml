@@ -41,7 +41,7 @@
         %th Updated on
         %th ID
     %tbody
-      - @lesson.lesson_descriptions.each do |admin_lesson_desc|
+      - @lesson.container_descriptions.each do |admin_lesson_desc|
         - next if (admin_lesson_desc.container_desc || admin_lesson_desc.descr).blank?
         %tr
           %td= admin_lesson_desc.lang

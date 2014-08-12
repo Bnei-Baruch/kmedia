@@ -9,10 +9,10 @@
             h1 = t('ui.not_found')
 - else
   - filmed = film_date(@item)
-  - long_description, short_description = lesson_description(@item)
+  - long_description, short_description = container_description(@item)
   - description = long_description.blank? ? short_description : long_description
   - content_for(:title) do
-    == "#{lesson_title(@item,  [nil, short_description])} (#{filmed})"
+    == "#{container_title(@item,  [nil, short_description])} (#{filmed})"
   .full-screen
     .row-fluid.main-layout
       = render 'common_ui/sidebar', search: @search
@@ -20,7 +20,7 @@
         = render 'common/topbanner'
         .item
           .padding-both
-            h1 == "#{type_of_item_text(@item, ':')} #{lesson_title(@item,  [nil, short_description])} (#{filmed})"
+            h1 == "#{type_of_item_text(@item, ':')} #{container_title(@item,  [nil, short_description])} (#{filmed})"
             - unless description.blank?
               p.description = description.gsub(/  /, ' ')
               .languages-bar

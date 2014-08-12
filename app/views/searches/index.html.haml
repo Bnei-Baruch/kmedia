@@ -34,11 +34,11 @@
       %tbody
         - @results.each_hit_with_result do |hit, result|
           %tr
-            %td= result.lessonid
+            %td= result.containerid
             %td
-              = result.lesson_descriptions.by_language(@language).first.try(:container_desc) || result.lesson_descriptions.by_language('ENG').first.try(:container_desc) || result.lessonname
+              = result.container_descriptions.by_language(@language).first.try(:container_desc) || result.container_descriptions.by_language('ENG').first.try(:container_desc) || result.containername
               %hr.soften
-              = result.lesson_descriptions.by_language(@language).first.try(:descr)
+              = result.container_descriptions.by_language(@language).first.try(:descr)
             %td
               = result.file_assets.select('distinct type').map(&:type).join(' ')
           %tr
