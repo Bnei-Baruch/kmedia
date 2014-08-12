@@ -43,11 +43,11 @@ class MoveHelper
 
     error = false
     $('.virtual-lessons .selected:checked').each(->
-      if film_date != $(this).parents('tr').find('.film-date').text()
-        event.preventDefault
-        alert('All VLs have to belong to the same film_date')
-        error = true
-        return false
+      #if film_date != $(this).parents('tr').find('.film-date').text()
+      #  event.preventDefault
+      #  alert('All VLs have to belong to the same film_date')
+      #  error = true
+      #  return false
       return true
     )
 
