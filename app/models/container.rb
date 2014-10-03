@@ -13,7 +13,7 @@ class Container < ActiveRecord::Base
   belongs_to :lecturer
   belongs_to :content_type
   belongs_to :virtual_lesson
-  has_and_belongs_to_many :file_assets, order: 'DATE(updated_at) DESC, name ASC'
+  has_and_belongs_to_many :file_assets, order: 'updated_at DESC, name ASC'
   has_and_belongs_to_many :catalogs, order: 'name'
   belongs_to :language, foreign_key: :lang, primary_key: :code3
 
@@ -231,11 +231,13 @@ class Container < ActiveRecord::Base
       my_logger.info("Catalogs after video assignment: #{get_catalogs_names(c.catalogs)}")
 
       sp = ::StringParser.new container_name
-      c.date = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Time.now.to_date
+      c.filmdate = Date.new(sp.date[0], sp.date[1], sp.date[2]).to_s rescue Time.now.to_date
       c.lang = sp.language.upcase rescue 'ENG'
-      c.id = Lecturer.rav.first.id if sp.lecturer_rav?
+      c.lecturer_id = Lecturer.rav.first.id if sp.lecturer_rav?
       sp.descriptions.includes(:catalogs).each { |pattern|
-        c.container_descriptions.build(lang: pattern.lang, container_descriptions: pattern.description)
+        my_logger.info c.inspect
+        my_logger.info c.container_descriptions.inspect
+        c.container_descriptions.build(lang: pattern.lang, container_desc: pattern.description)
         pattern.catalogs.each { |pc|
           c.catalogs << pc unless c.catalogs.include? pc
         }
@@ -257,7 +259,7 @@ class Container < ActiveRecord::Base
       container.position = (container.virtual_lesson.lessons.count + 1) rescue 0
     end
 
-    container.save!(:validate => false) unless dry_run
+    container.save!(validate: false) unless dry_run
     my_logger.info("Container saved")
 
     (files || []).each do |file|
@@ -282,7 +284,7 @@ class Container < ActiveRecord::Base
         sp     = ::StringParser.new name
         secure = sp.content_security_level
 
-        file_asset = FileAsset.new(name:          name, lang: lang, type: extension, date: datetime, size: size,
+        file_asset = FileAsset.new(name:          name, lang: lang, asset_type: extension, date: datetime, size: size,
                                    playtime_secs: playtime_secs, lastuser: 'system', servername: server, secure: secure)
         my_logger.info("New file lang=#{lang} secure=#{secure}")
       elsif !dry_run
@@ -321,10 +323,10 @@ class Container < ActiveRecord::Base
       my_logger.info("File description file_desc=#{file_desc}")
 
       unless file_desc.blank?
-        ui_langs = Language.all.map(&:code3) - container.file_assets.select('distinct lang').map(&:lang)
+        ui_langs = Language.all.map(&:code3) - container.file_assets.map(&:lang)
         ui_langs.each { |ui_lang|
           my_logger.info("FileAssetDescription lang=#{ui_lang} desc=#{file_desc}")
-          file_asset.file_asset_descriptions << FileAssetDescription.new(lang: ui_lang, desc: file_desc)
+          file_asset.file_asset_descriptions << FileAssetDescription.create(lang: ui_lang, filedesc: file_desc)
         }
       end
 
@@ -354,10 +356,10 @@ class Container < ActiveRecord::Base
 
     catalogs << LESSON_PART unless catalogs.include? LESSON_PART
 
-    Container.my_logger.info("find/create_virtual_lesson for: #{lessondate} ...")
+    Container.my_logger.info("find/create_virtual_lesson for: #{filmdate} ...")
 
-    self.virtual_lesson = VirtualLesson.where(film_date: date).last ||
-        VirtualLesson.create({ film_date: date }, without_protection: true)
+    self.virtual_lesson = VirtualLesson.where(film_date: filmdate).last ||
+        VirtualLesson.create({ film_date: filmdate }, without_protection: true)
   end
 
   def self.parse_container_name(name, id)

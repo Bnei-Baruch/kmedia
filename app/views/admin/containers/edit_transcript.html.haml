@@ -1,0 +1,8 @@
+%header.subhead#overview
+  %h2 Edit Transcript
+  .subnav
+    %ul.nav.nav-pills
+      %li= link_to "Show", admin_lesson_path(@lesson)
+      %li= link_to "View all Containers", admin_lessons_path
+
+= render 'form_transcript'

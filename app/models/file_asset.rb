@@ -1,5 +1,5 @@
 class FileAsset < ActiveRecord::Base
-  has_and_belongs_to_many :lessons, order: 'DATE(lessons.updated_at) DESC, name ASC'
+  has_and_belongs_to_many :lessons, order: 'lessons.updated_at DESC, name ASC'
   has_many :file_asset_descriptions, foreign_key: :id do
     def by_language(code3)
       where(lang: code3)
@@ -9,6 +9,8 @@ class FileAsset < ActiveRecord::Base
   belongs_to :server, foreign_key: :servername, primary_key: :servername
 
   belongs_to :user
+
+  attr_accessible :asset_type, :name, :lang, :date, :size, :playtime_secs, :lastuser, :servername, :secure
 
   attr_accessor :v_filedate
   # Virtual column to emulate varchar filedate in db

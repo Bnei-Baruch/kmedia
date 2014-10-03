@@ -10,8 +10,8 @@ class ContainerDescriptionPattern < ActiveRecord::Base
 
   scope :pattern_matches, lambda{ |string|
     where("LENGTH(pattern) = (
-             SELECT LENGTH(pattern) AS len FROM container_description_patterns WHERE '#{string}' regexp pattern  ORDER BY len DESC LIMIT 1
-           ) AND '#{string}' regexp pattern")
+             SELECT LENGTH(pattern) AS len FROM container_description_patterns WHERE '#{string}' ~ pattern  ORDER BY len DESC LIMIT 1
+           ) AND '#{string}' ~ pattern")
   }
 
   attr_accessor  :catalog_tokens
