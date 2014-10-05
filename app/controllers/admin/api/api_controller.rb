@@ -14,7 +14,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # Request:
   # { "search": {
   #     "auth_token":"<authentication-token>"
-  #     "query_text": <string>, -- free text search to search in lesson descriptions
+  #     "query_text": <string>, -- free text search to search in container descriptions
   #     "secure": [<integer>, ...], -- default: 0
   #     "content_types": [<integer>, ...], -- ids of content types
   #     "file_languages": [<integer>, ...], -- ids of languages
@@ -48,12 +48,12 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     lessons = search_result.results
     if lessons.kind_of?(Array)
-      lesson_ids = lessons.collect(&:lessonid)
+      lesson_ids = lessons.collect(&:id)
       q          = FileAsset
-      q          = q.where(filelang: get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
-      q          = q.where(filetype: get_media_types(params[:media_type_ids])) if params[:media_type_ids].present?
-      files      = q.joins(:lessons).where('lessons.lessonid in (?)', lesson_ids)
-      render json: { ids: files.collect(&:fileid).join(',') }
+      q          = q.where(lang: get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
+      q          = q.where(type: get_media_types(params[:media_type_ids])) if params[:media_type_ids].present?
+      files      = q.joins(:lessons).where(:'lessons.id' => lesson_ids)
+      render json: { ids: files.collect(&:id).join(',') }
     end
   end
 
@@ -141,7 +141,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
     render json:
                begin
-                 Lesson.add_update(params[:container], params[:files], params[:dry_run] || params[:dry_run] == 'true')
+                 Container.add_update(params[:container], params[:files], params[:dry_run] || params[:dry_run] == 'true')
                  { message: 'Success', code: true }
                rescue Exception => e
                  message = "Exception: #{e.message}\n\n\tBacktrace: #{e.backtrace.join("\n\t")}"
@@ -165,7 +165,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # @returns {found: true, "server":"VIDEO-EU"}
   # @returns {found: true, "server":"FILES-EU"}
   def get_file_servers
-    file = FileAsset.find_by_filename(params[:filename] || '')
+    file = FileAsset.find_by_name(params[:filename] || '')
     render json: { found: !file.nil?, server: (file.try(:servername) || DEFAULT_FILE_SERVER) }
   end
 
@@ -293,23 +293,23 @@ class Admin::Api::ApiController < Admin::ApplicationController
   # }
 
   def patterns
-    render json: LessondescPattern.multipluck(:lang, :pattern, :description).to_json
+    render json: ContainerDescriptionPattern.multipluck(:lang, :pattern, :description).to_json
   end
 
   def morning_lesson_files
     from_date = params[:from_date] || Date.yesterday.to_s
 
     # find the morning lessons
-    @search       = Search.new(content_type_id: Lesson::LESSON_CONTENT_TYPE_ID, date_from: from_date)
+    @search       = Search.new(content_type_id: Container::LESSON_CONTENT_TYPE_ID, date_from: from_date)
     search_result = @search.search_full_text(1)
     #handle the error
     return render json: { error: @search.error } unless search_result
 
     @lessons   = search_result.results
     files      = @lessons.map(&:file_assets).flatten
-    @lang_hash = files.group_by(&:filelang)
+    @lang_hash = files.group_by(&:lang)
     @lang_hash.each do |lang, files_by_lang|
-      @lang_hash[lang]= files_by_lang.group_by { |f| f.filedate.to_date }
+      @lang_hash[lang]= files_by_lang.group_by { |f| f.date.to_date }
     end
 
     @lang_hash
@@ -319,7 +319,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   def per_page_file_ids(created_from_date = nil)
     f = FileAsset
-    f = f.where("created > ?", created_from_date) if created_from_date
+    f = f.where("created_at > ?", created_from_date) if created_from_date
     f.count
   end
 
@@ -332,7 +332,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
     return [] if parents_catalog_ids.blank?
     # the method can return one catalog or an array of catalogs
     all_catalogs = Catalog.descendant_catalogs_by_catalog_id(parents_catalog_ids)
-    all_catalogs_ids = [all_catalogs].flatten.collect(&:catalognodeid).join(",") rescue []
+    [all_catalogs].flatten.collect(&:id).join(",") rescue []
   end
 
   def get_language_by_ids(ids)
@@ -343,7 +343,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
   def get_media_types(ids)
     media_type_ids = ids ? ids.split(/\s*,\s*/) : []
     media_exts     = media_type_ids.inject([]) do |result, media_type|
-      result << FileType.where(:typename => (media_type == 'image' ? 'graph' : media_type)).first.try(:extlist).try(:send, :split, ',')
+      result << FileType.where(name: (media_type == 'image' ? 'graph' : media_type)).first.try(:extlist).try(:send, :split, ',')
     end
     media_exts.flatten
   end

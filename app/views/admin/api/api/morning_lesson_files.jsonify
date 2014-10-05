@@ -3,12 +3,12 @@ json.morning_lessons @lang_hash do |lang, by_date|
   json.dates by_date do |date, files_by_date_and_lang|
      json.date date
      json.files files_by_date_and_lang do |file_asset|
-         json.id file_asset.fileid
-         json.name file_asset.filename
+         json.id file_asset.id
+         json.name file_asset.name
          json.updated file_asset.updated
-         json.url FileAsset.download_url(file_asset.servername, file_asset.filename)
-         json.size file_asset.filesize
-         json.type file_asset.filetype
+         json.url FileAsset.download_url(file_asset.servername, file_asset.name)
+         json.size file_asset.size
+         json.type file_asset.type
      end
   end
 end

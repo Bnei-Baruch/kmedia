@@ -4,7 +4,7 @@
       ul.nav
         - total_catalogs = selected_catalogs.length - 1
         - selected_catalogs.each_with_index do |catalog, idx|
-          - id = catalog['catalognodeid']
+          - id = catalog['id']
           li.category-li
             - if boost_tree[id].nil? # No leaf elements in upper menu
               a href="javascript:;" data-has-children="leaf" data-node-id="#{id}" == display_catalog_name(catalog)
@@ -20,7 +20,7 @@
                     ul
                       - !boost_tree[id].nil? && boost_tree[id].each do |cat|
                         li
-                          a href='javascript:;' data-has-children="#{!boost_tree[cat['catalognodeid']].nil?}" data-node-id="#{cat['catalognodeid']}" == display_catalog_link(cat, boost_tree[cat['catalognodeid']])
+                          a href='javascript:;' data-has-children="#{!boost_tree[cat['id']].nil?}" data-node-id="#{cat['id']}" == display_catalog_link(cat, boost_tree[cat['id']])
               .modal-footer
                 button.btn data-dismiss="modal" aria-hidden="true" = t('ui.list_header.cancel')
           - unless idx == total_catalogs

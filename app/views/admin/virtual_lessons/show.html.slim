@@ -24,7 +24,7 @@ section.well
   = display_show_item('User', @virtual_lesson.user.try(:email))
 
 section
-  strong Lessons:
+  strong Virtual Lessons:
   table#virtual-lessons.table.table-striped.table-bordered.table-condensed
     thead
       tr
@@ -45,12 +45,12 @@ section
               | &nbsp;
           td.item-position = lesson.position.to_i
           td = link_to lesson.id, admin_lesson_path(lesson)
-          td = lesson.lessonname
-          td = lesson.lessondate.try(:to_date)
-          td = lesson.created.try(:to_date)
-          td = lesson.updated.try(:to_date)
+          td = lesson.name
+          td = lesson.filmdate.try(:to_date)
+          td = lesson.created_at.try(:to_date)
+          td = lesson.updated_at.try(:to_date)
           td = lesson.lang
-          td = lesson.catalogs.map{|c| "#{c.catalognodeid} - #{c.catalognodename}"}
+          td = lesson.catalogs.map{|c| "#{c.id} - #{c.name}"}
 
 javascript:
   $(document).ready(function () {

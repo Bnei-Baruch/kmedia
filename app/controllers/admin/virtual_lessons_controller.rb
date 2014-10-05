@@ -48,7 +48,7 @@ class Admin::VirtualLessonsController < Admin::ApplicationController
 
     @virtual_lesson = VirtualLesson.find params[:id]
     params[:position].each_with_index do |id, index|
-      Lesson.find(id).update_attribute(:position, index + 1)
+      Container.find(id).update_attribute(:position, index + 1)
     end
 
     render text: 'OK'

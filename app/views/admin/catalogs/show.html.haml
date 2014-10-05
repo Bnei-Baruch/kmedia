@@ -16,20 +16,20 @@
   %p
     %strong Catalog:
     - if @catalog.parent
-      = @catalog.parent.catalognodename
+      = @catalog.parent.name
       (
-      = @catalog.parentnodeid
+      = @catalog.parent_id
       ) /
     %span.bold
-      = @catalog.catalognodename
+      = @catalog.name
       (
-      = @catalog.catalognodeid
+      = @catalog.id
       )
   = display_show_item('Label', @catalog.label)
   = display_show_item('Visibility', display_visibility(@catalog.visible), true)
   = display_show_item('State', display_catalog_state(@catalog.open), true)
-  = display_show_item('Created', @catalog.created.to_s(:long_ordinal))
-  = display_show_item('Updated', @catalog.updated.to_s(:long_ordinal))
+  = display_show_item('Created', @catalog.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @catalog.updated_at.to_s(:long_ordinal))
   = display_show_item('Secure', display_secure(@catalog.secure), true)
   = display_show_item('User', @catalog.user.try(:email))
 
@@ -40,17 +40,17 @@
       %tr
         %th Language
         %th Catalog Description
-        %th Created on
-        %th Updated on
+        %th Created at
+        %th Updated at
         %th ID
     %tbody
       - @catalog.catalog_descriptions.each do |admin_catalog_desc|
         %tr
           %td= admin_catalog_desc.lang
-          %td= admin_catalog_desc.catalognodename
-          %td= admin_catalog_desc.created.try(:to_date)
-          %td= admin_catalog_desc.updated.try(:to_date)
-          %td= admin_catalog_desc.catalognodeid
+          %td= admin_catalog_desc.name
+          %td= admin_catalog_desc.created_at.try(:to_date)
+          %td= admin_catalog_desc.updated_at.try(:to_date)
+          %td= admin_catalog_desc.id
 
 %section
   %strong Containers:

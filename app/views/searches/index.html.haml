@@ -34,13 +34,13 @@
       %tbody
         - @results.each_hit_with_result do |hit, result|
           %tr
-            %td= result.lessonid
+            %td= result.containerid
             %td
-              = result.lesson_descriptions.by_language(@language).first.try(:lessondesc) || result.lesson_descriptions.by_language('ENG').first.try(:lessondesc) || result.lessonname
+              = result.container_descriptions.by_language(@language).first.try(:container_desc) || result.container_descriptions.by_language('ENG').first.try(:container_desc) || result.containername
               %hr.soften
-              = result.lesson_descriptions.by_language(@language).first.try(:descr)
+              = result.container_descriptions.by_language(@language).first.try(:descr)
             %td
-              = result.file_assets.select('distinct filetype').map(&:filetype).join(' ')
+              = result.file_assets.select('distinct type').map(&:type).join(' ')
           %tr
             %td(colspan="3")
               %table.table.table-striped.table-bordered.table-condensed
@@ -54,13 +54,13 @@
                 %tbody
                   - result.file_assets.each do |asset|
                     %tr
-                      %td= link_to asset.fileid, asset.url, :target => '_blank'
-                      %td= asset.filename
-                      %td= asset.filelang
+                      %td= link_to asset.id, asset.url, target: '_blank'
+                      %td= asset.name
+                      %td= asset.lang
                       %td
                         - ad = asset.file_asset_descriptions.by_language(@language).first
-                        = ad ? ad.filedesc : ''
+                        = ad ? ad.desc : ''
                       %td
-                        = image_tag File.basename(asset.icon)
-                        = asset.typename
+                        = image_tag FileAsset.basename(asset.icon)
+                        = asset.name
 

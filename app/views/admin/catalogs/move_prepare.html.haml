@@ -9,7 +9,6 @@
     %h5
       Catalog:
       = catalog
-    - lessons = catalog.lessons
     %table.table.table-striped.table-bordered.table-condensed
       %thead
         %tr
@@ -23,12 +22,12 @@
           %th Language
           %th Updated on
       %tbody
-        - lessons.each do |lesson|
+        - catalog.containers.each do |container|
           %tr
-            %td= check_box_tag '', lesson.lessonid, false, :class => :batch
-            %td= lesson.lessonid
-            %td= lesson.lessonname
-            %td= lesson.content_type.try(:name)
-            %td= display_secure(lesson.secure)
-            %td= lesson.language
-            %td= lesson.updated
+            %td= check_box_tag '', container.containerid, false, :class => :batch
+            %td= container.id
+            %td= container.name
+            %td= container.content_type.try(:name)
+            %td= display_secure(container.secure)
+            %td= container.language
+            %td= container.updated

@@ -30,14 +30,14 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
   end
 
   def set_books
-    name = params[:catalog][:catalognodename]
-    catalog = Catalog.where(catalognodename: name).first
+    name = params[:catalog][:name]
+    catalog = Catalog.where(name: name).first
     books_catalogs = Catalog.where(books_catalog: true)
     if catalog && books_catalogs.each{|catalog| catalog.update_attribute(:books_catalog, false)} && catalog.update_attribute(:books_catalog, true)
       redirect_to admin_selected_catalogs_url, :notice => "Successfully selected Books Root Catalog."
     else
-      @catalog = Catalog.new({catalognodename: name})
-      @catalog.errors.add(:catalognodename, "Catalog \"#{name}\" does not exist.")
+      @catalog = Catalog.new({name: name})
+      @catalog.errors.add(:name, "Catalog \"#{name}\" does not exist.")
       render :new_books
     end
   end
@@ -48,13 +48,13 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
   end
 
   def set_selected
-    name = params[:catalog][:catalognodename]
-    catalog = Catalog.where(catalognodename: name).first
+    name = params[:catalog][:name]
+    catalog = Catalog.where(name: name).first
     if catalog && catalog.update_attribute(:selected_catalog, params[:catalog][:selected_catalog])
       redirect_to admin_selected_catalogs_url, :notice => "Successfully selected catalog."
     else
-      @catalog = Catalog.new({catalognodename: name})
-      @catalog.errors.add(:catalognodename, "Catalog \"#{name}\" does not exist.")
+      @catalog = Catalog.new({name: name})
+      @catalog.errors.add(:name, "Catalog \"#{name}\" does not exist.")
       render :new
     end
   end
@@ -64,12 +64,12 @@ class Admin::SelectedCatalogsController < Admin::ApplicationController
     if @catalog.update_attribute(:selected_catalog, 0)
       redirect_to :action => 'index', :notice => "Successfully unselected catalog."
     else
-      render :index, notice: "Unable to unselect catalog #{@catalog.catalognodename}"
+      render :index, notice: "Unable to unselect catalog #{@catalog.name}"
     end
   end
 
   def autocomplete
-    catalogs = Catalog.order(:catalognodename).where('catalognodename like ?', "#{params[:term]}%").pluck(:catalognodename)
+    catalogs = Catalog.order(:name).where('name like ?', "#{params[:term]}%").pluck(:name)
     render json: catalogs
   end
 end

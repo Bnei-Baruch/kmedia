@@ -1,9 +1,9 @@
-class Admin::LessondescPatternsController < Admin::ApplicationController
+class Admin::ContainerDescriptionPatternsController < Admin::ApplicationController
   before_filter :common_set, :only => [:new, :create, :edit, :update]
   load_and_authorize_resource
 
   def index
-    @lessondesc_patterns = @lessondesc_patterns.order(sort_order).includes([:catalogs]).page(params[:page]).per(50)
+    @container_desc_patterns = @container_desc_patterns.order(sort_order).includes([:catalogs]).page(params[:page]).per(50)
   end
 
   def show
@@ -13,9 +13,9 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
   end
 
   def create
-    @lessondesc_pattern.user = current_user
-    if @lessondesc_pattern.save
-      redirect_to [:admin, @lessondesc_pattern], :notice => "Successfully created Container Description pattern."
+    @container_desc_pattern.user = current_user
+    if @container_desc_pattern.save
+      redirect_to [:admin, @container_desc_pattern], :notice => "Successfully created Container Description pattern."
     else
       render :new
     end
@@ -25,17 +25,17 @@ class Admin::LessondescPatternsController < Admin::ApplicationController
   end
 
   def update
-    if @lessondesc_pattern.update_attributes(params[:lessondesc_pattern]) &&
-        @lessondesc_pattern.update_attribute(:user_id, current_user.id)
-      redirect_to [:admin, @lessondesc_pattern], :notice => "Successfully updated Container Description pattern."
+    if @container_desc_pattern.update_attributes(params[:container_desc_pattern]) &&
+        @container_desc_pattern.update_attribute(:user_id, current_user.id)
+      redirect_to [:admin, @container_desc_pattern], :notice => "Successfully updated Container Description pattern."
     else
       render :edit
     end
   end
 
   def destroy
-    @lessondesc_pattern.destroy
-    redirect_to admin_lessondesc_patterns_url, :notice => "Successfully destroyed Container Description pattern."
+    @container_desc_pattern.destroy
+    redirect_to admin_container_desc_patterns_url, :notice => "Successfully destroyed Container Description pattern."
   end
 
   private

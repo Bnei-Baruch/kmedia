@@ -2,8 +2,8 @@ json.id 0
 json.record 'file_types'
 json.item @file_types do |file_type|
   json.id file_type.id
-  json.typename file_type.typename
-  json.text file_type.typename
+  json.typename file_type.name
+  json.text file_type.name
 
   json.extensions file_type.extlist.split(/,/) do |ext|
     json.id ext

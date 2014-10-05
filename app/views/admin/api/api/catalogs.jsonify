@@ -2,8 +2,7 @@ json.id @root.nil? ? nil : @root.id
 json.record 'catalogs'
 json.item @catalogs do |catalog|
   json.id catalog.id
-  name = (catalog.catalog_descriptions.where('lang' => @language) || catalog.catalog_descriptions.where('lang' => 'ENG')).first.try(:catalognodename) ||
-      catalog.catalognodename
+  name = (catalog.catalog_descriptions.where('lang' => @language) || catalog.catalog_descriptions.where('lang' => 'ENG')).first.try(:name) || catalog.name
   json.name name
   json.text name
   json.secure catalog.secure

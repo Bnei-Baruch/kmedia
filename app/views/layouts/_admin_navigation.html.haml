@@ -13,7 +13,7 @@
           = f.input :query_string, :label => false, :placeholder => 'Search', :input_html => {:class => 'span5', :text => 'Search'}, :wrapper => 'bootstrap_top_search'
           = f.input :model, :label => false, :collection => Search.models, :prompt => false, :input_html => {:class => 'search-query span2'}
         %ul.nav{:class => 'pull-left span5'}
-          - if can?(:edit_descriptions, Lesson)
+          - if can?(:edit_descriptions, Container)
             %li
               = link_to 'Containers', admin_lessons_path
           - if can?(:update, User)
@@ -22,15 +22,15 @@
           - if can?(:read, Catalog)
             %li
               = link_to 'Catalogs', admin_catalogs_path
-          - if can?(:update, LessondescPattern) || can?(:update, Department) || can?(:update, Dictionary) || can?(:censorship, Lesson)
+          - if can?(:update, ContainerDescriptionPattern) || can?(:update, Department) || can?(:update, Dictionary) || can?(:censorship, Lesson)
             %li.dropdown#menu1
               %a.dropdown-toggle{:href => "#menu1", :"data-toggle" => "dropdown"}
                 Other
                 %b.caret
               %ul.dropdown-menu
-                - if can?(:update, LessondescPattern)
+                - if can?(:update, ContainerDescriptionPattern)
                   %li
-                    = link_to "Containers' patterns", admin_lessondesc_patterns_path
+                    = link_to "Containers' patterns", admin_container_desc_patterns_path
                 - if can?(:update, Comment)
                   %li
                     = link_to "Comments", admin_comments_path
@@ -52,6 +52,6 @@
                 - if can?(:update, FileType)
                   %li
                     = link_to "File Types", admin_file_types_path
-                - if can?(:censorship, Lesson)
+                - if can?(:censorship, Container)
                   %li
-                    = link_to "Lessons to Censorship", admin_censorship_index_path
+                    = link_to "Containers to Censorship", admin_censorship_index_path

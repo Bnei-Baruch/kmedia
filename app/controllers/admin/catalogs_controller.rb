@@ -13,8 +13,8 @@ class Admin::CatalogsController < Admin::ApplicationController
     if params[:q]
       # request for catalogs from ui token input box
       @catalogs = @catalogs.open_matching_string(params[:q]).
-          multipluck(:'catalognode.catalognodeid', :'catalognode.catalognodename as name').
-          map { |cat| {id: cat['catalognodeid'], name: cat['name']} }
+          multipluck(:'catalogs.id', :'catalogs.name').
+          map { |cat| {id: cat['id'], name: cat['name']} }
     else
       @catalogs = @catalogs.page(params[:page])
     end
@@ -68,7 +68,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def batch
-    container = Lesson.find(params[:lesson_id]) rescue nil
+    container = Container.find(params[:lesson_id]) rescue nil
     render json: {ok: false, msg: "Unable to find container #{params[:lesson_id]}"} and return unless container
 
     case
@@ -88,13 +88,13 @@ class Admin::CatalogsController < Admin::ApplicationController
 
   def move_prepare
     @target = Catalog.find(params[:id])
-    @catalogs = Catalog.where(catalognodeid: params[:sources].split(',').map(&:to_i)).includes(:lessons)
+    @catalogs = Catalog.where(id: params[:sources].split(',').map(&:to_i)).includes(:lessons)
   end
 
   def move
     target = Catalog.find(params[:id])
     source = Catalog.find(params[:from])
-    containers = Lesson.where(lessonid: params[:containers].split(',').map(&:to_i))
+    containers = Container.where(id: params[:containers].split(',').map(&:to_i))
     Catalog.move(target: target, source: source, containers: containers)
 
     redirect_to manage_admin_catalogs_path
@@ -115,7 +115,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def default_sort_column
-    'catalognodename'
+    'name'
   end
 
   def default_sort_direction
@@ -126,8 +126,8 @@ class Admin::CatalogsController < Admin::ApplicationController
     # when catalog visibility changes update visibility to it children
     return if @catalog.children.empty?
     children = get_all_children(@catalog).flatten
-    ids = children.collect(&:catalognodeid)
-    Catalog.update_all({visible: @catalog.visible}, ['catalognodeid IN (?)', ids]) unless ids.empty?
+    ids = children.collect(&:id)
+    Catalog.update_all({visible: @catalog.visible}, ['id IN (?)', ids]) unless ids.empty?
   end
 
   def visibility_changed?

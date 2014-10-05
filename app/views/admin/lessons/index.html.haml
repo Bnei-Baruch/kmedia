@@ -1,7 +1,7 @@
 %header.subhead#overview
   %h2 Containers
   %p
-    -if can?(:create, Lesson)
+    -if can?(:create, Container)
       = link_to "New Container", new_admin_lesson_path, :class => 'btn btn-success btn-large pull-right span2'
     -if can?(:create, VirtualLesson)
       = link_to 'Combine selected containers to VL', combine_admin_lessons_path, class: 'btn btn-warning pull-right span2 lesson-combine-selected'
@@ -39,36 +39,36 @@
     %thead
       %tr
         %th
-        %th= sortable("lessonid", "ID", @filter)
-        %th= sortable("lessonname", "Name", @filter)
-        %th= sortable("lessondate", "Filmed", @filter)
-        %th= sortable("created", "Created", @filter)
-        %th= sortable("updated", "Updated", @filter)
+        %th= sortable("id", "ID", @filter)
+        %th= sortable("name", "Name", @filter)
+        %th= sortable("filmdate", "Filmed", @filter)
+        %th= sortable("created_at", "Created", @filter)
+        %th= sortable("updated_at", "Updated", @filter)
         %th= sortable("lang", "Language", @filter)
         %th= sortable("secure", "Secure", @filter)
         = display_actions_title_for_lessons
     %tbody
-      -@lessons.each do |lesson|
+      -@lessons.each do |container|
         %tr
-          %td= check_box_tag "cb_#{lesson.id}", lesson.id, false, class: 'selected'
-          %td{:class => lesson.marked_for_merge ? 'btn btn-warning' : ''}= lesson.lessonid
-          %td= lesson.lessonname.truncate(57, :omission => '&hellip;').html_safe
-          %td.created= lesson.lessondate.try(:to_date)
-          %td= lesson.created.try(:to_date)
-          %td= lesson.updated.try(:to_date)
-          %td= lesson.lang
-          %td= display_secure(lesson.secure)
-          %td= link_to 'Show', admin_lesson_path(lesson)
-          -if can?(:edit_descriptions, lesson)
+          %td= check_box_tag "cb_#{container.id}", container.id, false, class: 'selected'
+          %td{:class => container.marked_for_merge ? 'btn btn-warning' : ''}= container.id
+          %td= container.name.truncate(57, :omission => '&hellip;').html_safe
+          %td.created= container.filmdate.try(:to_date)
+          %td= container.created_at.try(:to_date)
+          %td= container.updated_at.try(:to_date)
+          %td= container.lang
+          %td= display_secure(container.secure)
+          %td= link_to 'Show', admin_lesson_path(container)
+          -if can?(:edit_descriptions, container)
             %td
-              = link_to 'Edit', edit_admin_lesson_path(lesson)
+              = link_to 'Edit', edit_admin_lesson_path(container)
             %td
-              = link_to 'Long Description', edit_long_descr_admin_lesson_path(lesson)
+              = link_to 'Long Description', edit_long_descr_admin_lesson_path(container)
               %br
-              = link_to 'Transcript', edit_transcript_admin_lesson_path(lesson)
-          -if can?(:destroy, lesson)
+              = link_to 'Transcript', edit_transcript_admin_lesson_path(container)
+          -if can?(:destroy, container)
             %td
-              = link_to 'Destroy', admin_lesson_path(lesson), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
-          -if can?(:send_to_censor, lesson)
+              = link_to 'Destroy', admin_lesson_path(container), :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'
+          -if can?(:send_to_censor, container)
             %td
-              = link_to 'Censor', send_to_censor_admin_lesson_path(lesson, filter: @filter, securty: @security), method: 'post'
+              = link_to 'Censor', send_to_censor_admin_lesson_path(container, filter: @filter, securty: @security), method: 'post'

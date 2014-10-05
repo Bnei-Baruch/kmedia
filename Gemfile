@@ -4,8 +4,7 @@ gem 'rails', '3.2.18'
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-3-x'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', github: 'joliss/jquery-ui-rails'
-
-gem 'mysql2', '>= 0.3'
+gem 'pg'
 
 gem 'haml'
 gem 'sass'
@@ -50,10 +49,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'minitest-rails', "~> 1.0"
+  gem 'minitest-rails'
   gem 'minitest-rails-capybara'
-  gem 'shoulda-context'
+  gem 'shoulda'
   gem 'minitest-reporters'
+  gem 'factory_girl_rails'
+  gem 'mocha', require: false
 end
 
 gem 'bootstrap-sass', '~> 2.3.2.0'

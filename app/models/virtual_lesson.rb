@@ -1,7 +1,7 @@
 class VirtualLesson < ActiveRecord::Base
-  has_many :lessons, conditions: { for_censorship: false, secure: 0 }, order: 'position ASC'
+  has_many :containers, conditions: { for_censorship: false, secure: 0 }, order: 'position ASC'
 
-  default_scope joins(:lessons).where(lessons: { for_censorship: false, secure: 0 }).uniq
+  default_scope joins(:containers).where(containers: { for_censorship: false, secure: 0 }).uniq
 
   belongs_to :user
 
@@ -26,7 +26,7 @@ class VirtualLesson < ActiveRecord::Base
   end
 
   def lessons_ordered_by_parts
-    list = self.lessons.count > 1 ? self.lessons.includes(:catalogs, :file_assets) : self.lessons.includes(:catalogs, :file_assets, :lesson_descriptions)
+    list = self.containers.count > 1 ? self.containers.includes(:catalogs, :file_assets) : self.containers.includes(:catalogs, :file_assets, :container_descriptions)
     # remove lessons under censorship
     return nil unless list
 

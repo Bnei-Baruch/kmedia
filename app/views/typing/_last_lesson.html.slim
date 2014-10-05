@@ -1,4 +1,4 @@
-.item.lessons-list
+.item.containers-list
   .padding-both
     h1.clearfix
       .pull-left
@@ -7,29 +7,29 @@
     .row-fluid
       .padding-both
         .span3
-          h4 = lesson_date
+          h4 = container_date
           javascript:
-            dates_range_value = '#{ lesson_date }';
+            dates_range_value = '#{ container_date }';
           .dates_range
         .span9
-          h4 = t('ui.last_lesson.download')
+          h4 = t('ui.last_container.download')
           table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
             tbody
-              - last_lessons.each_with_index do |lesson, index|
+              - last_containers.each_with_index do |container, index|
                 tr
                   td
                     table.inner-table
                       tbody
                         tr
-                          td.lesson-part-number(rowspan="2")
+                          td.container-part-number(rowspan="2")
                             strong = index + 1
                           td.left-aligned-column
-                            == lesson_title(lesson, lesson_description(lesson, Lesson.get_all_descriptions(lesson)))
+                            == container_title(container, container_description(container, Container.get_all_descriptions(container)))
                         tr
                           td.left-aligned-column style="padding-bottom: 5px !important;"
-                            = t('ui.last_lesson.download')
-                            = show_asset(lesson, language, 'wmv')
-                            = show_asset(lesson, language, 'mp4')
-                            = show_asset(lesson, language, 'mp3')
-                            = show_asset(lesson, language, 'doc')
-                            = show_asset(lesson, nil, 'zip|7z', 'pic')
+                            = t('ui.last_container.download')
+                            = show_asset(container, language, 'wmv')
+                            = show_asset(container, language, 'mp4')
+                            = show_asset(container, language, 'mp3')
+                            = show_asset(container, language, 'doc')
+                            = show_asset(container, nil, 'zip|7z', 'pic')

@@ -12,17 +12,17 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
 
     @files.each do |file|
       xml.item do
-        lesson = file.lessons.first
-        xml.title lesson_title(lesson, lesson_description(lesson))
-        lecturer = lesson.lecturer
-        xml.description "<div>#{lecturer ? "<b>#{t('feed.pod_lecturer')}:</b> #{lecturer.lecturername}" : ''}</div>" +
-                            "<div><b>#{t('feed.pod_date')}:</b> #{file.created.rfc2822}</div>"
+        container = file.lessons.first
+        xml.title container_title(container, container_description(container))
+        lecturer = container.lecturer
+        xml.description "<div>#{lecturer ? "<b>#{t('feed.pod_lecturer')}:</b> #{lecturer.name}" : ''}</div>" +
+                            "<div><b>#{t('feed.pod_date')}:</b> #{file.created_at.rfc2822}</div>"
         url = file.url
         xml.link url
         xml.guid url
-        xml.pubDate file.created.rfc2822
+        xml.pubDate file.created_at.rfc2822
 
-        xml.enclosure url: url, length: file.filesize, type: 'audio/mpeg'
+        xml.enclosure url: url, length: file.size, type: 'audio/mpeg'
       end
     end
   end

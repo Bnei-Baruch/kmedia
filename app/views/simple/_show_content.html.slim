@@ -2,13 +2,13 @@
   h4 = l(vl.film_date)
   - vl.lessons.each do |l|
     .well
-      h4 = l.lesson_descriptions.by_language(@language).first.try(:lessondesc) || l.lesson_descriptions.by_language('ENG').first.try(:lessondesc) || l.lessonname
+      h4 = l.container_descriptions.by_language(@language).first.try(:container_desc) || l.container_descriptions.by_language('ENG').first.try(:container_desc) || l.containername
       - assets = l.file_assets
-      - file_types = assets.map(&:filetype).sort.uniq
+      - file_types = assets.map(&:type).sort.uniq
       - file_types.each do |ft|
         .upcase.ltr
           = ft
           ' :
-          - assets.select{|a| a.filetype == ft}.each do |asset|
-            = link_to asset.filename[0, 3], asset.download_url, target: '_blank'
+          - assets.select{|a| a.type == ft}.each do |asset|
+            = link_to asset.name[0, 3], asset.download_url, target: '_blank'
             '
