@@ -29,5 +29,4 @@ elasticsearch-*/**
 node_modules
 .ruby-version
 .ruby-gemset
-mysql2psql.yml
 

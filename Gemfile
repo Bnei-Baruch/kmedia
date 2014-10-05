@@ -29,7 +29,7 @@ gem 'best_in_place'
 gem 'therubyracer', '0.11.4'
 gem 'dalli'
 gem 'delayed_job_active_record'
-gem 'rakismet'
+gem 'rakismet', github: 'joshfrench/rakismet'
 gem 'the_sortable_tree', github: 'the-teacher/the_sortable_tree'
 
 # Bundle gems for the local environment. Make sure to
@@ -63,7 +63,7 @@ gem 'bootstrap-sass', '~> 2.3.2.0'
 # in production environments by default.
 group :assets do
   gem 'sass-rails'
-  gem 'coffee-rails', '~> 3.2.0', :require => 'coffee_script'
+  gem 'coffee-rails', '~> 3.2.0', require:  'coffee_script'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -71,7 +71,7 @@ gem 'term-ansicolor', github: 'flori/term-ansicolor'
 gem 'exception_notification', github: 'smartinez87/exception_notification'
 gem 'handle_invalid_percent_encoding_requests', github: 'gshilin/handle_invalid_percent_encoding_requests'
 gem 'jsonify-rails'
-gem 'yajl-ruby', :require => 'yajl' # Required if we want json with utf8 strings
+gem 'yajl-ruby', require:  'yajl' # Required if we want json with utf8 strings
 
 gem 'rake', '~> 10.3.1'
 # gem 'newrelic_rpm'
@@ -80,12 +80,12 @@ gem 'rake', '~> 10.3.1'
 require 'open-uri'
 # m = Mp3Info.open(open('http://files.kabbalahmedia.info/audio/rus_t_rav_achana_2012-11-21_lesson.mp3'))
 # m.length # in seconds
-gem 'ruby-mp3info', :require => 'mp3info'
+gem 'ruby-mp3info', require:  'mp3info'
 
 # wma/wmv/asf info
 # f = WmaInfo.new('data/3.wmv')
 # f.info['playtime_seconds']
-gem 'moumar-wmainfo-rb', :git => 'https://github.com/moumar/wmainfo-rb.git', :require => 'wmainfo'
+gem 'wmainfo-rb', github: 'moumar/wmainfo-rb.git', require:  'wmainfo'
 
 # info = MP4Info.open('data/4.mp4')
 # info.SECS or "#{info.MM}:#{info.SS}.#{info.MS}"
