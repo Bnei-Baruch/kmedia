@@ -21,8 +21,19 @@ class FeedsController < ApplicationController
     end
 
     sql = <<-SQL
+      select distinct lesson.*
+      from lessons lesson, catalogs_lessons cnl
+      where
+        lesson.id = cnl.lesson_id and
+        ( cnl.id in (#{catalogs})  and
+        (lesson.filmdate BETWEEN '#{date_to}' and '#{date_from}')  and
+        lesson.secure=0 )
+      order by lesson.filmdate desc, created_at desc, name asc
+    SQL
+
+    sql = <<-SQL
       select distinct container.*
-      from containers container, catalogs_container cnl
+      from containers container, catalogs_containers cnl
       where
         container.id = cnl.container_id and
         ( cnl.id in (#{catalogs})  and
@@ -64,7 +75,7 @@ class FeedsController < ApplicationController
       {
           container_id: file[0],
           title:        Container.get_container_title(file[0], @language),
-          updated:      file[1][0].updated,
+          updated:      file[1][0].updated_at,
           files:        file[1].group_by { |x| x['ftype'].downcase }
       }
     end.select do |file|

@@ -5,7 +5,7 @@ json.morning_lessons @lang_hash do |lang, by_date|
      json.files files_by_date_and_lang do |file_asset|
          json.id file_asset.id
          json.name file_asset.name
-         json.updated file_asset.updated
+         json.updated file_asset.updated_at
          json.url FileAsset.download_url(file_asset.servername, file_asset.name)
          json.size file_asset.size
          json.type file_asset.type

@@ -1,5 +1,5 @@
 class ContainerDescription < ActiveRecord::Base
-  belongs_to :container, touch: :updated
+  belongs_to :container, touch: :updated_at
 
   belongs_to :language, foreign_key: :lang, primary_key: :code3
 

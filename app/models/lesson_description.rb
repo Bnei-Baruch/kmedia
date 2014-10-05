@@ -1,9 +1,7 @@
-class LessonDescription < ActiveRecord::Base
-  self.table_name = :lessondesc
-  self.primary_key = :lessondescid
-  belongs_to :lesson, :foreign_key => :lessonid, :touch => :updated
+class ContainerDescription < ActiveRecord::Base
+  belongs_to :container, touch: :updated_at
 
-  belongs_to :language, :foreign_key => :lang, :primary_key => :code3
+  belongs_to :language, foreign_key: :lang, primary_key: :code3
 
   searchable do
     text :descr, as: :kmedia
@@ -21,26 +19,10 @@ class LessonDescription < ActiveRecord::Base
 
   scope :by_lang, lambda {|lang| where(:lang => lang)}
 
-  before_create :create_timestamps
-  before_update :update_timestamps
   before_save :flattern_desc
 
-  def create_timestamps
-    write_attribute :created, Time.now
-    write_attribute :updated, Time.now
-  end
-
-  def update_timestamps
-    write_attribute :updated, Time.now
-  end
-
   def flattern_desc
-    write_attribute :lessondesc_flat, self.lessondesc.downcase if self.lessondesc
+    write_attribute :container_desc_flat, self.container_desc.downcase if self.lessondesc
     write_attribute :descr_flat, self.descr.downcase if self.descr
   end
-
-  def self.find_by_id(*args, &block)
-    self.send(:find_by_lessondescid, *args, &block)
-  end
-
 end

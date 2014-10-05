@@ -45,7 +45,7 @@ class FileAsset < ActiveRecord::Base
     end
   end
 
-  scope :latest_updates, -> amount { order('updated DESC').limit(amount).insecure }
+  scope :latest_updates, -> amount { order('updated_at DESC').limit(amount).insecure }
   scope :secure, -> level { where('secure <= ?', level) }
   scope :insecure, -> { where('secure = 0') }
   scope :date_within_range, lambda { where('date <= ? AND created_at >= ?', Date.today + 100, Date.today - 100) }

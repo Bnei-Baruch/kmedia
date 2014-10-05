@@ -2,7 +2,7 @@ class Catalog < ActiveRecord::Base
   include TheSortableTree::Scopes
 
   acts_as_tree foreign_key: 'parent_id', order: 'name'
-  has_and_belongs_to_many :containers, join_table: 'catalogs_containers', order: 'lessonname ASC, DATE(updated) DESC'
+  has_and_belongs_to_many :containers, order: 'name ASC, DATE(updated_at) DESC'
   has_and_belongs_to_many :container_desc_patterns, join_table: 'container_descriptions_patterns_catalogs', uniq: true
   has_many :catalog_descriptions, dependent: :destroy
   accepts_nested_attributes_for :catalog_descriptions, reject_if: proc { |attributes| attributes['name'].blank? }

@@ -21,7 +21,7 @@
   = display_show_item('Name', @lesson.name)
   = display_show_item('Type', @lesson.content_type.try(:name))
   = display_show_item('Created', @lesson.created_at.to_s(:long_ordinal))
-  = display_show_item('Updated', @lesson.updated.to_s(:long_ordinal))
+  = display_show_item('Updated', @lesson.updated_at.to_s(:long_ordinal))
   = display_show_item('Container date', @lesson.filmdate)
   = display_show_item('Language', @lesson.language)
   = display_show_item('Lecturer', @lesson.lecturer)
