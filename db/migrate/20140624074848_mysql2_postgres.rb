@@ -16,8 +16,8 @@ class Mysql2Postgres < ActiveRecord::Migration
     rename_column :catalogs_containers, :catalognodeid, :catalog_id
     rename_column :catalogs_containers, :lessonid, :container_id
 
-    rename_table :lessondesc_patterns_catalogs, :catalogs_container_description_patterns
     rename_column :lessondesc_patterns_catalogs, :lessondesc_pattern_id, :container_description_pattern_id
+    rename_table :lessondesc_patterns_catalogs, :catalogs_container_description_patterns
 
     rename_table :files, :file_assets
     rename_column :file_assets, :fileid, :id

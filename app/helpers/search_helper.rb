@@ -58,7 +58,7 @@ module SearchHelper
   end
 
   def file_asset_title(item)
-    (item.file_asset_descriptions.select { |d| d.lang == @language } || item.file_asset_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:desc) || item.name
+    (item.file_asset_descriptions.select { |d| d.lang == @language } || item.file_asset_descriptions.select { |d| d.lang == 'ENG' }).send(:[], 0).try(:filedesc) || item.name
   end
 
   def download_containers(item_file_assets, type, lang, play = false)

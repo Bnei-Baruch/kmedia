@@ -31,6 +31,7 @@ gem 'dalli'
 gem 'delayed_job_active_record'
 gem 'rakismet', github: 'joshfrench/rakismet'
 gem 'the_sortable_tree', github: 'the-teacher/the_sortable_tree'
+gem 'draper', '~> 1.3'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -85,7 +86,7 @@ gem 'ruby-mp3info', require:  'mp3info'
 # wma/wmv/asf info
 # f = WmaInfo.new('data/3.wmv')
 # f.info['playtime_seconds']
-gem 'wmainfo-rb', github: 'moumar/wmainfo-rb.git', require:  'wmainfo'
+gem 'wmainfo-rb', github: 'moumar/wmainfo-rb', require:  'wmainfo'
 
 # info = MP4Info.open('data/4.mp4')
 # info.SECS or "#{info.MM}:#{info.SS}.#{info.MS}"

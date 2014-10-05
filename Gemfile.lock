@@ -1,16 +1,16 @@
 GIT
   remote: git://github.com/amatsuda/kaminari.git
-  revision: 21ad994d42527fd97c8168b0d0ccdd88cec91251
+  revision: b1281e21452486b49911e8616fce885b0ea46730
   specs:
-    kaminari (0.15.1)
+    kaminari (1.0.0.alpha)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
 
 GIT
   remote: git://github.com/amerine/acts_as_tree.git
-  revision: ec2d1dc0d3c7d28e19e4c79f0398506fb57f880a
+  revision: 6f856745965a8f07ba8b3f330a4ac9e5931707dd
   specs:
-    acts_as_tree (2.0.0)
+    acts_as_tree (2.1.0)
       activerecord (>= 3.0.0)
 
 GIT
@@ -36,16 +36,28 @@ GIT
 
 GIT
   remote: git://github.com/joliss/jquery-ui-rails.git
-  revision: f1e04f70b616b3c9d0172a18f11ebc1bf8820c0a
+  revision: a4cdafba41d71cb3e226e3c06e806e98cda6e6ed
   specs:
     jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
 
 GIT
-  remote: git://github.com/paul/progress_bar.git
-  revision: f48ed648a775b42747f83d5db3b7770a7ecdaa46
+  remote: git://github.com/joshfrench/rakismet.git
+  revision: 2eb477fe99d19ad76d58926febd2162de7575cff
   specs:
-    progress_bar (1.0.2)
+    rakismet (1.5.0)
+
+GIT
+  remote: git://github.com/moumar/wmainfo-rb.git
+  revision: 032b0efa7752e272cd3b51da9be7f63b50ef9fbf
+  specs:
+    wmainfo-rb (0.8)
+
+GIT
+  remote: git://github.com/paul/progress_bar.git
+  revision: fbb201e0f97e5b69de0f5c2ebd5cc5cfbf31ac44
+  specs:
+    progress_bar (1.0.3)
       highline (~> 1.6.1)
       options (~> 2.3.0)
 
@@ -60,7 +72,7 @@ GIT
 
 GIT
   remote: git://github.com/smartinez87/exception_notification.git
-  revision: 2cf3c5e55312bce3101ee4d61321943c31f73a98
+  revision: f5dd6ebe508fe008a999790de348a9d69f073728
   specs:
     exception_notification (4.1.0.rc1)
       actionmailer (>= 3.0.4)
@@ -68,10 +80,10 @@ GIT
 
 GIT
   remote: git://github.com/svenfuchs/rails-i18n.git
-  revision: 67e14f3c63b4430449e4e0dbf211daa6238168a5
+  revision: 5f8fd02e56f38fc6a66383820bf4dbf335572f2d
   branch: rails-3-x
   specs:
-    rails-i18n (3.0.1)
+    rails-i18n (3.0.2)
       i18n (~> 0.5)
       rails (>= 3.0.0, < 4.0.0)
 
@@ -81,12 +93,6 @@ GIT
   specs:
     the_sortable_tree (2.5.0)
       rails (>= 3.1)
-
-GIT
-  remote: https://github.com/moumar/wmainfo-rb.git
-  revision: c30e1dcff26b580a848ce7259fef1c9c69d814d2
-  specs:
-    moumar-wmainfo-rb (0.8)
 
 GEM
   remote: http://rubygems.org/
@@ -126,15 +132,16 @@ GEM
     best_in_place (2.1.0)
       jquery-rails
       rails (~> 3.1)
-    better_errors (1.1.0)
+    better_errors (2.0.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.0.4)
-    bullet (4.11.3)
+    bullet (4.14.0)
       activesupport (>= 3.0.0)
       uniform_notifier (>= 1.6.0)
     cancan (1.6.9)
@@ -144,8 +151,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    celluloid (0.15.2)
-      timers (~> 1.1.0)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
     ckeditor (3.7.1)
       mime-types
       orm_adapter
@@ -157,10 +164,10 @@ GEM
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
-    coffee-script (2.2.0)
+    coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.7.0)
+    coffee-script-source (1.8.0)
     columnize (0.8.9)
     daemons (1.1.9)
     dalli (2.7.2)
@@ -174,9 +181,9 @@ GEM
     debugger-xml (0.3.3)
       builder (>= 2.0.0)
       debugger (>= 1.6.2)
-    delayed_job (4.0.2)
+    delayed_job (4.0.4)
       activesupport (>= 3.0, < 4.2)
-    delayed_job_active_record (4.0.1)
+    delayed_job_active_record (4.0.2)
       activerecord (>= 3.0, < 4.2)
       delayed_job (>= 3.0, < 4.1)
     devise (2.2.3)
@@ -184,6 +191,11 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    draper (1.4.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
@@ -192,7 +204,7 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    ffi (1.9.3)
+    ffi (1.9.5)
     formatador (0.2.5)
     guard (2.6.1)
       formatador (>= 0.2.4)
@@ -200,17 +212,18 @@ GEM
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
-    guard-minitest (2.3.1)
+    guard-minitest (2.3.2)
       guard (~> 2.0)
       minitest (>= 3.0)
     haml (4.0.5)
       tilt
-    hashie (3.1.0)
+    hashie (3.3.1)
     highline (1.6.21)
     hike (1.2.3)
-    i18n (0.6.9)
+    hitimes (1.2.2)
+    i18n (0.6.11)
     journey (1.0.4)
-    jquery-rails (3.1.1)
+    jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
@@ -221,7 +234,7 @@ GEM
       jsonify (< 0.4.0)
     kgio (2.9.2)
     libv8 (3.11.8.17)
-    listen (2.7.9)
+    listen (2.7.11)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -259,7 +272,7 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.10.1)
-    nokogiri (1.6.2.1)
+    nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     options (2.3.2)
     orm_adapter (0.5.0)
@@ -274,11 +287,11 @@ GEM
       ansi (~> 1.4.0)
       hashie (>= 1.1.0)
     pr_geohash (1.0.0)
-    pry (0.10.0)
+    pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    puma (2.8.2)
+    puma (2.9.1)
       rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
@@ -306,17 +319,17 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
-    rakismet (1.5.0)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    request_store (1.1.0)
     rsolr (1.0.10)
       builder (>= 2.1.2)
-    ruby-mp3info (0.8.4)
-    sass (3.3.9)
+    ruby-mp3info (0.8.5)
+    sass (3.4.5)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -327,12 +340,12 @@ GEM
       shoulda-context (~> 1.0, >= 1.0.1)
       shoulda-matchers (>= 1.4.1, < 3.0)
     shoulda-context (1.2.1)
-    shoulda-matchers (2.6.2)
+    shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
-    slop (3.5.0)
+    slop (3.6.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -350,19 +363,20 @@ GEM
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
-    thin (1.6.2)
-      daemons (>= 1.0.9)
-      eventmachine (>= 1.0.0)
-      rack (>= 1.0.0)
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
     thor (0.19.1)
     tilt (1.4.1)
-    timers (1.1.0)
-    tins (1.3.0)
+    timers (4.0.1)
+      hitimes
+    tins (1.3.3)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.39)
-    uglifier (2.5.1)
+    tzinfo (0.3.41)
+    uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicorn (4.8.3)
@@ -394,6 +408,7 @@ DEPENDENCIES
   debugger-xml
   delayed_job_active_record
   devise (= 2.2.3)
+  draper (~> 1.3)
   exception_notification!
   factory_girl_rails
   guard-minitest
@@ -407,7 +422,6 @@ DEPENDENCIES
   minitest-rails-capybara
   minitest-reporters
   mocha
-  moumar-wmainfo-rb!
   mp4info!
   nokogiri
   paperclip
@@ -417,7 +431,7 @@ DEPENDENCIES
   rails (= 3.2.18)
   rails-i18n!
   rake (~> 10.3.1)
-  rakismet
+  rakismet!
   rb-fsevent (~> 0.9)
   ruby-mp3info
   sass
@@ -435,4 +449,5 @@ DEPENDENCIES
   thin
   uglifier (>= 1.0.3)
   unicorn
+  wmainfo-rb!
   yajl-ruby

@@ -1,5 +1,5 @@
 class FileAsset < ActiveRecord::Base
-  has_and_belongs_to_many :lessons, order: 'lessons.updated_at DESC, name ASC'
+  has_and_belongs_to_many :containers, order: 'containers.updated_at DESC, name ASC'
   has_many :file_asset_descriptions, foreign_key: :id do
     def by_language(code3)
       where(lang: code3)
@@ -126,9 +126,9 @@ class FileAsset < ActiveRecord::Base
 # Select updated files and their lesson IDs
   def FileAsset.get_updated_files(days)
     FileAsset.
-        select("CONCAT( servers.httpurl, '/', file_assets.name ) AS 'link', file_assets.lang AS 'flang', file_assets.asset_type AS 'ftype', file_assets.size AS 'fsize', file_assets.updated_at AS 'updated_at', lessonfiles.id AS 'id'").
+        select("CONCAT( servers.httpurl, '/', file_assets.name ) AS link, file_assets.lang AS flang, file_assets.asset_type AS ftype, file_assets.size AS fsize, file_assets.updated_at AS updated_at, containers.id AS id").
         where(:'file_assets.updated_at' => days.days.ago.to_s(:db)..0.days.ago.to_s(:db)).
-        joins(:server, :lessons).
+        joins(:server, :containers).
         order(:id, :ftype).
         all.group_by { |x| x['id'] }
   end

@@ -23,34 +23,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
---
--- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
-
-
---
--- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
-
-
---
--- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
-
-
---
--- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
-
-
 SET search_path = public, pg_catalog;
 
 --
@@ -113,6 +85,16 @@ CREATE TABLE catalogs (
     selected_catalog integer,
     user_id integer,
     books_catalog boolean
+);
+
+
+--
+-- Name: catalogs_container_description_patterns; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE catalogs_container_description_patterns (
+    container_description_pattern_id integer,
+    catalog_id integer
 );
 
 
@@ -183,6 +165,19 @@ CREATE TABLE comments (
 
 
 --
+-- Name: container_creation_patterns; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE container_creation_patterns (
+    id integer NOT NULL,
+    pattern character varying(255),
+    result character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: container_creation_patterns_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -195,16 +190,10 @@ CREATE SEQUENCE container_creation_patterns_id_seq
 
 
 --
--- Name: container_creation_patterns; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: container_creation_patterns_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-CREATE TABLE container_creation_patterns (
-    id integer DEFAULT nextval('container_creation_patterns_id_seq'::regclass) NOT NULL,
-    pattern character varying(255),
-    result character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
+ALTER SEQUENCE container_creation_patterns_id_seq OWNED BY container_creation_patterns.id;
 
 
 --
@@ -286,7 +275,7 @@ CREATE TABLE containers (
     updated_at timestamp without time zone,
     filmdate date,
     lang character(3),
-    lecturerid integer,
+    lecturer_id integer,
     secure integer DEFAULT 0 NOT NULL,
     content_type_id integer,
     marked_for_merge boolean,
@@ -654,16 +643,6 @@ CREATE TABLE lecturers (
 
 
 --
--- Name: lessondesc_patterns_catalogs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE lessondesc_patterns_catalogs (
-    lessondesc_pattern_id integer,
-    catalog_id integer
-);
-
-
---
 -- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -794,6 +773,13 @@ CREATE TABLE virtual_lessons (
     updated_at timestamp without time zone NOT NULL,
     user_id integer
 );
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY container_creation_patterns ALTER COLUMN id SET DEFAULT nextval('container_creation_patterns_id_seq'::regclass);
 
 
 --

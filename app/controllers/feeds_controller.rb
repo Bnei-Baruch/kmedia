@@ -88,7 +88,7 @@ class FeedsController < ApplicationController
     # Get list of 20 last containers' files
     results      = Container.includes(:file_assets).order('created_at desc').limit(20)
 
-    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
+    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
     @last_update = results.first.created_at
 
     render 'podcast', layout: false
