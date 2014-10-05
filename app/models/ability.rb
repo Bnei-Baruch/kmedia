@@ -18,18 +18,18 @@ class Ability
       cannot :destroy, [Container, Catalog, FileAsset]
       can [:assignable, :manage], Label
     elsif user.role? :operator
-      #- Operator - Can edit lessons. Can Create new container
+      #- Operator - Can edit containers. Can Create new container
       can [:read, :create, :update, :edit_descriptions, :edit_all_lesson_fields], Container
       can :read, Catalog
       can :send_to_censor, Container
-      #- handling the lessons with changed security or with no files
+      #- handling the containers with changed security or with no files
       cannot :special_admin_features, [Container, Catalog]
       can [:assignable, :manage], Label
     elsif user.role? :content_manager
       #- Content manager - Can edit long/short descriptions and transcripts
       can [:read, :update, :edit_descriptions], Container
       cannot :edit_all_lesson_fields, Container
-      #- handling the lessons with changed security or with no files
+      #- handling the containers with changed security or with no files
       cannot :special_admin_features, [Container, Catalog]
     elsif user.role? :PSearchUser
       can :search_secure, :all

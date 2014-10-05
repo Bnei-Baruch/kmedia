@@ -48,14 +48,14 @@ class VirtualLesson < ActiveRecord::Base
     end
     target = vls.shift
     vls.each do |vl|
-      vl.lessons.each do |lesson|
-        target.lessons << lesson
+      vl.containers.each do |lesson|
+        target.containers << lesson
       end
       vl.destroy
     end
 
     # Renumber containers in the target VL
-    target.lessons.order('position ASC').each_with_index do |lesson, index|
+    target.containers.order('position ASC').each_with_index do |lesson, index|
       lesson.update_attribute(:position, index)
     end
 

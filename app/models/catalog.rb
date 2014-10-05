@@ -162,8 +162,8 @@ class Catalog < ActiveRecord::Base
     containers = options[:containers]
 
     containers.each do |container|
-      source.lessons.delete(container)
-      target.lessons << container unless target.lessons.pluck(:id).include? container.id
+      source.containers.delete(container)
+      target.containers << container unless target.containers.pluck(:id).include? container.id
     end
   end
 

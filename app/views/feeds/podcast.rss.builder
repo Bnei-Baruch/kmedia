@@ -12,7 +12,7 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
 
     @files.each do |file|
       xml.item do
-        container = file.lessons.first
+        container = file.containers.first
         xml.title container_title(container, container_description(container))
         lecturer = container.lecturer
         xml.description "<div>#{lecturer ? "<b>#{t('feed.pod_lecturer')}:</b> #{lecturer.name}" : ''}</div>" +

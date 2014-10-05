@@ -28,8 +28,8 @@
           %td= check_box_tag "cb_#{virtual_lesson.id}", virtual_lesson.id, false, class: 'selected'
           %td= virtual_lesson.id
           %td.film-date= virtual_lesson.film_date.try(:to_date)
-          %td= virtual_lesson.lessons.count
-          %td= virtual_lesson.lessons.map(&:file_assets).flatten.length
+          %td= virtual_lesson.containers.count
+          %td= virtual_lesson.containers.map(&:file_assets).flatten.length
           %td= virtual_lesson.created_at.try(:to_date)
           %td= virtual_lesson.updated_at.try(:to_date)
           %td= link_to 'Show', admin_virtual_lesson_path(virtual_lesson)

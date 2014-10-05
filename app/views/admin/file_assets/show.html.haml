@@ -12,7 +12,7 @@
         %li
           = link_to "View All Files", admin_file_assets_path
       %li
-        - if @asset.lessons.first
+        - if @asset.containers.first
           = link_to 'Show Container', admin_lesson_path(@asset.lessons.first) #TODO: Display table of lessons in case file can belong to multiple lessons
         - else
           = link_to 'Has no Container', '/#'

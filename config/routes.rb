@@ -64,7 +64,7 @@ Kmedia::Application.routes.draw do
         end
       end
 
-      resources :lessons do
+      resources :containers do
         member do
           get 'edit_long_descr'
           get 'edit_transcript'

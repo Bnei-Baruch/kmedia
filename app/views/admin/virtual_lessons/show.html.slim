@@ -38,7 +38,7 @@ section
         th Language
         th Catalogs
     tbody
-      - @virtual_lesson.lessons.order('position ASC, lessonid ASC').includes(:catalogs).each do |lesson|
+      - @virtual_lesson.containers.order('position ASC, lessonid ASC').includes(:catalogs).each do |lesson|
         tr(id='position=#{lesson.id}')
           td.sort-heper
             i.fa.fa-sort

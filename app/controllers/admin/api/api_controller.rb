@@ -52,7 +52,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
       q          = FileAsset
       q          = q.where(lang: get_language_by_ids(params[:lang_ids])) if params[:lang_ids].present?
       q          = q.where(type: get_media_types(params[:media_type_ids])) if params[:media_type_ids].present?
-      files      = q.joins(:lessons).where(:'lessons.id' => lesson_ids)
+      files      = q.joins(:containers).where(:'containers.id' => lesson_ids)
       render json: { ids: files.collect(&:id).join(',') }
     end
   end

@@ -99,7 +99,7 @@ class FileAsset < ActiveRecord::Base
     if playtime_secs > 0
       update_attribute(:playtime_secs, playtime_secs)
 
-      lessons.each do |container|
+      containers.each do |container|
         if container.playtime_secs.to_i <= 0
           container.update_attribute(:playtime_secs, playtime_secs)
         end

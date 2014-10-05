@@ -26,7 +26,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def show
-    @lessons = @catalog.lessons.includes([:content_type, :language,])
+    @lessons = @catalog.containers.includes([:content_type, :language,])
   end
 
   def new
@@ -88,7 +88,7 @@ class Admin::CatalogsController < Admin::ApplicationController
 
   def move_prepare
     @target = Catalog.find(params[:id])
-    @catalogs = Catalog.where(id: params[:sources].split(',').map(&:to_i)).includes(:lessons)
+    @catalogs = Catalog.where(id: params[:sources].split(',').map(&:to_i)).includes(:containers)
   end
 
   def move
