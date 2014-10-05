@@ -4,11 +4,11 @@
     .well
       h4 = l.container_descriptions.by_language(@language).first.try(:container_desc) || l.container_descriptions.by_language('ENG').first.try(:container_desc) || l.containername
       - assets = l.file_assets
-      - file_types = assets.map(&:type).sort.uniq
+      - file_types = assets.map(&:asset_type).sort.uniq
       - file_types.each do |ft|
         .upcase.ltr
           = ft
           ' :
-          - assets.select{|a| a.type == ft}.each do |asset|
+          - assets.select{|a| a.asset_type == ft}.each do |asset|
             = link_to asset.name[0, 3], asset.download_url, target: '_blank'
             '
