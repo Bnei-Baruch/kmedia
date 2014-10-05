@@ -95,7 +95,7 @@ class Container < ActiveRecord::Base
   scope :non_secure, -> { where(secure: 0) }
 
   def self.last_lectures_programs(container_date = Date.today, language = 'ENG')
-    joins(:file_assets).where('file_assets.lang' => language).where(date: container_date).where(content_type_id: [ContentType::CONTENT_TYPE_ID['lecture'], ContentType::CONTENT_TYPE_ID['program']])
+    joins(:file_assets).where('file_assets.lang' => language).where(filmdate: container_date).where(content_type_id: [ContentType::CONTENT_TYPE_ID['lecture'], ContentType::CONTENT_TYPE_ID['program']])
   end
 
 

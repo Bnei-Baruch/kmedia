@@ -6,7 +6,7 @@ javascript:
     #content.span12 style='padding-top: 50px;'
       - title = I18n.t('ui.last_lesson.lessons')
       - lang =Language::CODE3_LOCALE[@language]
-      = render 'last_lesson', title: title, language: lang, lesson_date: @lesson_date, last_lessons: @last_lessons
+      = render 'last_lesson', title: title, language: lang, container_date: @lesson_date, last_containers: @last_lessons
       - # Lectures & Programs
       - title = "#{I18n.t('ui.last_lesson.lectures')} &amp; #{I18n.t('ui.last_lesson.programs')}".html_safe
-      = render 'last_lesson', title: title, language: lang, lesson_date: @lesson_date, last_lessons: @last_lectures_programs
+      = render 'last_lesson', title: title, language: lang, container_date: @lesson_date, last_containers: @last_lectures_programs
