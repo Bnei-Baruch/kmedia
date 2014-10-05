@@ -132,10 +132,9 @@ GEM
     best_in_place (2.1.0)
       jquery-rails
       rails (~> 3.1)
-    better_errors (2.0.0)
+    better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
-      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.2.2)
@@ -396,7 +395,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_tree!
   best_in_place
-  better_errors
+  better_errors (= 1.1.0)
   binding_of_caller
   bootstrap-sass (~> 2.3.2.0)
   bullet

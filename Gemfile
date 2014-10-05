@@ -41,7 +41,7 @@ group :development, :test do
   gem 'debugger-xml'
   gem 'sextant' # rake routes in the browser
   gem 'bullet'
-  gem 'better_errors'
+  gem 'better_errors', '1.1.0'   # 2.0.0 ZZZ
   gem 'binding_of_caller'
 
   gem 'rb-fsevent', '~> 0.9'

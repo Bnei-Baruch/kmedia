@@ -1,6 +1,6 @@
 .well
   h4 = l(vl.film_date)
-  - vl.lessons.each do |l|
+  - vl.containers.each do |l|
     .well
       h4 = l.container_descriptions.by_language(@language).first.try(:container_desc) || l.container_descriptions.by_language('ENG').first.try(:container_desc) || l.containername
       - assets = l.file_assets
