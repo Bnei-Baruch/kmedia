@@ -146,7 +146,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
                rescue Exception => e
                  message = "Exception: #{e.message}\n\n\tBacktrace: #{e.backtrace.join("\n\t")}"
                  logger.error "#{message}\n\n\tParams: #{params.inspect}"
-                 ExceptionNotifier.notify_exception(e).deliver if Rails.env.production?
+                 ExceptionNotifier.notify_exception(e) if Rails.env.production?
                  { message: message, code: false }
                end
   end
