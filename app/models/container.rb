@@ -147,11 +147,11 @@ class Container < ActiveRecord::Base
   columns_hash["v_containerdate"] = ActiveRecord::ConnectionAdapters::Column.new("v_containerdate", nil, "date")
 
   def v_containerdate
-    Date.strptime(containerdate.to_s, '%Y-%m-%d') rescue nil
+    Date.strptime(filmdate.to_s, '%Y-%m-%d') rescue nil
   end
 
   def v_containerdate=(my_date)
-    self.date = my_date.to_s
+    self.filmdate = my_date.to_s
   end
 
   def catalog_tokens=(ids)
