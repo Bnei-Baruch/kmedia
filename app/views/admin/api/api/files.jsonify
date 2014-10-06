@@ -6,5 +6,5 @@ json.item @file_assets do |file_asset|
   json.language file_asset.lang
   json.url FileAsset.download_url(file_asset.servername, file_asset.name)
   json.size file_asset.size
-  json.type file_asset.type
+  json.type file_asset.asset_type
 end
