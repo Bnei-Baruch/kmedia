@@ -10,6 +10,11 @@ class SimpleController < ApplicationController
   def show
     @language       = Language::LOCALE_CODE3[@locale]
     @film_date      = params[:id]
-    @virtual_lesson = VirtualLesson.where(film_date: @film_date).first
+    begin
+      Date.parse @film_date
+      @virtual_lesson = VirtualLesson.where(film_date: @film_date).first
+    rescue ArgumentError
+      @virtual_lesson = VirtualLesson.last
+    end
   end
 end
