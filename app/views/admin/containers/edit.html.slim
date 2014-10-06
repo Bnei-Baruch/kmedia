@@ -2,18 +2,18 @@ header.subhead#overview
   h2 Edit Container
   .subnav
     ul.nav.nav-pills
-      li = link_to "Show", admin_lesson_path(@lesson)
-      li = link_to "View all Containers", admin_lessons_path
+      li = link_to "Show", admin_container_path(@container)
+      li = link_to "View all Containers", admin_containers_path
 
 = render 'form'
 
 #myModal.modal.fade.in style='display: none;'
-  - if @lesson
-    - if @lessons.count == 0
+  - if @container
+    - if @containers.count == 0
       .modal-header
         a.close data-dismiss='modal' &times;
         h3 empty
-    - elsif @lessons.map(&:id).include? @lesson.id
+    - elsif @containers.map(&:id).include? @container.id
       .modal-header
         a.close data-dismiss='modal' &times;
         h3 recursion
