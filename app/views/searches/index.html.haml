@@ -36,7 +36,7 @@
           %tr
             %td= result.containerid
             %td
-              = result.container_descriptions.by_language(@language).first.try(:container_desc) || result.container_descriptions.by_language('ENG').first.try(:container_desc) || result.containername
+              = result.container_descriptions.by_language(@language).first.try(:container_desc) || result.container_descriptions.by_language('ENG').first.try(:container_desc) || result.name
               %hr.soften
               = result.container_descriptions.by_language(@language).first.try(:descr)
             %td
