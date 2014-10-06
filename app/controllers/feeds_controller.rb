@@ -3,6 +3,7 @@ class FeedsController < ApplicationController
   respond_to :xml
 
   def wsxml
+
     # Example
     # wsxml.xml?CID=4016&DLANG=HEB&DF=2013-04-30&DT=2013-03-31
 
@@ -21,22 +22,11 @@ class FeedsController < ApplicationController
     end
 
     sql = <<-SQL
-      select distinct lesson.*
-      from lessons lesson, catalogs_lessons cnl
-      where
-        lesson.id = cnl.lesson_id and
-        ( cnl.id in (#{catalogs})  and
-        (lesson.filmdate BETWEEN '#{date_to}' and '#{date_from}')  and
-        lesson.secure=0 )
-      order by lesson.filmdate desc, created_at desc, name asc
-    SQL
-
-    sql = <<-SQL
       select distinct container.*
       from containers container, catalogs_containers cnl
       where
         container.id = cnl.container_id and
-        ( cnl.id in (#{catalogs})  and
+        ( cnl.catalog_id in (#{catalogs})  and
         (container.filmdate BETWEEN '#{date_to}' and '#{date_from}')  and
         container.secure=0 )
       order by container.filmdate desc, created_at desc, name asc

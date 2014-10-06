@@ -1,6 +1,6 @@
 xml.instruct!
 xml.lessons do
-  @lessons.each do |container|
+  @containers.each do |container|
     xml.lesson do
       @descriptions = Container.get_all_descriptions(container)
       xml.title container_title(container, container_description(container))
@@ -13,7 +13,7 @@ xml.lessons do
       xml.files do
         container.file_assets.each do |file|
           xml.file do
-            xml.type FileType::EXT_TYPE[file.type]
+            xml.type FileType::EXT_TYPE[file.asset_type]
             xml.language file.lang
             xml.original file.lang == container.lang ? 1 : 0
             xml.path file.url
