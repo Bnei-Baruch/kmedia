@@ -30,7 +30,7 @@ class Catalog < ActiveRecord::Base
   end
 
   scope :secure, ->(level) { where('secure <= ?', level) }
-  scope :insecure, -> { where('secure = 0') }
+  scope :insecure, -> { where('catalogs.secure = 0') }
   scope :open_matching_string, ->(string) { where('name like ? AND open = ?', "%#{string}%", true) }
   scope :visible, -> { where(:visible => true) }
   scope :books, ->(language_code3, secure) { Catalog.secure(secure).joins(:catalog_descriptions).where('books_catalog = true').where('catalog_descriptions.lang = ?', language_code3) }
