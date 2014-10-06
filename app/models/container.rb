@@ -191,8 +191,8 @@ class Container < ActiveRecord::Base
 
   def self.get_container_title(id, language)
     container = Container.find(id) rescue { name: '----------', date: '1970-01-01', created_at: '1970-01-01' }
-    descr          = container.container_descriptions.by_language(language).first.try(:container_descriptions)
-    descr          = container.container_descriptions.by_language('ENG').first.try(:container_descriptions) if descr.blank?
+    descr          = container.container_descriptions.by_language(language).first.try(:container_desc)
+    descr          = container.container_descriptions.by_language('ENG').first.try(:container_desc) if descr.blank?
     container.name = descr if descr
 
     if descr && (container.catalogs.map(&:id) & [3606, 3661, 3662]).empty?
