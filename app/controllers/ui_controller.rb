@@ -8,7 +8,11 @@ class UiController < ApplicationController
     set_virtual_lesson last_virtual_lesson
     set_independent_parts
 
-    render :homepage
+    begin
+      render :homepage
+    rescue
+      redirect_to '/'
+    end
   end
 
   alias_method :homepage_show, :homepage
