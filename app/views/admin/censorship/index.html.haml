@@ -1,7 +1,7 @@
 %header.subhead#overview
   %h2 Containers for Censorship
 %section
-  = paginate @lessons
+  = paginate @containers
 
   %table.table.table-striped.table-bordered.table-condensed.lessons
     %thead
@@ -16,16 +16,16 @@
         %th= sortable("secure", "Secure", @filter)
         %th{:colspan => 3} Actions
     %tbody
-      -@lessons.each do |lesson|
+      -@containers.each do |container|
         %tr
-          %td= check_box_tag "cb_#{lesson.id}", lesson.id, false, class: 'selected'
-          %td{:class => lesson.marked_for_merge ? 'btn btn-warning' : ''}= lesson.lessonid
-          %td= lesson.lessonname.truncate(57, :omission => '&hellip;').html_safe
-          %td.created= lesson.filmdate.try(:to_date)
-          %td= lesson.created.try(:to_date)
-          %td= lesson.updated.try(:to_date)
-          %td= lesson.lang
-          %td= display_secure(lesson.secure)
-          %td= link_to 'Show', admin_censorship_path(lesson)
-          %td= link_to 'Clear', clear_admin_censorship_path(lesson), method: 'post'
-          %td= link_to 'Disable Forever', disable_admin_censorship_path(lesson), method: 'post', :confirm => 'Are you sure?', :class => 'btn-small btn-danger nowrap'
+          %td= check_box_tag "cb_#{container.id}", container.id, false, class: 'selected'
+          %td{:class => container.marked_for_merge ? 'btn btn-warning' : ''}= container.id
+          %td= container.name.truncate(57, :omission => '&hellip;').html_safe
+          %td.created= container.filmdate.try(:to_date)
+          %td= container.created_at.try(:to_date)
+          %td= container.updated_at.try(:to_date)
+          %td= container.lang
+          %td= display_secure(container.secure)
+          %td= link_to 'Show', admin_censorship_path(container)
+          %td= link_to 'Clear', clear_admin_censorship_path(container), method: 'post'
+          %td= link_to 'Disable Forever', disable_admin_censorship_path(container), method: 'post', :confirm => 'Are you sure?', :class => 'btn-small btn-danger nowrap'

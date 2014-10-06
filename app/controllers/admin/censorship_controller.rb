@@ -1,7 +1,7 @@
 class Admin::CensorshipController < Admin::ApplicationController
 
   def index
-    @lessons = Container.for_censorship.page(params[:page])
+    @containers = Container.for_censorship.page(params[:page])
   end
 
   def show

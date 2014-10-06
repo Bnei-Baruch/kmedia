@@ -14,7 +14,7 @@
       %li
         = content_tag :li, :class => @filter.filtered_selected? do
           = link_to 'Containers to update', admin_containers_path
-      -if can?(:special_admin_features, @lesson)
+      -if can?(:special_admin_features, @containers)
         %li
           = content_tag :li, :class => @filter.secure_changed?, :title => 'Security Level changed by operator' do
             = link_to 'Security changed', admin_containers_path(:filter => 'secure_changed')

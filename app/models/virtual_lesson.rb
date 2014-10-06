@@ -8,7 +8,7 @@ class VirtualLesson < ActiveRecord::Base
   def self.last_lesson(lesson_id)
     if lesson_id.nil?
       # Return the latest lesson
-      VirtualLesson.order('film_date DESC').first
+      VirtualLesson.order('"virtual_lessons".film_date DESC').first
     elsif lesson_id.to_s =~ /\d\d\d\d-\d\d-\d\d/
       # that's date, not id...
       VirtualLesson.where(film_date: lesson_id).first
@@ -18,11 +18,11 @@ class VirtualLesson < ActiveRecord::Base
   end
 
   def self.next_lesson(film_date)
-    VirtualLesson.where('film_date > ?', film_date).order('film_date ASC').first
+    VirtualLesson.where('film_date > ?', film_date).order('"virtual_lessons".film_date ASC').first
   end
 
   def self.prev_lesson(film_date)
-    VirtualLesson.where('film_date < ?', film_date).order('film_date DESC').first
+    VirtualLesson.where('film_date < ?', film_date).order('"virtual_lessons".film_date DESC').first
   end
 
   def lessons_ordered_by_parts

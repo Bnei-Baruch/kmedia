@@ -3,7 +3,7 @@ class Admin::ContainersController < Admin::ApplicationController
 
   def index
     authorize! :index, Container
-    @filter = params[:filter]
+    @filter = FilterDecorator.new(params[:filter])
     @security = params[:security]
     @containers = Container.get_appropriate_containers(@filter, @security).order(sort_order).page(params[:page])
   end
@@ -271,6 +271,6 @@ class Admin::ContainersController < Admin::ApplicationController
   def sort_order
     sort_line = sort_column + ' ' + sort_direction
     #secondary sort parameter
-    sort_line += ', ' + 'containername asc' unless params[:sort].equal?('containername')
+    sort_line += ', name asc' unless params[:sort].equal?('name')
   end
 end

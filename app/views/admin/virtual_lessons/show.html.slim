@@ -38,19 +38,19 @@ section
         th Language
         th Catalogs
     tbody
-      - @virtual_lesson.containers.order('position ASC, lessonid ASC').includes(:catalogs).each do |lesson|
-        tr(id='position=#{lesson.id}')
+      - @virtual_lesson.containers.order('position ASC, id ASC').includes(:catalogs).each do |container|
+        tr(id='position=#{container.id}')
           td.sort-heper
             i.fa.fa-sort
               | &nbsp;
-          td.item-position = lesson.position.to_i
-          td = link_to lesson.id, admin_lesson_path(lesson)
-          td = lesson.name
-          td = lesson.filmdate.try(:to_date)
-          td = lesson.created_at.try(:to_date)
-          td = lesson.updated_at.try(:to_date)
-          td = lesson.lang
-          td = lesson.catalogs.map{|c| "#{c.id} - #{c.name}"}
+          td.item-position = container.position.to_i
+          td = link_to container.id, admin_container_path(container)
+          td = container.name
+          td = container.filmdate.try(:to_date)
+          td = container.created_at.try(:to_date)
+          td = container.updated_at.try(:to_date)
+          td = container.lang
+          td = container.catalogs.map{|c| "#{c.id} - #{c.name}"}
 
 javascript:
   $(document).ready(function () {

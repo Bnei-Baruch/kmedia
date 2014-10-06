@@ -1,8 +1,0 @@
-- disabled = cannot? :edit_all_lesson_fields, @lesson
-= simple_form_for ['admin', @lesson], :url => url_for(:action => 'update_long_descr') do |f|
-  = display_actions f, admin_lessons_url
-  %hr.soften
-  = display_errors f
-  = display_descriptions f, @container_descriptions, 'container_descriptions', 'descr'
-  %hr.soften
-  = display_actions f, admin_lessons_url

@@ -26,7 +26,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def show
-    @lessons = @catalog.containers.includes([:content_type, :language,])
+    @containers = @catalog.containers.includes([:content_type, :language,])
   end
 
   def new
@@ -68,8 +68,8 @@ class Admin::CatalogsController < Admin::ApplicationController
   end
 
   def batch
-    container = Container.find(params[:lesson_id]) rescue nil
-    render json: {ok: false, msg: "Unable to find container #{params[:lesson_id]}"} and return unless container
+    container = Container.find(params[:container_id]) rescue nil
+    render json: {ok: false, msg: "Unable to find container #{params[:container_id]}"} and return unless container
 
     case
       when md = /security_(?<security_level>[0-4])/.match(params[:batch_type])

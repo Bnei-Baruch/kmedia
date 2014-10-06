@@ -34,15 +34,15 @@
               %td= "#{asset.name} (#{asset.size} bytes)"
               %td &nbsp;
             - when klass == Container
-              - lesson = result
-              %td= lesson.lessonid
-              %td= link_to 'Container', admin_lesson_path(lesson)
-              %td= lesson.lessonname
+              - container = result
+              %td= container.id
+              %td= link_to 'Container', admin_container_path(container)
+              %td= container.name
               - if can?(:send_to_censor, Container)
-                %td= link_to 'Censor', send_to_censor_admin_lesson_path(lesson, filter: @filter, securty: @security), method: 'post'
+                %td= link_to 'Censor', send_to_censor_admin_container_path(container, filter: @filter, securty: @security), method: 'post'
               - else
                 %td &nbsp;
-            - when klass == ContainerdescPattern
+            - when klass == ContainerDescriptionPattern
               - pattern = result
               %td= pattern.id
               %td= link_to 'Containers\' pattern', admin_lessondesc_pattern_path(pattern)
@@ -58,8 +58,8 @@
               - container_description = result
               %td= container_description.id
               %td
-                - if container_description.lesson
-                  = link_to 'Container Description', admin_lesson_path(container_description.lesson.id)
+                - if container_description.container
+                  = link_to 'Container Description', admin_container_path(container_description.container.id)
                 - else
                   Container Description
               %td

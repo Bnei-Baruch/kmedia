@@ -2,33 +2,33 @@
   %h2 Container
   .subnav
     %ul.nav.nav-pills
-      -if can?(:edit_descriptions, @lesson)
+      -if can?(:edit_descriptions, @container)
         %li
-          = link_to "Edit", edit_admin_lesson_path(@lesson)
+          = link_to "Edit", edit_admin_container_path(@container)
         %li
-          = link_to 'Edit Long Description', edit_long_descr_admin_lesson_path(@lesson)
+          = link_to 'Edit Long Description', edit_long_descr_admin_container_path(@container)
         %li
-          = link_to 'Edit Transcript', edit_transcript_admin_lesson_path(@lesson)
-      -if can?(:destroy, @lesson)
+          = link_to 'Edit Transcript', edit_transcript_admin_container_path(@container)
+      -if can?(:destroy, @container)
         %li
-          = link_to "Destroy", admin_lesson_path(@lesson), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
-      -if can?(:read, @lesson)
+          = link_to "Destroy", admin_container_path(@container), :class => 'label label-important', :confirm => 'Are you sure?', :method => :delete
+      -if can?(:read, @container)
         %li
-          = link_to "View All", admin_lessons_path
+          = link_to "View All", admin_container_path
 
 %section.well
-  = display_show_item('ID', @lesson.id)
-  = display_show_item('Name', @lesson.name)
-  = display_show_item('Type', @lesson.content_type.try(:name))
-  = display_show_item('Created', @lesson.created_at.to_s(:long_ordinal))
-  = display_show_item('Updated', @lesson.updated_at.to_s(:long_ordinal))
-  = display_show_item('Container date', @lesson.filmdate)
-  = display_show_item('Language', @lesson.language)
-  = display_show_item('Lecturer', @lesson.lecturer)
-  = display_show_item('Secure', display_secure(@lesson.secure), true)
-  = display_show_item('Labels', @lesson.labels.map{|lbl| lbl.display_name}.join(', '))
-  = display_show_item('User', @lesson.user.try(:email))
-  - if @lesson.opened_by_censor?
+  = display_show_item('ID', @container.id)
+  = display_show_item('Name', @container.name)
+  = display_show_item('Type', @container.content_type.try(:name))
+  = display_show_item('Created', @container.created_at.to_s(:long_ordinal))
+  = display_show_item('Updated', @container.updated_at.to_s(:long_ordinal))
+  = display_show_item('Container date', @container.filmdate)
+  = display_show_item('Language', @container.language)
+  = display_show_item('Lecturer', @container.lecturer)
+  = display_show_item('Secure', display_secure(@container.secure), true)
+  = display_show_item('Labels', @container.labels.map{|lbl| lbl.display_name}.join(', '))
+  = display_show_item('User', @container.user.try(:email))
+  - if @container.opened_by_censor?
     = display_show_item('Opened by Censor', @censor_email)
 %section
   %strong Descriptions:
@@ -41,7 +41,7 @@
         %th Updated on
         %th ID
     %tbody
-      - @lesson.container_descriptions.each do |admin_lesson_desc|
+      - @container.container_descriptions.each do |admin_lesson_desc|
         - next if (admin_lesson_desc.container_desc || admin_lesson_desc.descr).blank?
         %tr
           %td= admin_lesson_desc.lang
@@ -65,7 +65,7 @@
         %th Updated at
         %th ID
     %tbody
-      - @lesson.lesson_transcripts.each do |t|
+      - @container.container_transcripts.each do |t|
         - next if (t.transcript).blank?
         %tr
           %td= t.lang
@@ -94,7 +94,7 @@
         %th ID
         %th Name
     %tbody
-      - @lesson.catalogs.each do |catalog|
+      - @container.catalogs.each do |catalog|
         %tr
           %td= catalog.id
           %td= catalog.name
@@ -114,7 +114,7 @@
         %th Language
         = display_actions_title(FileAsset)
     %tbody
-      - @lesson.file_assets.each do |asset|
+      - @container.file_assets.each do |asset|
         %tr
           %td= link_to asset.id, asset.url, :target => '_blank'
           %td= asset.name

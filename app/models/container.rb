@@ -57,7 +57,7 @@ class Container < ActiveRecord::Base
     def validate(record)
       # At least ENG, RUS and HEB must be non-empty
       lds = {}
-      record.container_descriptions.map { |x| lds[x.lang] = x.container_descriptions }
+      record.container_descriptions.map { |x| lds[x.lang] = x.container_desc }
       if lds['ENG'].blank? || lds['RUS'].blank? || lds['HEB'].blank?
         record.errors[:base] << "Empty Basic Description(s)"
       end
@@ -72,7 +72,7 @@ class Container < ActiveRecord::Base
       filmdate IS NULL OR
       lang IS NULL OR
       lang = '' OR
-      (SELECT count(1) FROM container_descriptions WHERE container_descriptions.container_id = containers.id AND lang IN('HEB', 'ENG', 'RUS') AND length(container_descriptions) > 0 ) = 0 OR
+      (SELECT count(1) FROM container_descriptions WHERE container_descriptions.container_id = containers.id AND lang IN('HEB', 'ENG', 'RUS') AND char_length(container_desc) > 0 ) = 0 OR
       (SELECT count(1) FROM catalogs_containers WHERE catalogs_containers.container_id = containers.id) = 0 OR
       auto_parsed = TRUE
     )
@@ -81,7 +81,7 @@ class Container < ActiveRecord::Base
   scope :for_censorship, -> { where(for_censorship: true) }
   scope :not_for_censorship, -> { where(for_censorship: false) }
   scope :secure_changed, -> { where(secure_changed: true) }
-  scope :no_files, -> { where('(SELECT count(1) FROM file_assets_containers WHERE container_id = containers.id) = 0') }
+  scope :no_files, -> { where('(SELECT count(1) FROM containers_file_assets WHERE container_id = containers.id) = 0') }
 
   scope :lost, -> { where(<<-LOST
       id not in
@@ -173,7 +173,7 @@ class Container < ActiveRecord::Base
   end
 
   def self.get_appropriate_containers(filter, security)
-    case filter
+    case filter.filter
     when 'all'
       Container
     when 'secure_changed'

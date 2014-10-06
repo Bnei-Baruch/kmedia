@@ -5,7 +5,7 @@
       = link_to "New Pattern", new_admin_container_description_pattern_path, :class => 'btn btn-success btn-large pull-right'
 
 %section
-  = paginate @container_desc_patterns
+  = paginate @container_description_patterns
 
   %table.table.table-striped.table-bordered.table-condensed
     %thead
@@ -16,7 +16,7 @@
         %th= sortable("lang", "Lang")
         = display_actions_title(ContainerDescriptionPattern)
     %tbody
-      - for container_desc_pattern in @container_desc_patterns
+      - for container_desc_pattern in @container_description_patterns
         %tr(class="#{cycle('odd', 'even')}")
           %td= container_desc_pattern.pattern
           %td= container_desc_pattern.description
@@ -27,7 +27,7 @@
               = link_to 'Show', [:admin, container_desc_pattern]
           -if can?(:update, container_desc_pattern)
             %td
-              = link_to 'Edit', edit_admin_container_desc_riptionpattern_path(container_desc_pattern)
+              = link_to 'Edit', edit_admin_container_description_pattern_path(container_desc_pattern)
           -if can?(:destroy, container_desc_pattern)
             %td
               = link_to 'Destroy', [:admin, container_desc_pattern], :confirm => 'Are you sure?', :method => :delete, :class => 'btn-small btn-danger'

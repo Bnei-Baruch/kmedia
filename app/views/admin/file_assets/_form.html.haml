@@ -8,7 +8,7 @@
     .span6
       = f.input :name, :disabled => disabled, :label => 'Name', :input_html => {:class => 'span5'}
       = f.input :v_filedate, :label => 'Date', :disabled => disabled, :order => [:day, :month, :year], :input_html => {:class => 'span5'}
-      = f.input :type, :disabled => disabled, :label => 'Type', :input_html => {:class => 'span5'}
+      = f.input :asset_type, :disabled => disabled, :label => 'Type', :input_html => {:class => 'span5'}
       = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --', :disabled => disabled, :input_html => {:class => 'span5'}
       = f.input :size, :disabled => disabled, :label => 'Size', :input_html => {:class => 'span5'}
       = f.input :playtime_secs, :disabled => disabled, :label => 'Playtime (secs)', :input_html => {:class => 'span5'}
@@ -18,4 +18,4 @@
       = f.input :secure, :collection =>  @security, :prompt => nil, :label => 'Security Level', :disabled => disabled
 
   %hr.soften
-  = display_actions f, admin_lessons_url
+  = display_actions f, admin_file_assets_url

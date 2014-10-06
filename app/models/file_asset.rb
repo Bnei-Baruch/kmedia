@@ -10,7 +10,7 @@ class FileAsset < ActiveRecord::Base
 
   belongs_to :user
 
-  attr_accessible :asset_type, :name, :lang, :date, :size, :playtime_secs, :lastuser, :servername, :secure
+  attr_accessible :asset_type, :name, :lang, :date, :size, :playtime_secs, :lastuser, :servername, :secure, :status, :clicks, :v_filedate
 
   attr_accessor :v_filedate
   # Virtual column to emulate varchar filedate in db

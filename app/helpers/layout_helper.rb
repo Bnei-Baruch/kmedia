@@ -15,13 +15,13 @@ module LayoutHelper
     engine = Haml::Engine.new <<-HAML
 - counter = 0
 = form.simple_fields_for :#{source}, descriptions do |descr_f|
-  - language = descr_f.object.language
+  - language = descr_f.object.lang
   - if counter == 0
     <div class="row">
   - if counter < 3 # 3 separate columns
     .span4
       = descr_f.input :lang, :as => :hidden
-      = descr_f.input :#{target}, :as => :text, :label => language.to_s, :input_html => { :class => language.code3.downcase, :rows => 3 }
+      = descr_f.input :#{target}, :as => :text, :label => language.to_s, :input_html => { :class => language.downcase, :rows => 3 }
   - if counter == 3
     </div>
     .accordion-heading
@@ -32,7 +32,7 @@ module LayoutHelper
       <div class="row">
     .span4
       = descr_f.input :lang, :as => :hidden
-      = descr_f.input :#{target}, :as => :text, :label => language.to_s, :input_html => { :class => language.code3.downcase, :rows => 3 }
+      = descr_f.input :#{target}, :as => :text, :label => language.to_s, :input_html => { :class => language.downcase, :rows => 3 }
     - if counter % 3 == 2
       </div>
   - counter += 1

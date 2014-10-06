@@ -23,6 +23,34 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
+
+
+--
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+
+
 SET search_path = public, pg_catalog;
 
 --
@@ -51,7 +79,7 @@ CREATE TABLE catalog_descriptions (
     name character varying(255),
     lang character(3),
     created_at timestamp without time zone,
-    uppdated_at timestamp without time zone
+    updated_at timestamp without time zone
 );
 
 
@@ -75,8 +103,8 @@ CREATE TABLE catalogs (
     id integer DEFAULT nextval('catalogs_catalognodeid_seq'::regclass) NOT NULL,
     name character varying(100) DEFAULT ''::character varying NOT NULL,
     parent_id integer,
-    created timestamp without time zone,
-    updated timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     catorder integer DEFAULT 999 NOT NULL,
     secure integer DEFAULT 0 NOT NULL,
     visible boolean DEFAULT true,
@@ -253,6 +281,33 @@ CREATE TABLE container_descriptions (
 
 
 --
+-- Name: container_transcripts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE container_transcripts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: container_transcripts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE container_transcripts (
+    id integer DEFAULT nextval('container_transcripts_id_seq'::regclass) NOT NULL,
+    container_id integer,
+    toc character varying(255),
+    transcript text,
+    lang character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: containers_lessonid_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -303,29 +358,12 @@ CREATE TABLE containers_file_assets (
 
 
 --
--- Name: containers_transcripts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: containers_labels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE SEQUENCE containers_transcripts_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: containers_transcripts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE containers_transcripts (
-    id integer DEFAULT nextval('containers_transcripts_id_seq'::regclass) NOT NULL,
-    lessonid integer,
-    toc character varying(255),
-    transcript text,
-    lang character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+CREATE TABLE containers_labels (
+    label_id integer NOT NULL,
+    container_id integer NOT NULL
 );
 
 
@@ -558,13 +596,35 @@ CREATE TABLE label_descriptions (
 
 
 --
--- Name: labels_lessons; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: labels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE labels_lessons (
-    label_id integer NOT NULL,
-    lesson_id integer NOT NULL
+CREATE TABLE labels (
+    id integer NOT NULL,
+    dictionary_id integer,
+    suid character varying(20),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: labels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE labels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: labels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE labels_id_seq OWNED BY labels.id;
 
 
 --
@@ -783,6 +843,13 @@ ALTER TABLE ONLY container_creation_patterns ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY labels ALTER COLUMN id SET DEFAULT nextval('labels_id_seq'::regclass);
+
+
+--
 -- Name: catalognode_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -903,6 +970,14 @@ ALTER TABLE ONLY label_descriptions
 
 
 --
+-- Name: labels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY labels
+    ADD CONSTRAINT labels_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -930,7 +1005,7 @@ ALTER TABLE ONLY lecturer_descriptions
 -- Name: lesson_transcripts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY containers_transcripts
+ALTER TABLE ONLY container_transcripts
     ADD CONSTRAINT lesson_transcripts_pkey PRIMARY KEY (id);
 
 
@@ -996,6 +1071,13 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY virtual_lessons
     ADD CONSTRAINT virtual_lessons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: a_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX a_idx ON container_description_patterns USING hash (pattern);
 
 
 --
@@ -1072,14 +1154,14 @@ CREATE INDEX index_catnodelessons_on_lessonid ON catalogs_containers USING btree
 -- Name: index_labels_lessons_on_label_id_and_lesson_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_labels_lessons_on_label_id_and_lesson_id ON labels_lessons USING btree (label_id, lesson_id);
+CREATE INDEX index_labels_lessons_on_label_id_and_lesson_id ON containers_labels USING btree (label_id, container_id);
 
 
 --
 -- Name: index_labels_lessons_on_lesson_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_labels_lessons_on_lesson_id ON labels_lessons USING btree (lesson_id);
+CREATE INDEX index_labels_lessons_on_lesson_id ON containers_labels USING btree (container_id);
 
 
 --
@@ -1320,3 +1402,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140516015444');
 INSERT INTO schema_migrations (version) VALUES ('20140519015703');
 
 INSERT INTO schema_migrations (version) VALUES ('20140624074848');
+
+INSERT INTO schema_migrations (version) VALUES ('20141006000735');
+
+INSERT INTO schema_migrations (version) VALUES ('20141006001254');

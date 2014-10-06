@@ -13,7 +13,7 @@
           = link_to "View All Files", admin_file_assets_path
       %li
         - if @asset.containers.first
-          = link_to 'Show Container', admin_lesson_path(@asset.lessons.first) #TODO: Display table of lessons in case file can belong to multiple lessons
+          = link_to 'Show Container', admin_container_path(@asset.containers.first) #TODO: Display table of lessons in case file can belong to multiple lessons
         - else
           = link_to 'Has no Container', '/#'
 
@@ -23,7 +23,7 @@
   = display_show_item 'Created at', @asset.created_at
   = display_show_item 'Updated at', @asset.updated_at
   = display_show_item 'Recording date', @asset.date
-  = display_show_item 'Type', @asset.type
+  = display_show_item 'Type', @asset.asset_type
   = display_show_item 'Language', @asset.lang
   = display_show_item 'Size', number_to_human_size(@asset.size)
   = display_show_item 'Playtime (secs)', convert_seconds_to_human_readable(@asset.playtime_secs)
@@ -48,7 +48,7 @@
       - @asset.file_asset_descriptions.each do |asset_desc|
         %tr
           %td= asset_desc.lang
-          %td= asset_desc.desc
+          %td= asset_desc.filedesc
           %td= asset_desc.created_at.try(:to_date)
           %td= asset_desc.updated_at.try(:to_date)
           %td= asset_desc.id

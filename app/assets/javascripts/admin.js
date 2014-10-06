@@ -24,11 +24,7 @@
 // = require bootstrap-popover
 // = require bootstrap-typeahead
 
-//= require jquery.ui.draggable
-//= require jquery.ui.droppable
-//= require jquery.ui.resizable
-//= require jquery.ui.selectable
-//= require jquery.ui.sortable
+//= require jquery-ui
 
 //= require jquery.ui.nestedSortable
 //= require sortable_tree/initializer
