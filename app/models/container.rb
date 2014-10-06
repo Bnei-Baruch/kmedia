@@ -199,7 +199,7 @@ class Container < ActiveRecord::Base
       nil
     else
       container.name +
-          (container.date.to_s == '0000-00-00' ? '' : " (#{container.date})")
+          (container.filmdate.to_s == '0000-00-00' ? '' : " (#{container.filmdate})")
     end
   end
 
