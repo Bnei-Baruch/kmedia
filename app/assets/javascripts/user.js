@@ -438,7 +438,6 @@
 
     // type: 'audio' or 'video'
     function setup_projekktor_playlist(type) {
-//        });
         var players = $.grep($('.active.tab-pane .projekktor').attr('class').split(' '), function (n) {
             return n.match('video-');
         });

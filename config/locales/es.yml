@@ -52,7 +52,7 @@ es:
       week: 'S'
       custom_range: 'Custom Range'
       first_day_of_week: 2
-      abbr_day_names: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do']
+      abbr_day_names: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa']
       month_names: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
       anytime: 'Todas'
       today: 'Hoy'
