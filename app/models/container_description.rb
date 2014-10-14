@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: container_descriptions
+#
+#  id                  :integer          not null, primary key
+#  container_id        :integer          default(0), not null
+#  container_desc      :string(255)
+#  lang                :string(3)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  descr               :text
+#  container_desc_flat :string(255)
+#  descr_flat          :text
+#
+
 class ContainerDescription < ActiveRecord::Base
   belongs_to :container, touch: :updated_at
 

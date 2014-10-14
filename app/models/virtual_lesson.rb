@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: virtual_lessons
+#
+#  id         :integer          not null, primary key
+#  film_date  :date
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#
+
 class VirtualLesson < ActiveRecord::Base
   has_many :containers, conditions: { for_censorship: false, secure: 0 }, order: 'position ASC'
 

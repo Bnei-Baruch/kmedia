@@ -58,7 +58,7 @@ class Search
   end
 
   def content_type
-    @content_type ||= content_type_id.blank? ? 'all' : ContentType.find(content_type_id).pattern
+    @content_type ||= content_type_id.blank? ? 'all' : ContentType.find(content_type_id).pattern rescue 'all'
   end
 
   def file_type_ids=(ids)

@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: catalogs
+#
+#  id               :integer          not null, primary key
+#  name             :string(100)      default(""), not null
+#  parent_id        :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#  catorder         :integer          default(999), not null
+#  secure           :integer          default(0), not null
+#  visible          :boolean          default(TRUE)
+#  open             :boolean          default(TRUE)
+#  label            :string(255)
+#  selected_catalog :integer
+#  user_id          :integer
+#  books_catalog    :boolean
+#
+
 class Catalog < ActiveRecord::Base
   include TheSortableTree::Scopes
 

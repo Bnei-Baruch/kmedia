@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: container_description_patterns
+#
+#  id          :integer          not null, primary key
+#  pattern     :string(255)
+#  description :string(255)
+#  lang        :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  user_id     :integer
+#
+
 class ContainerDescriptionPattern < ActiveRecord::Base
   belongs_to :container
   belongs_to :language, foreign_key: :lang, primary_key: :code3

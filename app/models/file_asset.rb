@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: file_assets
+#
+#  id            :integer          not null, primary key
+#  name          :string(150)
+#  lang          :string(3)
+#  asset_type    :string(10)
+#  date          :datetime
+#  size          :integer
+#  servername    :string(30)       default("DEFAULT")
+#  status        :string(10)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  lastuser      :string(7)
+#  clicks        :integer          default(0)
+#  secure        :integer          default(0)
+#  playtime_secs :integer
+#  user_id       :integer
+#
+
 class FileAsset < ActiveRecord::Base
   has_and_belongs_to_many :containers, order: 'containers.updated_at DESC, name ASC'
   has_many :file_asset_descriptions, foreign_key: :id do

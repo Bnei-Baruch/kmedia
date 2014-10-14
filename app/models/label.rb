@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: labels
+#
+#  id            :integer          not null, primary key
+#  dictionary_id :integer
+#  suid          :string(20)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 #
 # Labels which allow to tag any content in the system. I18n
 #

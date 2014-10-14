@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: label_descriptions
+#
+#  id         :integer          not null, primary key
+#  label_id   :integer
+#  text       :string(255)
+#  lang       :string(3)        default("HEB")
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 #
 # Description for a Label. I18n
 #

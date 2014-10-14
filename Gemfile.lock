@@ -20,6 +20,14 @@ GIT
     mp4info (1.7.3)
 
 GIT
+  remote: git://github.com/ctran/annotate_models.git
+  revision: 038b13c04e575cc0f0c89c702c994166c7dc9955
+  specs:
+    annotate (2.6.5)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
+
+GIT
   remote: git://github.com/flori/term-ansicolor.git
   revision: e6086b7fddf53c53f8022acc1920f435e65b5e51
   specs:
@@ -36,9 +44,9 @@ GIT
 
 GIT
   remote: git://github.com/joliss/jquery-ui-rails.git
-  revision: a4cdafba41d71cb3e226e3c06e806e98cda6e6ed
+  revision: 1b5a2a57c3d7fcdeeb96874274115d0b5f01cc45
   specs:
-    jquery-ui-rails (5.0.0)
+    jquery-ui-rails (5.0.1)
       railties (>= 3.2.16)
 
 GIT
@@ -203,7 +211,7 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    ffi (1.9.5)
+    ffi (1.9.6)
     formatador (0.2.5)
     guard (2.6.1)
       formatador (>= 0.2.4)
@@ -299,7 +307,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rack-utf8_sanitizer (1.2.2)
+    rack-utf8_sanitizer (1.2.3)
       rack (~> 1.0)
     rails (3.2.18)
       actionmailer (= 3.2.18)
@@ -394,6 +402,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_tree!
+  annotate!
   best_in_place
   better_errors (= 1.1.0)
   binding_of_caller

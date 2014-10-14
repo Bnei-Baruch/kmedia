@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: languages
+#
+#  id       :integer          not null, primary key
+#  locale   :string(255)
+#  code3    :string(255)
+#  language :string(255)
+#
+
 class Language < ActiveRecord::Base
 
   has_many :container_desc_patterns, foreign_key: :lang, primary_key: :code3

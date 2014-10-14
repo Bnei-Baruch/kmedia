@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: dictionaries
+#
+#  id         :integer          not null, primary key
+#  suid       :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 #
 # Dictionary of labels
 #

@@ -35,8 +35,7 @@ Kmedia::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  #config.assets.debug = true
-  #config.sass.debug_info = true
+  config.assets.debug = true
   config.sass.line_comments = false
 
   # Raise exception on mass assignment protection for Active Record models

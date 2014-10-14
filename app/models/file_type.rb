@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: file_types
+#
+#  name    :string(20)       default(""), not null, primary key
+#  extlist :string(255)
+#  pic     :string(20)
+#
+
 class FileType < ActiveRecord::Base
   self.primary_key = :name
 

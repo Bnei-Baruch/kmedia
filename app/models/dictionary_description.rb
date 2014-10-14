@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: dictionary_descriptions
+#
+#  id            :integer          not null, primary key
+#  dictionary_id :integer
+#  topic         :string(255)
+#  lang          :string(3)        default("HEB")
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 #
 # Description for a Dictionary. I18n
 #

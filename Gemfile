@@ -43,6 +43,7 @@ group :development, :test do
   gem 'bullet'
   gem 'better_errors', '1.1.0'   # 2.0.0 ZZZ
   gem 'binding_of_caller'
+  gem 'annotate', github: 'ctran/annotate_models'
 
   gem 'rb-fsevent', '~> 0.9'
   gem 'terminal-notifier-guard'

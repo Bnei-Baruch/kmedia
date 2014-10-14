@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: content_types
+#
+#  id      :integer          not null, primary key
+#  name    :string(255)
+#  pattern :string(255)
+#  secure  :integer          default(0)
+#
+
 class ContentType < ActiveRecord::Base
   has_many :lessons
 

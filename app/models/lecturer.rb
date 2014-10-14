@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: lecturers
+#
+#  id         :integer          not null, primary key
+#  name       :string(100)      not null
+#  created_at :datetime
+#  updated_at :datetime
+#  ordnum     :integer          default(0), not null
+#
+
 class Lecturer < ActiveRecord::Base
   has_many :lecturer_descriptions
   has_many :lessons

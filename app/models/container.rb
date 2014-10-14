@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: containers
+#
+#  id                :integer          not null, primary key
+#  name              :string(100)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  filmdate          :date
+#  lang              :string(3)
+#  lecturer_id       :integer
+#  secure            :integer          default(0), not null
+#  content_type_id   :integer
+#  marked_for_merge  :boolean
+#  secure_changed    :boolean          default(FALSE)
+#  auto_parsed       :boolean          default(FALSE)
+#  virtual_lesson_id :integer
+#  playtime_secs     :integer
+#  user_id           :integer
+#  for_censorship    :boolean          default(FALSE)
+#  opened_by_censor  :boolean          default(FALSE)
+#  closed_by_censor  :boolean          default(FALSE)
+#  censor_id         :integer
+#  position          :integer
+#
+
 class Container < ActiveRecord::Base
   has_many :container_descriptions_patterns
   has_many :container_descriptions do
