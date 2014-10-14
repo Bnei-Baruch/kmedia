@@ -19,7 +19,7 @@ submit_action = (action, element) ->
 
 $ ->
   $catalog_tokens = $("#container_catalog_tokens")
-  $pattern_catalog_tokens = $("#container_desc_pattern_catalog_tokens")
+  $pattern_catalog_tokens = $("#container_description_pattern_catalog_tokens")
   $catalog_parent_id = $("#catalog_parent_id")
   $container_label_tokens = $("#container_label_tokens")
   $catalog_name = $("#catalog_name")
