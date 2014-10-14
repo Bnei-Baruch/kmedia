@@ -2,7 +2,7 @@ xml.instruct! :xml, version: '1.0'
 xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
   xml.channel do
     xml.title 'Kabbalah Media Updates'
-    xml.tag! 'atom:link', href: "#{@host}/feeds/rss_video.rss?DAYS=#{@days}&amp;DLANG=#{@language}", rel: 'self', type: 'application/rss+xml'
+    xml.tag! 'atom:link', href: "#{@host}/feeds/rss_video.rss?DAYS=#{@days}&DLANG=#{@language}".html_safe, rel: 'self', type: 'application/rss+xml'
     xml.link "#{@host}/rss_video.rss"
     xml.description 'Video updates from Kabbalamedia Archive'
     xml.language "#{@language}"
@@ -12,7 +12,7 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
     @files.each do |file|
       xml.item do
         xml.title file[:title]
-        xml.guid "#{@host}/#{@locale}/ui/#{file[:lesson_id]}"
+        xml.guid "#{@host}/#{@locale}/ui/#{file[:container_id]}"
         xml.pubDate file[:updated].rfc2822
         xml.description do
           items = ''
