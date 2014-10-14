@@ -281,8 +281,8 @@ class Container < ActiveRecord::Base
     end
     my_logger.info("Catalogs before save: #{get_catalogs_names(container.catalogs)}")
 
-    if !dry_run && container.position.blank?
-      container.position = (container.virtual_lesson.lessons.count + 1) rescue 0
+    if !dry_run && container.position_before_type_cast.blank?
+      container.position = (container.virtual_lesson.containers.count + 1) rescue 0
     end
 
     container.save!(validate: false) unless dry_run
