@@ -2,9 +2,13 @@
   .navbar-inner
     .container-fluid
       a.btn.left-menu-btn.visible-phone.btn-inverse
-      = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url(), class: :brand
+      = link_to (image_tag 'logo.png', alt: 'Kabbalah Media'), root_url, class: :brand
       .top-menu-div
         ul.nav.top-links data-title="#{t('navbar.top_links')}"
+          li
+            = link_to t('navbar.morning_lesson'), root_url
+          li
+            = link_to t('ui.sidebar.clear_all_filters'), ui_index_path
           li
             = link_to t('navbar.old_version'), simple_index_path
           li

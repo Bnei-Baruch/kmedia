@@ -6,10 +6,10 @@
   .row
     .span4
       = f.input :pattern
-      = f.input :lang, :collection => @languages, :value_method => :code3, :label_method => :to_s, :label => 'Language', :prompt => '-- Please select language --'
+      = f.input :lang, collection: @languages, value_method: :code3, label_method: :to_s, label: 'Language', prompt: '-- Please select language --'
     .span8
-      = f.input :catalog_tokens, :label => 'Catalogs', :input_html => {"data-pre" => @container_description_pattern.catalogs.map{|c| {:id => c.id, :name => c.name}}.to_json}
-      = f.input :description, :as => :text, :input_html => {:style => 'width: 600px; height: 200px'}
+      = f.input :catalog_tokens, label: 'Catalogs', input_html: {:'data-pre' => @container_description_pattern.catalogs.map{|c| {id: c.id, name: c.name}}.to_json}
+      = f.input :description, as: :text, input_html: {style: 'width: 600px; height: 200px'}
 
   %hr.soften
   = display_actions f, @container_description_pattern.id ? admin_container_description_pattern_url(@container_description_pattern) : admin_container_description_patterns_url

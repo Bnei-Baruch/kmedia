@@ -10,7 +10,7 @@ class UiController < ApplicationController
 
     begin
       render :homepage
-    rescue
+    rescue Exception => e
       redirect_to '/'
     end
   end
