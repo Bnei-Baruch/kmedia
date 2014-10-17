@@ -483,10 +483,12 @@ var jwcontroller = {
         "use strict";
 
         if (jwcontroller.instance) {
-            jwcontroller.instance.onReady(function () {
+            try {
+                jwcontroller.instance.stop();
                 jwcontroller.instance.remove();
+            } finally {
                 jwcontroller.instance = null;
-            });
+            }
         }
     },
 
@@ -518,9 +520,10 @@ var jwcontroller = {
 
     // immediately after show
     $(document).on('shown', '.lessons-list .languages-bar a[data-toggle="tab"]', function (e) {
-        var language = $(e.target).data('language');
+        var language = $(e.target).data('language'),
+            type = $('.audio-video-switch .active').attr('class').indexOf('left') !== -1 ? 'video' : 'audio';
         jwcontroller.destroy();
-        jwcontroller.setup_playlist(language, 'audio');
+        jwcontroller.setup_playlist(language, type);
         jwcontroller.create();
     });
 
