@@ -27,7 +27,7 @@
           li.tabs-title = t('ui.last_lesson.available_languages')
           - for l in available_languages
             li class=(l == active_tab ? 'active' : '')
-              a href="##{l}-player" data-toggle='tab' = l.upcase
+              a href="##{l}-player" data-language='#{l}' data-toggle='tab' = l.upcase
     .tab-content
       - for language in available_languages
         .tab-pane.fade.in id="#{language}-player" class=(language == active_tab ? 'active' : '')
@@ -35,40 +35,33 @@
             .span6
               .padding-left
                 h4.pull-left data-video="#{t('ui.last_lesson.play')}" data-audio="#{t('ui.last_lesson.listen')}" class='toggle-h4'
-                  = t('ui.last_lesson.play')
-                .pull-right.toggle
-                  a.right-switch-link href="javascript:;" = t('ui.last_lesson.audio')
-                  .switch
-                    i.icon-km-small-video
-                    i.icon-km-small-audio
-                    .right.btn.btn-mini.btn-primary href="javascript:;"
-                      i.icon-km-small-white-audio
-                  a.left-switch-link href="javascript:;" = t('ui.last_lesson.video')
-                .projekktor-container
-                  div class="video-#{language} projekktor" style="width:100%;"
+                  = t(@is_mobile ? 'ui.last_lesson.listen' : 'ui.last_lesson.play')
+                h4.pull-right.audio-video-switch
+                  .btn-group.btn-group-justified.btn-group-sm
+                    a.left-switch-link.btn.btn-default class="#{@is_mobile ? '' : 'active'}" href='javascript;' = t('ui.last_lesson.video')
+                    a.right-switch-link.btn.btn-default class="#{@is_mobile ? 'active' : ''}" href='javascript;' = t('ui.last_lesson.audio')
+                .player-container
+                  div id="#{language}_player" class="video-#{language} player-div" Loading the player...
                 javascript:
                   var playlist_#{language}_video = [
-                    #{playlist(last_lessons, language, :video)}
+                    #{playlist(@last_lessons, language, :video)}
                   ];
                   var playlist_#{language}_audio = [
-                    #{playlist(last_lessons, language, :audio)}
+                    #{playlist(@last_lessons, language, :audio)}
                   ];
-                - unless last_lessons.count == 1
-                  .btn-toolbar
-                    .btn-group
-                      - last_lessons.each_with_index do |lesson, index|
-                        button.btn data-item-index=index = index + 1
             .span6
               .padding-right
+                h4 = t('ui.last_lesson.playlist')
+                div id="#{language}_playlist" class="playlist-div player-div"
+
                 h4 = t('ui.last_lesson.download')
                 table.media-table.table.table-condensed.table-hover.table-bordered.table-striped
                   tbody
                     - current_date = last_lessons.first.created_at.to_date
-                    - date_was_changed = false
                     - last_lessons.each_with_index do |container, index|
                       tr
-                        - if date_was_changed == false && container.created_at.to_date != current_date
-                          - date_was_changed = true
+                        - if container.created_at.to_date != current_date
+                          - current_date = container.created_at.to_date
                           - klass = 'date-was-changed'
                         - else
                           - klass = ''

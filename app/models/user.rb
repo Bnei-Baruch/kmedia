@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   has_many :virtual_lessons
 
   def role?(role)
-    return !!self.roles.find_by_name(role.to_s.camelize)
+    !!self.roles.find_by_name(role.to_s.camelize)
   end
 
   # Generate a token by looping and ensuring does not already exist.

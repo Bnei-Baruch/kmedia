@@ -42,11 +42,11 @@ module SearchHelper
     description.try(:second) || description.try(:first) || item.name
   end
 
-  def container_description(container, descr = @descriptions)
+  def container_description(container, descr = @descriptions, language = @language)
     descriptions = descr ?
         descr[container.id] :
         container.container_descriptions.select{|x| x.id == container.id}
-    description_lang = descriptions.select { |d| d.lang == @language }[0]
+    description_lang = descriptions.select { |d| d.lang == language }[0]
     description_eng = descriptions.select { |d| d.lang == 'ENG' }[0]
 
     long_descr = description_lang.try(:descr)

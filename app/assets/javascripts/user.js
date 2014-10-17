@@ -1,7 +1,3 @@
-//= require jquery_ujs
-//= require_tree ./common
-//zzz= require_tree ./user
-
 // We removed the bootstrap-scrollspy because it caused a bug of setting dropdown tab active after scroll
 //= require bootstrap-transition
 //= require bootstrap-alert
@@ -12,11 +8,9 @@
 //= require bootstrap-tab
 //= require bootstrap-tooltip
 
-//zzz= require_tree ../../../lib/assets/javascripts/daterange
 //= require jquery.zclip.min
-//= require projekktor.min
-//zzz= require iscroll
 //= require jquery-ui-1.10.4.datepicker
+//= require jwplayer/jwplayer
 
 //= require_self
 
@@ -27,8 +21,6 @@
         var $this = $(this), $parent = $this.parent('li');
         $parent.toggleClass('expand');
     });
-
-//    var myScroll = null;
 
     Modernizr.load([
         //first test need for polyfill
@@ -411,114 +403,158 @@
         });
 
         $(document).on('click', '.left-menu-btn', function () {
-//           $('.right-mobile-menu').hide();
-//            $('.left-mobile-menu').show();
             $('#content').toggleClass("show-left");
         });
-//        $(document).on('click','.right-menu-btn', function(){
-//           $('.right-mobile-menu').show();
-//           $('.left-mobile-menu').hide();
-//           $('#content').removeClass("show-left").toggleClass("show-right");
-//        });
     });
 }());
 
-// projekktor
-(function () {
-    "use strict";
+// jwplayer
 
-    var projekktor_instance = null;
-
-    // mark a button as active
-    function nextFileStarted(itemIndex) {
-        var buttons = $('.active.tab-pane .projekktor-container').siblings('.btn-toolbar').find('.btn');
-        buttons.removeClass('active');
-        $(buttons[itemIndex]).addClass('active');
-    }
+var jwcontroller = {
+    instance: null,
+    language: 'en',
+    type: 'audio',
 
     // type: 'audio' or 'video'
-    function setup_projekktor_playlist(type) {
-        var players = $.grep($('.active.tab-pane .projekktor').attr('class').split(' '), function (n) {
-            return n.match('video-');
-        });
-        $.each(players, function (index, player) {
-            var lang = player.split('video-')[1];
-            projekktor_instance.setFile(eval('playlist_' + lang + '_' + type));
-        });
-    }
+    setup_playlist: function (language, type) {
+        "use strict";
 
-    function projekktor_play(itemno) {
-        if (projekktor_instance) {
-            projekktor_instance.setActiveItem(itemno);
-            projekktor_instance.setPlay();
+        if (language !== null) {
+            jwcontroller.language = language;
         }
-    }
+        jwcontroller.type = type;
+    },
 
-    function stop_projekktor() {
-        projekktor_instance.removeListener('item', nextFileStarted);
+    create: function () {
+        "use strict";
 
-        projekktor_instance.selfDestruct();
-        projekktor_instance = null;
-    }
-
-    function start_projekktor() {
-        // Start projekktor on active tab-pane only
-        if ($('.active.tab-pane .projekktor').length === 0) {
+        // Start jwplayer on active tab-pane only
+        if ($('.active.tab-pane .player-div').length === 0) {
             return;
         }
 
-        projekktor_instance = projekktor('.active.tab-pane .projekktor', {
-            plugins: ['display', 'controlbar'],
-            platforms: ['browser', 'ios', 'android', 'native', 'vlc', 'flash'],
-            autoplay: false,
+        jwcontroller.instance = jwplayer(jwcontroller.language + '_player').setup({
+            autostart: false,
             controls: true,
-            volume: 0.5,
-//            debug: true,
-            ratio: 4 / 3,
-            forceFullViewport: true,
-            poster: '/assets/cover-video.jpg',
-            cover: '/assets/cover-video.jpg',
-            playerFlashMP4: '/assets/jarisplayer.swf',
-            playerFlashMP3: '/assets/jarisplayer.swf',
-            messages: projekktor_messages
-        });
-        projekktor('.active.tab-pane .projekktor').addListener('item', nextFileStarted);
-        setup_projekktor_playlist('audio');
-        $('.active.tab-pane .projekktor-container').siblings('.btn-toolbar').find('.btn').first().addClass('active');
-    }
+            image: "/assets/cover-video.jpg",
+            primary: 'HTML5',
+            flashplayer: '/assets/jwplayer/jwplayer.flash.swf',
+            html5player: '/assets/jwplayer/jwplayer.html5.js',
+            stretching: 'fill',
+//            skin: 'jwplayer-skins-premium/six.xml',
 
-    // change projekktor to another tab
-    // just before show
-    $(document).on('show', '.lessons-list .languages-bar a[data-toggle="tab"]', function (e) {
-        if (projekktor_instance) {
-            stop_projekktor();
+            playlist: window['playlist_' + jwcontroller.language + '_' + jwcontroller.type],
+            listbar: {
+                position: 'none'
+            },
+            width: '100%',
+            aspectratio: '4:3'
+        });
+
+        jwcontroller.instance.onReady(function () {
+            var playlist = jwcontroller.instance.getPlaylist(),
+                index,
+                klass,
+                html = '<table class="table table-condensed table-hover table-playlist"><tbody>',
+                current_date = playlist[0].date;
+            for (index = 0; index < playlist.length; index++) {
+                if (playlist[index].date !== current_date) {
+                    current_date = playlist[index].date;
+                    klass = ' class="date-was-changed" ';
+                } else {
+                    klass = '';
+                }
+                html += '<tr data-index="' + index + '"' + klass + '><td><span class="playlist-number">' + (index + 1) + '</span><i class="icon-play-circle"></i></td><td>' + playlist[index].description + '</td><td>' + playlist[index].time + '</td></tr>';
+            }
+            $('#' + jwcontroller.language + '_playlist').html(html + '</tbody></table>');
+        });
+
+        jwcontroller.instance.onPlaylistItem(function (obj) {
+            var self = $('#' + jwcontroller.language + '_playlist tr[data-index=' + obj['index'] + ']');
+            jwcontroller.markActive(self);
+        });
+        jwcontroller.instance.onPlaylistComplete(function () {
+            var self = $('#' + jwcontroller.language + '_playlist tr[data-index=0]');
+            jwcontroller.markActive(self, true);
+        });
+    },
+
+    destroy: function () {
+        "use strict";
+
+        if (jwcontroller.instance) {
+            jwcontroller.instance.onReady(function () {
+                jwcontroller.instance.remove();
+                jwcontroller.instance = null;
+            });
         }
+    },
+
+    playThis: function (index) {
+        "use strict";
+
+        jwcontroller.instance.playlistItem(index);
+    },
+
+    markActive: function (self, just_remove) {
+        "use strict";
+
+        self.siblings().removeClass('active');
+        if (just_remove === undefined) {
+            self.addClass('active');
+        }
+    }
+};
+
+
+(function () {
+    "use strict";
+
+    // change jwplayer to another tab
+    // just before show
+    $(document).on('show', '.lessons-list .languages-bar a[data-toggle="tab"]', function () {
+        jwcontroller.destroy();
     });
 
     // immediately after show
     $(document).on('shown', '.lessons-list .languages-bar a[data-toggle="tab"]', function (e) {
-        if (projekktor_instance) {
-            stop_projekktor();
-        }
-
-        start_projekktor();
+        var language = $(e.target).data('language');
+        jwcontroller.destroy();
+        jwcontroller.setup_playlist(language, 'audio');
+        jwcontroller.create();
     });
 
-    $(document).on('click', '.active.tab-pane .btn[data-item-index]', function () {
-        projekktor_play($(this).data('item-index'));
-    });
+    $(document).on('click', '.audio-video-switch a', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
 
-    $(document).on('video_audio', '.toggle .switch div', function () {
-        var klass = $(this).attr('class');
-        if (klass.indexOf('left') > 0) {
-            setup_projekktor_playlist('video');
+        var klass = $(this).attr('class'),
+            h4 = $('.toggle-h4');
+        jwcontroller.destroy();
+        if (klass.indexOf('left') !== -1) {
+            jwcontroller.setup_playlist(null, 'video');
+            $('.audio-video-switch .left-switch-link').addClass('active');
+            $('.audio-video-switch .right-switch-link').removeClass('active');
+            h4.html(h4.data('video'));
         } else {
-            setup_projekktor_playlist('audio');
+            jwcontroller.setup_playlist(null, 'audio');
+            $('.audio-video-switch .right-switch-link').addClass('active');
+            $('.audio-video-switch .left-switch-link').removeClass('active');
+            h4.html(h4.data('audio'));
         }
+        jwcontroller.create();
     });
 
-    $(function () {
-        start_projekktor();
+    $(document).on('click', '.playlist-div tr', function () {
+        var index = $(this).data('index');
+        jwcontroller.playThis(index);
     });
+
+    jwplayer.key = "xmnkkk/ActOXPTodF7so92Iu+Z3lelSDhlgvXGzWKYk=";
+
+    var interface_language = $('.languages-bar li.active a').data('language'),
+        type = $('.audio-video-switch .active').attr('class').indexOf('left') !== -1 ? 'video' : 'audio';
+    jwcontroller.setup_playlist(interface_language, type);
+    jwcontroller.create();
 
 }());

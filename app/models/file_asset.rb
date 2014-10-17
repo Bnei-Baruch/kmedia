@@ -91,6 +91,10 @@ class FileAsset < ActiveRecord::Base
     self.asset_type <=> other.asset_type
   end
 
+  def playtime_human
+    Time.at(playtime_secs).gmtime.strftime('%T')
+  end
+
   def update_playtime
     playtime_secs = begin
       uri  = URI(server.httpurl)

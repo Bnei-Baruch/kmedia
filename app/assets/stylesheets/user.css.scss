@@ -5,10 +5,8 @@
 @import "bootstrap";
 @import "bootstrap-responsive";
 @import "icon-km";
-//@import "daterangepicker.css.scss";
 @import "theme/projekktor-theme";
 @import "books";
-//@import "jquery-ui-1.10.4.datepicker";
 @import "jquery-ui-oleg.datepicker";
 @import "bootstrap-rtl";
 @import "books-rtl";
@@ -41,7 +39,7 @@ body {
   text-align : center !important;
 }
 
-.expander {
+.expander, #sidebar .active:after {
   border-style : solid;
   border-width : 4px 0 4px 4px;
   border-color : transparent transparent transparent #000;
@@ -119,7 +117,7 @@ header {
   padding : 0 0 0 10px;
 }
 
-.padding-right {
+.padding-right, .languages-bar .nav-tabs li.tabs-title {
   padding : 0 10px 0 0;
 }
 
@@ -408,9 +406,6 @@ header {
       .column1 {
         margin : 0 !important;
       }
-      //     .column2, .column2 ul {
-      //     display : none;
-      //   }
     }
   }
 }
@@ -465,9 +460,30 @@ header {
   margin : 10px 0;
 }
 
-.projekktor {
+.player-div {
   clear     : both;
-  direction : ltr;
+}
+
+.playlist-div {
+  cursor : url(/assets/cursor.gif), url(/assets/cursor.ico), pointer;
+  i {
+    display : none;
+  }
+  .active {
+    background : silver;
+    i {
+      display : block;
+    }
+    span {
+      display : none;
+    }
+  }
+  tr.date-was-changed {
+    border-top : 3px double red;
+  }
+  .rtl & td {
+    text-align: right;
+  }
 }
 
 .media-table {
@@ -561,11 +577,11 @@ header {
   color     : #666;
 }
 
-.f-right {
+.f-right, .toggle .left-switch-link, .toggle .right-switch-link, .toggle .switch {
   float : right;
 }
 
-.f-left {
+.f-left, .languages-bar .nav-tabs li.tabs-title {
   float : left;
 }
 
@@ -574,8 +590,6 @@ header {
 }
 
 .container-fluid {
-  //min-width: 980px - 2 * 20px;
-  //width: auto !important;
   margin : 0 auto;
 }
 
@@ -604,7 +618,6 @@ header {
 
 .left-menu-btn {
   float : left !important;
-
 }
 
 .right-menu-btn {
@@ -615,7 +628,6 @@ header {
   text-align    : center;
   direction     : ltr;
   color         : #333;
-
   font-size     : 12px;
   line-height   : 1.2;
   padding       : 10px 0;
@@ -1107,20 +1119,6 @@ html, .main-layout, .full-screen, .content-wrapper {
   white-space : normal;
   .btn {
     font-weight: bold;
-  }
-}
-
-.projekktor-container {
-  .bottom {
-    .ppscrubber {
-      background : #444444;
-      .ppplayhead {
-        background : #cc181e;
-      }
-      .pploaded {
-        background : #777777;
-      }
-    }
   }
 }
 

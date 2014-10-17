@@ -3,18 +3,6 @@ module HomeHelper
     requested_amount.to_i == amount.to_i ? 'active' : 'non-active'
   end
 
-  def list_assets(container, locale, exts, type)
-    code3 = Language::LOCALE_CODE3[locale]
-    extensions = exts.to_a.map { |ext| ".#{ext}" }
-    urls = container.file_assets.select { |fa| fa.lang == code3 && extensions.include?(File.extname(fa.name)) }.map(&:url)
-    index = 0
-    urls.inject([]) do |sum, url|
-      sum << "#{index}: {src: '#{url}', type: '#{type}'}"
-      index += 1
-      sum
-    end.join(',')
-  end
-
   def show_asset(container, locale, ext, name = nil)
     code3 = Language::LOCALE_CODE3[locale]
     extensions = ext.split('|').map{|x| ".#{x}"}
@@ -44,8 +32,15 @@ module HomeHelper
   end
 
   def playlist(last_containers, language, kind)
+    code3 = Language::LOCALE_CODE3[language]
+    extension = kind == :video ? '.mp4' : '.mp3'
+    type = kind == :video ? 'video/mp4' : 'audio/mpeg'
     last_containers.map do |container|
-      "{#{list_assets(container, language, kind == :video ? ['wmv', 'mp4'] : ['mp3'], kind == :video ? 'video/mp4' : 'audio/mpeg')}}"
-    end.join(',').html_safe
+      asset = container.file_assets.select { |fa| fa.lang == code3 && extension == File.extname(fa.name) }.first
+      next if asset.nil?
+
+      description = container_title(container, container_description(container, Container.get_all_descriptions(container), code3))
+      "{description: '#{j description}', time: '#{asset.playtime_human}', date: '#{container.created_at.to_date}', sources: [{file: '#{asset.url}', type: '#{type}'}], image: '/assets/cover-video.jpg'}"
+    end.compact.join(',').html_safe
   end
 end
