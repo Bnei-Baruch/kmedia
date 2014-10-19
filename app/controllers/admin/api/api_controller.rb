@@ -319,7 +319,7 @@ class Admin::Api::ApiController < Admin::ApplicationController
 
   def per_page_file_ids(created_from_date = nil)
     f = FileAsset
-    f = f.where("created_at > ?", created_from_date) if created_from_date
+    f = f.where("created_at > ?", created_from_date) unless created_from_date.blank?
     f.count
   end
 
