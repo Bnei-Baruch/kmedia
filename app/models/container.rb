@@ -47,9 +47,9 @@ class Container < ActiveRecord::Base
   belongs_to :user
 
   before_destroy do |container|
-    container.file_assets.each do |a|
+    container.file_assets.each do |fa|
       # Do not destroy files that belongs to more than one container
-      a.delete if a.lesson_ids.length == 1
+      fa.delete if fa.container_ids.length == 1
     end
 
     # remove empty virtual lessons
