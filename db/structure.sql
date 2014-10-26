@@ -274,9 +274,7 @@ CREATE TABLE container_descriptions (
     lang character(3),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    descr text,
-    container_desc_flat character varying(255),
-    descr_flat text
+    descr text
 );
 
 
@@ -1074,13 +1072,6 @@ ALTER TABLE ONLY virtual_lessons
 
 
 --
--- Name: a_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX a_idx ON container_description_patterns USING hash (pattern);
-
-
---
 -- Name: catalognodeid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1406,3 +1397,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140624074848');
 INSERT INTO schema_migrations (version) VALUES ('20141006000735');
 
 INSERT INTO schema_migrations (version) VALUES ('20141006001254');
+
+INSERT INTO schema_migrations (version) VALUES ('20141026130113');

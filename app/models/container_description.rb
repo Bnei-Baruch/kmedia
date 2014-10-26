@@ -33,11 +33,4 @@ class ContainerDescription < ActiveRecord::Base
   end
 
   scope :by_lang, lambda {|lang| where(:lang => lang)}
-
-  before_save :flattern_desc
-
-  def flattern_desc
-    write_attribute :container_desc_flat, self.container_desc.downcase if self.container_desc
-    write_attribute :descr_flat, self.descr.downcase if self.descr
-  end
 end
