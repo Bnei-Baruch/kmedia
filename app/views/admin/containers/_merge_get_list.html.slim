@@ -8,7 +8,7 @@
         .controls.error
           label.checkbox
             = check_box_tag 'container[container_ids][]', container.id, class: 'check_boxes optional'
-            = container.lessonname
+            = container.name
             = hidden_field_tag 'container[container_ids][]'
     .modal-footer
       button.btn.btn-danger type='submit' href='#' Merge
