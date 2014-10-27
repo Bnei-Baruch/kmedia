@@ -39,7 +39,7 @@ module SearchHelper
 
   # Description is pair [long_descr, short_descr]
   def container_title(item, description)
-    description.try(:second) || description.try(:first) || item.name
+    description.try(:second) || item.name  || description.try(:first)
   end
 
   def container_description(container, descr = @descriptions, language = @language)
