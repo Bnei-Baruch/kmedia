@@ -24,7 +24,7 @@ class VirtualLesson < ActiveRecord::Base
       # that's date, not id...
       VirtualLesson.where(film_date: lesson_id).first
     else
-      VirtualLesson.find(lesson_id)
+      VirtualLesson.where(id: lesson_id).first
     end
   end
 
