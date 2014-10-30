@@ -12,7 +12,8 @@ class UiController < ApplicationController
     begin
       render :homepage
     rescue Exception => e
-      redirect_to '/'
+      redirect_to '/' if Rails.env.production?
+      raise e if Rails.env.development?
     end
   end
 

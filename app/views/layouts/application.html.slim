@@ -64,13 +64,50 @@ html
       var zclip_list = new Array;
       var anytime = '#{t('ui.sidebar.anytime')}';
 
-  - rtl_locale = @locale == 'he' || @locale == 'ar';
+    - rtl_locale = @locale == 'he' || @locale == 'ar';
 
-  javascript:
-    datepicker_info = {
-      dayNamesMin: #{raw t('ui.sidebar.abbr_day_names')},
-      firstDay: #{rtl_locale ? 0 : 1},
-      isRTL: #{rtl_locale},
-      monthNamesShort: #{raw t('ui.sidebar.month_names')},
-      currentText: '#{raw t('ui.sidebar.today')}'
-    };
+    javascript:
+      datepicker_info = {
+        dayNamesMin: #{raw t('ui.sidebar.abbr_day_names')},
+        firstDay: #{rtl_locale ? 0 : 1},
+        isRTL: #{rtl_locale},
+        monthNamesShort: #{raw t('ui.sidebar.month_names')},
+        currentText: '#{raw t('ui.sidebar.today')}'
+      };
+
+    - #<!-- Yandex.Metrika counter -->
+    javascript:
+      (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+          try {
+            w.yaCounter26860944 = new Ya.Metrika({
+              id: 26860944,
+              webvisor: true,
+              clickmap: true,
+              trackLinks: true,
+              accurateTrackBounce: true
+            });
+          } catch (e) {
+          }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () {
+                  n.parentNode.insertBefore(s, n);
+                };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+          d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+          f();
+        }
+      })(document, window, "yandex_metrika_callbacks");
+
+    noscript
+      div
+        img src="//mc.yandex.ru/watch/26860944" style="position:absolute; left:-9999px;" alt = ""
+    -# <!-- /Yandex.Metrika counter -->
