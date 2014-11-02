@@ -29,7 +29,7 @@
             li class=(l == active_tab ? 'active' : '')
               a href="##{l}-player" data-language='#{l}' data-toggle='tab' = l.upcase
     .tab-content
-      - for language in available_languages
+      - available_languages.each do |language|
         .tab-pane.fade.in id="#{language}-player" class=(language == active_tab ? 'active' : '')
           .row-fluid
             .span6
@@ -39,7 +39,7 @@
                 h4.pull-right.audio-video-switch
                   .btn-group.btn-group-justified.btn-group-sm
                     a.left-switch-link.btn.btn-default class="#{@is_mobile ? '' : 'active'}" href='javascript;' = t('ui.last_lesson.video')
-                    a.right-switch-link.btn.btn-default class="#{@is_mobile ? 'active' : ''}" href='javascript;' = t('ui.last_lesson.audio')
+                      a.right-switch-link.btn.btn-default class="#{@is_mobile ? 'active' : ''}" href='javascript;' = t('ui.last_lesson.audio')
                 .player-container
                   div id="#{language}_player" class="video-#{language} player-div" Loading the player...
                 javascript:
@@ -72,12 +72,11 @@
                                 td.lesson-part-number(rowspan="2")
                                   strong = index + 1
                                 td.left-aligned-column
-                                  == container_title(container, container_description(container, Container.get_all_descriptions(container)))
+                                  == container_title(container, container_description(container, Container.get_all_descriptions(container), Language::LOCALE_CODE3[language]))
                               tr
                                 td.left-aligned-column style="padding-bottom: 5px !important;"
-                                  = t('ui.last_lesson.download')
-                                  = show_asset(container, language, 'mp4', t('ui.last_lesson.video') + ' mp4')
-                                  = show_asset(container, language, 'mp3', t('ui.last_lesson.audio') + ' mp3')
+                                  = show_asset(container, language, 'mp4', t('ui.last_lesson.video', locale: language) + ' mp4')
+                                  = show_asset(container, language, 'mp3', t('ui.last_lesson.audio', locale: language) + ' mp3')
                                   = show_asset(container, language, 'doc')
                                   - pic = show_asset(container, language, 'zip|7z', 'pic')
                                   = pic.blank? ? show_asset(container, nil, 'zip|7z', 'pic') : pic

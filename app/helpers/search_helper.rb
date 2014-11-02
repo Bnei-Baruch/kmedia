@@ -54,7 +54,7 @@ module SearchHelper
     short_descr = description_lang.try(:container_desc)
     short_descr_eng = description_eng.try(:container_desc)
 
-    [long_descr || long_descr_eng, short_descr || short_descr_eng]
+    [long_descr.blank? ? long_descr_eng : long_descr, short_descr.blank? ? short_descr_eng : short_descr]
   end
 
   def file_asset_title(item)
