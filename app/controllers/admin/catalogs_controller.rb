@@ -5,7 +5,7 @@ class Admin::CatalogsController < Admin::ApplicationController
   authorize_resource
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    redirect_to admin_lessons_path, alert: "There is no Container with ID=#{params[:id]}."
+    redirect_to admin_containers_path, alert: "There is no Container with ID=#{params[:id]}."
   end
 
   def index
