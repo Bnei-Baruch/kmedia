@@ -182,7 +182,7 @@ class Admin::ContainersController < Admin::ApplicationController
                    end
 
       film_date = containers[0].filmdate
-      vl = VirtualContainer.create!(film_date: film_date)
+      vl = VirtualLesson.create!(film_date: film_date)
       vl.containers = containers
     rescue Exception => e
       redirect_to admin_containers_path, alert: "Error: #{e.message}"
