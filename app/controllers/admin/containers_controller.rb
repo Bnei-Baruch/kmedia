@@ -196,9 +196,6 @@ class Admin::ContainersController < Admin::ApplicationController
     container = Container.find(params[:id])
     container.update_attribute :for_censorship, true
 
-    @filter = params[:filter]
-    @security = params[:security]
-    @containers = Container.get_appropriate_containers(@filter, @security).order(sort_order).page(params[:page])
     redirect_to request.referer, notice: 'Sent for Censorship'
   end
 

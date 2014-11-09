@@ -29,8 +29,4 @@ class FilterDecorator
     @filter == 'by_security' ? 'active' : ''
   end
 
-  def for_censorship?
-    @filter == 'for_censorship' ? 'active' : ''
-  end
-
 end
