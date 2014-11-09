@@ -199,8 +199,8 @@ class Container < ActiveRecord::Base
   end
 
   def self.get_appropriate_containers(filter, security)
-    case filter.filter
-    when 'all'
+    case filter.try(:filter)
+    when nil, 'all'
       Container
     when 'secure_changed'
       Container.secure_changed
