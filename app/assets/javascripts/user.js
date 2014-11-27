@@ -512,6 +512,8 @@ var jwcontroller = {
 (function () {
     "use strict";
 
+    if ($('.player-container').length === 0) { return; }
+
     // change jwplayer to another tab
     // just before show
     $(document).on('show', '.lessons-list .languages-bar a[data-toggle="tab"]', function () {
