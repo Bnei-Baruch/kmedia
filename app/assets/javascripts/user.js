@@ -440,7 +440,7 @@ var jwcontroller = {
             primary: 'HTML5',
             flashplayer: '/assets/jwplayer/jwplayer.flash.swf',
             html5player: '/assets/jwplayer/jwplayer.html5.js',
-            stretching: 'fill',
+            stretching: 'uniform',
 //            skin: 'jwplayer-skins-premium/six.xml',
 
             playlist: window['playlist_' + jwcontroller.language + '_' + jwcontroller.type],
@@ -448,8 +448,7 @@ var jwcontroller = {
                 position: 'none'
             },
             width: '100%',
-            aspectratio: '16:9',
-            stretching: 'uniform'
+            aspectratio: '16:9'
         });
 
         jwcontroller.instance.onReady(function () {
