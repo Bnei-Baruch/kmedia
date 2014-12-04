@@ -448,7 +448,8 @@ var jwcontroller = {
                 position: 'none'
             },
             width: '100%',
-            aspectratio: '16:9'
+            aspectratio: '16:9',
+            stretching: 'uniform'
         });
 
         jwcontroller.instance.onReady(function () {
