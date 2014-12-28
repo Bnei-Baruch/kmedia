@@ -131,8 +131,9 @@ class Catalog < ActiveRecord::Base
     .where(
         'catalog_descriptions.lang = ? OR (catalog_descriptions.lang = \'ENG\' AND NOT EXISTS(SELECT * FROM catalog_descriptions C WHERE catalogs.id = C.catalog_id AND C.lang = ?))',
         language_code3, language_code3)
-    .order('name ASC')
+    #.order('catalog_descriptions.name ASC, catalogs.name ASC')
     catalogs.multipluck(:'catalogs.id as id', :'COALESCE(catalog_descriptions.name, catalogs.name) as name', :'catalogs.parent_id as parent_id')
+    .sort{|a, b| a['name'] <=> b['name']}
   end
 
   def self.boost_json(language_code3, secure = 0)
