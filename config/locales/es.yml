@@ -30,7 +30,6 @@ es:
     content:
       search:  'Buscar:'
       catalog: 'Сatálogo:'
-      available_languages: 'Idiomas desponibles:'
       content_type: 'Tipo de Contenido:'
       media_type: 'Tipo de Medio:'
       published: 'Publicado:'

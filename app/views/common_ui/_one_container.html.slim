@@ -13,7 +13,7 @@ h4
 - available_languages = FileAsset.available_languages(item.file_assets)
 .languages-bar
   ul.nav.nav-tabs
-    li.tabs-title = t('ui.last_container.available_languages')
+    li.tabs-title = t('ui.last_lesson.available_languages')
     - available_languages.each_with_index do |l, idx|
       li
         a href="##{l}-#{item.id}" data-toggle='tab' = l.upcase
