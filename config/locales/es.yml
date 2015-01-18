@@ -29,13 +29,15 @@ es:
     not_found: 'Lección no encontrado'
     content:
       search:  'Buscar:'
-      catalog: 'Catalog:'
+      catalog: 'Сatálogo:'
+      available_languages: 'Idiomas desponibles:'
       content_type: 'Tipo de Contenido:'
       media_type: 'Tipo de Medio:'
       published: 'Publicado:'
       language: 'Idioma:'
       results: 'Resultados %{from} - %{to} de %{of}'
       no_results: 'Sin resultados'
+      download: Descargar
     catalog:
       catalogs: 'Los catalogos'
       all_catalogs: 'Todos los catalogos'
