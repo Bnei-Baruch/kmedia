@@ -92,7 +92,7 @@ class FileAsset < ActiveRecord::Base
   end
 
   def playtime_human
-    Time.at(playtime_secs).gmtime.strftime('%T')
+    Time.at(playtime_secs).gmtime.strftime('%T') rescue 'N/A'
   end
 
   def update_playtime
