@@ -24,7 +24,7 @@
       %tbody
         - catalog.containers.each do |container|
           %tr
-            %td= check_box_tag '', container.containerid, false, :class => :batch
+            %td= check_box_tag '', container.id, false, :class => :batch
             %td= container.id
             %td= container.name
             %td= container.content_type.try(:name)
