@@ -73,6 +73,21 @@ class FeedsController < ApplicationController
     end
   end
 
+  def morning_lesson
+    @language   = params[:DLANG] || 'ENG'
+    I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
+
+    @host  = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+
+    # Get last virtual lesson
+    @vl = VirtualLesson.last_lesson
+    @lesson_name  = @vl.film_date
+    @lesson_id    = @vl.id
+    @containers = @vl.lessons_ordered_by_parts
+
+    render layout: false
+  end
+
   def podcast
     @language    =
         if ['ENG', 'HEB', 'RUS'].include? params[:DLANG]

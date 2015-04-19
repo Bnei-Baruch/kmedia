@@ -16,7 +16,7 @@ class VirtualLesson < ActiveRecord::Base
 
   belongs_to :user
 
-  def self.last_lesson(lesson_id)
+  def self.last_lesson(lesson_id = nil)
     if lesson_id.nil?
       # Return the latest lesson
       VirtualLesson.order('"virtual_lessons".film_date DESC').first

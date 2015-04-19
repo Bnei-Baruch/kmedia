@@ -7,6 +7,7 @@ Kmedia::Application.routes.draw do
       collection do
         get 'wsxml'
         get 'rss_video', format: :rss
+        get 'morning_lesson', format: :rss
         get 'google_mapindex'
       end
     end

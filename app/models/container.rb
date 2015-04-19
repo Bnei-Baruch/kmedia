@@ -102,8 +102,8 @@ class Container < ActiveRecord::Base
       (SELECT count(1) FROM catalogs_containers WHERE catalogs_containers.container_id = containers.id) = 0 OR
       auto_parsed = TRUE
     )
-  NEED_UPDATE
-  )
+                    NEED_UPDATE
+                    )
   scope :for_censorship, -> { where(for_censorship: true) }
   scope :not_for_censorship, -> { where(for_censorship: false) }
   scope :secure_changed, -> { where(secure_changed: true) }
@@ -135,6 +135,24 @@ class Container < ActiveRecord::Base
       all[container.id] = container.container_descriptions
       all
     end
+  end
+
+  def container_description(code3)
+    descriptions     = container_descriptions
+    description_lang = descriptions.select { |d| d.lang == code3 }[0]
+    description_eng  = descriptions.select { |d| d.lang == 'ENG' }[0]
+
+    long_descr      = description_lang.try(:descr)
+    long_descr_eng  = description_eng.try(:descr)
+    short_descr     = description_lang.try(:container_desc)
+    short_descr_eng = description_eng.try(:container_desc)
+
+    [long_descr.blank? ? long_descr_eng : long_descr, short_descr.blank? ? short_descr_eng : short_descr]
+  end
+
+  def container_title(language)
+    description = container_description(language)
+    description.try(:second) || name  || description.try(:first)
   end
 
   def to_label
@@ -424,8 +442,27 @@ class Container < ActiveRecord::Base
 
     languages.each { |l|
       self.container_descriptions.build(:lang => l.code3) unless lang_codes.include?(l.code3)
-      self.container_transcripts.build(:lang => l.code3) unless  transcript_lang_codes.include?(l.code3)
+      self.container_transcripts.build(:lang => l.code3) unless transcript_lang_codes.include?(l.code3)
     }
+  end
+
+  def show_asset(code3, ext, download = false, name = nil)
+    extensions = ext.split('|').map { |x| ".#{x}" }
+    asset      = file_assets.select { |fa| (fa.lang == code3) && extensions.include?(File.extname(fa.name)) }.first
+    if asset
+      url      = asset.send(download ? :download_url : :url)
+      size     = asset.size.to_f / 1024 / 1024
+      playtime = asset.playtime_secs.to_i || container.playtime_secs.to_i
+      title    = playtime > 0 ?
+          "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
+      :
+          "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb"
+      <<-CODE
+        <a href="#{url}" title="#{title}">#{name || ext}</a>
+      CODE
+    else
+      ''
+    end.html_safe
   end
 
 end
