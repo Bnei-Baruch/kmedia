@@ -18,22 +18,14 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
         description = @containers.inject('') do |description, container|
           description += container.container_title(@language) + '<br/>'
           description += container.show_asset(@language, 'mp4', false, t('ui.last_lesson.video', locale: @locale) + ' mp4') + '<br/>'
-          description += container.show_asset(@language, 'mp3', false, t('ui.last_lesson.audio', locale: @locale) + ' mp3') + '<br/>'
-          description += container.show_asset(@language, 'doc') + '<br/>'
-          pic         = container.show_asset(@language, 'zip|7z', false, 'pic') + '<br/>'
-          description += pic.blank? ? container.show_asset(nil, 'zip|7z', false, 'pic') + '<br/>' : pic + '<br/>'
-          description += container.show_asset(@language, 'wmv') + '<br/>'
+          description + container.show_asset(@language, 'mp3', false, t('ui.last_lesson.audio', locale: @locale) + ' mp3') + '<br/>'
         end
         listen = '<h4>' + t('ui.last_lesson.playlist') + '</h4>' + description
 
         description = @containers.inject('') do |description, container|
           description += container.container_title(@language) + '<br/>'
           description += container.show_asset(@language, 'mp4', true, t('ui.last_lesson.video', locale: @locale) + ' mp4') + '<br/>'
-          description += container.show_asset(@language, 'mp3', true, t('ui.last_lesson.audio', locale: @locale) + ' mp3') + '<br/>'
-          description += container.show_asset(@language, 'doc', true) + '<br/>'
-          pic = container.show_asset(@language, 'zip|7z', true, 'pic') + '<br/>'
-          description += pic.blank? ? container.show_asset(nil, 'zip|7z', true, 'pic') + '<br/>' : pic + '<br/>'
-          description += container.show_asset(@language, 'wmv', true) + '<br/>'
+          description + container.show_asset(@language, 'mp3', true, t('ui.last_lesson.audio', locale: @locale) + ' mp3') + '<br/>'
         end
         download = '<h4>' + t('ui.last_lesson.download') + '</h4>' + description
 
