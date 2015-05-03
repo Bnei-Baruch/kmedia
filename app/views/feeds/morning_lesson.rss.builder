@@ -16,18 +16,18 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
       xml.description do
 
         description = @containers.inject('') do |description, container|
-          description += container.container_title(@language) + '<br/>'
-          description += container.show_asset(@language, 'mp4', false, t('ui.last_lesson.video', locale: @locale) + ' mp4') + '<br/>'
-          description + container.show_asset(@language, 'mp3', false, t('ui.last_lesson.audio', locale: @locale) + ' mp3') + '<br/>'
+          description += '<div class="title">' + container.container_title(@language) + '</div>'
+          description += container.show_asset(@language, 'mp4', false, t('ui.last_lesson.video', locale: @locale) + ' mp4')
+          description + container.show_asset(@language, 'mp3', false, t('ui.last_lesson.audio', locale: @locale) + ' mp3')
         end
         listen = '<h4>' + t('ui.last_lesson.playlist') + '</h4>' + description
 
         description = @containers.inject('') do |description, container|
-          description += container.container_title(@language) + '<br/>'
-          description += container.show_asset(@language, 'mp4', true, t('ui.last_lesson.video', locale: @locale) + ' mp4') + '<br/>'
-          description + container.show_asset(@language, 'mp3', true, t('ui.last_lesson.audio', locale: @locale) + ' mp3') + '<br/>'
+          description += '<div class="title">' + container.container_title(@language) + '</div>'
+          description += container.show_asset(@language, 'mp4', true, t('ui.last_lesson.video', locale: @locale) + ' mp4')
+          description + container.show_asset(@language, 'mp3', true, t('ui.last_lesson.audio', locale: @locale) + ' mp3')
         end
-        download = '<h4>' + t('ui.last_lesson.download') + '</h4>' + description
+        download = '<h4>' + t('ui.last_lesson.download') + ':</h4>' + description
 
         xml.cdata! (listen + download).html_safe
       end
