@@ -32,7 +32,7 @@ class Admin::CensorshipController < Admin::ApplicationController
                                  virtual_lesson:   nil
                              })
 
-    @ocntainers = Container.for_censorship.page(params[:page])
+    @containers = Container.for_censorship.page(params[:page])
     render :index, notice: 'Disabled forever'
   end
 end
