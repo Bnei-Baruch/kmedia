@@ -58,8 +58,8 @@ class Container < ActiveRecord::Base
   end
 
   LESSON_CONTENT_TYPE_ID = ContentType::CONTENT_TYPE_ID['lesson']
-  LESSON_PART            = Catalog.where(name: 'lessons-part').first
-  VIDEO_CATALOG          = Catalog.where(name: 'Video').first
+  LESSON_PART = Catalog.where(name: 'lessons-part').first
+  VIDEO_CATALOG = Catalog.where(name: 'Video').first
 
   accepts_nested_attributes_for :container_descriptions, :container_transcripts
 
@@ -120,6 +120,8 @@ class Container < ActiveRecord::Base
   scope :security, -> sec { where(secure: sec) }
   scope :non_secure, -> { where(secure: 0) }
 
+  scope :podcast, -> { where(content_type_id: 4) }
+
   def self.last_lectures_programs(container_date = Date.today, language = 'ENG')
     joins(:file_assets).where('file_assets.lang' => language).where(filmdate: container_date).where(content_type_id: [ContentType::CONTENT_TYPE_ID['lecture'], ContentType::CONTENT_TYPE_ID['program']])
   end
@@ -138,13 +140,13 @@ class Container < ActiveRecord::Base
   end
 
   def container_description(code3)
-    descriptions     = container_descriptions
+    descriptions = container_descriptions
     description_lang = descriptions.select { |d| d.lang == code3 }[0]
-    description_eng  = descriptions.select { |d| d.lang == 'ENG' }[0]
+    description_eng = descriptions.select { |d| d.lang == 'ENG' }[0]
 
-    long_descr      = description_lang.try(:descr)
-    long_descr_eng  = description_eng.try(:descr)
-    short_descr     = description_lang.try(:container_desc)
+    long_descr = description_lang.try(:descr)
+    long_descr_eng = description_eng.try(:descr)
+    short_descr = description_lang.try(:container_desc)
     short_descr_eng = description_eng.try(:container_desc)
 
     [long_descr.blank? ? long_descr_eng : long_descr, short_descr.blank? ? short_descr_eng : short_descr]
@@ -152,7 +154,7 @@ class Container < ActiveRecord::Base
 
   def container_title(language)
     description = container_description(language)
-    description.try(:second) || name  || description.try(:first)
+    description.try(:second) || name || description.try(:first)
   end
 
   def to_label
@@ -218,25 +220,25 @@ class Container < ActiveRecord::Base
 
   def self.get_appropriate_containers(filter, security)
     case filter.filter
-    when 'all'
-      Container
-    when 'secure_changed'
-      Container.secure_changed
-    when 'no_files'
-      Container.no_files
-    when 'lost'
-      Container.lost
-    when 'by_security'
-      Container.security(security)
-    else
-      Container.need_update
+      when 'all'
+        Container
+      when 'secure_changed'
+        Container.secure_changed
+      when 'no_files'
+        Container.no_files
+      when 'lost'
+        Container.lost
+      when 'by_security'
+        Container.security(security)
+      else
+        Container.need_update
     end.where(for_censorship: false)
   end
 
   def self.get_container_title(id, language)
-    container = Container.find(id) rescue { name: '----------', date: '1970-01-01', created_at: '1970-01-01' }
-    descr          = container.container_descriptions.by_language(language).first.try(:container_desc)
-    descr          = container.container_descriptions.by_language('ENG').first.try(:container_desc) if descr.blank?
+    container = Container.find(id) rescue {name: '----------', date: '1970-01-01', created_at: '1970-01-01'}
+    descr = container.container_descriptions.by_language(language).first.try(:container_desc)
+    descr = container.container_descriptions.by_language('ENG').first.try(:container_desc) if descr.blank?
     container.name = descr if descr
 
     if descr && (container.catalogs.map(&:id) & [3606, 3661, 3662]).empty?
@@ -288,8 +290,8 @@ class Container < ActiveRecord::Base
       }
       my_logger.info("Catalogs after assignment from pattern: #{get_catalogs_names(c.catalogs)}")
       c.content_type_id = sp.content_type.id
-      c.secure          = sp.content_security_level
-      c.auto_parsed     = true
+      c.secure = sp.content_security_level
+      c.auto_parsed = true
 
       lang_codes = c.container_descriptions.map(&:lang)
       Language::ALL_LANGUAGES.each { |l|
@@ -307,9 +309,9 @@ class Container < ActiveRecord::Base
     my_logger.info("Container saved")
 
     (files || []).each do |file|
-      name   = file['file']
+      name = file['file']
       server = file['server'] || DEFAULT_FILE_SERVER
-      size   = file['size'] || 0
+      size = file['size'] || 0
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
       extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
@@ -325,10 +327,10 @@ class Container < ActiveRecord::Base
         # New file
         name =~ /^([^_]+)_/
         lang = Language.find_by_code3($1.upcase).code3 rescue 'ENG'
-        sp     = ::StringParser.new name
+        sp = ::StringParser.new name
         secure = sp.content_security_level
 
-        file_asset = FileAsset.new(name:          name, lang: lang, asset_type: extension, date: datetime, size: size,
+        file_asset = FileAsset.new(name: name, lang: lang, asset_type: extension, date: datetime, size: size,
                                    playtime_secs: playtime_secs, lastuser: 'system', servername: server, secure: secure)
         my_logger.info("New file lang=#{lang} secure=#{secure}")
       elsif !dry_run
@@ -346,23 +348,23 @@ class Container < ActiveRecord::Base
 
       # Update file description for non-existing UI languages
       file_desc = case
-                  when name =~ /_draw_/
-                    extension.downcase == 'zip' ? '<b>draw ZIP</b>' : '<b>draw</b>'
-                  when name =~ /_scan_/
-                    extension.downcase == 'zip' ? '<b>scan ZIP</b>' : '<b>scan</b>'
-                  else
-                    case extension.downcase.downcase
-                    when 'zip'
-                      '<b>ZIP FILE</b>'
-                    when 'pdf'
-                      '<b>pdf</b>'
-                    when 'flv'
-                      '<b>flv</b>'
-                    when 'mp4'
-                      '<b>mp4</b>'
+                    when name =~ /_draw_/
+                      extension.downcase == 'zip' ? '<b>draw ZIP</b>' : '<b>draw</b>'
+                    when name =~ /_scan_/
+                      extension.downcase == 'zip' ? '<b>scan ZIP</b>' : '<b>scan</b>'
                     else
-                      '2/2 <b>original 96K</b>' if name =~ /_96k/
-                    end
+                      case extension.downcase.downcase
+                        when 'zip'
+                          '<b>ZIP FILE</b>'
+                        when 'pdf'
+                          '<b>pdf</b>'
+                        when 'flv'
+                          '<b>flv</b>'
+                        when 'mp4'
+                          '<b>mp4</b>'
+                        else
+                          '2/2 <b>original 96K</b>' if name =~ /_96k/
+                      end
                   end
       my_logger.info("File description file_desc=#{file_desc}")
 
@@ -403,28 +405,28 @@ class Container < ActiveRecord::Base
     Container.my_logger.info("find/create_virtual_lesson for: #{filmdate} ...")
 
     self.virtual_lesson = VirtualLesson.where(film_date: filmdate).last ||
-        VirtualLesson.create({ film_date: filmdate }, without_protection: true)
+        VirtualLesson.create({film_date: filmdate}, without_protection: true)
   end
 
   def self.parse_container_name(name, id)
-    name            ||= Container.find(id).name
-    sp              = ::StringParser.new name
-    date            = sp.date
-    language        = sp.language
-    lecturer_id     = sp.lecturer_rav? ? Lecturer.rav.first.id : nil
-    descriptions    = sp.descriptions
-    catalogs        = descriptions.includes(:catalogs).select { |d| !d.catalogs.empty? }.first.try(:catalogs)
+    name ||= Container.find(id).name
+    sp = ::StringParser.new name
+    date = sp.date
+    language = sp.language
+    lecturer_id = sp.lecturer_rav? ? Lecturer.rav.first.id : nil
+    descriptions = sp.descriptions
+    catalogs = descriptions.includes(:catalogs).select { |d| !d.catalogs.empty? }.first.try(:catalogs)
     content_type_id = sp.content_type.id
-    security        = sp.content_security_level
+    security = sp.content_security_level
     catalogs << LESSON_PART unless catalogs.include? LESSON_PART if content_type_id == LESSON_CONTENT_TYPE_ID
 
     [date, language, lecturer_id, descriptions, catalogs, content_type_id, security]
   end
 
   def set_updated_attributes(user, attributes)
-    self.attributes     = attributes
+    self.attributes = attributes
     self.secure_changed = self.operator_changed_secure_field?(user)
-    self.auto_parsed    = false
+    self.auto_parsed = false
   end
 
   def operator_changed_secure_field?(user)
@@ -437,7 +439,7 @@ class Container < ActiveRecord::Base
   end
 
   def build_descriptions_and_translations(languages)
-    lang_codes            = self.container_descriptions.map(&:lang)
+    lang_codes = self.container_descriptions.map(&:lang)
     transcript_lang_codes = self.container_transcripts.map(&:lang)
 
     languages.each { |l|
@@ -448,12 +450,12 @@ class Container < ActiveRecord::Base
 
   def show_asset(code3, ext, download = false, name = nil)
     extensions = ext.split('|').map { |x| ".#{x}" }
-    asset      = file_assets.select { |fa| (fa.lang == code3) && extensions.include?(File.extname(fa.name)) }.first
+    asset = file_assets.select { |fa| (fa.lang == code3) && extensions.include?(File.extname(fa.name)) }.first
     if asset
-      url      = asset.send(download ? :download_url : :url)
-      size     = asset.size.to_f / 1024 / 1024
+      url = asset.send(download ? :download_url : :url)
+      size = asset.size.to_f / 1024 / 1024
       playtime = asset.playtime_secs.to_i || container.playtime_secs.to_i
-      title    = playtime > 0 ?
+      title = playtime > 0 ?
           "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
       :
           "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb"

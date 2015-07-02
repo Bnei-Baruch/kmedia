@@ -8,6 +8,7 @@ Kmedia::Application.routes.draw do
         get 'wsxml'
         get 'rss_video', format: :rss
         get 'morning_lesson', format: :rss
+        get 'podcast', format: :rss
         get 'google_mapindex'
       end
     end
@@ -146,7 +147,7 @@ Kmedia::Application.routes.draw do
   end
 
   # Redirect old landing pages
-  get '/rss.php', to: 'feeds#podcast', as: :podcast, format: :rss
+  get '/rss.php', to: 'feeds#rss_php', as: :rss_php, format: :rss
   get '/rss_video.php', to: 'feeds#rss_video', format: :rss
 
   get '/index.php', to: proc { |env|

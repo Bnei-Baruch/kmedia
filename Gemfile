@@ -37,8 +37,6 @@ gem 'draper', '~> 1.3'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'debugger'
-  gem 'debugger-xml'
   gem 'sextant' # rake routes in the browser
   gem 'bullet'
   gem 'better_errors', '1.1.0'   # 2.0.0 ZZZ

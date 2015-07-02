@@ -88,7 +88,7 @@ class FeedsController < ApplicationController
     render layout: false
   end
 
-  def podcast
+  def rss_php
     @language    =
         if ['ENG', 'HEB', 'RUS'].include? params[:DLANG]
           params[:DLANG]
@@ -103,6 +103,26 @@ class FeedsController < ApplicationController
 
     # Get list of 20 last containers' files
     results      = Container.includes(:file_assets).order('created_at desc').limit(20)
+
+    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
+    @last_update = results.first.created_at
+
+    render 'rss_php', layout: false
+  end
+
+  def podcast
+    @language    =
+        if ['ENG', 'HEB', 'RUS'].include? params[:DLANG]
+          params[:DLANG]
+        else
+          'ENG'
+        end
+    I18n.locale  = @locale = Language::CODE3_LOCALE[@language] || :en
+    @lang        = params[:DLANG] || 'ENG'
+    @host        = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+
+    # Get list of 20 last containers' files
+    results      = Container.podcast.limit(150)
 
     @files       = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
     @last_update = results.first.created_at
