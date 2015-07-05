@@ -5,7 +5,7 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom', 'xmlns:i
     xml.link "#{@host}/feeds/podcast?DLANG=#{@language}"
     xml.tag! 'atom:link', href: "#{@host}/feeds/podcast?DLANG=#{@language}", rel: 'self', type: 'application/rss+xml'
     xml.tag! 'itunes:category', text: 'Spirituality'
-    xml.tag! 'itunes:image', href: "#{host}/images/cover170x170.jpeg"
+    xml.tag! 'itunes:image', href: "#{@host}/cover170x170.jpeg"
     xml.description 'כאן תקבלו עדכונים יומיים של שיעורי קבלה. התכנים מבוססים על מקורות הקבלה האותנטיים בלבד'
     xml.author 'קבלה לעם'
     xml.language @language
