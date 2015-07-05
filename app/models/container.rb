@@ -120,7 +120,7 @@ class Container < ActiveRecord::Base
   scope :security, -> sec { where(secure: sec) }
   scope :non_secure, -> { where(secure: 0) }
 
-  scope :podcast, -> { where(content_type_id: 4) }
+  scope :podcast, -> { where(content_type_id: 4).order('created_at desc') }
 
   def self.last_lectures_programs(container_date = Date.today, language = 'ENG')
     joins(:file_assets).where('file_assets.lang' => language).where(filmdate: container_date).where(content_type_id: [ContentType::CONTENT_TYPE_ID['lecture'], ContentType::CONTENT_TYPE_ID['program']])
