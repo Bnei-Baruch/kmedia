@@ -1,5 +1,5 @@
 xml.instruct! :xml, version: '1.0'
-xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
+xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom', 'xmlns:itunes' => "http://www.itunes.com/dtds/podcast-1.0.dtd" do
   xml.channel do
     xml.title 'שיעור הקבלה היומי'
     xml.link "#{@host}/feeds/podcast?DLANG=#{@language}"
