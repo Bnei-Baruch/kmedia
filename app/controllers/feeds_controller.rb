@@ -1,3 +1,4 @@
+#encoding: utf-8
 class FeedsController < ApplicationController
 
   respond_to :xml
@@ -7,12 +8,12 @@ class FeedsController < ApplicationController
     # Example
     # wsxml.xml?CID=4016&DLANG=HEB&DF=2013-04-30&DT=2013-03-31
 
-    @language   = params[:DLANG] || 'ENG'
+    @language = params[:DLANG] || 'ENG'
     I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
 
     catalog_id = params[:CID] || 25
-    date_from  = params[:DF] || Date.today.to_s
-    date_to    = params[:DT] || (Date.today - 30).to_s
+    date_from = params[:DF] || Date.today.to_s
+    date_to = params[:DT] || (Date.today - 30).to_s
 
     begin
       catalogs = Catalog.where(id: catalog_id).first.all_children_with_root.map(&:id).join(',')
@@ -52,21 +53,21 @@ class FeedsController < ApplicationController
   # If a container has no description it will always be published.
 
   def rss_video
-    @language   = params[:DLANG] || 'ENG'
+    @language = params[:DLANG] || 'ENG'
     I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
 
     @days = params[:DAYS].to_i || 1
     @days = 1 if @days > 31 || @days < 1
 
-    @host  = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+    @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get list of updated files
     @files = FileAsset.get_updated_files(@days).map do |file|
       {
           container_id: file[0],
-          title:        Container.get_container_title(file[0], @language),
-          updated:      file[1][0].updated_at,
-          files:        file[1].group_by { |x| x['ftype'].downcase }
+          title: Container.get_container_title(file[0], @language),
+          updated: file[1][0].updated_at,
+          files: file[1].group_by { |x| x['ftype'].downcase }
       }
     end.select do |file|
       file[:title]
@@ -74,64 +75,90 @@ class FeedsController < ApplicationController
   end
 
   def morning_lesson
-    @language   = params[:DLANG] || 'ENG'
+    @language = params[:DLANG] || 'ENG'
     I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
 
-    @host  = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+    @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get last virtual lesson
     @vl = VirtualLesson.last_lesson
-    @lesson_name  = @vl.film_date
-    @lesson_id    = @vl.id
+    @lesson_name = @vl.film_date
+    @lesson_id = @vl.id
     @containers = @vl.lessons_ordered_by_parts
 
     render layout: false
   end
 
   def rss_php
-    @language    =
+    @language =
         if ['ENG', 'HEB', 'RUS'].include? params[:DLANG]
           params[:DLANG]
         else
           'ENG'
         end
-    I18n.locale  = @locale = Language::CODE3_LOCALE[@language] || :en
-    @lang        = params[:DLANG] || 'ENG'
-    @title       = I18n.t('feed.pod_title')
+    I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
+    @lang = params[:DLANG] || 'ENG'
+    @title = I18n.t('feed.pod_title')
     @description = I18n.t('feed.pod_description')
-    @host        = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+    @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get list of 20 last containers' files
-    results      = Container.includes(:file_assets).order('created_at desc').limit(20)
+    results = Container.includes(:file_assets).order('created_at desc').limit(20)
 
-    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
+    @files = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
     @last_update = results.first.created_at
 
     render 'rss_php', layout: false
   end
 
   def podcast
-    @language    =
+    @language =
         if ['ENG', 'HEB', 'RUS'].include? params[:DLANG]
           params[:DLANG]
         else
           'ENG'
         end
-    I18n.locale  = @locale = Language::CODE3_LOCALE[@language] || :en
-    @lang        = params[:DLANG] || 'ENG'
-    @host        = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+    I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
+    @lang = params[:DLANG] || 'ENG'
+    @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get list of 20 last containers' files
-    results      = Container.podcast.limit(150)
+    results = Container.podcast.limit(150)
 
-    @files       = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
+    @files = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
     @last_update = results.first.created_at
 
+    @title = 'שיעור הקבלה היומי'
+    @podcast = 'podcast'
+    @description = 'כאן תקבלו עדכונים יומיים של שיעורי קבלה. התכנים מבוססים על מקורות הקבלה האותנטיים בלבד'
+    render 'podcast', layout: false
+  end
+
+  def podcast1
+    @language =
+        if %w(ENG HEB RUS).include? params[:DLANG]
+          params[:DLANG]
+        else
+          'ENG'
+        end
+    I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
+    @lang = params[:DLANG] || 'ENG'
+    @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+
+    # Get list of 20 last containers' files
+    results = Catalog.secure(0).podcast1(@lang).first.containers.sort { |a, b| a.created_at <=> b.created_at }[0..150]
+
+    @files = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
+    @last_update = results.first.created_at
+
+    @title = 'קטע משיעור הקבלה היומי'
+    @podcast = 'podcast1'
+    @description = 'כאן תקבלו קטעים נבחרים משיעור הקבלה היומי. התכנים מבוססים על מקורות הקבלה האותנטיים בלבד'
     render 'podcast', layout: false
   end
 
   def google_mapindex
-    host  = Rails.env.production? ? 'http://kabbalahmedia.info' : "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+    host = Rails.env.production? ? 'http://kabbalahmedia.info' : "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
     langs = Language::UI_LANGUAGES
 
     File.open('public/google_mapindex.xml', 'w+') do |index|
@@ -139,8 +166,8 @@ class FeedsController < ApplicationController
       index.write "<sitemapindex xmlns='http://www.google.com/schemas/sitemap/0.84' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.google.com/schemas/sitemap/0.84 http://www.google.com/schemas/sitemap/0.84/siteindex.xsd'>\n"
 
       fileno = 1
-      count  = 0
-      fz     = nil
+      count = 0
+      fz = nil
 
       Container.uniq.joins(:catalogs).merge(Catalog.insecure).pluck(:id).each do |container|
         langs.each do |lang|
@@ -157,7 +184,7 @@ class FeedsController < ApplicationController
           if count == 49_000
             fz.write "</urlset>\n"
             fz.close
-            count  = 0
+            count = 0
             fileno += 1
           end
         end

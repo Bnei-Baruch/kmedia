@@ -54,7 +54,9 @@ class Catalog < ActiveRecord::Base
   scope :visible, -> { where(:visible => true) }
   scope :books, ->(language_code3, secure) { Catalog.secure(secure).joins(:catalog_descriptions).where('books_catalog = true').where('catalog_descriptions.lang = ?', language_code3) }
 
-  validates :label, uniqueness: true, format: { with: /^[a-zA-Z0-9_-]*$/ }
+  scope :podcast1, ->(lang) { joins(:catalog_descriptions).where('catalogs.id' => 3981, 'catalog_descriptions.lang' => lang) }
+
+  validates :label, uniqueness: true, format: {with: /^[a-zA-Z0-9_-]*$/}
 
   class ParentValidator < ActiveModel::Validator
     def validate(catalog)
@@ -128,17 +130,17 @@ class Catalog < ActiveRecord::Base
 
   def self.all_catalogs_with_descriptions(language_code3, secure = 0)
     catalogs = Catalog.secure(secure).joins(:catalog_descriptions)
-    .where(
-        'catalog_descriptions.lang = ? OR (catalog_descriptions.lang = \'ENG\' AND NOT EXISTS(SELECT * FROM catalog_descriptions C WHERE catalogs.id = C.catalog_id AND C.lang = ?))',
-        language_code3, language_code3)
+                   .where(
+                       'catalog_descriptions.lang = ? OR (catalog_descriptions.lang = \'ENG\' AND NOT EXISTS(SELECT * FROM catalog_descriptions C WHERE catalogs.id = C.catalog_id AND C.lang = ?))',
+                       language_code3, language_code3)
     #.order('catalog_descriptions.name ASC, catalogs.name ASC')
     catalogs.multipluck(:'catalogs.id as id', :'COALESCE(catalog_descriptions.name, catalogs.name) as name', :'catalogs.parent_id as parent_id')
-    .sort{|a, b| a['name'] <=> b['name']}
+        .sort { |a, b| a['name'] <=> b['name'] }
   end
 
   def self.boost_json(language_code3, secure = 0)
     Catalog.visible.all_catalogs_with_descriptions(language_code3, secure).inject([]) do |boost, node|
-      parent        = node['parent_id'] || 0
+      parent = node['parent_id'] || 0
       boost[parent] = [] unless boost[parent]
       boost[parent] << node
       boost
@@ -148,9 +150,9 @@ class Catalog < ActiveRecord::Base
   def self.boost_json_admin
     catalogs = Catalog.order('name ASC').multipluck(:id, :name, :parent_id)
     catalogs.inject([]) do |boost, node|
-      parent               = node['parent_id'] || 0
-      boost[parent]        = [] unless boost[parent]
-      object               = Catalog.new(name: node['name'], id: node['id'])
+      parent = node['parent_id'] || 0
+      boost[parent] = [] unless boost[parent]
+      object = Catalog.new(name: node['name'], id: node['id'])
       object.id = node['id']
       boost[parent] << object
       boost
@@ -177,8 +179,8 @@ class Catalog < ActiveRecord::Base
 # /Additions to acts_as_tree
 
   def self.move(options)
-    target     = options[:target]
-    source     = options[:source]
+    target = options[:target]
+    source = options[:source]
     containers = options[:containers]
 
     containers.each do |container|

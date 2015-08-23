@@ -1,12 +1,12 @@
 xml.instruct! :xml, version: '1.0'
 xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom', 'xmlns:itunes' => "http://www.itunes.com/dtds/podcast-1.0.dtd" do
   xml.channel do
-    xml.title 'שיעור הקבלה היומי'
-    xml.link "#{@host}/feeds/podcast?DLANG=#{@language}"
+    xml.title @title
+    xml.link "#{@host}/feeds/#{@podcast}?DLANG=#{@language}"
     xml.tag! 'atom:link', href: "#{@host}/feeds/podcast?DLANG=#{@language}", rel: 'self', type: 'application/rss+xml'
     xml.tag! 'itunes:category', text: 'Spirituality'
     xml.tag! 'itunes:image', href: "#{@host}/cover_podcast.jpeg"
-    xml.description 'כאן תקבלו עדכונים יומיים של שיעורי קבלה. התכנים מבוססים על מקורות הקבלה האותנטיים בלבד'
+    xml.description @description
     xml.author 'קבלה לעם'
     xml.language @language
     xml.lastBuildDate @last_update
@@ -19,7 +19,6 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom', 'xmlns:i
 
         filmed = film_date(container)
         long_description, short_description = container_description(container)
-        description = long_description.blank? ? short_description : long_description
         title = "#{container_title(file,  [nil, short_description])} (#{filmed})"
 
         xml.author 'קבלה לעם'

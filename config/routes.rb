@@ -9,6 +9,7 @@ Kmedia::Application.routes.draw do
         get 'rss_video', format: :rss
         get 'morning_lesson', format: :rss
         get 'podcast', format: :rss
+        get 'podcast1', format: :rss
         get 'google_mapindex'
       end
     end
