@@ -1,10 +1,10 @@
-Kmedia::Application.config.middleware.use ExceptionNotification::Rack,
-                      email: {
-                          email_prefix: '[Kmedia] ',
-                          sender_address: %{'notifier' <notifier@kmedia.com>},
-                          exception_recipients: %w{gshilin@gmail.com},
-                          normalize_subject: true
-                      }
+#Kmedia::Application.config.middleware.use ExceptionNotification::Rack,
+                      #email: {
+                          #email_prefix: '[Kmedia] ',
+                          #sender_address: %{'notifier' <notifier@kmedia.com>},
+                          #exception_recipients: %w{gshilin@gmail.com},
+                          #normalize_subject: true
+                      #}
 
 Kmedia::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
