@@ -68,7 +68,6 @@ group :assets do
 end
 
 gem 'term-ansicolor', github: 'flori/term-ansicolor'
-gem 'exception_notification', github: 'rails/exception_notification'
 gem 'handle_invalid_percent_encoding_requests', github: 'gshilin/handle_invalid_percent_encoding_requests'
 gem 'jsonify-rails'
 gem 'yajl-ruby', require:  'yajl' # Required if we want json with utf8 strings
