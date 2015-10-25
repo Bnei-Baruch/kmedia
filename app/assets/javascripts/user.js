@@ -10,7 +10,7 @@
 
 //= require jquery.zclip.min
 //= require jquery-ui-1.10.4.datepicker
-//= require jwplayer/jwplayer
+//= require jwplayer-7.1.4/jwplayer
 
 //= require_self
 
@@ -35,18 +35,23 @@
             complete: function () {
                 enquire.register("screen and (max-width: 767px)", {
                     match: function () {
+                        var $sidebar = $('#sidebar'),
+                            $languages = $('.top-menu-div .languages'),
+                            $form = $('.top-menu-div form'),
+                            $menu = $('#categories-menu'),
+                            $links = $('.top-menu-div .top-links');
                         $('body').prepend('<div id="left-mobile-menu" class="left-mobile-menu"><div id="left-menu-wrapper"></div></div>');
                         $('#left-menu-wrapper')
-                            .append('<h4>' + $('.top-menu-div .languages').data('title') + '</h4>')
-                            .append($('.top-menu-div .languages'))
-                            .append('<h4>' + $('.top-menu-div form').data('title') + '</h4>')
-                            .append($('.top-menu-div form'))
-                            .append('<h4>' + $('#categories-menu').data('title') + '</h4>')
-                            .append($('#categories-menu'))
-                            .append('<h4>' + $('#sidebar').data('title') + '</h4>')
-                            .append($('#sidebar'))
-                            .append('<h4>' + $('.top-menu-div .top-links').data('title') + '</h4>')
-                            .append($('.top-menu-div .top-links'))
+                            .append('<h4>' + $languages.data('title') + '</h4>')
+                            .append($languages)
+                            .append('<h4>' + $form.data('title') + '</h4>')
+                            .append($form)
+                            .append('<h4>' + $menu.data('title') + '</h4>')
+                            .append($menu)
+                            .append('<h4>' + $sidebar.data('title') + '</h4>')
+                            .append($sidebar)
+                            .append('<h4>' + $links.data('title') + '</h4>')
+                            .append($links)
                             .append('<br/><br/>');
 
                         $(document).on('touchstart mousedown', 'input, select', function (e) {
@@ -110,11 +115,7 @@
         }
 
         // Make sure domain contains only valid characters and at least one period
-        if (!/^[\-a-zA-Z0-9\.]*$/.test(domain) || domain.indexOf(".") === -1) {
-            return false;
-        }
-
-        return true;
+        return !(!/^[\-a-zA-Z0-9\.]*$/.test(domain) || domain.indexOf(".") === -1);
     }
 
     $(function () {
@@ -134,7 +135,7 @@
             $('#categories-menu .category-li').removeClass('active');
             try {
                 $('.category-modal').modal('hide');
-            } catch (err) {
+            } catch (ignore) {
             }
             $(this).parent().addClass('active');
         });
@@ -434,21 +435,37 @@ var jwcontroller = {
         }
 
         jwcontroller.instance = jwplayer(jwcontroller.language + '_player').setup({
+            // Basic block
+            aspectratio: '16:9',
             autostart: false,
             controls: true,
             image: "/assets/cover-video.jpg",
-            primary: 'HTML5',
-            flashplayer: '/assets/jwplayer/jwplayer.flash.swf',
-            html5player: '/assets/jwplayer/jwplayer.html5.js',
-            stretching: 'uniform',
-//            skin: 'jwplayer-skins-premium/six.xml',
-
-            playlist: window['playlist_' + jwcontroller.language + '_' + jwcontroller.type],
-            listbar: {
-                position: 'none'
-            },
             width: '100%',
-            aspectratio: '16:9'
+            primary: 'html5',
+
+            // Playlist
+            playlist: window['playlist_' + jwcontroller.language + '_' + jwcontroller.type],
+
+            // Skin
+            skin: {
+                name: 'six'
+            },
+
+            // Logo
+            logo: {
+                file: '/assets/logo.png'
+            },
+
+            // GA
+            ga: {},
+
+            // Other
+            // Visual Playlist
+            visualplaylist: false,
+            displaytitle: false,
+            displaydescription: false,
+            flashplayer: '/assets/jwplayer-7.1.4/jwplayer.flash.swf',
+            stretching: 'uniform'
         });
 
         jwcontroller.instance.onReady(function () {
@@ -512,7 +529,9 @@ var jwcontroller = {
 (function () {
     "use strict";
 
-    if ($('.player-container').length === 0) { return; }
+    if ($('.player-container').length === 0) {
+        return;
+    }
 
     // change jwplayer to another tab
     // just before show
@@ -555,7 +574,7 @@ var jwcontroller = {
         jwcontroller.playThis(index);
     });
 
-    jwplayer.key = "xmnkkk/ActOXPTodF7so92Iu+Z3lelSDhlgvXGzWKYk=";
+    jwplayer.key = "lguOi9Q9nyODrxfl3TKPLv76BjhSqTWUwsVDzg==";
 
     var interface_language = $('.languages-bar li.active a').data('language'),
         type = $('.audio-video-switch .active').attr('class').indexOf('left') !== -1 ? 'video' : 'audio';
