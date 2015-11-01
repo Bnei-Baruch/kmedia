@@ -434,6 +434,8 @@ var jwcontroller = {
             return;
         }
 
+        jwplayer.key = "lguOi9Q9nyODrxfl3TKPLv76BjhSqTWUwsVDzg==";
+
         jwcontroller.instance = jwplayer(jwcontroller.language + '_player').setup({
             // Basic block
             aspectratio: '16:9',
@@ -448,13 +450,15 @@ var jwcontroller = {
 
             // Skin
             skin: {
-                name: 'six'
+                name: 'six',
+                url: '/assets/jwplayer-7.1.4/skins/six.css'
             },
 
             // Logo
-            logo: {
-                file: '/assets/logo.png'
-            },
+            //logo: {
+            //    file: '/assets/logo.png',
+            //    hide: true
+            //},
 
             // GA
             ga: {},
@@ -573,8 +577,6 @@ var jwcontroller = {
         var index = $(this).data('index');
         jwcontroller.playThis(index);
     });
-
-    jwplayer.key = "lguOi9Q9nyODrxfl3TKPLv76BjhSqTWUwsVDzg==";
 
     var interface_language = $('.languages-bar li.active a').data('language'),
         type = $('.audio-video-switch .active').attr('class').indexOf('left') !== -1 ? 'video' : 'audio';
