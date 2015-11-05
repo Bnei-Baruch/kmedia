@@ -376,7 +376,7 @@ class Container < ActiveRecord::Base
         }
       end
 
-      unless dry_run
+      if !dry_run && playtime_secs == 0
         Rails.env.production? ? file_asset.delay.update_playtime : file_asset.update_playtime
       end
 
