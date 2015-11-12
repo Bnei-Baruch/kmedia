@@ -316,7 +316,8 @@
                 nextText: "»",
                 onSelect: date_type,
                 prevText: "«",
-                showOn: "both"
+                showOn: "both",
+                yearRange: "1990:2020"
             });
         }
         if (vl_datepicker.length > 0) {
@@ -336,7 +337,8 @@
                 nextText: "»",
                 onSelect: date_value,
                 prevText: "«",
-                showOn: "both"
+                showOn: "both",
+                yearRange: "1990:2020"
             });
         }
         bind_zero_clipboard();
