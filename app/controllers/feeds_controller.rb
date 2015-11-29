@@ -157,6 +157,21 @@ class FeedsController < ApplicationController
     render 'podcast', layout: false
   end
 
+  def rus_for_laitman_ru
+    @language = 'RUS'
+    I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :ru
+
+    @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+
+    # Get last virtual lesson
+    @vl = VirtualLesson.last_lesson
+    @lesson_name = @vl.film_date
+    @lesson_id = @vl.id
+    @containers = @vl.lessons_ordered_by_parts
+
+    render layout: false
+  end
+
   def google_mapindex
     host = Rails.env.production? ? 'http://kabbalahmedia.info' : "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
     langs = Language::UI_LANGUAGES

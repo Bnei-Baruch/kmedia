@@ -10,6 +10,7 @@ Kmedia::Application.routes.draw do
         get 'morning_lesson', format: :rss
         get 'podcast', format: :rss
         get 'podcast1', format: :rss
+        get 'rus_for_laitman_ru', format: :rss
         get 'google_mapindex'
       end
     end
