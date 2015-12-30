@@ -16,14 +16,10 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
       xml.description do
         description = @containers.inject('') do |description, container|
           description += '<div class="title"><h2>' + container.container_title('RUS') + '</h2>'
-          description += 'Видео (рус.): ' + container.show_asset('RUS', 'mp4', false, 'Открыть') + ' | '
-          description += container.show_asset(@language, 'mp4', true, 'Скачать')
-          description += 'Аудио (рус.): ' + container.show_asset('RUS', 'mp3', false, 'Открыть') + ' | '
-          description += container.show_asset(@language, 'mp3', true, 'Скачать')
-          description += 'Видео (ивр.): ' + container.show_asset('HEB', 'mp4', false, 'Открыть') + ' | '
-          description += container.show_asset(@language, 'mp4', true, 'Скачать')
-          description += 'Аудио (ивр.): ' + container.show_asset('HEB', 'mp3', false, 'Открыть') + ' | '
-          description += container.show_asset(@language, 'mp3', true, 'Скачать')
+          description += 'Видео (рус.): ' + container.show_asset('RUS', 'mp4', false, 'Открыть') + ' | ' + container.show_asset('RUS', 'mp4', true, 'Скачать')
+          description += 'Аудио (рус.): ' + container.show_asset('RUS', 'mp3', false, 'Открыть') + ' | ' + container.show_asset('RUS', 'mp3', true, 'Скачать')
+          description += 'Видео (ивр.): ' + container.show_asset('HEB', 'mp4', false, 'Открыть') + ' | ' + container.show_asset('HEB', 'mp4', true, 'Скачать')
+          description += 'Аудио (ивр.): ' + container.show_asset('HEB', 'mp3', false, 'Открыть') + ' | ' + container.show_asset('HEB', 'mp3', true, 'Скачать')
           description  + '</div>'
         end
 
