@@ -10,7 +10,7 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
     xml.copyright { |x| x << "Bnei-Baruch Copyright 2008-#{Date.today.strftime('%Y')}" }
 
     xml.item do
-      xml.title I18n.t('ui.last_lesson.lesson') + ' ' + I18n.t('ui.last_lesson.lesson_from') + ' ' + l(@lesson_name)
+      xml.title 'Утренний урок ' + l(@lesson_name)
       xml.guid "#{@host}/#{@language}/ui/#{@lesson_id}?ts=#{Time.now.getutc.to_i}"
       xml.pubDate @vl.updated_at.rfc2822
       xml.description do
