@@ -35,7 +35,7 @@ puts '--> Languages'
  { :code3 => "FAR", :language => "Persian", :locale => 'fa' },
  { :code3 => "RON", :language => "Romanian", :locale => 'ro' },
  { :code3 => "HIN", :language => "Hindi", :locale => 'hi' },
- { :code3 => "UKR", :language => "Ukrainian", :locale => 'uk' },
+ { :code3 => "UKR", :language => "Ukrainian", :locale => 'ua' },
  { :code3 => "MKD", :language => "Macedonian", :locale => 'mk' },
  { :code3 => "SLV", :language => "Slovenian", :locale => 'sl' },
  { :code3 => "LAV", :language => "Latvian", :locale => 'lv' },
