@@ -1,6 +1,6 @@
-json.morning_lessons @language do |by_date|
+json.morning_lessons do
   json.lang @lang
-  json.dates by_date do |date, files_by_date_and_lang|
+  json.dates @language do |date, files_by_date_and_lang|
     json.date date
     json.files files_by_date_and_lang do |file_asset|
       json.id file_asset.id
