@@ -1,4 +1,4 @@
-json.morning_lessons @language do |lang, by_date|
+json.morning_lessons @language do |by_date|
   json.lang @lang
   json.dates by_date do |date, files_by_date_and_lang|
     json.date date
