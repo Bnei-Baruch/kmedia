@@ -31,7 +31,7 @@ class Search
   end
 
   def query_string_normalized
-    query_string.gsub(/[_\-.]/, ' ') rescue nil
+    query_string.gsub(/[_\-.,;\\'?:]/, ' ') rescue nil
   end
 
   def date_type_text

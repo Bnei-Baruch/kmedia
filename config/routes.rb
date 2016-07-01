@@ -1,5 +1,7 @@
 Kmedia::Application.routes.draw do
 
+  resources :morning_lesson, only: [:show]
+
   scope '/(:locale)', constraints: { locale: /#{Language::UI_LANGUAGES.join('|')}/ } do
 
     resources :searches
