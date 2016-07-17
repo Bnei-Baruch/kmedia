@@ -42,10 +42,10 @@ ua:
     sidebar:
       sidebar: 'Фільтри'
       clear_all_filters: 'Весь архів'
-      filter_by_date: 'Фільтрувати по даті'
-      filter_by_content_type: 'Фільтрувати по типу даних'
-      filter_by_media_type: 'Фільтрувати по контенту'
-      filter_by_language: 'Фільтрувати по мові'
+      filter_by_date: 'Фільтрувати за датою'
+      filter_by_content_type: 'Фільтрувати за типом даних'
+      filter_by_media_type: 'Фільтрувати за контентом'
+      filter_by_language: 'Фільтрувати за мовою'
       apply: 'Пошук'
       clear: 'Очищення'
       from: 'З'
@@ -53,7 +53,7 @@ ua:
       week: 'Н'
       custom_range: 'Період'
       first_day_of_week: 0
-      abbr_day_names: ['Нед', 'Пнд', 'Ввт', 'Срд', 'Чтв', 'Пт', 'Сб']
+      abbr_day_names: ['НД', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ']
       month_names: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень']
       anytime: 'Будь-який час'
       today: 'Сьогодні'
