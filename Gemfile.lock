@@ -308,8 +308,6 @@ GEM
     uniform_notifier (1.10.0)
     warden (1.2.6)
       rack (>= 1.0)
-    xray-rails (0.2.0)
-      rails (>= 3.1.0)
     yajl-ruby (1.2.1)
 
 PLATFORMS
@@ -365,7 +363,6 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicorn
   wmainfo-rb!
-  xray-rails
   yajl-ruby
 
 RUBY VERSION
