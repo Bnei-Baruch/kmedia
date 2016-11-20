@@ -1,6 +1,7 @@
 GIT
   remote: git://github.com/amatsuda/kaminari.git
   revision: d602ac94c596b35d954ab5efb8ca51fa374ba3fb
+  ref: d602ac94c596b35d954ab5efb8ca51fa374ba3fb
   specs:
     kaminari (1.0.0.alpha)
       actionpack (>= 3.0.0)
@@ -8,9 +9,9 @@ GIT
 
 GIT
   remote: git://github.com/amerine/acts_as_tree.git
-  revision: 436e03f7f59b112369ff95244483609e06df0439
+  revision: 6ac3f70df68a43d98fc89070d4196bd315ea08b7
   specs:
-    acts_as_tree (2.2.0)
+    acts_as_tree (2.4.0)
       activerecord (>= 3.0.0)
 
 GIT
@@ -21,11 +22,11 @@ GIT
 
 GIT
   remote: git://github.com/ctran/annotate_models.git
-  revision: d878a5b784ee0f703e9ee677bc0231dc24159512
+  revision: c952306966c9bae4438e4d40351561af3d8005c0
   specs:
-    annotate (2.6.10)
-      activerecord (>= 3.2, <= 4.3)
-      rake (~> 10.4)
+    annotate (2.7.0)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 12.0)
 
 GIT
   remote: git://github.com/flori/term-ansicolor.git
@@ -33,14 +34,6 @@ GIT
   specs:
     term-ansicolor (1.3.0)
       tins (~> 1.0)
-
-GIT
-  remote: git://github.com/gshilin/handle_invalid_percent_encoding_requests.git
-  revision: b6397f24b31ff946f19eb75d613e723b3f361d46
-  specs:
-    handle_invalid_percent_encoding_requests (1.0)
-      rack-utf8_sanitizer
-      rails
 
 GIT
   remote: git://github.com/joliss/jquery-ui-rails.git
@@ -51,9 +44,9 @@ GIT
 
 GIT
   remote: git://github.com/joshfrench/rakismet.git
-  revision: 40f16d9818f1517391b449afe85f30f4d76be8b2
+  revision: c19ded8f10704f0924f37b1cd48cadd58ba569fe
   specs:
-    rakismet (1.5.1)
+    rakismet (1.5.3)
 
 GIT
   remote: git://github.com/moumar/wmainfo-rb.git
@@ -63,7 +56,7 @@ GIT
 
 GIT
   remote: git://github.com/paul/progress_bar.git
-  revision: cc4c65924f1b1cafa3a38134bf95a2b8d1e32605
+  revision: 6dc27ba612bdf6517ca8e443428066b5b61175d5
   specs:
     progress_bar (1.0.5)
       highline (~> 1.6)
@@ -77,6 +70,14 @@ GIT
     simple_form (2.1.3)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
+
+GIT
+  remote: git://github.com/sunny/handle_invalid_percent_encoding_requests.git
+  revision: eafa7d0c867a015f865b1242af3940dc7536e575
+  specs:
+    handle_invalid_percent_encoding_requests (1.0.2)
+      rack-utf8_sanitizer
+      rails (>= 3.1)
 
 GIT
   remote: git://github.com/svenfuchs/rails-i18n.git
@@ -97,12 +98,12 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    actionmailer (3.2.18)
-      actionpack (= 3.2.18)
+    actionmailer (3.2.22.2)
+      actionpack (= 3.2.22.2)
       mail (~> 2.5.4)
-    actionpack (3.2.18)
-      activemodel (= 3.2.18)
-      activesupport (= 3.2.18)
+    actionpack (3.2.22.2)
+      activemodel (= 3.2.22.2)
+      activesupport (= 3.2.22.2)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -110,26 +111,25 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activemodel (3.2.18)
-      activesupport (= 3.2.18)
+    activemodel (3.2.22.2)
+      activesupport (= 3.2.22.2)
       builder (~> 3.0.0)
-    activerecord (3.2.18)
-      activemodel (= 3.2.18)
-      activesupport (= 3.2.18)
+    activerecord (3.2.22.2)
+      activemodel (= 3.2.22.2)
+      activesupport (= 3.2.22.2)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.18)
-      activemodel (= 3.2.18)
-      activesupport (= 3.2.18)
-    activesupport (3.2.18)
+    activeresource (3.2.22.2)
+      activemodel (= 3.2.22.2)
+      activesupport (= 3.2.22.2)
+    activesupport (3.2.22.2)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    ansi (1.5.0)
     arel (3.0.3)
-    bcrypt (3.1.10)
+    bcrypt (3.1.11)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
-    best_in_place (3.0.3)
+    best_in_place (3.1.0)
       actionpack (>= 3.2)
       railties (>= 3.2)
     better_errors (1.1.0)
@@ -140,38 +140,29 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.0.4)
-    bullet (4.14.10)
-      activesupport (>= 3.0.0)
-      uniform_notifier (~> 1.9.0)
     cancan (1.6.9)
-    capybara (2.1.0)
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
     ckeditor (3.7.1)
       mime-types
       orm_adapter
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.7)
+    cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
-    coderay (1.1.0)
+    coderay (1.1.1)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1.1)
+    coffee-script-source (1.10.0)
     daemons (1.2.3)
-    dalli (2.7.4)
+    dalli (2.7.6)
     debug_inspector (0.0.2)
-    delayed_job (4.1.1)
-      activesupport (>= 3.0, < 5.0)
-    delayed_job_active_record (4.1.0)
-      activerecord (>= 3.0, < 5)
+    delayed_job (4.1.2)
+      activesupport (>= 3.0, < 5.1)
+    delayed_job_active_record (4.1.1)
+      activerecord (>= 3.0, < 5.1)
       delayed_job (>= 3.0, < 5)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
@@ -184,20 +175,14 @@ GEM
       activesupport (>= 3.0)
       request_store (~> 1.0)
     erubis (2.7.0)
-    eventmachine (1.0.8)
-    execjs (2.6.0)
-    factory_girl (4.5.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.5.0)
-      factory_girl (~> 4.5.0)
-      railties (>= 3.0.0)
+    eventmachine (1.2.0.1)
+    execjs (2.7.0)
     guard-compat (1.2.1)
-    guard-minitest (2.4.4)
+    guard-minitest (2.4.5)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
     haml (4.0.7)
       tilt
-    hashie (3.4.2)
     highline (1.7.8)
     hike (1.2.3)
     i18n (0.7.0)
@@ -216,102 +201,71 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    metaclass (0.0.4)
     mime-types (1.25.1)
     mimemagic (0.3.0)
-    mini_portile (0.6.2)
-    minitest (4.7.5)
-    minitest-capybara (0.5.0)
-      capybara (~> 2.1.0)
-      minitest (~> 4.0)
-      rake
-    minitest-metadata (0.5.3)
-      minitest (>= 4.7, < 6.0)
-    minitest-rails (1.0.1)
-      minitest (~> 4.7)
-      minitest-test (~> 1.0)
-      railties (>= 3.0, < 4.1)
-    minitest-rails-capybara (1.0.0)
-      capybara (~> 2.0)
-      minitest-capybara (~> 0.5.0)
-      minitest-metadata (~> 0.5.0)
-      minitest-rails (~> 1.0)
-    minitest-reporters (0.14.24)
-      ansi
-      builder
-      minitest (>= 2.12, < 5.0)
-      powerbar
-    minitest-test (1.1.0)
-      minitest (~> 4.0)
-    mocha (1.1.0)
-      metaclass (~> 0.0.1)
-    multi_json (1.11.2)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    mini_portile2 (2.1.0)
+    minitest (5.9.0)
+    multi_json (1.12.1)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
     options (2.3.2)
     orm_adapter (0.5.0)
-    paperclip (4.3.1)
+    paperclip (4.3.7)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
-    pg (0.18.3)
+    pg (0.18.4)
+    pkg-config (1.1.7)
     polyglot (0.3.5)
-    powerbar (1.0.12)
-      ansi (~> 1.5.0)
-      hashie (>= 1.1.0)
+    power_assert (0.3.0)
     pr_geohash (1.0.0)
-    puma (2.14.0)
+    puma (3.5.0)
     rack (1.4.7)
-    rack-cache (1.5.1)
+    rack-cache (1.6.1)
       rack (>= 0.4)
     rack-ssl (1.3.4)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rack-utf8_sanitizer (1.3.1)
-      rack (~> 1.0)
-    rails (3.2.18)
-      actionmailer (= 3.2.18)
-      actionpack (= 3.2.18)
-      activerecord (= 3.2.18)
-      activeresource (= 3.2.18)
-      activesupport (= 3.2.18)
+    rack-utf8_sanitizer (1.3.2)
+      rack (>= 1.0, < 3.0)
+    rails (3.2.22.2)
+      actionmailer (= 3.2.22.2)
+      actionpack (= 3.2.22.2)
+      activerecord (= 3.2.22.2)
+      activeresource (= 3.2.22.2)
+      activesupport (= 3.2.22.2)
       bundler (~> 1.0)
-      railties (= 3.2.18)
-    railties (3.2.18)
-      actionpack (= 3.2.18)
-      activesupport (= 3.2.18)
+      railties (= 3.2.22.2)
+    railties (3.2.22.2)
+      actionpack (= 3.2.22.2)
+      activesupport (= 3.2.22.2)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    raindrops (0.15.0)
+    raindrops (0.16.0)
     rake (10.4.2)
-    rb-fsevent (0.9.6)
+    rb-fsevent (0.9.7)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (2.0.0)
-    request_store (1.2.0)
+    request_store (1.3.1)
     rsolr (1.0.13)
       builder (>= 2.1.2)
-    ruby-mp3info (0.8.7)
-    sass (3.4.19)
+    ruby-mp3info (0.8.9)
+    sass (3.4.1)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
     sextant (0.2.4)
       rails (>= 3.2)
-    shoulda (3.5.0)
-      shoulda-context (~> 1.0, >= 1.0.1)
-      shoulda-matchers (>= 1.4.1, < 3.0)
-    shoulda-context (1.2.1)
-    shoulda-matchers (2.8.0)
-      activesupport (>= 3.0.0)
-    slim (3.0.6)
-      temple (~> 0.7.3)
+    slim (3.0.7)
+      temple (~> 0.7.6)
       tilt (>= 1.3.3, < 2.1)
     sprockets (2.2.3)
       hike (~> 1.2)
@@ -325,34 +279,31 @@ GEM
       nokogiri
       sunspot (= 2.0.0)
     sunspot_solr (2.0.0)
-    temple (0.7.6)
-    terminal-notifier-guard (1.6.4)
+    temple (0.7.7)
+    terminal-notifier-guard (1.7.0)
+    test-unit (3.2.1)
+      power_assert
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
-    thin (1.6.4)
+    thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
-      rack (~> 1.0)
+      rack (>= 1, < 3)
     thor (0.19.1)
     tilt (1.4.1)
-    tins (1.6.0)
+    tins (1.11.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.45)
-    uglifier (2.7.2)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
-    unicorn (4.9.0)
+    tzinfo (0.3.51)
+    uglifier (3.0.0)
+      execjs (>= 0.3.0, < 3)
+    unicorn (5.1.0)
       kgio (~> 2.6)
-      rack
       raindrops (~> 0.7)
-    uniform_notifier (1.9.0)
-    warden (1.2.3)
+    warden (1.2.6)
       rack (>= 1.0)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
     yajl-ruby (1.2.1)
 
 PLATFORMS
@@ -365,7 +316,6 @@ DEPENDENCIES
   better_errors (= 1.1.0)
   binding_of_caller
   bootstrap-sass (~> 2.3.2.0)
-  bullet
   cancan (= 1.6.9)
   ckeditor (= 3.7.1)
   coffee-rails (~> 3.2.0)
@@ -373,7 +323,6 @@ DEPENDENCIES
   delayed_job_active_record
   devise (= 2.2.3)
   draper (~> 1.3)
-  factory_girl_rails
   guard-minitest
   haml
   handle_invalid_percent_encoding_requests!
@@ -381,32 +330,28 @@ DEPENDENCIES
   jquery-ui-rails!
   jsonify-rails
   kaminari!
-  minitest-rails
-  minitest-rails-capybara
-  minitest-reporters
-  mocha
   mp4info!
   nokogiri
   paperclip
   pg
   progress_bar!
   puma
-  rails (= 3.2.18)
+  rails (= 3.2.22.2)
   rails-i18n!
   rake (~> 10.4.1)
   rakismet!
   rb-fsevent (~> 0.9)
   ruby-mp3info
-  sass
-  sass-rails
+  sass (= 3.4.1)
+  sass-rails (= 3.2.6)
   sextant
-  shoulda
   simple_form!
   slim
   sunspot_rails (= 2.0.0)
   sunspot_solr (= 2.0.0)
   term-ansicolor!
   terminal-notifier-guard
+  test-unit
   the_sortable_tree!
   therubyracer (= 0.11.4)
   thin
@@ -415,5 +360,8 @@ DEPENDENCIES
   wmainfo-rb!
   yajl-ruby
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.10.5
+   1.12.5

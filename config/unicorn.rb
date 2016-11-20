@@ -1,6 +1,6 @@
 # unicorn_rails -c config/unicorn.rb -E production -D
 rails_env = ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'production'
-rails_root = ENV['RAILS_ROOT'] || '/sites/kabbalahmedia/kmedia'
+rails_root = ENV['RAILS_ROOT'] || '/sites/kmedia/prod'
 
 # 16 workers and 1 master
 worker_processes(rails_env == 'production' ? 4 : 4)
@@ -16,7 +16,7 @@ preload_app true
 timeout 30
 
 # Listen on a Unix data socket
-listen 3000 # "#{Rails.root}/tmp/sockets/unicorn.sock", :backlog => 2048
+listen 3001 # "#{Rails.root}/tmp/sockets/unicorn.sock", :backlog => 2048
 
 ##
 # REE
@@ -64,10 +64,10 @@ after_fork do |server, worker|
 
   begin
     uid, gid = Process.euid, Process.egid
-    user, group = %w(kabbalahmedia kabbalahmedia)
+    user, group = %w(kmedia kmedia)
+    worker.user(user, group)
     target_uid = Etc.getpwnam(user).uid
     target_gid = Etc.getgrnam(group).gid
-    worker.tmp.chown(target_uid, target_gid)
     if uid != target_uid || gid != target_gid
       Process.initgroups(user, target_gid)
       Process::GID.change_privilege(target_gid)

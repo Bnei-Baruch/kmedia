@@ -29,6 +29,7 @@ Kmedia::Application.configure do
   # See everything in the log (default is :info)
   # config.log_level = :debug
   config.logger = Logger.new("log/#{Rails.env}.log", 8, 4 * 1024**2)
+  config.logger.level = Logger::WARN
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new

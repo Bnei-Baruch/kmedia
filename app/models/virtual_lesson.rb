@@ -12,7 +12,7 @@
 class VirtualLesson < ActiveRecord::Base
   has_many :containers, conditions: { for_censorship: false, secure: 0 }, order: 'position ASC'
 
-  default_scope joins(:containers).where(containers: { for_censorship: false, secure: 0 }).uniq
+  default_scope joins('inner join containers on containers.virtual_lesson_id = virtual_lessons.id').where(containers: { for_censorship: false, secure: 0 }).group('virtual_lessons.id').uniq
 
   belongs_to :user
 

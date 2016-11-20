@@ -1,14 +1,15 @@
 source 'http://rubygems.org'
+ruby '2.3.0'
 
-gem 'rails', '3.2.18'
+gem 'rails', '3.2.22.2'
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-3-x'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', github: 'joliss/jquery-ui-rails'
 gem 'pg'
 
 gem 'haml'
-gem 'sass'
-gem 'kaminari', github: 'amatsuda/kaminari' #for pagination
+gem 'sass', '3.4.1'
+gem 'kaminari', github: 'amatsuda/kaminari', ref: 'd602ac94c596b35d954ab5efb8ca51fa374ba3fb' #for pagination
 gem 'simple_form', github: 'plataformatec/simple_form', branch: 'v2.1'
 gem 'nokogiri'
 gem 'ckeditor', '3.7.1'
@@ -38,7 +39,7 @@ gem 'draper', '~> 1.3'
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'sextant' # rake routes in the browser
-  gem 'bullet'
+  #gem 'bullet'
   gem 'better_errors', '1.1.0'   # 2.0.0 ZZZ
   gem 'binding_of_caller'
   gem 'annotate', github: 'ctran/annotate_models'
@@ -46,29 +47,30 @@ group :development, :test do
   gem 'rb-fsevent', '~> 0.9'
   gem 'terminal-notifier-guard'
   gem 'guard-minitest'
+  gem 'test-unit'
 end
 
-group :test do
-  gem 'minitest-rails'
-  gem 'minitest-rails-capybara'
-  gem 'shoulda'
-  gem 'minitest-reporters'
-  gem 'factory_girl_rails'
-  gem 'mocha', require: false
-end
+#group :test do
+  #gem 'minitest-rails'
+  #gem 'minitest-rails-capybara'
+  #gem 'shoulda'
+  #gem 'minitest-reporters'
+  #gem 'factory_girl_rails'
+  #gem 'mocha', require: false
+#end
 
 gem 'bootstrap-sass', '~> 2.3.2.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails'
+  gem 'sass-rails', '3.2.6'
   gem 'coffee-rails', '~> 3.2.0', require:  'coffee_script'
   gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'term-ansicolor', github: 'flori/term-ansicolor'
-gem 'handle_invalid_percent_encoding_requests', github: 'gshilin/handle_invalid_percent_encoding_requests'
+gem 'handle_invalid_percent_encoding_requests', github: 'sunny/handle_invalid_percent_encoding_requests'
 gem 'jsonify-rails'
 gem 'yajl-ruby', require:  'yajl' # Required if we want json with utf8 strings
 
