@@ -264,7 +264,7 @@ class Container < ActiveRecord::Base
   # @param files - array of name-server-size-time objects
   def self.add_update(container_name, files, dry_run = false)
     raise 'Container\'s name cannot be blank' if container_name.blank?
-    my_logger.info("###############################################################")
+    my_logger.info('###############################################################')
     my_logger.info("Container arrived #{container_name} dry_run= #{dry_run}")
 
     # Create/update container
@@ -306,7 +306,7 @@ class Container < ActiveRecord::Base
     end
 
     container.save!(validate: false) unless dry_run
-    my_logger.info("Container saved")
+    my_logger.info('Container saved')
 
     (files || []).each do |file|
       name = file['file']
@@ -334,16 +334,16 @@ class Container < ActiveRecord::Base
                                    playtime_secs: playtime_secs, lastuser: 'system', servername: server, secure: secure)
         my_logger.info("New file lang=#{lang} secure=#{secure}")
       elsif !dry_run
-        my_logger.info("Existing file, just update")
+        my_logger.info('Existing file, just update')
         file_asset.update_attributes(date: datetime, size: size, playtime_secs: playtime_secs, lastuser: 'system', servername: server)
       end
 
       if !dry_run && !container.file_asset_ids.include?(file_asset.id)
-        my_logger.info("Adding to container...")
+        my_logger.info('Adding to container...')
         container.file_assets << file_asset
         container.update_attribute(:playtime_secs, file_asset.playtime_secs) if container.playtime_secs.to_i <= 0 && file_asset.playtime_secs > 0
         raise "Unable to save/update file #{name}" unless file_asset.save
-        my_logger.info("... added")
+        my_logger.info('... added')
       end
 
       # Update file description for non-existing UI languages
@@ -382,7 +382,7 @@ class Container < ActiveRecord::Base
 
     end
 
-    my_logger.info("Finished %%%%%%%%%%%%%%%%%%%%%%%%%%")
+    my_logger.info('Finished %%%%%%%%%%%%%%%%%%%%%%%%%%')
 
     true
   end
@@ -456,9 +456,9 @@ class Container < ActiveRecord::Base
       size = asset.size.to_f / 1024 / 1024
       playtime = asset.playtime_secs.to_i || container.playtime_secs.to_i
       title = playtime > 0 ?
-          "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
+          "#{ext}&nbsp;|&nbsp;#{'%.2f' % size}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
       :
-          "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb"
+          "#{ext}&nbsp;|&nbsp;#{'%.2f' % size}Mb"
       <<-CODE
         <a href="#{url}" title="#{title}">#{name || ext}</a>
       CODE

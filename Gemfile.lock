@@ -1,5 +1,11 @@
 GIT
-  remote: git://github.com/amatsuda/kaminari.git
+  remote: git://github.com/arbarlow/ruby-mp4info.git
+  revision: 227c4c24a651ba966696ec8a05f71b8e0fdbe2c6
+  specs:
+    mp4info (1.7.3)
+
+GIT
+  remote: https://github.com/amatsuda/kaminari.git
   revision: d602ac94c596b35d954ab5efb8ca51fa374ba3fb
   ref: d602ac94c596b35d954ab5efb8ca51fa374ba3fb
   specs:
@@ -8,20 +14,14 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git://github.com/amerine/acts_as_tree.git
-  revision: 6ac3f70df68a43d98fc89070d4196bd315ea08b7
+  remote: https://github.com/amerine/acts_as_tree.git
+  revision: 7966244c0b087ace95a259dc812825af260fc707
   specs:
-    acts_as_tree (2.4.0)
+    acts_as_tree (2.6.0)
       activerecord (>= 3.0.0)
 
 GIT
-  remote: git://github.com/arbarlow/ruby-mp4info.git
-  revision: 227c4c24a651ba966696ec8a05f71b8e0fdbe2c6
-  specs:
-    mp4info (1.7.3)
-
-GIT
-  remote: git://github.com/ctran/annotate_models.git
+  remote: https://github.com/ctran/annotate_models.git
   revision: c952306966c9bae4438e4d40351561af3d8005c0
   specs:
     annotate (2.7.0)
@@ -29,33 +29,33 @@ GIT
       rake (>= 10.4, < 12.0)
 
 GIT
-  remote: git://github.com/flori/term-ansicolor.git
-  revision: e6086b7fddf53c53f8022acc1920f435e65b5e51
+  remote: https://github.com/flori/term-ansicolor.git
+  revision: 212f300fad04707682a56da0f3c0748970f41451
   specs:
-    term-ansicolor (1.3.0)
+    term-ansicolor (1.4.0)
       tins (~> 1.0)
 
 GIT
-  remote: git://github.com/joliss/jquery-ui-rails.git
+  remote: https://github.com/joliss/jquery-ui-rails.git
   revision: de88822408371b678f346338d18f9f4eb7635456
   specs:
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
 
 GIT
-  remote: git://github.com/joshfrench/rakismet.git
+  remote: https://github.com/joshfrench/rakismet.git
   revision: c19ded8f10704f0924f37b1cd48cadd58ba569fe
   specs:
     rakismet (1.5.3)
 
 GIT
-  remote: git://github.com/moumar/wmainfo-rb.git
+  remote: https://github.com/moumar/wmainfo-rb.git
   revision: 032b0efa7752e272cd3b51da9be7f63b50ef9fbf
   specs:
     wmainfo-rb (0.8)
 
 GIT
-  remote: git://github.com/paul/progress_bar.git
+  remote: https://github.com/paul/progress_bar.git
   revision: 6dc27ba612bdf6517ca8e443428066b5b61175d5
   specs:
     progress_bar (1.0.5)
@@ -63,7 +63,7 @@ GIT
       options (~> 2.3.0)
 
 GIT
-  remote: git://github.com/plataformatec/simple_form.git
+  remote: https://github.com/plataformatec/simple_form.git
   revision: 239eb584fbc44ac2bacfb0319a2d1c168a17cd1e
   branch: v2.1
   specs:
@@ -72,7 +72,7 @@ GIT
       activemodel (~> 3.0)
 
 GIT
-  remote: git://github.com/sunny/handle_invalid_percent_encoding_requests.git
+  remote: https://github.com/sunny/handle_invalid_percent_encoding_requests.git
   revision: eafa7d0c867a015f865b1242af3940dc7536e575
   specs:
     handle_invalid_percent_encoding_requests (1.0.2)
@@ -80,7 +80,7 @@ GIT
       rails (>= 3.1)
 
 GIT
-  remote: git://github.com/svenfuchs/rails-i18n.git
+  remote: https://github.com/svenfuchs/rails-i18n.git
   revision: 5f8fd02e56f38fc6a66383820bf4dbf335572f2d
   branch: rails-3-x
   specs:
@@ -89,10 +89,10 @@ GIT
       rails (>= 3.0.0, < 4.0.0)
 
 GIT
-  remote: git://github.com/the-teacher/the_sortable_tree.git
-  revision: 2ce710e371aa8f71c2518b775664486068e19738
+  remote: https://github.com/the-teacher/the_sortable_tree.git
+  revision: cac67bf08e3cf43cb2181d49af5bb35a2c76406d
   specs:
-    the_sortable_tree (2.5.0)
+    the_sortable_tree (2.6.1)
       rails (>= 3.1)
 
 GEM
@@ -140,6 +140,9 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.0.4)
+    bullet (5.4.2)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     cancan (1.6.9)
     ckeditor (3.7.1)
       mime-types
@@ -292,7 +295,7 @@ GEM
       rack (>= 1, < 3)
     thor (0.19.1)
     tilt (1.4.1)
-    tins (1.11.0)
+    tins (1.12.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -302,8 +305,11 @@ GEM
     unicorn (5.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    uniform_notifier (1.10.0)
     warden (1.2.6)
       rack (>= 1.0)
+    xray-rails (0.2.0)
+      rails (>= 3.1.0)
     yajl-ruby (1.2.1)
 
 PLATFORMS
@@ -316,6 +322,7 @@ DEPENDENCIES
   better_errors (= 1.1.0)
   binding_of_caller
   bootstrap-sass (~> 2.3.2.0)
+  bullet
   cancan (= 1.6.9)
   ckeditor (= 3.7.1)
   coffee-rails (~> 3.2.0)
@@ -358,10 +365,11 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicorn
   wmainfo-rb!
+  xray-rails
   yajl-ruby
 
 RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

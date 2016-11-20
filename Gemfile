@@ -39,7 +39,7 @@ gem 'draper', '~> 1.3'
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'sextant' # rake routes in the browser
-  #gem 'bullet'
+  gem 'bullet'
   gem 'better_errors', '1.1.0'   # 2.0.0 ZZZ
   gem 'binding_of_caller'
   gem 'annotate', github: 'ctran/annotate_models'

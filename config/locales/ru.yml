@@ -87,6 +87,7 @@ ru:
       listen: 'Слушать:'
       playlist: 'Плейлист:'
       audio: 'аудио'
+      source: 'источники'
       video: 'видео'
       download: 'Скачать:'
       lesson_from: 'от'

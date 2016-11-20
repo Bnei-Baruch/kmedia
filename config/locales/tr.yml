@@ -87,6 +87,7 @@ tr:
       playlist: 'Çalma listesi:'
       listen: 'Dinle:'
       audio: 'ses'
+      source: 'kaynak'
       video: 'video'
       download: 'Yükle:'
       lesson_part: 'Ders Kısmı'

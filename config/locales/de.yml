@@ -87,6 +87,7 @@ de:
       playlist: 'Spielliste:'
       listen: 'zuhören:'
       audio: 'audio'
+      source: 'quelle'
       video: 'video'
       download: 'Downloaden:'
       lesson_from: 'von'

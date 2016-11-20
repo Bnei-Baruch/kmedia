@@ -87,6 +87,7 @@ ua:
       listen: 'Слухати:'
       playlist: 'Плейлист:'
       audio: 'аудіо'
+      source: 'джерело'
       video: 'відео'
       download: 'Завантажити:'
       lesson_from: 'від'

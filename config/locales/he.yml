@@ -87,6 +87,7 @@ he:
       listen: 'שמע:'
       playlist: 'רשימת השמעה:'
       audio: 'אודיו'
+      source: 'קטעי מקור'
       video: 'וידאו'
       download: 'הורדת השיעור'
       lesson_from: 'מתאריך'

@@ -3,19 +3,19 @@ module HomeHelper
     requested_amount.to_i == amount.to_i ? 'active' : 'non-active'
   end
 
-  def show_asset(container, locale, ext, name = nil)
-    code3 = Language::LOCALE_CODE3[locale]
-    extensions = ext.split('|').map{|x| ".#{x}"}
-    name ||= ext
-    asset = container.file_assets.select { |fa| (locale ? fa.lang == code3 : true) && extensions.include?(File.extname(fa.name)) }.first
+  def show_asset(container, locale, ext, name = nil, pattern = /.*/)
+    code3      = Language::LOCALE_CODE3[locale]
+    extensions = ext.split('|').map { |x| ".#{x}" }
+    name       ||= ext
+    asset      = container.file_assets.select { |fa| (locale ? fa.lang == code3 : true) && extensions.include?(File.extname(fa.name)) && fa.name =~ pattern }.first
     if asset
       download_url = asset.download_url
-      size = asset.size.to_f / 1024 / 1024
-      playtime = asset.playtime_secs.to_i || container.playtime_secs.to_i
-      title = playtime > 0 ?
-          "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
+      size         = asset.size.to_f / 1024 / 1024
+      playtime     = asset.playtime_secs.to_i || container.playtime_secs.to_i
+      title        = playtime > 0 ?
+          "#{ext}&nbsp;|&nbsp;#{'%.2f' % size}Mb&nbsp;|&nbsp;#{Time.at(playtime).utc.strftime('%H:%M:%S')}"
       :
-          "#{ext}&nbsp;|&nbsp;#{"%.2f" % size}Mb"
+          "#{ext}&nbsp;|&nbsp;#{'%.2f' % size}Mb"
       <<-CODE
         <a class="btn btn-mini" href="#{download_url}" title="#{title}">#{name}</a>
       CODE
@@ -25,16 +25,16 @@ module HomeHelper
   end
 
   def button_asset(container, locale, ext)
-    code3 = Language::LOCALE_CODE3[locale]
+    code3     = Language::LOCALE_CODE3[locale]
     extension = ".#{ext}"
-    asset = container.file_assets.select { |fa| fa.lang == code3 && File.extname(fa.name) == extension }.first
+    asset     = container.file_assets.select { |fa| fa.lang == code3 && File.extname(fa.name) == extension }.first
     asset.try(:url)
   end
 
   def playlist(last_containers, language, kind)
-    code3 = Language::LOCALE_CODE3[language]
+    code3     = Language::LOCALE_CODE3[language]
     extension = kind == :video ? '.mp4' : '.mp3'
-    type = kind == :video ? 'video/mp4' : 'audio/mpeg'
+    type      = kind == :video ? 'video/mp4' : 'audio/mpeg'
     last_containers.map do |container|
       asset = container.file_assets.select { |fa| fa.lang == code3 && extension == File.extname(fa.name) }.first
       next if asset.nil?

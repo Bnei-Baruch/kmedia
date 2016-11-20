@@ -87,6 +87,7 @@ en:
       listen: 'Listen:'
       playlist: 'Playlist:'
       audio: 'audio'
+      source: 'source'
       video: 'video'
       download: 'Download:'
       lesson_from: 'from'
