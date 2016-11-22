@@ -76,9 +76,9 @@
                               tr
                                 td.left-aligned-column style="padding-bottom: 5px !important;"
                                   = show_asset(container, language, 'mp4', t('ui.last_lesson.video', locale: language) + ' mp4')
-                                  = show_asset(container, language, 'mp3', t('ui.last_lesson.audio', locale: language) + ' mp3', /(?!kitei-makor)/)
+                                  = show_asset(container, language, 'mp3', t('ui.last_lesson.audio', locale: language) + ' mp3', /^((?!kitei-makor).)*$/)
                                   = show_asset(container, language, 'mp3', t('ui.last_lesson.source', locale: language) + ' mp3', /kitei-makor/)
-                                  = show_asset(container, language, 'doc', /(?!kitei-makor)/)
+                                  = show_asset(container, language, 'doc', /^((?!kitei-makor).)*$/)
                                   = show_asset(container, language, 'doc|docx', t('ui.last_lesson.source', locale: language) + ' doc', /kitei-makor/)
                                   - pic = show_asset(container, language, 'zip|7z', 'pic')
                                   = pic.blank? ? show_asset(container, nil, 'zip|7z', 'pic') : pic
