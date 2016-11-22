@@ -450,7 +450,7 @@ class Container < ActiveRecord::Base
 
   def show_asset(code3, ext, download = false, name = nil)
     extensions = ext.split('|').map { |x| ".#{x}" }
-    asset = file_assets.select { |fa| (fa.lang == code3) && extensions.include?(File.extname(fa.name)) }.first
+    asset = file_assets.select { |fa| (fa.lang == code3) && extensions.include?(File.extname(fa.name)) && fa.name =~ /^((?!kitei-makor).)*$/ }.first
     if asset
       url = asset.send(download ? :download_url : :url)
       size = asset.size.to_f / 1024 / 1024

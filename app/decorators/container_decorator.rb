@@ -4,7 +4,7 @@ class ContainerDecorator < Draper::Decorator
   def show_asset(locale, ext, name = nil)
     code3 = Language::LOCALE_CODE3[locale]
     extensions = ext.split('|').map{|x| ".#{x}"}
-    asset = file_assets.select { |fa| (locale ? fa.lang == code3 : true) && extensions.include?(File.extname(fa.name)) }.first
+    asset = file_assets.select { |fa| (locale ? fa.lang == code3 : true) && extensions.include?(File.extname(fa.name))  && fa.name =~ /^((?!kitei-makor).)*$/ }.first
     return '' unless asset
 
     size = asset.size.to_f / 1024 / 1024
