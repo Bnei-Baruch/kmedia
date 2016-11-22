@@ -7,7 +7,7 @@ module HomeHelper
     code3      = Language::LOCALE_CODE3[locale]
     extensions = ext.split('|').map { |x| ".#{x}" }
     name       ||= ext
-    asset      = container.file_assets.select { |fa| (locale ? fa.lang == code3 : true) && extensions.include?(File.extname(fa.name)) && fa.name =~ pattern }.first
+    asset      = container.file_assets.insecure.select { |fa| (locale ? fa.lang == code3 : true) && extensions.include?(File.extname(fa.name)) && fa.name =~ pattern }.first
     if asset
       download_url = asset.download_url
       size         = asset.size.to_f / 1024 / 1024
@@ -27,7 +27,7 @@ module HomeHelper
   def button_asset(container, locale, ext)
     code3     = Language::LOCALE_CODE3[locale]
     extension = ".#{ext}"
-    asset     = container.file_assets.select { |fa| fa.lang == code3 && File.extname(fa.name) == extension }.first
+    asset     = container.file_assets.insecure.select { |fa| fa.lang == code3 && File.extname(fa.name) == extension }.first
     asset.try(:url)
   end
 
@@ -36,7 +36,7 @@ module HomeHelper
     extension = kind == :video ? '.mp4' : '.mp3'
     type      = kind == :video ? 'video/mp4' : 'audio/mpeg'
     last_containers.map do |container|
-      asset = container.file_assets.select { |fa| fa.lang == code3 && extension == File.extname(fa.name) }.first
+      asset = container.file_assets.insecure.select { |fa| fa.lang == code3 && extension == File.extname(fa.name) }.first
       next if asset.nil?
 
       description = container_title(container, container_description(container, Container.get_all_descriptions(container), code3))
