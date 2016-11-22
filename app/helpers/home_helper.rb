@@ -36,7 +36,7 @@ module HomeHelper
     extension = kind == :video ? '.mp4' : '.mp3'
     type      = kind == :video ? 'video/mp4' : 'audio/mpeg'
     last_containers.map do |container|
-      asset = container.file_assets.insecure.select { |fa| fa.lang == code3 && extension == File.extname(fa.name) }.first
+      asset = container.file_assets.insecure.select { |fa| fa.lang == code3 && extension == File.extname(fa.name) && fa.name =~ /^((?!kitei-makor).)*$/}.first
       next if asset.nil?
 
       description = container_title(container, container_description(container, Container.get_all_descriptions(container), code3))
