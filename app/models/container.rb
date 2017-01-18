@@ -312,6 +312,7 @@ class Container < ActiveRecord::Base
       name = file['file']
       server = file['server'] || DEFAULT_FILE_SERVER
       size = file['size'] || 0
+      sha1 = file['sha1'] || nil
       datetime = file['time'] ? Time.at(file['time']) : Time.now rescue raise("Wrong :time value: #{file['time']}")
 
       extension = File.extname(name) rescue raise("Wrong :file value (Unable to detect file extension): #{name}")
@@ -321,7 +322,7 @@ class Container < ActiveRecord::Base
 
       playtime_secs = file['playtime_secs'].to_i
 
-      my_logger.info("File name=#{name} server=#{server} size=#{size} datetime=#{datetime} extension=#{extension} playtime_secs=#{playtime_secs}")
+      my_logger.info("File name=#{name} sha1=#{sha1} server=#{server} size=#{size} datetime=#{datetime} extension=#{extension} playtime_secs=#{playtime_secs}")
 
       if file_asset.nil?
         # New file
@@ -330,12 +331,12 @@ class Container < ActiveRecord::Base
         sp = ::StringParser.new name
         secure = sp.content_security_level
 
-        file_asset = FileAsset.new(name: name, lang: lang, asset_type: extension, date: datetime, size: size,
+        file_asset = FileAsset.new(name: name, lang: lang, asset_type: extension, date: datetime, size: size, sha1: sha1,
                                    playtime_secs: playtime_secs, lastuser: 'system', servername: server, secure: secure)
         my_logger.info("New file lang=#{lang} secure=#{secure}")
       elsif !dry_run
         my_logger.info('Existing file, just update')
-        file_asset.update_attributes(date: datetime, size: size, playtime_secs: playtime_secs, lastuser: 'system', servername: server)
+        file_asset.update_attributes(date: datetime, size: size, sha1: sha1, playtime_secs: playtime_secs, lastuser: 'system', servername: server)
       end
 
       if !dry_run && !container.file_asset_ids.include?(file_asset.id)

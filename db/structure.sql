@@ -2,12 +2,17 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -21,34 +26,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
--- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
-
-
---
--- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
-
-
---
--- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
-
-
---
--- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
 
 
 SET search_path = public, pg_catalog;
@@ -70,7 +47,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: catalog_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: catalog_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE catalog_descriptions (
@@ -96,7 +73,7 @@ CREATE SEQUENCE catalogs_catalognodeid_seq
 
 
 --
--- Name: catalogs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: catalogs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE catalogs (
@@ -117,7 +94,7 @@ CREATE TABLE catalogs (
 
 
 --
--- Name: catalogs_container_description_patterns; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: catalogs_container_description_patterns; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE catalogs_container_description_patterns (
@@ -127,7 +104,7 @@ CREATE TABLE catalogs_container_description_patterns (
 
 
 --
--- Name: catalogs_containers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: catalogs_containers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE catalogs_containers (
@@ -149,7 +126,7 @@ CREATE SEQUENCE ckeditor_assets_id_seq
 
 
 --
--- Name: ckeditor_assets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: ckeditor_assets; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE ckeditor_assets (
@@ -178,7 +155,7 @@ CREATE SEQUENCE comments_id_seq
 
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE comments (
@@ -193,7 +170,7 @@ CREATE TABLE comments (
 
 
 --
--- Name: container_creation_patterns; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: container_creation_patterns; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE container_creation_patterns (
@@ -237,7 +214,7 @@ CREATE SEQUENCE container_description_patterns_id_seq
 
 
 --
--- Name: container_description_patterns; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: container_description_patterns; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE container_description_patterns (
@@ -264,7 +241,7 @@ CREATE SEQUENCE container_descriptions_lessondescid_seq
 
 
 --
--- Name: container_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: container_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE container_descriptions (
@@ -291,7 +268,7 @@ CREATE SEQUENCE container_transcripts_id_seq
 
 
 --
--- Name: container_transcripts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: container_transcripts; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE container_transcripts (
@@ -318,7 +295,7 @@ CREATE SEQUENCE containers_lessonid_seq
 
 
 --
--- Name: containers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: containers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE containers (
@@ -346,7 +323,7 @@ CREATE TABLE containers (
 
 
 --
--- Name: containers_file_assets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: containers_file_assets; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE containers_file_assets (
@@ -356,7 +333,7 @@ CREATE TABLE containers_file_assets (
 
 
 --
--- Name: containers_labels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: containers_labels; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE containers_labels (
@@ -378,7 +355,7 @@ CREATE SEQUENCE content_types_id_seq
 
 
 --
--- Name: content_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: content_types; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE content_types (
@@ -402,7 +379,7 @@ CREATE SEQUENCE delayed_jobs_id_seq
 
 
 --
--- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE delayed_jobs (
@@ -434,7 +411,7 @@ CREATE SEQUENCE departments_id_seq
 
 
 --
--- Name: departments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: departments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE departments (
@@ -458,7 +435,7 @@ CREATE SEQUENCE dictionaries_id_seq
 
 
 --
--- Name: dictionaries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: dictionaries; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE dictionaries (
@@ -482,7 +459,7 @@ CREATE SEQUENCE dictionary_descriptions_id_seq
 
 
 --
--- Name: dictionary_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: dictionary_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE dictionary_descriptions (
@@ -508,7 +485,7 @@ CREATE SEQUENCE file_asset_descriptions_filedescid_seq
 
 
 --
--- Name: file_asset_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: file_asset_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE file_asset_descriptions (
@@ -534,7 +511,7 @@ CREATE SEQUENCE file_assets_fileid_seq
 
 
 --
--- Name: file_assets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: file_assets; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE file_assets (
@@ -552,12 +529,13 @@ CREATE TABLE file_assets (
     clicks integer DEFAULT 0,
     secure integer DEFAULT 0,
     playtime_secs integer,
-    user_id integer
+    user_id integer,
+    sha1 character varying(255)
 );
 
 
 --
--- Name: file_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: file_types; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE file_types (
@@ -580,7 +558,7 @@ CREATE SEQUENCE label_descriptions_id_seq
 
 
 --
--- Name: label_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: label_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE label_descriptions (
@@ -594,7 +572,7 @@ CREATE TABLE label_descriptions (
 
 
 --
--- Name: labels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: labels; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE labels (
@@ -638,7 +616,7 @@ CREATE SEQUENCE languages_id_seq
 
 
 --
--- Name: languages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: languages; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE languages (
@@ -662,7 +640,7 @@ CREATE SEQUENCE lecturer_descriptions_lecturerdescid_seq
 
 
 --
--- Name: lecturer_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: lecturer_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE lecturer_descriptions (
@@ -688,7 +666,7 @@ CREATE SEQUENCE lecturers_lecturerid_seq
 
 
 --
--- Name: lecturers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: lecturers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE lecturers (
@@ -713,7 +691,7 @@ CREATE SEQUENCE roles_id_seq
 
 
 --
--- Name: roles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE roles (
@@ -726,7 +704,7 @@ CREATE TABLE roles (
 
 
 --
--- Name: roles_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: roles_users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE roles_users (
@@ -736,7 +714,7 @@ CREATE TABLE roles_users (
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -757,7 +735,7 @@ CREATE SEQUENCE servers_id_seq
 
 
 --
--- Name: servers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: servers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE servers (
@@ -784,7 +762,7 @@ CREATE SEQUENCE users_id_seq
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users (
@@ -821,7 +799,7 @@ CREATE SEQUENCE virtual_lessons_id_seq
 
 
 --
--- Name: virtual_lessons; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: virtual_lessons; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE virtual_lessons (
@@ -834,21 +812,21 @@ CREATE TABLE virtual_lessons (
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: container_creation_patterns id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY container_creation_patterns ALTER COLUMN id SET DEFAULT nextval('container_creation_patterns_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: labels id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY labels ALTER COLUMN id SET DEFAULT nextval('labels_id_seq'::regclass);
 
 
 --
--- Name: catalognode_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: catalogs catalognode_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY catalogs
@@ -856,7 +834,7 @@ ALTER TABLE ONLY catalogs
 
 
 --
--- Name: catnodedesc_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: catalog_descriptions catnodedesc_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY catalog_descriptions
@@ -864,7 +842,7 @@ ALTER TABLE ONLY catalog_descriptions
 
 
 --
--- Name: catnodelessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: catalogs_containers catnodelessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY catalogs_containers
@@ -872,7 +850,7 @@ ALTER TABLE ONLY catalogs_containers
 
 
 --
--- Name: ckeditor_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ckeditor_assets ckeditor_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ckeditor_assets
@@ -880,7 +858,7 @@ ALTER TABLE ONLY ckeditor_assets
 
 
 --
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments
@@ -888,7 +866,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: container_creation_patterns_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: container_creation_patterns container_creation_patterns_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY container_creation_patterns
@@ -896,7 +874,7 @@ ALTER TABLE ONLY container_creation_patterns
 
 
 --
--- Name: content_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: content_types content_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY content_types
@@ -904,7 +882,7 @@ ALTER TABLE ONLY content_types
 
 
 --
--- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY delayed_jobs
@@ -912,7 +890,7 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
--- Name: departments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: departments departments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY departments
@@ -920,7 +898,7 @@ ALTER TABLE ONLY departments
 
 
 --
--- Name: dictionaries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: dictionaries dictionaries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dictionaries
@@ -928,7 +906,7 @@ ALTER TABLE ONLY dictionaries
 
 
 --
--- Name: dictionary_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: dictionary_descriptions dictionary_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY dictionary_descriptions
@@ -936,7 +914,7 @@ ALTER TABLE ONLY dictionary_descriptions
 
 
 --
--- Name: filedesc_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: file_asset_descriptions filedesc_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY file_asset_descriptions
@@ -944,7 +922,7 @@ ALTER TABLE ONLY file_asset_descriptions
 
 
 --
--- Name: files_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: file_assets files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY file_assets
@@ -952,7 +930,7 @@ ALTER TABLE ONLY file_assets
 
 
 --
--- Name: filetypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: file_types filetypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY file_types
@@ -960,7 +938,7 @@ ALTER TABLE ONLY file_types
 
 
 --
--- Name: label_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: label_descriptions label_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY label_descriptions
@@ -968,7 +946,7 @@ ALTER TABLE ONLY label_descriptions
 
 
 --
--- Name: labels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: labels labels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY labels
@@ -976,7 +954,7 @@ ALTER TABLE ONLY labels
 
 
 --
--- Name: languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: languages languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY languages
@@ -984,7 +962,7 @@ ALTER TABLE ONLY languages
 
 
 --
--- Name: lecturer_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: lecturers lecturer_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY lecturers
@@ -992,7 +970,7 @@ ALTER TABLE ONLY lecturers
 
 
 --
--- Name: lecturerdesc_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: lecturer_descriptions lecturerdesc_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY lecturer_descriptions
@@ -1000,7 +978,7 @@ ALTER TABLE ONLY lecturer_descriptions
 
 
 --
--- Name: lesson_transcripts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: container_transcripts lesson_transcripts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY container_transcripts
@@ -1008,7 +986,7 @@ ALTER TABLE ONLY container_transcripts
 
 
 --
--- Name: lessondesc_patterns_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: container_description_patterns lessondesc_patterns_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY container_description_patterns
@@ -1016,7 +994,7 @@ ALTER TABLE ONLY container_description_patterns
 
 
 --
--- Name: lessondesc_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: container_descriptions lessondesc_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY container_descriptions
@@ -1024,7 +1002,7 @@ ALTER TABLE ONLY container_descriptions
 
 
 --
--- Name: lessonfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: containers_file_assets lessonfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY containers_file_assets
@@ -1032,7 +1010,7 @@ ALTER TABLE ONLY containers_file_assets
 
 
 --
--- Name: lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: containers lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY containers
@@ -1040,7 +1018,7 @@ ALTER TABLE ONLY containers
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles
@@ -1048,7 +1026,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: servers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: servers servers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY servers
@@ -1056,7 +1034,7 @@ ALTER TABLE ONLY servers
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -1064,7 +1042,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: virtual_lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: virtual_lessons virtual_lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY virtual_lessons
@@ -1072,189 +1050,189 @@ ALTER TABLE ONLY virtual_lessons
 
 
 --
--- Name: catalognodeid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: catalognodeid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX catalognodeid ON catalog_descriptions USING btree (catalog_id);
 
 
 --
--- Name: cnd_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: cnd_name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX cnd_name_idx ON catalog_descriptions USING btree (name);
 
 
 --
--- Name: cnnamepid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: cnnamepid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX cnnamepid ON catalogs USING btree (name, parent_id);
 
 
 --
--- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
 
 
 --
--- Name: fd_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: fd_name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX fd_name_idx ON file_asset_descriptions USING btree (filedesc);
 
 
 --
--- Name: fileid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: fileid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX fileid ON file_asset_descriptions USING btree (file_id);
 
 
 --
--- Name: filename; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: filename; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX filename ON file_assets USING btree (name);
 
 
 --
--- Name: idx_ckeditor_assetable; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_ckeditor_assetable; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_ckeditor_assetable ON ckeditor_assets USING btree (assetable_type, assetable_id);
 
 
 --
--- Name: idx_ckeditor_assetable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_ckeditor_assetable_type; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_ckeditor_assetable_type ON ckeditor_assets USING btree (assetable_type, type, assetable_id);
 
 
 --
--- Name: index_catnodelessons_on_lessonid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_catnodelessons_on_lessonid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_catnodelessons_on_lessonid ON catalogs_containers USING btree (container_id);
 
 
 --
--- Name: index_labels_lessons_on_label_id_and_lesson_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_labels_lessons_on_label_id_and_lesson_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_labels_lessons_on_label_id_and_lesson_id ON containers_labels USING btree (label_id, container_id);
 
 
 --
--- Name: index_labels_lessons_on_lesson_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_labels_lessons_on_lesson_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_labels_lessons_on_lesson_id ON containers_labels USING btree (container_id);
 
 
 --
--- Name: index_lessons_on_virtual_lesson_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_lessons_on_virtual_lesson_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_lessons_on_virtual_lesson_id ON containers USING btree (virtual_lesson_id);
 
 
 --
--- Name: index_servers_on_servername; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_servers_on_servername; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_servers_on_servername ON servers USING btree (servername);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: ld_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: ld_name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX ld_name_idx ON container_descriptions USING btree (container_desc);
 
 
 --
--- Name: lecturerid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: lecturerid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX lecturerid ON lecturer_descriptions USING btree (lecturer_id, lang);
 
 
 --
--- Name: lessondateidx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: lessondateidx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX lessondateidx ON containers USING btree (filmdate);
 
 
 --
--- Name: lessonid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: lessonid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX lessonid ON container_descriptions USING btree (container_id);
 
 
 --
--- Name: lessonlangidx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: lessonlangidx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX lessonlangidx ON containers USING btree (lang);
 
 
 --
--- Name: lessonname; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: lessonname; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX lessonname ON containers USING btree (name);
 
 
 --
--- Name: lessonnameidx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: lessonnameidx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX lessonnameidx ON containers USING btree (name);
 
 
 --
--- Name: parentnodeid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: parentnodeid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX parentnodeid ON catalogs USING btree (parent_id);
 
 
 --
--- Name: servername; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: servername; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX servername ON file_assets USING btree (servername);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
--- Name: updated; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: updated; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX updated ON file_assets USING btree (updated_at);
@@ -1264,7 +1242,7 @@ CREATE INDEX updated ON file_assets USING btree (updated_at);
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20100101000000');
 
@@ -1399,3 +1377,7 @@ INSERT INTO schema_migrations (version) VALUES ('20141006000735');
 INSERT INTO schema_migrations (version) VALUES ('20141006001254');
 
 INSERT INTO schema_migrations (version) VALUES ('20141026130113');
+
+INSERT INTO schema_migrations (version) VALUES ('20160714200512');
+
+INSERT INTO schema_migrations (version) VALUES ('20170118141350');
