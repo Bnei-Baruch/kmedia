@@ -38,3 +38,16 @@ task :sha1_import => :environment do
     end
   end
 end
+
+task :correct_asset_types => :environment do
+  FileAsset.where(asset_type: [nil, '.mp', '.wm', 'son']).all.to_a.each do |fa|
+    fa.update_column :asset_type, File.extname(fa.name)[1..10]
+  end
+  %w(ZIP MP3 FLV WMV DOC Doc JPG).each do |ext|
+    FileAsset.where(asset_type: ext).all.to_a.each do |fa|
+      fa.update_column :asset_type, ext.downcase
+    end
+  end
+  FileAsset.find_by_sql("DELETE FROM file_assets WHERE name = 'filelist.php'")
+  FileAsset.find_by_sql("DELETE FROM file_assets WHERE asset_type IN ('tmp', 'lnk')")
+end
