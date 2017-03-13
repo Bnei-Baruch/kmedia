@@ -4,11 +4,11 @@ task :sha1_export => :environment do
         select servers.servername, path, name
         from file_assets
         left outer join servers on servers.servername = file_assets.servername
+	where sha1 is null
         order by file_assets.id desc
     ) TO STDOUT WITH CSV HEADER;
-    \q
   SQL
-  FileAsset.connection.execute(sql)
+  puts FileAsset.connection.execute(sql)
 end
 
 require 'csv'
