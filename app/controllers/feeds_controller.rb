@@ -146,7 +146,7 @@ class FeedsController < ApplicationController
     @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get list of 20 last containers' files
-    results = Catalog.secure(0).podcast1(@lang).first.containers.sort { |a, b| b.created_at <=> a.created_at }[0..150]
+    results = Catalog.insecure.podcast1(@lang).first.containers.sort { |a, b| b.created_at <=> a.created_at }[0..150]
 
     @files = results.map(&:file_assets).flatten.compact.select { |f| f.asset_type == 'mp3' && f.lang == @language }.flatten.compact.sort { |x, y| y.created_at <=> x.created_at }
     @last_update = results.first.created_at
@@ -168,6 +168,18 @@ class FeedsController < ApplicationController
     @lesson_name = @vl.film_date
     @lesson_id = @vl.id
     @containers = @vl.lessons_ordered_by_parts
+
+    render layout: false
+  end
+
+  def rus_zohar
+    @language = 'RUS'
+    I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :ru
+
+    @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
+
+    # Get list of 20 last containers' files
+    @containers = Catalog.insecure.zohar(@language).first.containers.sort { |a, b| b.created_at <=> a.created_at }[0..20]
 
     render layout: false
   end

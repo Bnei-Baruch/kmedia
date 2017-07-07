@@ -13,6 +13,7 @@ Kmedia::Application.routes.draw do
         get 'podcast', format: :rss
         get 'podcast1', format: :rss
         get 'rus_for_laitman_ru', format: :rss
+        get 'rus_zohar', format: :rss
         get 'google_mapindex'
       end
     end

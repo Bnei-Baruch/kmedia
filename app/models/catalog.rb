@@ -55,6 +55,7 @@ class Catalog < ActiveRecord::Base
   scope :books, ->(language_code3, secure) { Catalog.secure(secure).joins(:catalog_descriptions).where('books_catalog = true').where('catalog_descriptions.lang = ?', language_code3) }
 
   scope :podcast1, ->(lang) { joins(:catalog_descriptions).where('catalogs.id' => 3981, 'catalog_descriptions.lang' => lang) }
+  scope :zohar, ->(lang) { joins(:catalog_descriptions).where('catalogs.id' => 4016, 'catalog_descriptions.lang' => lang) }
 
   validates :label, uniqueness: true, format: {with: /^[a-zA-Z0-9_-]*$/}
 
