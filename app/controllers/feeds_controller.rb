@@ -179,7 +179,7 @@ class FeedsController < ApplicationController
     @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
     # Get list of the last catalog's container
-    @container = Catalog.insecure.zohar(@language).first.containers.order('created_at desc').first
+    @container = Catalog.insecure.zohar(@language).first.containers.order('created_at desc').last
 
     render layout: false
   end
