@@ -10,9 +10,9 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
     xml.copyright "Bnei-Baruch Copyright 2008-#{Date.today.strftime('%Y')}"
 
     xml.item do
-      xml.title "Урок по Книге Зоар, #{@container.updated_at.strftime('%d.%m.%Y')}"
+      xml.title "Урок по Книге Зоар, #{@container.created_at.strftime('%d.%m.%Y')}"
       xml.guid "#{@host}/#{@language}/ui/#{@lesson_id}?ts=#{Time.now.getutc.to_i}"
-      xml.pubDate @container.updated_at.rfc2822
+      xml.pubDate @container.created_at.rfc2822
       xml.description do
         description = '<div class="title"><h2>' + @container.container_title('RUS') + '</h2>' +
           'Видео (рус.): ' + @container.show_asset('RUS', 'mp4', false, 'Открыть') + ' | ' + @container.show_asset('RUS', 'mp4', true, 'Скачать') +

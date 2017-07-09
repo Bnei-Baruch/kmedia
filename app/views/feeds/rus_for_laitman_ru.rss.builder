@@ -12,7 +12,7 @@ xml.rss version: '2.0', :'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
     xml.item do
       xml.title 'Утренний урок ' + l(@lesson_name)
       xml.guid "#{@host}/#{@language}/ui/#{@lesson_id}?ts=#{Time.now.getutc.to_i}"
-      xml.pubDate @vl.updated_at.rfc2822
+      xml.pubDate @vl.created_at.rfc2822
       xml.description do
         description = @containers.inject('') do |description, container|
           description += '<div class="title"><h2>' + container.container_title('RUS') + '</h2>'
