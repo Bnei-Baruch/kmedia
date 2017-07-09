@@ -178,8 +178,8 @@ class FeedsController < ApplicationController
 
     @host = "#{request.protocol}#{request.host}#{request.port == 80 ? '' : ":#{request.port}"}"
 
-    # Get list of 20 last containers' files
-    @containers = Catalog.insecure.zohar(@language).first.containers.sort { |a, b| b.created_at <=> a.created_at }[0..20]
+    # Get list of the last catalog's container
+    @container = Catalog.insecure.zohar(@language).first.containers.order('created_at desc').first
 
     render layout: false
   end
