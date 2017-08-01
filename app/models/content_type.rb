@@ -14,7 +14,7 @@ class ContentType < ActiveRecord::Base
   CONTENT_TYPE_ID = {}
   CONTENT_TYPE = {}
 
-  %w(all lesson lecture program song clip book declamation ekronot vl seuda article publication).each do |name|
+  %w(all lesson lecture program song clip book declamation ekronot vl seuda art publication).each do |name|
     ct = ContentType.where(pattern: name).first
     CONTENT_TYPE_ID[name] = ct.try(:id)
     CONTENT_TYPE[name] = ct

@@ -29,4 +29,4 @@ elasticsearch-*/**
 node_modules
 .ruby-version
 .ruby-gemset
-
+*.backup*
