@@ -72,7 +72,7 @@ end
 gem 'term-ansicolor', github: 'flori/term-ansicolor'
 gem 'handle_invalid_percent_encoding_requests', github: 'sunny/handle_invalid_percent_encoding_requests'
 gem 'jsonify-rails'
-gem 'yajl-ruby', require:  'yajl' # Required if we want json with utf8 strings
+gem 'yajl-ruby', '~> 1.3.1', require:  'yajl' # Required if we want json with utf8 strings
 
 gem 'rake', '~> 10.4.1'
 # gem 'newrelic_rpm'
