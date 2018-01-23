@@ -79,7 +79,7 @@ class UiController < ApplicationController
     # @updated_assets                     = FileAsset.latest_updates(params[:amount_of_updated].to_i > 0 ? params[:amount_of_updated].to_i : 25).includes(:file_asset_descriptions)
     # @available_updated_assets_languages = FileAsset.available_languages(@updated_assets)
 
-    search = Search.new({ date_type: 'one_day', dates_range: (Time.now - 7.days).to_s, per_page: 100 })
+    search = Search.new({ date_type: 'range', dates_range: (Time.now - 2.days).to_s, per_page: 30 })
     @new_materials = search.search_full_text.results rescue []
     @descriptions = Container.get_all_descriptions(@new_materials)
   end
