@@ -88,6 +88,7 @@ tr:
       listen: 'Dinle:'
       audio: 'ses'
       source: 'kaynak'
+      lelo_mikud: 'no focus-group'
       video: 'video'
       download: 'Yükle:'
       lesson_part: 'Ders Kısmı'

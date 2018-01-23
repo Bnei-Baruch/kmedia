@@ -88,6 +88,7 @@ ua:
       playlist: 'Плейлист:'
       audio: 'аудіо'
       source: 'джерело'
+      lelo_mikud: 'без фокус-группы'
       video: 'відео'
       download: 'Завантажити:'
       lesson_from: 'від'
