@@ -76,7 +76,7 @@
                               tr
                                 td.left-aligned-column style="padding-bottom: 5px !important;"
                                   = show_asset(container, language, 'mp4', t('ui.last_lesson.video', locale: language) + ' mp4')
-                                  = show_asset(container, language, 'mp3', t('ui.last_lesson.audio', locale: language) + ' mp3', /^((?!kitei-makor).)*$|^((?!lelo-mikud).)*$/)
+                                  = show_asset(container, language, 'mp3', t('ui.last_lesson.audio', locale: language) + ' mp3', /\A((?!(kitei-makor|lelo-mikud)).)*\z/)
                                   = show_asset(container, language, 'mp3', t('ui.last_lesson.source', locale: language) + ' mp3', /kitei-makor/)
                                   = show_asset(container, language, 'mp3', t('ui.last_lesson.lelo_mikud', locale: language) + ' mp3', /lelo-mikud/)
                                   = show_asset(container, language, 'doc', 'doc', /^((?!kitei-makor).)*$/)
