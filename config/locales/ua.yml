@@ -42,6 +42,7 @@ ua:
     sidebar:
       sidebar: 'Фільтри'
       clear_all_filters: 'Весь архів'
+      new_site: '<a href="https://archive.kbb1.com/ru/" alt="На новий сайт">На новий сайт</a>'
       filter_by_date: 'Фільтрувати за датою'
       filter_by_content_type: 'Фільтрувати за типом даних'
       filter_by_media_type: 'Фільтрувати за контентом'

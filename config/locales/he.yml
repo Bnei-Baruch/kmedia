@@ -42,6 +42,7 @@ he:
     sidebar:
       sidebar: 'מסננים'
       clear_all_filters: 'ארכיון מלא'
+      new_site: '<a href="https://archive.kbb1.com/he/" alt="לאתר החדש">לאתר החדש</a>'
       filter_by_date: 'סנן לפי תאריך'
       filter_by_content_type: 'סנן לפי סוג תוכן'
       filter_by_media_type: 'סנן לפי סוג מדיה'
