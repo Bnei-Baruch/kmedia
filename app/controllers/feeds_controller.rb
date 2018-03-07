@@ -3,10 +3,15 @@ class FeedsController < ApplicationController
 
   respond_to :xml
 
+  def self.my_logger
+    @@my_logger ||= Logger.new("#{Rails.root}/log/feeds.log")
+  end
+
   def wsxml
 
     # Example
     # wsxml.xml?CID=4016&DLANG=HEB&DF=2013-04-30&DT=2013-03-31
+    FeedsController.my_logger.info params.inspect
 
     @language = params[:DLANG] || 'ENG'
     I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
@@ -42,7 +47,7 @@ class FeedsController < ApplicationController
 
   # Script accepts two GET parameters:
   # - DAYS - number of 24-hour periods (1..31 inclusive, default: 1). I.e. 1 means last 24 hours, 2 - last 48 hours etc.
-  # - DLANG - 3-letter language abberviation. This is used to select container description only.
+  # - DLANG - 3-letter language abbreviation. This is used to select container description only.
   #           Default: ENG
   #
   # If a container has description then in order to be published in RSS it must belong to one the following categories:
@@ -53,6 +58,8 @@ class FeedsController < ApplicationController
   # If a container has no description it will always be published.
 
   def rss_video
+    FeedsController.my_logger.info params.inspect
+
     @language = params[:DLANG] || 'ENG'
     I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
 
@@ -75,6 +82,8 @@ class FeedsController < ApplicationController
   end
 
   def morning_lesson
+    FeedsController.my_logger.info params.inspect
+
     @language = params[:DLANG] || 'ENG'
     I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :en
 
@@ -90,8 +99,10 @@ class FeedsController < ApplicationController
   end
 
   def rss_php
+    FeedsController.my_logger.info params.inspect
+
     @language =
-        if ['ENG', 'HEB', 'RUS'].include? params[:DLANG]
+        if %w(ENG HEB RUS).include? params[:DLANG]
           params[:DLANG]
         else
           'ENG'
@@ -112,8 +123,10 @@ class FeedsController < ApplicationController
   end
 
   def podcast
+    FeedsController.my_logger.info params.inspect
+
     @language =
-        if ['ENG', 'HEB', 'RUS'].include? params[:DLANG]
+        if %w(ENG HEB RUS).include? params[:DLANG]
           params[:DLANG]
         else
           'ENG'
@@ -135,6 +148,8 @@ class FeedsController < ApplicationController
   end
 
   def podcast1
+    FeedsController.my_logger.info params.inspect
+
     @language =
         if %w(ENG HEB RUS).include? params[:DLANG]
           params[:DLANG]
@@ -158,6 +173,8 @@ class FeedsController < ApplicationController
   end
 
   def rus_for_laitman_ru
+    FeedsController.my_logger.info params.inspect
+
     @language = 'RUS'
     I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :ru
 
@@ -173,6 +190,8 @@ class FeedsController < ApplicationController
   end
 
   def rus_zohar
+    FeedsController.my_logger.info params.inspect
+
     @language = 'RUS'
     I18n.locale = @locale = Language::CODE3_LOCALE[@language] || :ru
 
