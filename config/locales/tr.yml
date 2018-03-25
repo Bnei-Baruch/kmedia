@@ -42,7 +42,8 @@ tr:
     sidebar:
       sidebar: 'Filtreler'
       clear_all_filters: 'Bütün Arşiv'
-      new_site: '<a href="https://archive.kbb1.com/en/" alt="Yeni siteye git">Yeni siteye git</a>'
+      new_site_url: 'https://archive.kbb1.com/en/'
+      new_site_title: 'Yeni siteye git'
       filter_by_date: 'Tarihe göre filtrele'
       filter_by_content_type: 'İçeriğe Göre Filtrele'
       filter_by_media_type: 'Medya Tipine Göre Filtrele'

@@ -42,7 +42,8 @@ ru:
     sidebar:
       sidebar: 'Фильтры'
       clear_all_filters: 'Весь архив'
-      new_site: '<a href="https://archive.kbb1.com/ru/" alt="На новый сайт">На новый сайт</a>'
+      new_site_url: 'https://archive.kbb1.com/ru/'
+      new_site_title: 'На новый сайт'
       filter_by_date: 'Фильтровать по дате'
       filter_by_content_type: 'Фильтровать по типу данных'
       filter_by_media_type: 'Фильтровать по контенту'

@@ -42,7 +42,8 @@ de:
     sidebar:
       sidebar: 'Filtern'
       clear_all_filters: 'Alle Archive'
-      new_site: '<a href="https://archive.kbb1.com/en/" alt="Zur neuen Seite">Zur neuen Seite</a>'
+      new_site_url: 'https://archive.kbb1.com/en/'
+      new_site_title: 'Zur neuen Seite'
       filter_by_date: 'Nach Datum filtern'
       filter_by_content_type: 'Filtern nach Inhalt'
       filter_by_media_type: 'Nach Typ filtern'
