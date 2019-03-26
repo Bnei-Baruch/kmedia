@@ -42,7 +42,7 @@ en:
     sidebar:
       sidebar: 'Filters'
       clear_all_filters: 'All Archive'
-      new_site_url: 'https://archive.kbb1.com/en/'
+      new_site_url: 'https://kabbalahmedia.info/en'
       new_site_title: 'Go to New Site'
       filter_by_date: 'Filter by Date'
       filter_by_content_type: 'Filter by Content Type'

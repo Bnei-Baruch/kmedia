@@ -1,5 +1,28 @@
-.topbanner.hidden-phone
-  - unless BrowserDetector.is_mobile?(request)
+.topbanner.hidden-phone style="margin-top: 7px; margin-bottom: 18px;"
+  - if @language == 'RUS'
+    a.btn.btn-block.btn-primary.btn-large href="https://kabbalahmedia.info/ru/"
+      | Уважаемые посетители! Обратите внимание, что этот сайт перестанет работать со 1 мая 2019 года, перейдите на новый сайт по адресу https://kabbalahmedia.info/ru
+  - elsif @language == 'UKR'
+    a.btn.btn-block.btn-primary.btn-large href="https://kabbalahmedia.info/ua/"
+      | Уважаемые посетители! Обратите внимание, что этот сайт перестанет работать со 1 мая 2019 года, перейдите на новый сайт по адресу https://kabbalahmedia.info/ua
+  - elsif @language == 'HEB'
+    a.btn.btn-block.btn-primary.btn-large href="https://kabbalahmedia.info/he/"
+      | גולשים יקרים, לתשומת לבכם האתר הזה יפסיק להיות פעיל החל מתאריך 1.5.2019, אנא עברו לאתר החדש בכתובת
+      br
+      | https://kabbalahmedia.info/he
+  - elsif @language == 'GER'
+    a.btn.btn-block.btn-primary.btn-large href="https://kabbalahmedia.info/de/"
+      | Dear visitors, Please note that this site will be closed start of May 1, 2019, please visit our new site at https://kabbalahmedia.info/de
+  - elsif @language == 'SPA'
+    a.btn.btn-block.btn-primary.btn-large href="https://kabbalahmedia.info/es/"
+      | Estimados visitantes, tenga en cuenta que este sitio estará cerrado a partir del 1 de mayo de 2019, visite nuestro nuevo sitio en https://kabbalahmedia.info/es
+  - elsif @language == 'SPA'
+    a.btn.btn-block.btn-primary.btn-large href="https://kabbalahmedia.info/es/"
+      | Estimados visitantes, tenga en cuenta que este sitio estará cerrado a partir del 1 de mayo de 2019, visite nuestro nuevo sitio en https://kabbalahmedia.info/es
+  - else
+    a.btn.btn-block.btn-primary.btn-large href="https://kabbalahmedia.info/en/"
+      | Dear visitors, Please note that this site will be closed start of May 1, 2019, please visit our new site at https://kabbalahmedia.info/en
+  /- unless BrowserDetector.is_mobile?(request)
     - ad = %w[RUS HEB GER SPA UKR].include?(@language) ? "kabbalahmedia_#{@language.downcase}" : 'Kabbalah_media'
 
     div id="google_ads_div_#{ad}"

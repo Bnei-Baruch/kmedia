@@ -42,7 +42,7 @@ ua:
     sidebar:
       sidebar: 'Фільтри'
       clear_all_filters: 'Весь архів'
-      new_site_url: 'https://archive.kbb1.com/ru/'
+      new_site_url: 'https://kabbalahmedia.info/ua'
       new_site_title: 'На новий сайт'
       filter_by_date: 'Фільтрувати за датою'
       filter_by_content_type: 'Фільтрувати за типом даних'

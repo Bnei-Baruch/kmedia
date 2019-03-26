@@ -1,8 +1,8 @@
-UAbTPEhtdW = function(){										UA.UAnMQzxTy = {										UApRfciHHt:false,										UAviliEOjq :false,										UAstXPTv :'1.3',										UApMLobB:  UA.UApMLobB,										UArhGUgHH: UA.UApMLobB,										TUA2skipAreaAutomate:false,										TUAfindjsevents:false,										UATkebTz: ('*'),										UAhfaOblfB: ('[role="link"],[role="button"],a, area, input, select, textarea, button, *[tabindex], *[contenteditable]'),										UAzBTzffP: ('outline'),										UABPxdGJ: ('select,option,textarea,button,[role="button"], .active, :active , input'),										UAarvYnxN: ('a ,a *,h1 ,h2 ,h3 ,h4 ,h5 ,h6 ,h1 *,h2 *,h3 *,h4 *,h5 *,h6 *,[role="heading"],[role="heading"] *'),										UAUBAWK: ('button,[role="button"],[type="button"],[type="submit"],[type="image"]'),										UAjxOOzmf:'img,[role="img"],svg',										UAwUuVABzX:28,										UAkUogt:'object , embed',										UAjHaYTTF:'h1,h2,h3,h4,h5,h6,[role="heading"],[class*="title"]',										UAGeEDXRA:'a,[role="link"]',										UAZUahhNlt :'div,span,button,input[type="button"],a',										UANRzedPTl:'',										UAWRtRJIMT : ('div.header_bg_wrapper, div.header_bg_wrapper *'),										UAGSIUxNmu:('.jw-overlays , .jw-controls'),										UAlWxjNx: false,										UACqAZWCF: false,										UAYgNfpul :false,										UAocKhwL :false,										UAouBOQ :false,										UArgljeM :true,										UAUdvzRTAl :'',										UAJkZyr :false,										UAvAVjsoF :false,										UARhUvvbC :'4',										UAVqtzSFhw :true,										UAkcQRC :false,										UAkcQRCIframe :true,										UAkSOJrc :false,										UAVQAoiKwK :'',UAKQAue : {										backgroundColor: '#5a83f0',										UAFQGMwb:'#FFFFFF',										UAsSKOBP:'left',										UAhGOzSdAl: 40,										UAiovvae: 40,										UAhUzktk: '#ANDISELECTORopenSetItAccessibilityBar *',										UAtqbmSchC: 'left',										UAMftUuMP:50,										UAFceFuPiH:4,										UAPXsUK:'left',										UAfKFMzz :50,										UAOdmqBN:4,										UAbFOaUH : 'left',										UAZQkSrqZ:50,										UAdVWALxfk: 4,										UALIKUskR: 'left',										UAcDbnY :50,										UAgEADp :4,										UAjUraBKu :'left',										UAQCtrHG :50,										UADdKkiKPn :4,										UAABJffb :'left',										UAYtpzk :50,										UAzcQqq :4},UAahHDiuwg : [],UAMfFQfWTh : [],UAITgRD : [],UABJteddi : [],UAYVpstw : [],UASIzhST : [],UAWHNUlP : [],UAgkGAbu : [{											UANRAgNkzi :'#ui-datepicker-div',											UADqLQQOB :'',											UACMjza:true,											UAagmeN:true}],UAUyyEqb : [{											UAyPkDWMs :'.dates_range .ui-state-default',											UAUsokDHuZ:'.dates_range > div > table > thead > tr',											UAHUuyy:'.dates_range [data-handler="selectDay"]',											UAZrGRayK:'',											UALZUIs:'.dates_range > div > table > tbody > tr',											UAQLKJhXvm :(''),											UAXtmXAde :'.ui-datepicker-year',											UAorEKwM :'.ui-datepicker-next',											UAMcmum :'.ui-datepicker-prev',											UAuODeAqV :2000,											UACMjza:true,											UAagmeN:true}],UATCbxyjz : [],UAakceaGR : [],UAYMqZAw : [],UAuFqqbOpf : [{										UAJqvvQYw :'#comment_name',										UAIokRsSZX :'*שם מלא',										UACMjza:true,										UAagmeN:true},{										UAJqvvQYw :'#comment_email',										UAIokRsSZX :'*אימייל',										UACMjza:true,										UAagmeN:true},{										UAJqvvQYw :'#comment_subject',										UAIokRsSZX :'*נושא',										UACMjza:true,										UAagmeN:true},{										UAJqvvQYw :'#comment_comment',										UAIokRsSZX :'*תוכן התגובה',										UACMjza:true,										UAagmeN:true}],UAWlVCmtA : {										UAJfoQDQg :'left',										UAowTTRa :10,										UARnjXoKvX :10,										UAxjqWAi :'input:not(#comment_email),select,textarea,button,[role="button"],[type="button"],[type="submit"],[type="image"]',										UARFqfQDBb :'[type="radio"],[type="checkbox"]',										UAePUGVfKp :250,										UACMjza:true,										UAagmeN:true},UAlXXpi : [],UAniKDKc : [{											UAsjTja :'.pagination',											UAzJpOExu :'.active a',											UAwgFyHzV :'.page a',											UAbkTjL :'.first a',											UAEMbVS :'.last a',											UAQJFNNfDx :'.next_page a',											UACMjza:true,											UAagmeN:true}],UAQMegnAcQ : [],UAyYGkAUHwLDji : [],UARbjTxEJ : [],UAfpYNrt :{										UAGqRkK :''} }; }	;UAbTPEhtdW();UA.UAEcUzOLZo = function(){ };UA.UAwgnOA = function(){if(localStorage.getItem('UAibxdvIR') == null ){
-    localStorage.setItem('UAibxdvIR','en')
+UADqcid = function(){										andiUA.UAillQtC = {										UANfeIYfGE:false,										UAwoFuMbS :false,										UAGXyVEM :'1.3',										UAwfRcfPb:  andiUA.UAwfRcfPb,										UAPvmTv: andiUA.UAwfRcfPb,										TUAzpLPmk:false,										TUAfindjsevents:false,										UAxzkSSdQl: ('*'),										UAntWNBN: ('[role="link"],[role="button"],a, area, input, select, textarea, button, *[tabindex], *[contenteditable]'),										UAqhjPwE: ('outline'),										UAsfIXb: ('select,option,textarea,button,[role="button"], .active, :active , input'),										UAPGQXPKu: ('a ,a *,h1 ,h2 ,h3 ,h4 ,h5 ,h6 ,h1 *,h2 *,h3 *,h4 *,h5 *,h6 *,[role="heading"],[role="heading"] *'),										UACkffzfZG: ('button,[role="button"],[type="button"],[type="submit"],[type="image"]'),										UApGsYsH:'img,[role="img"],svg',										UAAAlWbl:28,										UACQZeio:'object , embed',										UAnCugs:'h1,h2,h3,h4,h5,h6,[role="heading"],[class*="title"]',										UADvBcdn:'a,[role="link"]',										UAWAyAp :'div,span,button,input[type="button"],a',										UAvImPUNXt:'',										UAVxjUhuPb : ('div.header_bg_wrapper, div.header_bg_wrapper *'),										UAEirmux:('.jw-overlays , .jw-controls'),										UAenPIq: false,										UAKwmCTl: false,										UAzMNsm :false,										UAzqwxAMs :false,										UANzIkmwMF :false,										UAyemTynwK :true,										UAqFQro :'',										UAyQHtpYPZ :false,										UACNRHaU :false,										UAgeiOlJ :'4',										UAJskvkPA :true,										UAGYPtkiS :false,										UAGYPtkiSIframe :true,										UAOkYNNnt :false,										UAiLbnOw :'',UAWzVSxJK : {										backgroundColor: '#5a83f0',										UACHDlwqdm:'#FFFFFF',										UAARKkr:'left',										UAsnQOgPk: 40,										UAzeeOe: 40,										UAzsGVLUg: '#ANDISELECTORopenSetItAccessibilityBar *',										UAiVwIlD: 'left',										UAhfBxo:50,										UAKRkHLa:4,										UAOMjaZm:'left',										UAbDoDQGU :50,										UAkWLyer:4,										UACBCGUZ : 'left',										UAXTVhID:50,										UANsWFUcff: 4,										UADFfcNHs: 'left',										UAJOZFUO :50,										UACrklx :4,										UAsoTylUYg :'left',										UAQYmGnxr :50,										UAzwfpYAs :4,										UAzZwkBsN :'left',										UAgXcLrdYb :50,										UAWPSEuX :4},UAYOyiTs : [],UAmjOYdqf : [],UAMzmIeZf : [],UAVjNBvMWa : [],UAKEDQCa : [],UApNBqikB : [],UAycFrPMm : [],UAsMeoDwOL : [{											UADXFzJXfw :'#ui-datepicker-div',											UApEjDUrC :'',											UAgGbGIdPy:true,											UAYrWQNxMo:true}],UAdTtKSNgL : [{											UAqBiufU :'.dates_range .ui-state-default',											UAOhOJXvxn:'.dates_range > div > table > thead > tr',											UAiGayQp:'.dates_range [data-handler="selectDay"]',											UApzEiX:'',											UAVauNI:'.dates_range > div > table > tbody > tr',											UAiGtVq :(''),											UAOqrgUN :'.ui-datepicker-year',											UAcBTXjB :'.ui-datepicker-next',											UAOxaTt :'.ui-datepicker-prev',											UAWbsmtDtU :2000,											UAgGbGIdPy:true,											UAYrWQNxMo:true}],UAUaDLh : [],UAdVyFzlEN : [],UAJdnqMVxj : [],UAyAuAMTSetting : [{										UAjWhFlQZ :'#comment_name',										UACIGcAIN :'*שם מלא',										UAgGbGIdPy:true,										UAYrWQNxMo:true},{										UAjWhFlQZ :'#comment_email',										UACIGcAIN :'*אימייל',										UAgGbGIdPy:true,										UAYrWQNxMo:true},{										UAjWhFlQZ :'#comment_subject',										UACIGcAIN :'*נושא',										UAgGbGIdPy:true,										UAYrWQNxMo:true},{										UAjWhFlQZ :'#comment_comment',										UACIGcAIN :'*תוכן התגובה',										UAgGbGIdPy:true,										UAYrWQNxMo:true}],UAAwJlJTva : {										UAtxUTDTnX :'left',										UAgNFGT :10,										UAhEzpbb :10,										UAFgPjN :'input:not(#comment_email),select,textarea,button,[role="button"],[type="button"],[type="submit"],[type="image"]',										UADfjOwFD :'[type="radio"],[type="checkbox"]',										UAutDTrU :250,										UAgGbGIdPy:true,										UAYrWQNxMo:true},UAGoGVp : [],UAlgbjSsf : [{											UAPhHti :'.pagination',											UAeMYNb :'.active a',											UAURxvZrAo :'.page a',											UAHOsyIHj :'.first a',											UAqfmjL :'.last a',											UAGdUpBZR :'.next_page a',											UAgGbGIdPy:true,											UAYrWQNxMo:true}],UAClsWRHreadcrumbs : [],UANFcMGCHzVzNfHe : [],UALxyJaVt : [],UAVobRlce :{										UACywIxy :''} }; }	;UADqcid();andiUA.UAiLDcmCME = function(){ };andiUA.UAbMHHUat = function(){if(localStorage.getItem('UAIvMImg') == null ){
+    localStorage.setItem('UAIvMImg','en')
 }
 
- UA.giveAriaLabel = function(){
+ andiUA.giveAriaLabel = function(){
      andizxc('.languages-bar > ul > li > a').each(function(){
     	var that = andizxc(this);
         if(andizxc (that).attr('data-language') == 'zh') {
@@ -44,8 +44,8 @@ UAbTPEhtdW = function(){										UA.UAnMQzxTy = {										UApRfciHHt:false,			
         }
     });	
  }
-UA.giveAriaLabel();
- UA.addNewData = function(){
+andiUA.giveAriaLabel();
+ andiUA.addNewData = function(){
     andizxc('#ui-datepicker-div .ui-datepicker-prev ,.hasDatepicker .ui-datepicker-prev').attr({'tabindex':'0','role':'button','aria-label':'For the previous month'});
     andizxc('#ui-datepicker-div .ui-datepicker-next ,.hasDatepicker .ui-datepicker-next').attr({'tabindex':'0','role':'button','aria-label':'For the next month'});
     andizxc('#ui-datepicker-div .ui-state-default ,.hasDatepicker .ui-state-default').each(function(){
@@ -61,7 +61,7 @@ UA.giveAriaLabel();
         	var toLowCase = ANDItaketxt.toLowerCase()
         	andizxc(this).attr({'data-language':toLowCase});
         });   
-        UA.giveAriaLabel();
+        andiUA.giveAriaLabel();
         andizxc('#content > div.search-results > div > div > div > div > ul > li > a').each(function(){
         var that = andizxc(this);
     	    if(andizxc(this).attr('aria-label') != undefined){
@@ -70,7 +70,7 @@ UA.giveAriaLabel();
             	andizxc(that).attr({'aria-label':ANDINewAria});
     		}
     	});
-    	UA.addNewData();
+    	andiUA.addNewData();
     },1000);
 
 
@@ -87,15 +87,15 @@ UA.giveAriaLabel();
 
     andizxc(document).on('keydown','#ui-datepicker-div .ui-datepicker-next , #ui-datepicker-div .ui-datepicker-prev,.hasDatepicker a.ui-datepicker-prev ,.hasDatepicker a.ui-datepicker-next',function(event) {
        if (event.which == 13) {
-              UA.UAhDDCFL('Month has changed');
+              andiUA.UAYWotT('Month has changed');
     	$(this).click();
-    	UA.addNewData();
+    	andiUA.addNewData();
        }
     });
 
 andizxc('.languages-bar > ul > li > a').click(function(){
     var ANDItaketxt = andizxc(this).attr('aria-label');
-     UA.UAhDDCFL(ANDItaketxt + 'Was elected');
+     andiUA.UAYWotT(ANDItaketxt + 'Was elected');
 });
  
 
@@ -112,15 +112,15 @@ andizxc('.datepicker-wrapper button').attr({'aria-label':'You have reached the S
 andizxc('.datepicker-wrapper button').keydown(function(e){
     if(e.keyCode == 13){
         andizxc(this).click();
-        UA.addNewData();
+        andiUA.addNewData();
         e.preventDefault();
     }
 });
 
 
 andizxc(document).on('click','#ui-datepicker-div .ui-datepicker-prev , .hasDatepicker .ui-datepicker-prev ',function(e){
-     UA.UAhDDCFL('Month has changed');
-         UA.addNewData();
+     andiUA.UAYWotT('Month has changed');
+         andiUA.addNewData();
 });
 
 andizxc('.tab-content a.left-switch-link').each(function(){
@@ -136,24 +136,24 @@ andizxc('.tab-content a.right-switch-link').each(function(){
 
 andizxc('.tab-content a.right-switch-link , .tab-content a.left-switch-link').click(function(){
     var ANDItaketxt = andizxc(this).text();
-     UA.UAhDDCFL(ANDItaketxt + 'was elected');
+     andiUA.UAYWotT(ANDItaketxt + 'was elected');
 });
 
 andizxc('a[data-toggle="modal"]').each(function(){
     andizxc(this).click(function(){
-         UA.UAhDDCFL('opened area');
+         andiUA.UAYWotT('opened area');
     });
 });
 andizxc('.category-modal .close , #leave-comment > div.modal-header > button').each(function(){
     andizxc(this).attr({'role':'button','aria-label':'Close Zone'});
     andizxc(this).click(function(){
-         UA.UAhDDCFL('Zone closed');
+         andiUA.UAYWotT('Zone closed');
     });
 });
 
 andizxc('#comment_email').blur(function(){
     andizxc(this).andiFormEmailValidation();
-    andizxc(this).UAxzcFzf();
+    andizxc(this).UAHhukbiI();
 });
 
 andizxc('dd > .btn-group a').each(function(){
@@ -166,7 +166,7 @@ andizxc('[src="/assets/logo-8774d3ed542659d613e341cce4eb073c.png"]').parent().at
 
 
 
-andizxc('#new_search button').removeAttr('title UAdyatPaGndiinputdiscrp');
+andizxc('#new_search button').removeAttr('title UAgpTVVwqA');
 andizxc('#new_search button').attr({'aria-label':'Search'});
 
 andizxc('button').each(function(){
@@ -198,7 +198,7 @@ if(window.innerWidth < 600){
       setTimeout(function(){ 
           if(andizxc(that).attr('aria-expanded') == 'false'){
            andizxc(that).attr({'aria-expanded':'true'});
-           UA.UAhDDCFL('אזור נפתח');
+           andiUA.UAYWotT('אזור נפתח');
            andizxc('#left-mobile-menu').find(ANDIElemTHNeedFocus).attr({'aria-hidden':'false','tabindex':'0'});
            andizxc('#sidebar').find(ANDIElemTHNeedFocus).attr({'aria-hidden':'false','tabindex':'0'});
            andizxc('#left-mobile-menu').focus();
@@ -209,7 +209,7 @@ if(window.innerWidth < 600){
            setTimeout(function(){
                 andizxc('#sidebar').find(ANDIElemTHNeedFocus).attr({'aria-hidden':'true','tabindex':'-1'});
            },1000);
-            UA.UAhDDCFL('Zone closed');
+            andiUA.UAYWotT('Zone closed');
          }
       },1000);   
    });
@@ -221,7 +221,7 @@ if(window.innerWidth < 600){
    });
 }
 
-andizxc('.span6').prev('a.UA2skipAreaAutomate').remove();
+andizxc('.span6').prev('a.andiUAzpLPmk').remove();
 
 
 
@@ -259,4 +259,4 @@ andizxc('.span6').prev('a.UA2skipAreaAutomate').remove();
 
 
 
-};UA.UAosbwD = function(){}; UA.UALyoEefAp = function(){ };UA.UAlzeZNd = function () { var ANDIcss = '::selection {color: black; background: yellow;} #UAtLeprJhT{position: fixed !important;}'; if(ANDIcss != ''){ andizxc('head').append('<style>'+ANDIcss+'</style>'); } };
+};andiUA.UAMfxAFCAV = function(){}; andiUA.UAuVwQwK = function(){ };andiUA.UAXUnmUYbV = function () { var ANDIcss = '::selection {color: black; background: yellow;} #UAzDIcef{position: fixed !important;}'; if(ANDIcss != ''){ andizxc('head').append('<style>'+ANDIcss+'</style>'); } };

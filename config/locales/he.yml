@@ -42,7 +42,7 @@ he:
     sidebar:
       sidebar: 'מסננים'
       clear_all_filters: 'ארכיון מלא'
-      new_site_url: 'https://archive.kbb1.com/he/'
+      new_site_url: 'https://kabbalahmedia.info/he'
       new_site_title: 'לאתר החדש'
       filter_by_date: 'סנן לפי תאריך'
       filter_by_content_type: 'סנן לפי סוג תוכן'

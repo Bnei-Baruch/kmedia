@@ -42,7 +42,7 @@ tr:
     sidebar:
       sidebar: 'Filtreler'
       clear_all_filters: 'Bütün Arşiv'
-      new_site_url: 'https://archive.kbb1.com/en/'
+      new_site_url: 'https://kabbalahmedia.info/en'
       new_site_title: 'Yeni siteye git'
       filter_by_date: 'Tarihe göre filtrele'
       filter_by_content_type: 'İçeriğe Göre Filtrele'
